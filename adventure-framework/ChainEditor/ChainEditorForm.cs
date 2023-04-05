@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using AdventureFramework.Sound;
-using System.Reflection;
-using AdventureFramework.Structure;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
-using AdventureFramework.Sound.Players;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace ChainEditor
 {
@@ -23,17 +16,17 @@ namespace ChainEditor
         /// <summary>
         /// Get the ionian scale in c
         /// </summary>
-        private static readonly Int32[] ionianScaleInC = new Int32[] { 0, 261, 293, 329, 370, 415, 466, 493, 523 };
+        private static readonly int[] ionianScaleInC = { 0, 261, 293, 329, 370, 415, 466, 493, 523 };
 
         /// <summary>
         /// Get the choromatic scale in c
         /// </summary>
-        private static readonly Int32[] choromaticScaleInC = new Int32[] { 0, 261, 293, 329, 349, 392, 440, 493, 523 };
+        private static readonly int[] choromaticScaleInC = { 0, 261, 293, 329, 349, 392, 440, 493, 523 };
 
         /// <summary>
         /// Get the htZ increments in 50 htZ steps
         /// </summary>
-        private static readonly Int32[] incremental50htZSteps = new Int32[] { 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000 };
+        private static readonly int[] incremental50htZSteps = { 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000 };
 
         #endregion
 
@@ -42,21 +35,21 @@ namespace ChainEditor
         /// <summary>
         /// Get or set if playing has been cancelled
         /// </summary>
-        private Boolean cancelled = false;
+        private bool cancelled;
 
         /// <summary>
         /// Get if this is playing
         /// </summary>
-        public Boolean IsPlaying
+        public bool IsPlaying
         {
-            get { return this.isPlaying;}
-            private set { this.isPlaying = value; }
+            get { return isPlaying; }
+            private set { isPlaying = value; }
         }
 
         /// <summary>
         /// Get or set if this is playing
         /// </summary>
-        private Boolean isPlaying = false;
+        private bool isPlaying;
 
         #endregion
 
@@ -76,13 +69,13 @@ namespace ChainEditor
         /// <param name="frequency">The frequency of the note to add</param>
         /// <param name="duration">The duration of the note to add</param>
         /// <param name="insertionIndex">The index at which to add the note</param>
-        public virtual void AddNote(Int32 frequency, Int32 duration, Int32 insertionIndex)
+        public virtual void AddNote(int frequency, int duration, int insertionIndex)
         {
             // create beep
             Beep b = new Beep(frequency, duration);
 
             // add
-            this.AddNote(b, insertionIndex);
+            AddNote(b, insertionIndex);
         }
 
         /// <summary>
@@ -90,25 +83,21 @@ namespace ChainEditor
         /// </summary>
         /// <param name="note">The beep to add</param>
         /// <param name="insertionIndex">The index at which to add the note</param>
-        public virtual void AddNote(IBeep note, Int32 insertionIndex)
+        public virtual void AddNote(IBeep note, int insertionIndex)
         {
             // add to the combo box
-            this.chainDataListBox.Items.Insert(insertionIndex, note);
+            chainDataListBox.Items.Insert(insertionIndex, note);
 
             // if no selected item
-            if (this.chainDataListBox.SelectedItems == null)
-            {
+            if (chainDataListBox.SelectedItems == null)
                 // reset to start
-                this.ResetToStart();
-            }
+                ResetToStart();
             else
-            {
                 // set index
-                this.chainDataListBox.SelectedIndex = insertionIndex;
-            }
+                chainDataListBox.SelectedIndex = insertionIndex;
 
             // refresh
-            this.RefreshStatusBar();
+            RefreshStatusBar();
         }
 
         /// <summary>
@@ -117,7 +106,7 @@ namespace ChainEditor
         private void showImportFileDialog()
         {
             // create dialog
-            OpenFileDialog importBinDialog = new OpenFileDialog();
+            var importBinDialog = new OpenFileDialog();
 
             // default extension
             importBinDialog.DefaultExt = "*.bin";
@@ -132,7 +121,7 @@ namespace ChainEditor
             importBinDialog.Title = "Import *.bin...";
 
             // if ok
-            importBinDialog.FileOk += new CancelEventHandler(importBinDialog_FileOk);
+            importBinDialog.FileOk += importBinDialog_FileOk;
 
             // show
             importBinDialog.ShowDialog();
@@ -144,7 +133,7 @@ namespace ChainEditor
         private void showExportFileDialog()
         {
             // create dialog
-            SaveFileDialog exportBinDialog = new SaveFileDialog();
+            var exportBinDialog = new SaveFileDialog();
 
             // default extension
             exportBinDialog.DefaultExt = "*.bin";
@@ -159,7 +148,7 @@ namespace ChainEditor
             exportBinDialog.Title = "Export .bin...";
 
             // if ok
-            exportBinDialog.FileOk += new CancelEventHandler(exportBinDialog_FileOk);
+            exportBinDialog.FileOk += exportBinDialog_FileOk;
 
             // show
             exportBinDialog.ShowDialog();
@@ -170,24 +159,24 @@ namespace ChainEditor
         /// </summary>
         /// <param name="fullPath">The full path of the Chain</param>
         /// <returns>True if the load is sucsessful</returns>
-        public Boolean LoadChain(String fullPath)
+        public bool LoadChain(string fullPath)
         {
             try
             {
                 // create deserializer
-                BinaryFormatter deserializer = new BinaryFormatter();
+                var deserializer = new BinaryFormatter();
 
                 // create reader
-                using (StreamReader reader = new StreamReader(fullPath))
+                using (var reader = new StreamReader(fullPath))
                 {
                     // add new element, using its name as the key
-                    this.SetChain((Chain)deserializer.Deserialize(reader.BaseStream));
+                    SetChain((Chain)deserializer.Deserialize(reader.BaseStream));
                 }
             }
             catch (Exception e)
             {
                 // show exception
-                MessageBox.Show(String.Format("There was an exception loading the chain: {0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("There was an exception loading the chain: {0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // fail
                 return false;
@@ -202,17 +191,15 @@ namespace ChainEditor
         /// </summary>
         /// <param name="fullPath">The full path of the chain to save</param>
         /// <returns>True is the save is sucsessful</returns>
-        public Boolean SaveChain(String fullPath)
+        public bool SaveChain(string fullPath)
         {
             // serialize
-            Boolean result = this.ConstructChain().SerializeToFile(fullPath);
-            
+            bool result = ConstructChain().SerializeToFile(fullPath);
+
             // check result
             if (!result)
-            {
                 // show
                 MessageBox.Show("The chain could not be saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
             // return
             return result;
@@ -224,10 +211,10 @@ namespace ChainEditor
         public void Clear()
         {
             // clear
-            this.chainDataListBox.Items.Clear();
+            chainDataListBox.Items.Clear();
 
             // refresh
-            this.RefreshStatusBar();
+            RefreshStatusBar();
         }
 
         /// <summary>
@@ -239,18 +226,16 @@ namespace ChainEditor
             try
             {
                 // get note
-                Int32 frequency = Int32.Parse(this.noteComboBox.Text.ToString());
-                Int32 duration = Int32.Parse(this.durationComboBox.Text.ToString());
+                var frequency = int.Parse(noteComboBox.Text);
+                var duration = int.Parse(durationComboBox.Text);
 
                 // if out of range
-                if ((frequency < 0) ||
-                    (frequency > Int16.MaxValue) ||
-                    (duration < 0) ||
-                    (duration > Int16.MaxValue))
-                {
+                if (frequency < 0 ||
+                    frequency > short.MaxValue ||
+                    duration < 0 ||
+                    duration > short.MaxValue)
                     // throw exception
                     throw new Exception("Please enter values between 0 and 32767");
-                }
 
                 // return
                 return new Beep(frequency, duration);
@@ -271,63 +256,59 @@ namespace ChainEditor
         public void PlayFromCurrent()
         {
             // begin play
-            this.OnPlayBegin();
+            OnPlayBegin();
 
             // reset cancelled
-            this.cancelled = false;
+            cancelled = false;
 
             // if some items
-            if (this.chainDataListBox.Items.Count > 0)
+            if (chainDataListBox.Items.Count > 0)
             {
                 // if nothing selected
-                if (this.chainDataListBox.SelectedItem == null)
-                {
+                if (chainDataListBox.SelectedItem == null)
                     // reset to start
-                    this.ResetToStart();
-                }
+                    ResetToStart();
 
                 // play on thread pool
-                ThreadPool.QueueUserWorkItem(new WaitCallback((object o) =>
-                    {
-                        // get the items in the box
-                        Int32 items = (Int32)this.chainDataListBox.Invoke(new GetInt32Delegate(() => { return this.chainDataListBox.Items.Count; }));
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    // get the items in the box
+                    var items = (int)chainDataListBox.Invoke(new GetInt32Delegate(() => { return chainDataListBox.Items.Count; }));
 
-                        // get start item
-                        Int32 startItem = (Int32)this.chainDataListBox.Invoke(new GetInt32Delegate(() => { return this.chainDataListBox.SelectedIndex; }));
+                    // get start item
+                    var startItem = (int)chainDataListBox.Invoke(new GetInt32Delegate(() => { return chainDataListBox.SelectedIndex; }));
 
-                        // itterate all items
-                        for (Int32 index = startItem; index < items; index++)
+                    // itterate all items
+                    for (var index = startItem; index < items; index++)
+                        // if cancelled
+                        if (cancelled)
                         {
-                            // if cancelled
-                            if (this.cancelled)
+                            break;
+                        }
+                        else
+                        {
+                            // set selected element
+                            chainDataListBox.Invoke(new LambdaCallback(() =>
                             {
-                                break;
-                            }
-                            else
-                            {
-                                // set selected element
-                                this.chainDataListBox.Invoke(new LambdaCallback(() =>
-                                    {
-                                        // set selected
-                                        this.chainDataListBox.SelectedIndex = index;
-                                    }));
+                                // set selected
+                                chainDataListBox.SelectedIndex = index;
+                            }));
 
-                                // get note
-                                IBeep note = (IBeep)this.chainDataListBox.Invoke(new GetINoteDelegate(() => { return this.chainDataListBox.SelectedItem as IBeep; }));
+                            // get note
+                            IBeep note = (IBeep)chainDataListBox.Invoke(new GetINoteDelegate(() => { return chainDataListBox.SelectedItem as IBeep; }));
 
-                                // play
-                                BeepPlayer.PlayBeep(note);
-                            }
+                            // play
+                            BeepPlayer.PlayBeep(note);
                         }
 
-                        // play finished
-                        this.Invoke(new LambdaCallback(() => this.OnPlayFinished()));
-                    }));
+                    // play finished
+                    Invoke(new LambdaCallback(() => OnPlayFinished()));
+                });
             }
             else
             {
                 // handle finish
-                this.OnPlayFinished();
+                OnPlayFinished();
             }
         }
 
@@ -337,21 +318,19 @@ namespace ChainEditor
         public void ResetToStart()
         {
             // if something to select
-            if (this.chainDataListBox.Items.Count > 0)
-            {
+            if (chainDataListBox.Items.Count > 0)
                 // select
-                this.SeekPosition(0);
-            }
+                SeekPosition(0);
         }
 
         /// <summary>
         /// Seek to a position in the chain
         /// </summary>
         /// <param name="position">The index of the position to seek</param>
-        public void SeekPosition(Int32 position)
+        public void SeekPosition(int position)
         {
             // select
-            this.chainDataListBox.SelectedIndex = position;
+            chainDataListBox.SelectedIndex = position;
         }
 
         /// <summary>
@@ -360,7 +339,7 @@ namespace ChainEditor
         public void CancelPlay()
         {
             // cancel
-            this.cancelled = true;
+            cancelled = true;
         }
 
         /// <summary>
@@ -370,23 +349,21 @@ namespace ChainEditor
         public void SetChain(Chain chain)
         {
             // clear all
-            this.chainDataListBox.Items.Clear();
+            chainDataListBox.Items.Clear();
 
             // if a chain
             if (chain != null)
             {
                 // itterate all beeps
-                for (Int32 index = 0; index < chain.Beeps.Length; index++)
-                {
+                for (var index = 0; index < chain.Beeps.Length; index++)
                     // add element
-                    this.chainDataListBox.Items.Add(chain.Beeps[index]);
-                }
+                    chainDataListBox.Items.Add(chain.Beeps[index]);
 
                 // reset
-                this.ResetToStart();
+                ResetToStart();
 
                 // refresh
-                this.RefreshStatusBar();
+                RefreshStatusBar();
             }
         }
 
@@ -400,48 +377,46 @@ namespace ChainEditor
             Chain c = new Chain();
 
             // itterate each note
-            foreach (IBeep note in this.chainDataListBox.Items)
-            {
+            foreach (IBeep note in chainDataListBox.Items)
                 // add
                 c.AddBeep(note);
-            }
 
             // return
             return c;
         }
 
         /// <summary>
-        /// Handle the beginning of playing 
+        /// Handle the beginning of playing
         /// </summary>
         protected virtual void OnPlayBegin()
         {
             // playing
-            this.IsPlaying = true;
+            IsPlaying = true;
 
             // disable all
-            this.mainMenu.Enabled = false;
-            this.testButton.Enabled = false;
-            this.addButton.Enabled = false;
-            this.noteComboBox.Enabled = false;
-            this.durationComboBox.Enabled = false;
-            this.chainDataListBox.Enabled = false;
+            mainMenu.Enabled = false;
+            testButton.Enabled = false;
+            addButton.Enabled = false;
+            noteComboBox.Enabled = false;
+            durationComboBox.Enabled = false;
+            chainDataListBox.Enabled = false;
         }
 
         /// <summary>
-        /// Handle the finishing of playing 
+        /// Handle the finishing of playing
         /// </summary>
         protected virtual void OnPlayFinished()
         {
             // not playing
-            this.IsPlaying = false;
+            IsPlaying = false;
 
             // enable all
-            this.mainMenu.Enabled = true;
-            this.testButton.Enabled = true;
-            this.addButton.Enabled = true;
-            this.noteComboBox.Enabled = true;
-            this.durationComboBox.Enabled = true;
-            this.chainDataListBox.Enabled = true;
+            mainMenu.Enabled = true;
+            testButton.Enabled = true;
+            addButton.Enabled = true;
+            noteComboBox.Enabled = true;
+            durationComboBox.Enabled = true;
+            chainDataListBox.Enabled = true;
         }
 
         /// <summary>
@@ -450,23 +425,21 @@ namespace ChainEditor
         public void RefreshStatusBar()
         {
             // set beeps
-            this.totaCountlLabel.Text = this.chainDataListBox.Items.Count.ToString();
+            totaCountlLabel.Text = chainDataListBox.Items.Count.ToString();
 
             // get total
-            Int32 totalLength = 0;
+            var totalLength = 0;
 
             // itterate all data
-            for (Int32 index = 0; index < this.chainDataListBox.Items.Count; index++)
-            {
+            for (var index = 0; index < chainDataListBox.Items.Count; index++)
                 // increment
-                totalLength += ((IBeep)this.chainDataListBox.Items[index]).Duration;
-            }
+                totalLength += ((IBeep)chainDataListBox.Items[index]).Duration;
 
             // set total length
-            this.durationMsLabel.Text = totalLength.ToString();
+            durationMsLabel.Text = totalLength.ToString();
 
             // set current
-            this.currentLabel.Text = (this.chainDataListBox.SelectedIndex + 1).ToString();
+            currentLabel.Text = (chainDataListBox.SelectedIndex + 1).ToString();
         }
 
         /// <summary>
@@ -478,24 +451,20 @@ namespace ChainEditor
             List<IBeep> beeps = new List<IBeep>();
 
             // copy array
-            for (Int32 index = 0; index < this.chainDataListBox.Items.Count; index++)
-            {
+            for (var index = 0; index < chainDataListBox.Items.Count; index++)
                 // add
-                beeps.Add(this.chainDataListBox.Items[index] as IBeep);
-            }
+                beeps.Add(chainDataListBox.Items[index] as IBeep);
 
             // reverse
             beeps.Reverse();
 
             // clear
-            this.Clear();
+            Clear();
 
             // itterate all beeps
-            for (Int32 index = 0; index < beeps.Count; index++)
-            {
+            for (var index = 0; index < beeps.Count; index++)
                 // add
-                this.AddNote(beeps[index], index);
-            }
+                AddNote(beeps[index], index);
         }
 
         /// <summary>
@@ -507,38 +476,32 @@ namespace ChainEditor
             List<IBeep> beeps = new List<IBeep>();
 
             // copy array
-            for (Int32 index = 0; index < this.chainDataListBox.Items.Count; index++)
-            {
+            for (var index = 0; index < chainDataListBox.Items.Count; index++)
                 // add
-                beeps.Add(this.chainDataListBox.Items[index] as IBeep);
-            }
+                beeps.Add(chainDataListBox.Items[index] as IBeep);
 
             // reverse
             beeps.Reverse();
 
             // itterate all beeps
-            for (Int32 index = 0; index < beeps.Count; index++)
-            {
+            for (var index = 0; index < beeps.Count; index++)
                 // add
-                this.AddNote(beeps[index], this.chainDataListBox.Items.Count);
-            }
+                AddNote(beeps[index], chainDataListBox.Items.Count);
         }
 
         /// <summary>
         /// Populate the frequency combo box with the specified frequencies
         /// </summary>
         /// <param name="frequencies">The frequncies to populate the box with</param>
-        private void populateFrequencyComboBox(params Int32[] frequencies)
+        private void populateFrequencyComboBox(params int[] frequencies)
         {
             // clear
-            this.noteComboBox.Items.Clear();
+            noteComboBox.Items.Clear();
 
             // itterate all
-            foreach (Int32 f in frequencies)
-            {
+            foreach (var f in frequencies)
                 // add f
-                this.noteComboBox.Items.Add(f);
-            }
+                noteComboBox.Items.Add(f);
         }
 
         /// <summary>
@@ -549,19 +512,13 @@ namespace ChainEditor
         {
             // itterate all
             foreach (ToolStripMenuItem i in items)
-            {
                 // if not the one to leave checked
                 if (i != leaveChecked)
-                {
                     // uncheck
                     i.Checked = false;
-                }
                 else
-                {
                     // leave checked
                     leaveChecked.Checked = true;
-                }
-            }
         }
 
         #endregion
@@ -579,129 +536,129 @@ namespace ChainEditor
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // show import
-            this.showImportFileDialog();
+            showImportFileDialog();
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // show export
-            this.showExportFileDialog();
+            showExportFileDialog();
         }
 
         private void invertToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // invert
-            this.InvertBeeps();
+            InvertBeeps();
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // clear
-            this.Clear();
+            Clear();
         }
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // cancel play
-            this.CancelPlay();
+            CancelPlay();
 
             // reset
-            this.ResetToStart();
+            ResetToStart();
 
             // play
-            this.PlayFromCurrent();
+            PlayFromCurrent();
         }
 
         private void stopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // cancel
-            this.CancelPlay();
+            CancelPlay();
         }
 
         private void topToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // if playing
-            if (this.IsPlaying)
+            if (IsPlaying)
             {
                 // cancel play
-                this.CancelPlay();
+                CancelPlay();
 
                 // reset
-                this.ResetToStart();
+                ResetToStart();
 
                 // play
-                this.PlayFromCurrent();
+                PlayFromCurrent();
             }
             else
             {
                 // reset
-                this.ResetToStart();
+                ResetToStart();
             }
         }
 
         private void ionianScaleMenuItem_Click(object sender, EventArgs e)
         {
             // populate ionian
-            this.populateFrequencyComboBox(ChainEditorForm.ionianScaleInC);
+            populateFrequencyComboBox(ionianScaleInC);
 
             // handle checking
-            this.uncheckAllFrequencyMenuItemsExcept(this.frequencyMenuItem.DropDownItems, sender as ToolStripMenuItem);
+            uncheckAllFrequencyMenuItemsExcept(frequencyMenuItem.DropDownItems, sender as ToolStripMenuItem);
         }
 
         private void choromaticScaleCToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // populate choromatic
-            this.populateFrequencyComboBox(ChainEditorForm.choromaticScaleInC);
+            populateFrequencyComboBox(choromaticScaleInC);
 
             // handle checking
-            this.uncheckAllFrequencyMenuItemsExcept(this.frequencyMenuItem.DropDownItems, sender as ToolStripMenuItem);
+            uncheckAllFrequencyMenuItemsExcept(frequencyMenuItem.DropDownItems, sender as ToolStripMenuItem);
         }
 
         private void htZIncrementsMenuItem_Click(object sender, EventArgs e)
         {
             // populate choromatic
-            this.populateFrequencyComboBox(ChainEditorForm.incremental50htZSteps);
+            populateFrequencyComboBox(incremental50htZSteps);
 
             // handle checking
-            this.uncheckAllFrequencyMenuItemsExcept(this.frequencyMenuItem.DropDownItems, sender as ToolStripMenuItem);
+            uncheckAllFrequencyMenuItemsExcept(frequencyMenuItem.DropDownItems, sender as ToolStripMenuItem);
         }
 
         private void playFromCurrentPositionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // play
-            this.PlayFromCurrent();
+            PlayFromCurrent();
         }
 
         private void stepFowardMenuItem_Click(object sender, EventArgs e)
         {
             // if still stepping room
-            if (this.chainDataListBox.SelectedIndex < this.chainDataListBox.Items.Count - 1)
+            if (chainDataListBox.SelectedIndex < chainDataListBox.Items.Count - 1)
             {
                 // increment selection
-                this.chainDataListBox.SelectedIndex++;
+                chainDataListBox.SelectedIndex++;
 
                 // play note
-                BeepPlayer.PlayBeep(this.chainDataListBox.SelectedItem as IBeep);
+                BeepPlayer.PlayBeep(chainDataListBox.SelectedItem as IBeep);
             }
         }
 
         private void stepBackwardMenuItem_Click(object sender, EventArgs e)
         {
             // if still stepping room
-            if (this.chainDataListBox.SelectedIndex > 0)
+            if (chainDataListBox.SelectedIndex > 0)
             {
                 // increment selection
-                this.chainDataListBox.SelectedIndex--;
+                chainDataListBox.SelectedIndex--;
 
                 // play note
-                BeepPlayer.PlayBeep(this.chainDataListBox.SelectedItem as IBeep);
+                BeepPlayer.PlayBeep(chainDataListBox.SelectedItem as IBeep);
             }
         }
 
         private void backToBackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // back to back inversion
-            this.BackToBackInversion();
+            BackToBackInversion();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -715,81 +672,75 @@ namespace ChainEditor
         private void ChainEditorForm_Load(object sender, EventArgs e)
         {
             // populate ionian
-            this.populateFrequencyComboBox(ChainEditorForm.ionianScaleInC);
+            populateFrequencyComboBox(ionianScaleInC);
 
             // reset all combo values
-            this.noteComboBox.SelectedIndex = 0;
-            this.durationComboBox.SelectedIndex = 0;
+            noteComboBox.SelectedIndex = 0;
+            durationComboBox.SelectedIndex = 0;
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
             // get beep
-            IBeep beep = this.getBeepFromInput();
+            IBeep beep = getBeepFromInput();
 
             // if a beep
             if (beep != null)
-            {
                 // add a new note
-                this.AddNote(this.getBeepFromInput(), this.chainDataListBox.SelectedIndex >= 0 ? this.chainDataListBox.SelectedIndex + 1 : 0);
-            }
+                AddNote(getBeepFromInput(), chainDataListBox.SelectedIndex >= 0 ? chainDataListBox.SelectedIndex + 1 : 0);
         }
 
-        void exportBinDialog_FileOk(object sender, CancelEventArgs e)
+        private void exportBinDialog_FileOk(object sender, CancelEventArgs e)
         {
             // save
-            this.SaveChain(((SaveFileDialog)sender).FileName);
+            SaveChain(((SaveFileDialog)sender).FileName);
         }
 
-        void importBinDialog_FileOk(object sender, CancelEventArgs e)
+        private void importBinDialog_FileOk(object sender, CancelEventArgs e)
         {
             // load
-            this.LoadChain(((OpenFileDialog)sender).FileName);
+            LoadChain(((OpenFileDialog)sender).FileName);
         }
 
         private void testButton_Click(object sender, EventArgs e)
         {
             // play note
-            BeepPlayer.PlayBeep(this.getBeepFromInput());
+            BeepPlayer.PlayBeep(getBeepFromInput());
         }
 
         private void chainDataListBox_KeyDown(object sender, KeyEventArgs e)
         {
             // if a selected item and deleted
-            if ((this.chainDataListBox.SelectedItem != null) && 
-                (e.KeyCode == Keys.Delete))
+            if (chainDataListBox.SelectedItem != null &&
+                e.KeyCode == Keys.Delete)
             {
                 // hold selected index
-                Int32 index = this.chainDataListBox.SelectedIndex;
+                var index = chainDataListBox.SelectedIndex;
 
                 // remove
-                this.chainDataListBox.Items.Remove(this.chainDataListBox.SelectedItem);
+                chainDataListBox.Items.Remove(chainDataListBox.SelectedItem);
 
                 // if stil some items
-                if (this.chainDataListBox.Items.Count > 0)
+                if (chainDataListBox.Items.Count > 0)
                 {
                     // check index
-                    if (index < this.chainDataListBox.Items.Count)
-                    {
+                    if (index < chainDataListBox.Items.Count)
                         // set index
-                        this.chainDataListBox.SelectedIndex = index;
-                    }
+                        chainDataListBox.SelectedIndex = index;
                     else
-                    {
                         // select last
-                        this.chainDataListBox.SelectedIndex = this.chainDataListBox.Items.Count - 1;
-                    }
+                        chainDataListBox.SelectedIndex = chainDataListBox.Items.Count - 1;
                 }
 
                 // refresh
-                this.RefreshStatusBar();
+                RefreshStatusBar();
             }
         }
 
         private void chainDataListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // set current in status bar
-            this.currentLabel.Text = (this.chainDataListBox.SelectedIndex + 1).ToString();
+            currentLabel.Text = (chainDataListBox.SelectedIndex + 1).ToString();
         }
 
         #endregion
@@ -798,7 +749,7 @@ namespace ChainEditor
     /// <summary>
     /// Delegate for returning Int32's
     /// </summary>
-    internal delegate Int32 GetInt32Delegate();
+    internal delegate int GetInt32Delegate();
 
     /// <summary>
     /// Delegate for invoking lambda callbacks

@@ -1,27 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AdventureFramework.Locations;
-using AdventureFramework.Structure;
-using AdventureFramework.Interaction;
-using AdventureFramework.Sound;
-using AdventureFramework.Sound.Players;
-using AdventureFramework.Rendering.Frames;
-using AdventureFramework.Rendering;
+using System.Threading;
 
 namespace Quest
 {
-    class Program
+    internal class Program
     {
         #region StaticMethods
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
                 // setup the console
-                Program.setupConsole();
+                setupConsole();
 
                 // buffer all user defined chains into memory
                 Chains.BufferUserDefinedChains();
@@ -48,55 +39,54 @@ namespace Quest
                     // select game
                     switch (Console.ReadKey().Key)
                     {
-                        case (ConsoleKey.NumPad1):
-                        case (ConsoleKey.D1):
+                        case ConsoleKey.NumPad1:
+                        case ConsoleKey.D1:
                             {
                                 // create game helper
                                 creationHelper = GameCreationHelper.Create("A Strange World",
-                                                                           "You wake up at the entrance to a small clearing...",
-                                                                           new OverworldGeneration(Program.generateEverglades),
-                                                                           new PlayerGeneration(Program.generateJungleBen),
-                                                                           new CompletionCheck((Game g) => { return false; }));
+                                    "You wake up at the entrance to a small clearing...",
+                                    new OverworldGeneration(Program.generateEverglades),
+                                    new PlayerGeneration(Program.generateJungleBen),
+                                    new CompletionCheck((Game g) => { return false; }));
 
                                 break;
                             }
-                        case (ConsoleKey.NumPad2):
-                        case (ConsoleKey.D2):
+                        case ConsoleKey.NumPad2:
+                        case ConsoleKey.D2:
                             {
                                 // create game helper
                                 creationHelper = GameCreationHelper.Create("Escape From Bagley House!",
-                                                                           "You wake up in the bedroom of your flat in Bagley house. Your a little disorientated, but then again you are most mornings! Your itching for some punk rock!",
-                                                                           new OverworldGeneration(Program.generateFlat),
-                                                                           new PlayerGeneration(Program.generateBen),
-                                                                           new CompletionCheck((Game g) => { return false; }));
+                                    "You wake up in the bedroom of your flat in Bagley house. Your a little disorientated, but then again you are most mornings! Your itching for some punk rock!",
+                                    new OverworldGeneration(Program.generateFlat),
+                                    new PlayerGeneration(Program.generateBen),
+                                    new CompletionCheck((Game g) => { return false; }));
 
                                 break;
                             }
-                        case (ConsoleKey.NumPad3):
-                        case (ConsoleKey.D3):
+                        case ConsoleKey.NumPad3:
+                        case ConsoleKey.D3:
                             {
                                 // create game helper
                                 creationHelper = GameCreationHelper.Create("A Million Miles Away",
-                                                                           "You have crash landed on an asteriod approximately 1,000,000 miles from earth. Your ship lies in ruins. You are fucked",
-                                                                           new OverworldGeneration(Program.generateNewWorld),
-                                                                           new PlayerGeneration(Program.generateAstronaut),
-                                                                           new CompletionCheck((Game g) => { return false; }));
+                                    "You have crash landed on an asteriod approximately 1,000,000 miles from earth. Your ship lies in ruins. You are fucked",
+                                    new OverworldGeneration(Program.generateNewWorld),
+                                    new PlayerGeneration(Program.generateAstronaut),
+                                    new CompletionCheck((Game g) => { return false; }));
 
                                 break;
                             }
-                        case (ConsoleKey.NumPad4):
-                        case (ConsoleKey.D4):
+                        case ConsoleKey.NumPad4:
+                        case ConsoleKey.D4:
                             {
                                 // create game helper
                                 creationHelper = GameCreationHelper.Create("The Legend Of Zelda: Links Texting",
-                                                                           "Princess Zelda has been kidnapped by Gannodorf and is being help hostage somewhere in Hyrule castle. Meanwhile a horny Impa is trying to hunt you down! What will you do - save the girl or play with one?!",
-                                                                           new OverworldGeneration(Program.generateHyrule),
-                                                                           new PlayerGeneration(Program.generateLink),
-                                                                           new CompletionCheck((Game g) => { return false; }));
+                                    "Princess Zelda has been kidnapped by Gannodorf and is being help hostage somewhere in Hyrule castle. Meanwhile a horny Impa is trying to hunt you down! What will you do - save the girl or play with one?!",
+                                    new OverworldGeneration(Program.generateHyrule),
+                                    new PlayerGeneration(Program.generateLink),
+                                    new CompletionCheck((Game g) => { return false; }));
 
                                 break;
                             }
-                        default: { break; }
                     }
                 }
 
@@ -164,17 +154,11 @@ namespace Quest
             player.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
             {
                 // if the knife
-                if ((i != null) &&
-                    (i.Name.ToUpper() == "KNIFE"))
-                {
+                if (i != null &&
+                    i.Name.ToUpper() == "KNIFE")
                     // effect
                     return new InteractionResult(EInteractionEffect.FatalEffect, i, "You slash wildy at your own throat. You are dead");
-                }
-                else
-                {
-                    // no effect
-                    return new InteractionResult(EInteractionEffect.NoEffect, i);
-                }
+                return new InteractionResult(EInteractionEffect.NoEffect, i);
             });
 
             // return
@@ -189,7 +173,7 @@ namespace Quest
         private static Overworld generateEverglades(PlayableCharacter pC)
         {
             // generate region
-            Region r = new Region("Everglades", "The starting place"); 
+            Region r = new Region("Everglades", "The starting place");
 
             // create rooms
             r.CreateRoom(new Room("Forest Entrance", new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(ECardinalDirection.North)), 2, 0);
@@ -201,32 +185,35 @@ namespace Quest
 
             // setup conch shell interactions
             conchShell.Interaction = new InteractionCallback((Item item, IInteractWithItem target) =>
+            {
+                // select item by name
+                switch (item.Name.ToUpper())
                 {
-                    // select item by name
-                    switch (item.Name.ToUpper())
-                    {
-                        case ("KNIFE"):
-                            {
-                                // return used up
-                                return new InteractionResult(EInteractionEffect.FatalEffect, item, "You slash at the conch shell and it shatters into tiny peices. Without the conch shell you are well and truly fucked");
-                            }
-                        default: { return new InteractionResult(EInteractionEffect.NoEffect, item); }
-                    }
-                });
+                    case "KNIFE":
+                        {
+                            // return used up
+                            return new InteractionResult(EInteractionEffect.FatalEffect, item, "You slash at the conch shell and it shatters into tiny peices. Without the conch shell you are well and truly fucked");
+                        }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, item);
+                        }
+                }
+            });
 
             // create rooms
-            r.CreateRoom(new Room("Great Western Ocean", new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungerly. To the east is a small clearing"), new Exit[] { new Exit(ECardinalDirection.East) }, conchShell), 1, 2);
+            r.CreateRoom(new Room("Great Western Ocean", new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungerly. To the east is a small clearing"), new[] { new Exit(ECardinalDirection.East) }, conchShell), 1, 2);
             r.CreateRoom(new Room("Cave", new Description("The cave is so dark you struggling to see. A screetching noise is audible to the east"), new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East)), 2, 3);
 
             // create inner cave
-            Room innerCave = new Room("Inner Cave", String.Empty, new Exit(ECardinalDirection.West), new Exit(ECardinalDirection.North, true));
+            Room innerCave = new Room("Inner Cave", string.Empty, new Exit(ECardinalDirection.West), new Exit(ECardinalDirection.North, true));
 
             // the interaction for the cave
             InteractionCallback innerCaveInteraction = new InteractionCallback((Item i, IInteractWithItem target) =>
             {
                 // if the conch shell
-                if ((i != null) &&
-                    (i.Name.ToUpper() == "CONCH SHELL"))
+                if (i != null &&
+                    i.Name.ToUpper() == "CONCH SHELL")
                 {
                     // unlock exits
                     innerCave[ECardinalDirection.North].Unlock();
@@ -234,17 +221,12 @@ namespace Quest
                     // create effect
                     return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "You blow into the Conch Shell. The Conch Shell howls, the  bats leave! Conch shell crumbles to peices");
                 }
-                else if ((i != null) &&
-                         (i.Name.ToUpper() == "KNIFE"))
-                {
+
+                if (i != null &&
+                    i.Name.ToUpper() == "KNIFE")
                     // effect
                     return new InteractionResult(EInteractionEffect.NoEffect, i, "You slash wildy at the bats, but there are too many. Don't aggrevate them!");
-                }
-                else
-                {
-                    // no effect
-                    return new InteractionResult(EInteractionEffect.NoEffect, i);
-                }
+                return new InteractionResult(EInteractionEffect.NoEffect, i);
             });
 
             // set interaction
@@ -289,12 +271,12 @@ namespace Quest
                 // select item
                 switch (i.Name.ToUpper())
                 {
-                    case ("EMPTY COFEE MUG"):
+                    case "EMPTY COFEE MUG":
                         {
                             // effect
                             return new InteractionResult(EInteractionEffect.NoEffect, i, "If there was some coffee in the mug you could drink it");
                         }
-                    case ("GUITAR"):
+                    case "GUITAR":
                         {
                             // effect
                             return new InteractionResult(EInteractionEffect.NoEffect, i, "You bust out some Bad Religion. Cracking, shame the guitar isn't plugged in to an amplified though...");
@@ -322,35 +304,34 @@ namespace Quest
             Region flat = new Region("Flat 3 Bagley House", "Ben and Beth's Flat");
 
             // create bedroom
-            Room bedroom = new Room("Bedroom", 
-                                    new Description("The bedroom is large, with one duck-egg blue wall. There is a double bed aginst the western wall, and a few other items of bedroom furniture are dotted around, but they all look pretty scruffy. To the north is a doorway leading to the hallway"), 
-                                    new Exit[] { new Exit(ECardinalDirection.North) },
-                                    new Item("Bed", "The bed is neatly made, Beth makes it every day. By your reckoning there are way too many cushions on it though...", false),
-                                    new Item("Picture", "The picture is of some flowers and a mountian", false),
-                                    new Item("TV", "The TV is small - the screen is only 14\"! Two DVD's are propped alongside it 'Miranda' and 'The Vicar Of Dibly'", false));
-            
-            
-            
+            Room bedroom = new Room("Bedroom",
+                new Description("The bedroom is large, with one duck-egg blue wall. There is a double bed aginst the western wall, and a few other items of bedroom furniture are dotted around, but they all look pretty scruffy. To the north is a doorway leading to the hallway"),
+                new[] { new Exit(ECardinalDirection.North) },
+                new Item("Bed", "The bed is neatly made, Beth makes it every day. By your reckoning there are way too many cushions on it though...", false),
+                new Item("Picture", "The picture is of some flowers and a mountian", false),
+                new Item("TV", "The TV is small - the screen is only 14\"! Two DVD's are propped alongside it 'Miranda' and 'The Vicar Of Dibly'", false));
+
+
             // eastern hallway
-            Room hallway1 = new Room("Eastern Hallway", 
-                                     new Description("The hallway is pretty narrow, and all the walls are bare except for a strange looking telephone. To the east is the front door, but it looks to heavy to open. To the south is the bedroom, to the west the hallway continues"),
-                                     new Exit[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East, true), new Exit(ECardinalDirection.West) },
-                                     new Item("Telephone", "As soon as you pickup the telephone to examine it you hear hideous feedback. You replace it quickly!", false));
-            
-            
+            Room hallway1 = new Room("Eastern Hallway",
+                new Description("The hallway is pretty narrow, and all the walls are bare except for a strange looking telephone. To the east is the front door, but it looks to heavy to open. To the south is the bedroom, to the west the hallway continues"),
+                new[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East, true), new Exit(ECardinalDirection.West) },
+                new Item("Telephone", "As soon as you pickup the telephone to examine it you hear hideous feedback. You replace it quickly!", false));
+
+
             // western hallway
-            Room hallway2 = new Room("Western hallway", 
-                                     new Description("This hallway is a cotinuation of the Eastern Hallway, to the north is the Bathroom, to the west is the Kitchen, to the South is a neat looking Spare Room. The hallway continues to the East"), 
-                                     new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East), new Exit(ECardinalDirection.West));
-            
-            
+            Room hallway2 = new Room("Western hallway",
+                new Description("This hallway is a cotinuation of the Eastern Hallway, to the north is the Bathroom, to the west is the Kitchen, to the South is a neat looking Spare Room. The hallway continues to the East"),
+                new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East), new Exit(ECardinalDirection.West));
+
+
             // bath room
-            Room bathroom = new Room("Bathroom", 
-                                     new Description("The bathroom is fairly small. There are some clothes drying on a clothes horse. A bath lies along the eastern wall. There is a remarkebly clean toilet and sink along the western wall, with a mirror above the sink. To the north is a large window, it is open and you can see out onto the roof of the flat below. The doorway to the south leads into the Western Hallway"), 
-                                     new Exit[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.North) },
-                                     new Item("Bath", "A long but narrow bath. You wan't to fill it but you can't because there is a wetsuit in it.", false),
-                                     new Item("Toilet", "A clean looking toilet. You lift the lid to take a look inside... ergh a floater! You flush the toilet but it just churns around! You close the lid and pretend it isn't there.", false),
-                                     new Item("Mirror", "Looking in the mirror you see yourself clearly, and make a mental note to grow back some sideburns", false));
+            Room bathroom = new Room("Bathroom",
+                new Description("The bathroom is fairly small. There are some clothes drying on a clothes horse. A bath lies along the eastern wall. There is a remarkebly clean toilet and sink along the western wall, with a mirror above the sink. To the north is a large window, it is open and you can see out onto the roof of the flat below. The doorway to the south leads into the Western Hallway"),
+                new[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.North) },
+                new Item("Bath", "A long but narrow bath. You wan't to fill it but you can't because there is a wetsuit in it.", false),
+                new Item("Toilet", "A clean looking toilet. You lift the lid to take a look inside... ergh a floater! You flush the toilet but it just churns around! You close the lid and pretend it isn't there.", false),
+                new Item("Mirror", "Looking in the mirror you see yourself clearly, and make a mental note to grow back some sideburns", false));
 
             // create mug
             Item mug = new Item("Empty Coffee Mug", "A coffee mug. It has an ugly hand painted picture of a man with green hair and enormous sideburns painted on the side of it. Underneath it says 'The Sideburn Monster Rides again'. Strange", true);
@@ -360,11 +341,10 @@ namespace Quest
             {
                 // if works
                 if (i != null)
-                {
                     // select item
                     switch (i.Name.ToUpper())
                     {
-                        case ("KETTLE"):
+                        case "KETTLE":
                             {
                                 // get item
                                 Item item = target as Item;
@@ -381,37 +361,33 @@ namespace Quest
                                 return new InteractionResult(EInteractionEffect.NoEffect, i);
                             }
                     }
-                }
-                else
-                {
-                    // throw exception
-                    throw new ArgumentException();
-                }
+
+                throw new ArgumentException();
             });
 
             // bath room
             Room roof = new Room("Faustos Roof",
-                                 String.Empty,
-                                 new Exit[] { new Exit(ECardinalDirection.South) },
-                                 new Item("Sky light", "You peer down into the skylight, only to see a naked Italian man... cooking! Yikes! Not liking the idea of the accidents one could get into by cooking naked you look away quickly", false),
-                                 mug);
+                string.Empty,
+                new[] { new Exit(ECardinalDirection.South) },
+                new Item("Sky light", "You peer down into the skylight, only to see a naked Italian man... cooking! Yikes! Not liking the idea of the accidents one could get into by cooking naked you look away quickly", false),
+                mug);
 
             // set conditional description
             roof.Description = new ConditionalDescription("The roof is small and gravely, and it hurts your shoeless feet to stand on it. There is a large skylight in the center of the roof, and a empty coffee mug sits to the side, indicating someone has been here recently. The window behind you south leads back into the bathroom",
-                                                         "The roof is small and gravely, and it hurts your shoeless feet to stand on it. There is a large skylight in the center of the roof. The window behind you south leads back into the bathroom",
-                                                         new Condition(() => ((roof != null) && (roof.ContainsItem("Coffee Mug")))));
+                "The roof is small and gravely, and it hurts your shoeless feet to stand on it. There is a large skylight in the center of the roof. The window behind you south leads back into the bathroom",
+                new Condition(() => roof != null && roof.ContainsItem("Coffee Mug")));
 
             // create spare bedroom
             Room bedroom2 = new Room("Spare bedroom",
-                                     String.Empty,
-                                     new Exit[] { new Exit(ECardinalDirection.North) },
-                                     new Item("Gamecube", "A Nintendo Gamecube. You pop the disk cover, it looks like someone has been playing Killer7.", false),
-                                     new Item("Guitar", "The guitar is blue, with birds inlaid on the fret board. On the headstock is someones name... 'Paul Reed Smith'. Who the hell is that. The guitar is litteraly begging to be played...", true));
+                string.Empty,
+                new[] { new Exit(ECardinalDirection.North) },
+                new Item("Gamecube", "A Nintendo Gamecube. You pop the disk cover, it looks like someone has been playing Killer7.", false),
+                new Item("Guitar", "The guitar is blue, with birds inlaid on the fret board. On the headstock is someones name... 'Paul Reed Smith'. Who the hell is that. The guitar is litteraly begging to be played...", true));
 
             // set conditional description
             bedroom2.Description = new ConditionalDescription("You are in a very tidy room. The eastern wall is painted in a dark reddy colour. Against the south wall is a line of guitar amplifiers, all turned on. A very tidy blue guitar rests against the amps just begging to be played. There is a Gamecube against the northern wall. A doorway to the north leads back to the Western Hallway.",
-                                                             "You are in a very tidy room. The eastern wall is painted in a dark reddy colour. Against the south wall is a line of guitar amplifiers, all turned on. There is a Gamecube against the northern wall. A doorway to the north leads back to the Western Hallway.",
-                                                             new Condition(() => ((bedroom2 != null) && (bedroom2.ContainsItem("Guitar")))));
+                "You are in a very tidy room. The eastern wall is painted in a dark reddy colour. Against the south wall is a line of guitar amplifiers, all turned on. There is a Gamecube against the northern wall. A doorway to the north leads back to the Western Hallway.",
+                new Condition(() => bedroom2 != null && bedroom2.ContainsItem("Guitar")));
 
 
             // create kettle
@@ -419,44 +395,39 @@ namespace Quest
 
             // set kettle interaction
             kettle.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
-                {
-                    // get as item
-                    Item obj = target as Item;
+            {
+                // get as item
+                Item obj = target as Item;
 
-                    // if works
-                    if (obj != null)
+                // if works
+                if (obj != null)
+                    // select item
+                    switch (i.Name.ToUpper())
                     {
-                        // select item
-                        switch (i.Name.ToUpper())
-                        {
-                            case ("EMPTY COFFEE MUG"):
-                                {
-                                    // morph the coffee
-                                    i.Morph(new Item("Mug Of Coffee", "Hmm smells good, nice and bitter!", true));
+                        case "EMPTY COFFEE MUG":
+                            {
+                                // morph the coffee
+                                i.Morph(new Item("Mug Of Coffee", "Hmm smells good, nice and bitter!", true));
 
-                                    // loose mug
-                                    return new InteractionResult(EInteractionEffect.ItemMorphed, i, "You put some instant coffee granuals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
-                                }
-                            default:
-                                {
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i);
-                                }
-                        }
+                                // loose mug
+                                return new InteractionResult(EInteractionEffect.ItemMorphed, i, "You put some instant coffee granuals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
+                            }
+                        default:
+                            {
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.NoEffect, i);
+                            }
                     }
-                    else
-                    {
-                        // throw exception
-                        throw new ArgumentException();
-                    }
-                });
+
+                throw new ArgumentException();
+            });
 
             // the kitchen
-            Room kitchen = new Room("Kitchen", 
-                                    new Description("The kitchen is a small area with work tops along the northern and eastern walls. There is a kettle on the work top, it has steam rising out of it's spout. There is a also window along the northern wall. Underneath the window is a hamster cage. To the south is the living room, the Western Hallway is to the east."),
-                                    new Exit[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East) },
-                                    new Item("Hamster Cage", "There is a pretty large hamster cage on the floor. When you go upto it you hear a small, but irritated sniffing. Mable sounds annoyed, best leave her alone for now.", false),
-                                    kettle);
+            Room kitchen = new Room("Kitchen",
+                new Description("The kitchen is a small area with work tops along the northern and eastern walls. There is a kettle on the work top, it has steam rising out of it's spout. There is a also window along the northern wall. Underneath the window is a hamster cage. To the south is the living room, the Western Hallway is to the east."),
+                new[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East) },
+                new Item("Hamster Cage", "There is a pretty large hamster cage on the floor. When you go upto it you hear a small, but irritated sniffing. Mable sounds annoyed, best leave her alone for now.", false),
+                kettle);
 
 
             // interaction
@@ -467,11 +438,10 @@ namespace Quest
 
                 // if works
                 if (obj != null)
-                {
                     // select item
                     switch (i.Name.ToUpper())
                     {
-                        case ("GUITAR"):
+                        case "GUITAR":
                             {
                                 // no effect
                                 return new InteractionResult(EInteractionEffect.NoEffect, i, "Playing guitar in the kitchen is pretty stupid don't you think?");
@@ -482,12 +452,8 @@ namespace Quest
                                 return new InteractionResult(EInteractionEffect.NoEffect, i);
                             }
                     }
-                }
-                else
-                {
-                    // throw exception
-                    throw new ArgumentException();
-                }
+
+                throw new ArgumentException();
             });
 
             // create beth
@@ -495,71 +461,62 @@ namespace Quest
 
             // the lounge
             Room lounge = new Room("Lounge",
-                                   String.Empty,
-                                   new Exit[] { new Exit(ECardinalDirection.North) },
-                                   new Item[] { new Item("Map", "This things huge! Who would buy one of these? It looks pretty cheap, like it could have been bought from one of theose massive Swedish outlets. The resoultion of the map is too small to see your road on.", false), new Item("Canvas", "Wow, cool canvas. It is brightly painted with aliens and planets. On one planet there is a rabbit playing a guitar and whistling, but you can't see his face because he has his back turned to you. Something looks wrong with the rabbit...", false), new Item("Table", "The coffee table is one of those large oblong ones. It is made of reconstitued wood, made to look like birch", false), new Item("TV", "The TV is large, and is playing some program with a Chinease looking man dressing a half naked middle aged woman", false), new Item("Lead", "A 10m Venom instrument lead", true) },
-                                   beth);
+                string.Empty,
+                new[] { new Exit(ECardinalDirection.North) },
+                new[] { new Item("Map", "This things huge! Who would buy one of these? It looks pretty cheap, like it could have been bought from one of theose massive Swedish outlets. The resoultion of the map is too small to see your road on.", false), new Item("Canvas", "Wow, cool canvas. It is brightly painted with aliens and planets. On one planet there is a rabbit playing a guitar and whistling, but you can't see his face because he has his back turned to you. Something looks wrong with the rabbit...", false), new Item("Table", "The coffee table is one of those large oblong ones. It is made of reconstitued wood, made to look like birch", false), new Item("TV", "The TV is large, and is playing some program with a Chinease looking man dressing a half naked middle aged woman", false), new Item("Lead", "A 10m Venom instrument lead", true) },
+                beth);
 
             // add conditional description
             lounge.Description = new ConditionalDescription("Your in a large stitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. There is what appears to be a lead of some sort poking out from underneath the sofa. The kitchen is to the north.",
-                                             "Your in a large stitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. The kitchen is to the north.",
-                                             new Condition(() => ((roof != null) && (roof.ContainsItem("Lead")))));
+                "Your in a large stitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. The kitchen is to the north.",
+                new Condition(() => roof != null && roof.ContainsItem("Lead")));
 
             // handle interaction
             lounge.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
-                {
-                    // get as room
-                    Room obj = target as Room;
+            {
+                // get as room
+                Room obj = target as Room;
 
-                    // if works
-                    if (obj != null)
+                // if works
+                if (obj != null)
+                    // select item
+                    switch (i.Name.ToUpper())
                     {
-                        // select item
-                        switch (i.Name.ToUpper())
-                        {
-                            case ("MUG OF COFFEE"):
-                                {
-                                    // if beths in the lounge
-                                    if (obj.ContainsCharacter("Beth"))
-                                    {
-                                        // result
-                                        return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "Beth takes the cup of coffee and smiles. Brownie points to you!");
-                                    }
-                                    else
-                                    {
-                                        // morph mug back
-                                        i.Morph(new Item("Empty Coffee Mug", "A coffee mug. It has an ugly hand painted picture of a man with green hair and enormous sideburns painted on the side of it. Underneath it says 'The Sideburn Monster Rides again'. Strange.", true));
-
-                                        // result
-                                        return new InteractionResult(EInteractionEffect.ItemMorphed, i, "As no one is about you decide to drink the coffee yourself. Your nose wasn't lying, it is bitter but delicious.");
-                                    }
-                                }
-                            case ("EMPTY COFEE MUG"):
-                                {
-                                    // add cup to lounge
-                                    obj.AddItem(i);
-
+                        case "MUG OF COFFEE":
+                            {
+                                // if beths in the lounge
+                                if (obj.ContainsCharacter("Beth"))
                                     // result
-                                    return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "You put the mug down on the coffee table, sick of carrying the bloody thing around. Beth is none too impressed.");
-                                }
-                            case ("GUITAR"):
-                                {
-                                    // result
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i, "You strum the guitar frantically trying to impress Beth, she smiles but looks at you like you are a little mental. The guitar just isn't loud enough when it is not plugged in...");
-                                }
-                            default:
-                                {
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i);
-                                }
-                        }
+                                    return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "Beth takes the cup of coffee and smiles. Brownie points to you!");
+
+                                // morph mug back
+                                i.Morph(new Item("Empty Coffee Mug", "A coffee mug. It has an ugly hand painted picture of a man with green hair and enormous sideburns painted on the side of it. Underneath it says 'The Sideburn Monster Rides again'. Strange.", true));
+
+                                // result
+                                return new InteractionResult(EInteractionEffect.ItemMorphed, i, "As no one is about you decide to drink the coffee yourself. Your nose wasn't lying, it is bitter but delicious.");
+                            }
+                        case "EMPTY COFEE MUG":
+                            {
+                                // add cup to lounge
+                                obj.AddItem(i);
+
+                                // result
+                                return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "You put the mug down on the coffee table, sick of carrying the bloody thing around. Beth is none too impressed.");
+                            }
+                        case "GUITAR":
+                            {
+                                // result
+                                return new InteractionResult(EInteractionEffect.NoEffect, i, "You strum the guitar frantically trying to impress Beth, she smiles but looks at you like you are a little mental. The guitar just isn't loud enough when it is not plugged in...");
+                            }
+                        default:
+                            {
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.NoEffect, i);
+                            }
                     }
-                    else
-                    {
-                        // throw exception
-                        throw new ArgumentException();
-                    }
-                });
+
+                throw new ArgumentException();
+            });
 
             // interaction
             bedroom2.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
@@ -569,11 +526,10 @@ namespace Quest
 
                 // if works
                 if (obj != null)
-                {
                     // select item
                     switch (i.Name.ToUpper())
                     {
-                        case ("LEAD"):
+                        case "LEAD":
                             {
                                 // add item to room as static
                                 obj.AddItem(new Item(i.Name, i.Description.GetDescription(), true));
@@ -581,7 +537,7 @@ namespace Quest
                                 // return result
                                 return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "The lead fits snugly into the input socket on the amp");
                             }
-                        case ("GUITAR"):
+                        case "GUITAR":
                             {
                                 // if a lead
                                 if (obj.ContainsItem("LEAD"))
@@ -595,11 +551,9 @@ namespace Quest
                                     // play guitar
                                     return new InteractionResult(EInteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings. Beths had enough! She bolts for the front door leaving it wide open! You are free to leave the flat! You unplug the guitar");
                                 }
-                                else
-                                {
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i, "You have no lead so you can't use the guitar with the amp...");
-                                }
+
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.NoEffect, i, "You have no lead so you can't use the guitar with the amp...");
                             }
                         default:
                             {
@@ -607,12 +561,8 @@ namespace Quest
                                 return new InteractionResult(EInteractionEffect.NoEffect, i);
                             }
                     }
-                }
-                else
-                {
-                    // throw exception
-                    throw new ArgumentException();
-                }
+
+                throw new ArgumentException();
             });
 
             // create all rooms
@@ -658,7 +608,7 @@ namespace Quest
                 // select name
                 switch (i.Name.ToUpper())
                 {
-                    case ("RAY GUN"):
+                    case "RAY GUN":
                         {
                             // interaction
                             return new InteractionResult(EInteractionEffect.NoEffect, i, "Blaowh Blaowh! You fire the ray gun, and you briefly see the ray in the atmosphere. It acts like a prism, and for a brief second the colours look beautiful");
@@ -669,7 +619,6 @@ namespace Quest
                             return new InteractionResult(EInteractionEffect.NoEffect, i);
                         }
                 }
-
             });
 
             // return player
@@ -693,7 +642,7 @@ namespace Quest
             Region home = new Region("Home", new Description("You are back home, phew!"));
 
             // create bedroom
-            home.CreateRoom(new Room("Bedroom", new Description("You are in your bedroom. Phew, what an adventure")), 0, 0); 
+            home.CreateRoom(new Room("Bedroom", new Description("You are in your bedroom. Phew, what an adventure")), 0, 0);
 
             // create crash site
             Room crashSite = new Room("Crash Site", new Description("This is the crash site. Your ship lies is in smouldering peices in front of you. The ground appears to be rocky, but not earthly. There is no sign of life in any direction. The asteroid is so small that any movement results in you being back where you are"));
@@ -703,100 +652,90 @@ namespace Quest
 
             // set interaction
             ship.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
+            {
+                // select name
+                switch (i.Name.ToUpper())
                 {
-                    // select name
-                    switch (i.Name.ToUpper())
-                    {
-                        case ("RAY GUN"):
-                            {
-                                // get as item
-                                Item obj = target as Item;
+                    case "RAY GUN":
+                        {
+                            // get as item
+                            Item obj = target as Item;
 
-                                // if works
-                                if (obj != null)
-                                {
-                                    // morph
-                                    obj.Morph(new Item("Shrapnel", "A jagged peice of shrapnell", true));
-
-                                    // interaction
-                                    return new InteractionResult(EInteractionEffect.ItemMorphed, i, "Blaowh Blaowh! You fire the ray gun, and your ray gun at the fuel tank, and the ship explodes. Shrapnel hits your entire body, but luckily you suit remains intact. A jagged piece of shrapnel lies on the asteroids surface");
-                                }
-                                else
-                                {
-                                    // throw exception
-                                    throw new ArgumentException();
-                                }
-                            }
-                        default: 
+                            // if works
+                            if (obj != null)
                             {
-                                // no effect
-                                return new InteractionResult(EInteractionEffect.NoEffect, i);
+                                // morph
+                                obj.Morph(new Item("Shrapnel", "A jagged peice of shrapnell", true));
+
+                                // interaction
+                                return new InteractionResult(EInteractionEffect.ItemMorphed, i, "Blaowh Blaowh! You fire the ray gun, and your ray gun at the fuel tank, and the ship explodes. Shrapnel hits your entire body, but luckily you suit remains intact. A jagged piece of shrapnel lies on the asteroids surface");
                             }
-                    }
-                });
+
+                            // throw exception
+                            throw new ArgumentException();
+                        }
+                    default:
+                        {
+                            // no effect
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
+                }
+            });
 
             // set examination
             ship.Examination = new ExaminationCallback((IExaminable obj) =>
+            {
+                // select name
+                switch (obj.Name.ToUpper())
                 {
-                    // select name
-                    switch (obj.Name.ToUpper())
-                    {
-                        case ("SHRAPNEL"):
-                            {
-                                // get as item
-                                Item i = obj as Item;
+                    case "SHRAPNEL":
+                        {
+                            // get as item
+                            Item i = obj as Item;
 
-                                // if works
-                                if (i != null)
-                                {
-                                    // morph
-                                    i.Morph(new Item("Flint", "A piece of flint", true));
-
-                                    // standard
-                                    return new ExaminationResult("On closer inspection it is a piece of flint");
-                                }
-                                else
-                                {
-                                    // throw exception
-                                    throw new ArgumentException();
-                                }
-                            }
-                        case ("FLINT"):
+                            // if works
+                            if (i != null)
                             {
-                                // get as item
-                                Item i = obj as Item;
+                                // morph
+                                i.Morph(new Item("Flint", "A piece of flint", true));
 
-                                // if works
-                                if (i != null)
-                                {
-                                    // if on asteroid
-                                    if (o.CurrentRegion == asteroid)
-                                    {
-                                        // move
-                                        o.MoveRegion(home);
-                                    }
-                                    else
-                                    {
-                                        // move
-                                        o.MoveRegion(asteroid);
-                                    }
- 
-                                    // standard
-                                    return new ExaminationResult("The flint is magic flint. You are teleported");
-                                }
-                                else
-                                {
-                                    // throw exception
-                                    throw new ArgumentException();
-                                }
-                            }
-                        default:
-                            {
                                 // standard
-                                return new ExaminationResult(obj.Description.GetDescription());
+                                return new ExaminationResult("On closer inspection it is a piece of flint");
                             }
-                    }
-                });
+
+                            // throw exception
+                            throw new ArgumentException();
+                        }
+                    case "FLINT":
+                        {
+                            // get as item
+                            Item i = obj as Item;
+
+                            // if works
+                            if (i != null)
+                            {
+                                // if on asteroid
+                                if (o.CurrentRegion == asteroid)
+                                    // move
+                                    o.MoveRegion(home);
+                                else
+                                    // move
+                                    o.MoveRegion(asteroid);
+
+                                // standard
+                                return new ExaminationResult("The flint is magic flint. You are teleported");
+                            }
+
+                            // throw exception
+                            throw new ArgumentException();
+                        }
+                    default:
+                        {
+                            // standard
+                            return new ExaminationResult(obj.Description.GetDescription());
+                        }
+                }
+            });
 
             // add ship
             crashSite.AddItem(ship);
@@ -834,10 +773,10 @@ namespace Quest
                 //ASCIIImageFrame frame = ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["link"], Console.WindowWidth, Console.WindowHeight);
 
                 // create animation
-                ASCIIAnimationFrame frame = new ASCIIAnimationFrame(System.Threading.Timeout.Infinite, 125, false, ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario1"], Console.WindowWidth, Console.WindowHeight, -20),
-                                                                                                                   ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario2"], Console.WindowWidth, Console.WindowHeight, -20),
-                                                                                                                   ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario3"], Console.WindowWidth, Console.WindowHeight, -20));
-                
+                ASCIIAnimationFrame frame = new ASCIIAnimationFrame(Timeout.Infinite, 125, false, ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario1"], Console.WindowWidth, Console.WindowHeight, -20),
+                    ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario2"], Console.WindowWidth, Console.WindowHeight, -20),
+                    ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario3"], Console.WindowWidth, Console.WindowHeight, -20));
+
                 // display frame
                 FrameDrawer.DisplaySpecialFrame(frame);
 
@@ -862,22 +801,22 @@ namespace Quest
 
             // set interction
             link.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
+            {
+                // select item
+                switch (i.Name.ToUpper())
                 {
-                    // select item
-                    switch (i.Name.ToUpper())
-                    {
-                        case ("OCARINA"):
-                            {
-                                // return result
-                                return new InteractionResult(EInteractionEffect.NoEffect, i, "You raise the ocarina to your lips and play the song that guy in the windmill taught you. Nothing happens, but you feel better anyway");
-                            }
-                        default:
-                            {
-                                // no effect
-                                return new InteractionResult(EInteractionEffect.NoEffect, i);
-                            }
-                    }
-                });
+                    case "OCARINA":
+                        {
+                            // return result
+                            return new InteractionResult(EInteractionEffect.NoEffect, i, "You raise the ocarina to your lips and play the song that guy in the windmill taught you. Nothing happens, but you feel better anyway");
+                        }
+                    default:
+                        {
+                            // no effect
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
+                }
+            });
 
             // return
             return link;
@@ -897,7 +836,7 @@ namespace Quest
             Region castleGrounds = new Region("Castle Grounds", "The gardens around Hyrule are beautiful and well kept");
 
             // create gate
-            Room gate = new Room("Gateway to Hyrule Castle Grounds", String.Empty, new Exit(ECardinalDirection.North, true));
+            Room gate = new Room("Gateway to Hyrule Castle Grounds", string.Empty, new Exit(ECardinalDirection.North, true));
 
             // create guard
             NonPlayableCharacter guard = new NonPlayableCharacter("Guard", "The guard looks mean, with a face not even a mother could love. He also looks decidely shifty, considering he is a castle guard");
@@ -916,48 +855,46 @@ namespace Quest
 
             // do interaction
             guard.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
-                {
-                    // check guard is alive
-                    if (guard.IsAlive)
+            {
+                // check guard is alive
+                if (guard.IsAlive)
+                    // select name
+                    switch (i.Name.ToUpper())
                     {
-                        // select name
-                        switch (i.Name.ToUpper())
-                        {
-                            case ("BOW"):
-                                {
-                                    // kill guard
-                                    guard.Kill();
+                        case "BOW":
+                            {
+                                // kill guard
+                                guard.Kill();
 
-                                    // keys visible
-                                    keys.IsPlayerVisible = true;
+                                // keys visible
+                                keys.IsPlayerVisible = true;
 
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.SelfContained, i, "You draw the bow and fire an arrow directly through the soilders head. He drops to the floor, spilling his keys");
-                                }
-                            case ("DEKU SHIELD"):
-                                {
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i, "Guard: \"Where'd you go big boy?\"");
-                                }
-                            case ("SWORD"):
-                                {
-                                    // die
-                                    return new InteractionResult(EInteractionEffect.FatalEffect, i, "You lunge at the guard, he dodges your slash, and strikes back. His sword punctures your tunic, and lacerates your heart. The world turns black");
-                                }
-                            case ("OCARINA"):
-                                {
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i, "You play the ocarina, it sings true, but the guard is unmoved by it");
-                                }
-                            default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
-                        }
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.SelfContained, i, "You draw the bow and fire an arrow directly through the soilders head. He drops to the floor, spilling his keys");
+                            }
+                        case "DEKU SHIELD":
+                            {
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.NoEffect, i, "Guard: \"Where'd you go big boy?\"");
+                            }
+                        case "SWORD":
+                            {
+                                // die
+                                return new InteractionResult(EInteractionEffect.FatalEffect, i, "You lunge at the guard, he dodges your slash, and strikes back. His sword punctures your tunic, and lacerates your heart. The world turns black");
+                            }
+                        case "OCARINA":
+                            {
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.NoEffect, i, "You play the ocarina, it sings true, but the guard is unmoved by it");
+                            }
+                        default:
+                            {
+                                return new InteractionResult(EInteractionEffect.NoEffect, i);
+                            }
                     }
-                    else
-                    {
-                        // no reaction
-                        return new InteractionResult(EInteractionEffect.NoEffect, i, "The guard is dead!");
-                    }
-                });
+
+                return new InteractionResult(EInteractionEffect.NoEffect, i, "The guard is dead!");
+            });
 
             // add guard
             gate.AddCharacter(guard);
@@ -966,28 +903,31 @@ namespace Quest
             gate.AddItem(keys);
 
             // create rear of gate
-            Room rearOfGate = new Room("Rear Of Gate", String.Empty, new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.East), new Exit(ECardinalDirection.South, true));
+            Room rearOfGate = new Room("Rear Of Gate", string.Empty, new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.East), new Exit(ECardinalDirection.South, true));
 
             // set description
             rearOfGate.Description = new ConditionalDescription("You are on the otherside of the castle's gate! You can see the guard with his back to you, but he has no idea you are here. He must have though you wen't back to Hyrule town. To the North the track to the castle continues, to the East a path climbs onto the cliff top", "You are on the otherside of the castle's gate. To the North the track to the castle continues, to the East a path climbs onto the cliff top", new Condition(() => { return guard.IsAlive; }));
 
             // set interaction
             gate.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
+            {
+                // select name
+                switch (i.Name.ToUpper())
                 {
-                    // select name
-                    switch (i.Name.ToUpper())
-                    {
-                        case ("KEYS"):
-                            {
-                                // unlock door pair
-                                castleGrounds.UnlockDoorPair(ECardinalDirection.North);
+                    case "KEYS":
+                        {
+                            // unlock door pair
+                            castleGrounds.UnlockDoorPair(ECardinalDirection.North);
 
-                                // no effect
-                                return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "The key fits the lock! You turn it and the gate clanks open!");
-                            }
-                        default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
-                    }
-                });
+                            // no effect
+                            return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "The key fits the lock! You turn it and the gate clanks open!");
+                        }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
+                }
+            });
 
             // set interaction
             rearOfGate.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
@@ -995,7 +935,7 @@ namespace Quest
                 // select name
                 switch (i.Name.ToUpper())
                 {
-                    case ("KEYS"):
+                    case "KEYS":
                         {
                             // unlock door pair
                             castleGrounds.UnlockDoorPair(ECardinalDirection.South);
@@ -1003,7 +943,10 @@ namespace Quest
                             // no effect
                             return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "The key fits the lock! You turn it and the gate clanks open!");
                         }
-                    default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
                 }
             });
 
@@ -1015,40 +958,41 @@ namespace Quest
 
             // add additional command
             vines.AdditionalCommands.Add(new ActionableCommand("Climb", "Climb the vines", true, new ActionCallback(() =>
+            {
+                // if on gate
+                if (castleGrounds.CurrentRoom == gate)
                 {
-                    // if on gate
-                    if (castleGrounds.CurrentRoom == gate)
-                    {
-                        // move to cliff top
-                        castleGrounds.Move(cliffTop.Name);
+                    // move to cliff top
+                    castleGrounds.Move(cliffTop.Name);
 
-                        // return 
-                        return new InteractionResult(EInteractionEffect.NoEffect, vines, "Tugging at the vines they appear pretty sturdy. You climb up and true enough they hold!");
-                    }
-                    else
-                    {
-                        // move to gate
-                        castleGrounds.Move(gate.Name);
+                    // return 
+                    return new InteractionResult(EInteractionEffect.NoEffect, vines, "Tugging at the vines they appear pretty sturdy. You climb up and true enough they hold!");
+                }
 
-                        // return 
-                        return new InteractionResult(EInteractionEffect.NoEffect, vines, "Tugging at the vines they appear pretty sturdy. You lower yourself down and true enough they hold!");
-                    }
-                })));
+                // move to gate
+                castleGrounds.Move(gate.Name);
+
+                // return 
+                return new InteractionResult(EInteractionEffect.NoEffect, vines, "Tugging at the vines they appear pretty sturdy. You lower yourself down and true enough they hold!");
+            })));
 
             // handle interaction
             vines.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
+            {
+                // select name
+                switch (i.Name.ToUpper())
                 {
-                    // select name
-                    switch (i.Name.ToUpper())
-                    {
-                        case ("SWORD"):
-                            {
-                                // no effect
-                                return new InteractionResult(EInteractionEffect.NoEffect, i, "You slash at the vines. A few leaves fall off. Never the fan of gardening you decide to let nature take it's course");
-                            }
-                        default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
-                    }
-                });
+                    case "SWORD":
+                        {
+                            // no effect
+                            return new InteractionResult(EInteractionEffect.NoEffect, i, "You slash at the vines. A few leaves fall off. Never the fan of gardening you decide to let nature take it's course");
+                        }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
+                }
+            });
 
             // add vines
             gate.AddItem(vines);
@@ -1067,32 +1011,33 @@ namespace Quest
 
             // set interaction
             signPost.Interaction = new InteractionCallback((Item i, IInteractWithItem target) =>
+            {
+                // select name
+                switch (i.Name.ToUpper())
                 {
-                    // select name
-                    switch (i.Name.ToUpper())
-                    {
-                        case ("SWORD"):
+                    case "SWORD":
+                        {
+                            // if target is item
+                            if (target is Item)
                             {
-                                // if target is item
-                                if (target is Item)
-                                {
-                                    // get post
-                                    Item s = target as Item;
+                                // get post
+                                Item s = target as Item;
 
-                                    // morph
-                                    s.Morph(new Item("Ruined Signpost", "The signpost lies in ruins. You can't make out what it says because you trashed it", false));
+                                // morph
+                                s.Morph(new Item("Ruined Signpost", "The signpost lies in ruins. You can't make out what it says because you trashed it", false));
 
-                                    // no effect
-                                    return new InteractionResult(EInteractionEffect.ItemMorphed, i, "You slash at the signpost. It splits in two places and falls to the ground");
-                                }
-                                else
-                                {
-                                    return new InteractionResult(EInteractionEffect.NoEffect, i); 
-                                }
+                                // no effect
+                                return new InteractionResult(EInteractionEffect.ItemMorphed, i, "You slash at the signpost. It splits in two places and falls to the ground");
                             }
-                        default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
-                    }
-                });
+
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
+                }
+            });
 
             // add signpost
             cornerInTrack.AddItem(signPost);
@@ -1109,7 +1054,7 @@ namespace Quest
                 // select name
                 switch (i.Name.ToUpper())
                 {
-                    case ("BOMBS"):
+                    case "BOMBS":
                         {
                             // if target is item
                             if (target is Item)
@@ -1120,12 +1065,13 @@ namespace Quest
                                 // no effect
                                 return new InteractionResult(EInteractionEffect.TargetUsedUp, i, "You place a bomb by the pile of rocks and light the fuse, then run to a safe distance. You wait as the fuse slowly burns, and then BOOOM! the bomb explodes! Pieces of rock are thrown everywhere. When the dust settles a cave mouth is revealed where the pile of rocks was");
                             }
-                            else
-                            {
-                                return new InteractionResult(EInteractionEffect.NoEffect, i);
-                            }
+
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
                         }
-                    default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
                 }
             });
 
@@ -1156,7 +1102,7 @@ namespace Quest
                 // select name
                 switch (i.Name.ToUpper())
                 {
-                    case ("OCARINA"):
+                    case "OCARINA":
                         {
                             // if no fairy
                             if (!greatFairy.IsPlayerVisible)
@@ -1167,13 +1113,14 @@ namespace Quest
                                 // self contained
                                 return new InteractionResult(EInteractionEffect.SelfContained, i, "You play Zelda's lullaby, it echos around the cavern. The water ripples slightly from the center outwards, and they continue to build up. A fairy drabbed in ivy rises from the pool");
                             }
-                            else
-                            {
-                                // no effect
-                                return new InteractionResult(EInteractionEffect.NoEffect, i);
-                            }
+
+                            // no effect
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
                         }
-                    default: { return new InteractionResult(EInteractionEffect.NoEffect, i); }
+                    default:
+                        {
+                            return new InteractionResult(EInteractionEffect.NoEffect, i);
+                        }
                 }
             });
 

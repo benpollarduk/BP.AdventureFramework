@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Xml;
-using AdventureFramework.IO;
 
 namespace BP.AdventureFramework.Interaction
 {
     /// <summary>
     /// Represents an element of a Conversation.
     /// </summary>
-    public class ConversationElement : XMLSerializableObject
+    public class ConversationElement
     {
         #region Properties
 
@@ -23,7 +21,7 @@ namespace BP.AdventureFramework.Interaction
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the ConversationElement class.
@@ -51,30 +49,6 @@ namespace BP.AdventureFramework.Interaction
             Line = line;
             Action = action;
         }
-
-        #region XMLSerialization
-
-        /// <summary>
-        /// Handle writing of Xml for this ConversationElement.
-        /// </summary>
-        /// <param name="writer">The XmlWriter to write Xml with.</param>
-        protected override void OnWriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("ConversationElement");
-            writer.WriteAttributeString("Line", Line);
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Handle reading of Xml for this ConversationElement.
-        /// </summary>
-        /// <param name="node">The node to read Xml from.</param>
-        protected override void OnReadXmlNode(XmlNode node)
-        {
-            Line = GetAttribute(node, "Line").Value;
-        }
-
-        #endregion
 
         #endregion
     }

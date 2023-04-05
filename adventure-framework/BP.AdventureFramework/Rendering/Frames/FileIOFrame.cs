@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using AdventureFramework.IO;
 using BP.AdventureFramework.Interaction;
 
 namespace AdventureFramework.Rendering.Frames

@@ -110,18 +110,18 @@ namespace AdventureFramework.IO
         /// <param name="obj">The string to parse</param>
         /// <param name="command">The command</param>
         /// <returns>The result of the parse</returns>
-        public virtual bool TryParseToECommand(string obj, out ECommand command)
+        public virtual bool TryParseToECommand(string obj, out Command command)
         {
             // hold value in enum
             object valueInEnum;
 
             // check
-            var result = checkEnumerationForCaseInsensitiveMember(typeof(ECommand), obj, out valueInEnum);
+            var result = checkEnumerationForCaseInsensitiveMember(typeof(Command), obj, out valueInEnum);
 
             // if parsed
             if (result)
                 // set command
-                command = (ECommand)valueInEnum;
+                command = (Command)valueInEnum;
             else
                 // default
                 command = 0;
@@ -138,7 +138,7 @@ namespace AdventureFramework.IO
         public virtual bool IsCommand(string input)
         {
             // see if in enum
-            return Enum.GetNames(typeof(ECommand)).Where(name => name.ToUpper() == input.ToUpper()).Count() > 0;
+            return Enum.GetNames(typeof(Command)).Where(name => name.ToUpper() == input.ToUpper()).Count() > 0;
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace AdventureFramework.IO
             if (IsCommand(noun))
             {
                 // hold command
-                ECommand command;
+                Command command;
 
                 // parse
                 TryParseToECommand(noun, out command);
@@ -314,7 +314,7 @@ namespace AdventureFramework.IO
                 // select command
                 switch (command)
                 {
-                    case ECommand.Drop:
+                    case Command.Drop:
                         {
                             // if an item
                             if (!string.IsNullOrEmpty(obj))
@@ -351,7 +351,7 @@ namespace AdventureFramework.IO
                             // pass
                             return EReactionToInput.CouldntReact;
                         }
-                    case ECommand.Examine:
+                    case Command.Examine:
                         {
                             // hold examination result
                             ExaminationResult examinationResult = null;
@@ -429,13 +429,13 @@ namespace AdventureFramework.IO
                                          obj == game.Overworld.CurrentRegion.Name.ToUpper())
                                 {
                                     // examine the region
-                                    examinationResult = new ExaminationResult(game.Overworld.CurrentRegion.Description.GetDescription(), EExaminationResults.DescriptionReturned);
+                                    examinationResult = new ExaminationResult(game.Overworld.CurrentRegion.Description.GetDescription(), ExaminationResults.DescriptionReturned);
                                 }
                                 else if (obj == "OVERWORLD" ||
                                          obj == game.Overworld.Name.ToUpper())
                                 {
                                     // examine the region
-                                    examinationResult = new ExaminationResult(game.Overworld.Description.GetDescription(), EExaminationResults.DescriptionReturned);
+                                    examinationResult = new ExaminationResult(game.Overworld.Description.GetDescription(), ExaminationResults.DescriptionReturned);
                                 }
                                 else if (!string.IsNullOrEmpty(obj))
                                 {
@@ -463,12 +463,12 @@ namespace AdventureFramework.IO
                             // select type
                             switch (examinationResult.Type)
                             {
-                                case EExaminationResults.DescriptionReturned:
+                                case ExaminationResults.DescriptionReturned:
                                     {
                                         // set reaction
                                         return EReactionToInput.CouldReact;
                                     }
-                                case EExaminationResults.SelfContained:
+                                case ExaminationResults.SelfContained:
                                     {
                                         // set reaction
                                         return EReactionToInput.SelfContainedReaction;
@@ -479,7 +479,7 @@ namespace AdventureFramework.IO
                                     }
                             }
                         }
-                    case ECommand.Take:
+                    case Command.Take:
                         {
                             // hold removed item
                             Item removedItem;
@@ -504,7 +504,7 @@ namespace AdventureFramework.IO
                             // set result
                             return reaction.Result;
                         }
-                    case ECommand.Talk:
+                    case Command.Talk:
                         {
                             // get all alive characters
                             var aliveCharactersInRoom = game.Overworld.CurrentRegion.CurrentRoom.Characters.Where<Character>(c => c.IsAlive && c.IsPlayerVisible).ToArray();
@@ -551,7 +551,7 @@ namespace AdventureFramework.IO
                             // set result
                             return EReactionToInput.CouldntReact;
                         }
-                    case ECommand.Use:
+                    case Command.Use:
                         {
                             // hold item
                             Item item;
@@ -681,7 +681,7 @@ namespace AdventureFramework.IO
                             // handle effect
                             switch (interaction.Effect)
                             {
-                                case EInteractionEffect.FatalEffect:
+                                case InteractionEffect.FatalEffect:
                                     {
                                         // kill player
                                         game.Player.Kill(interaction.Desciption);
@@ -692,7 +692,7 @@ namespace AdventureFramework.IO
                                         // handled
                                         return EReactionToInput.SelfContainedReaction;
                                     }
-                                case EInteractionEffect.ItemUsedUp:
+                                case InteractionEffect.ItemUsedUp:
                                     {
                                         // if in room
                                         if (game.Overworld.CurrentRegion.CurrentRoom.ContainsItem(item))
@@ -704,7 +704,7 @@ namespace AdventureFramework.IO
 
                                         break;
                                     }
-                                case EInteractionEffect.TargetUsedUp:
+                                case InteractionEffect.TargetUsedUp:
                                     {
                                         // get target
                                         var eO = target as IExaminable;
@@ -732,9 +732,9 @@ namespace AdventureFramework.IO
 
                                         break;
                                     }
-                                case EInteractionEffect.NoEffect:
-                                case EInteractionEffect.ItemMorphed:
-                                case EInteractionEffect.SelfContained:
+                                case InteractionEffect.NoEffect:
+                                case InteractionEffect.ItemMorphed:
+                                case InteractionEffect.SelfContained:
                                     {
                                         // nothing as these should all be self contained
 

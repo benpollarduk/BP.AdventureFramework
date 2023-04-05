@@ -19,7 +19,7 @@
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the Decision class.

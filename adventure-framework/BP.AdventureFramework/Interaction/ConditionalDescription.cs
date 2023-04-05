@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
 
 namespace BP.AdventureFramework.Interaction
 {
@@ -30,9 +29,8 @@ namespace BP.AdventureFramework.Interaction
         /// <param name="trueDescription">The true description.</param>
         /// <param name="falseDescription">The false description.</param>
         /// <param name="condition">The condition.</param>
-        public ConditionalDescription(string trueDescription, string falseDescription, Condition condition)
+        public ConditionalDescription(string trueDescription, string falseDescription, Condition condition) : base(trueDescription)
         {
-            this.trueDescription = trueDescription;
             this.falseDescription = falseDescription;
             Condition = condition;
         }
@@ -44,63 +42,10 @@ namespace BP.AdventureFramework.Interaction
         public override string GetDescription()
         {
             if (Condition != null)
-                return Condition.Invoke() ? trueDescription : falseDescription;
+                return Condition.Invoke() ? DefaultDescription : falseDescription;
 
-            return trueDescription;
+            return DefaultDescription;
         }
-
-        /// <summary>
-        /// Handle generation of a transferable ID for this ConditionalDescription.
-        /// </summary>
-        /// <returns>The ID of this object as a string.</returns>
-        protected virtual string OnGenerateTransferalID()
-        {
-            return trueDescription + falseDescription;
-        }
-
-        /// <summary>
-        /// Handle transferal of delegation to this ConditionalDescription from a source ITransferableDelegation object. This should only concern top level properties and fields.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        protected virtual void OnTransferFrom(ITransferableDelegation source)
-        {
-            Condition = ((ConditionalDescription)source).Condition;
-        }
-
-        /// <summary>
-        /// Handle registration of all child properties of this ConditionalDescription that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this ConditionalDescription.</param>
-        protected virtual void OnRegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            // no children to register
-        }
-
-        #region XMLSerialization
-
-        /// <summary>
-        /// Handle writing of Xml for this ConditionalDescription.
-        /// </summary>
-        /// <param name="writer">The XmlWriter to write Xml with.</param>
-        protected override void OnWriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("ConditionalDescription");
-            writer.WriteAttributeString("falseDescription", GetDescription());
-            base.OnWriteXml(writer);
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Handle reading of Xml for this ConditionalDescription.
-        /// </summary>
-        /// <param name="node">The node to read Xml from.</param>
-        protected override void OnReadXmlNode(XmlNode node)
-        {
-            falseDescription = GetAttribute(node, "falseDescription").Value;
-            base.OnReadXmlNode(GetNode(node, "Description"));
-        }
-
-        #endregion
 
         #endregion
 
@@ -110,18 +55,18 @@ namespace BP.AdventureFramework.Interaction
         /// Generate a transferable ID for this ConditionalDescription.
         /// </summary>
         /// <returns>The ID as a string.</returns>
-        public string GenerateTransferalID()
+        public virtual string GenerateTransferalID()
         {
-            return OnGenerateTransferalID();
+            return DefaultDescription + falseDescription;
         }
 
         /// <summary>
-        /// Transfer delegation to this ConditionalDescription from a source ITransferableDelegation object. This should only concern top level properties and fields.
+        /// Transfer delegation to this ConditionalDescription from a source ITransferableDelegation object.
         /// </summary>
         /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public void TransferFrom(ITransferableDelegation source)
+        public virtual void TransferFrom(ITransferableDelegation source)
         {
-            OnTransferFrom(source);
+            Condition = ((ConditionalDescription)source).Condition;
         }
 
         /// <summary>
@@ -130,7 +75,7 @@ namespace BP.AdventureFramework.Interaction
         /// <param name="children">A list containing all the ITransferableDelegation properties of this ConditionalDescription.</param>
         public void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
         {
-            OnRegisterTransferableChildren(ref children);
+            // no children to register
         }
 
         #endregion

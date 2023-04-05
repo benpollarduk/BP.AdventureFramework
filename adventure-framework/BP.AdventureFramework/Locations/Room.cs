@@ -92,7 +92,7 @@ namespace AdventureFramework.Locations
         private InteractionCallback interaction = (i, target) =>
         {
             // return default
-            return new InteractionResult(EInteractionEffect.NoEffect, i);
+            return new InteractionResult(InteractionEffect.NoEffect, i);
         };
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set exits
             this.exits.AddRange(exits);
@@ -191,7 +191,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set interaction
             Interaction = interaction;
@@ -213,7 +213,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set exit
             exits.Add(exit);
@@ -235,7 +235,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set exits
             this.exits.AddRange(exits);
@@ -258,7 +258,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set interaction
             Interaction = interaction;
@@ -284,7 +284,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set interaction
             Interaction = interaction;
@@ -310,7 +310,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set exit
             exits.Add(exit);
@@ -336,7 +336,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set exit
             exits.Add(exit);
@@ -362,7 +362,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set exits
             this.exits.AddRange(exits);
@@ -389,7 +389,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set interaction
             Interaction = interaction;
@@ -419,7 +419,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set interaction
             Interaction = interaction;
@@ -449,7 +449,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
 
             // set interaction
             Interaction = interaction;
@@ -475,7 +475,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
         }
 
         /// <summary>
@@ -490,7 +490,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set exits
             this.exits.AddRange(exits);
@@ -509,7 +509,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set interaction
             Interaction = interaction;
@@ -531,7 +531,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set exits
             exits.Add(exit);
@@ -553,7 +553,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set exits
             this.exits.AddRange(exits);
@@ -576,7 +576,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set interaction
             Interaction = interaction;
@@ -602,7 +602,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set interaction
             Interaction = interaction;
@@ -628,7 +628,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set exit
             exits.Add(exit);
@@ -654,7 +654,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set exits
             exits.Add(exit);
@@ -680,7 +680,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set exits
             this.exits.AddRange(exits);
@@ -707,7 +707,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set interaction
             Interaction = interaction;
@@ -737,7 +737,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set interaction
             Interaction = interaction;
@@ -767,7 +767,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
 
             // set interaction
             Interaction = interaction;
@@ -1617,7 +1617,7 @@ namespace AdventureFramework.Locations
         public void SpecifyConditionalDescription(ConditionalDescription description)
         {
             // set description
-            this.description = description;
+            this.Description = description;
         }
 
         /// <summary>

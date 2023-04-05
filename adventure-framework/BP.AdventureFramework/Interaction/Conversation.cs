@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
-using AdventureFramework.IO;
 
 namespace BP.AdventureFramework.Interaction
 {
     /// <summary>
     /// Represents an in-game conversation with a character.
     /// </summary>
-    public class Conversation : XMLSerializableObject
+    public class Conversation
     {
         #region Properties
 
@@ -37,7 +35,7 @@ namespace BP.AdventureFramework.Interaction
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the Conversation class.
@@ -64,6 +62,10 @@ namespace BP.AdventureFramework.Interaction
         {
             Lines.AddRange(lines);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Reset this conversation.
@@ -121,49 +123,6 @@ namespace BP.AdventureFramework.Interaction
             for (var index = 0; index < CurrentLine; index++)
                 Lines.RemoveAt(index);
         }
-
-        #region XMLSerialization
-
-        /// <summary>
-        /// Handle writing of Xml for this Conversation.
-        /// </summary>
-        /// <param name="writer">The XmlWriter to write Xml with.</param>
-        protected override void OnWriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(GetType().Name);
-            writer.WriteAttributeString("CurrentLine", CurrentLine.ToString());
-            writer.WriteAttributeString("RepeatLastElement", RepeatLastElement.ToString());
-
-            writer.WriteStartElement("Lines");
-
-            foreach (var element in Lines)
-                element.WriteXml(writer);
-
-            writer.WriteEndElement();
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Handle reading of Xml for this Conversation.
-        /// </summary>
-        /// <param name="node">The node to read Xml from.</param>
-        protected override void OnReadXmlNode(XmlNode node)
-        {
-            CurrentLine = int.Parse(GetAttribute(node, "CurrentLine").Value);
-            RepeatLastElement = bool.Parse(GetAttribute(node, "RepeatLastElement").Value);
-
-            var linesNode = GetNode(node, "Lines");
-
-            for (var index = 0; index < linesNode.ChildNodes.Count; index++)
-            {
-                if (Lines.Count <= index)
-                    Lines.Add(new ConversationElement());
-
-                Lines[index].ReadXmlNode(linesNode.ChildNodes[index]);
-            }
-        }
-
-        #endregion
 
         #endregion
     }

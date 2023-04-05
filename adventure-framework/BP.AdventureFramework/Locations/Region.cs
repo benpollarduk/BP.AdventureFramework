@@ -96,7 +96,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = new Description(description);
+            this.Description = new Description(description);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace AdventureFramework.Locations
             this.name = name;
 
             // set description
-            this.description = description;
+            this.Description = description;
         }
 
         /// <summary>

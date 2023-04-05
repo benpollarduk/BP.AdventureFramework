@@ -1,23 +1,20 @@
-﻿using System.Xml;
-using AdventureFramework.IO;
-
-namespace BP.AdventureFramework.Interaction
+﻿namespace BP.AdventureFramework.Interaction
 {
     /// <summary>
     /// Represents a description of an object.
     /// </summary>
-    public class Description : XMLSerializableObject
+    public class Description
     {
         #region Properties
 
         /// <summary>
-        /// Get or set the description.
+        /// Get the description.
         /// </summary>
-        protected string trueDescription;
+        public string DefaultDescription { get; protected set; }
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the Description class
@@ -25,41 +22,8 @@ namespace BP.AdventureFramework.Interaction
         /// <param name="description">The description</param>
         public Description(string description)
         {
-            trueDescription = description;
+            DefaultDescription = description;
         }
-
-        /// <summary>
-        /// Get the description.
-        /// </summary>
-        /// <returns>The description as a string.</returns>
-        public virtual string GetDescription()
-        {
-            return trueDescription;
-        }
-
-        #region XmlSerialization
-
-        /// <summary>
-        /// Handle writing of Xml for this Description.
-        /// </summary>
-        /// <param name="writer">The XmlWriter to write Xml with.</param>
-        protected override void OnWriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("Description");
-            writer.WriteAttributeString("trueDescription", GetDescription());
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Handle reading of Xml for this Description.
-        /// </summary>
-        /// <param name="node">The node to read Xml from.</param>
-        protected override void OnReadXmlNode(XmlNode node)
-        {
-            trueDescription = GetAttribute(node, "trueDescription").Value;
-        }
-
-        #endregion
 
         #endregion
     }

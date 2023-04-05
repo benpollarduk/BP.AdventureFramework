@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 
 namespace BP.AdventureFramework.Interaction
 {
@@ -20,7 +19,7 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Get or set the interaction.
         /// </summary>
-        public InteractionCallback Interaction { get; set; } = (i, target) => new InteractionResult(EInteractionEffect.NoEffect, i);
+        public InteractionCallback Interaction { get; set; } = (i, target) => new InteractionResult(InteractionEffect.NoEffect, i);
 
         /// <summary>
         /// Get the items this Character holds.
@@ -72,10 +71,10 @@ namespace BP.AdventureFramework.Interaction
         }
 
         /// <summary>
-        /// Handle transferal of delegation to this Character from a source ITransferableDelegation object. This should only concern top level properties and fields.
+        /// Handle transferal of delegation to this Character from a source ITransferableDelegation object.
         /// </summary>
         /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        protected override void OnTransferFrom(ITransferableDelegation source)
+        public override void TransferFrom(ITransferableDelegation source)
         {
             var c = source as Character;
             Interaction = c?.Interaction;
@@ -85,7 +84,7 @@ namespace BP.AdventureFramework.Interaction
         /// Handle registration of all child properties of this Character that are ITransferableDelegation.
         /// </summary>
         /// <param name="children">A list containing all the ITransferableDelegation properties of this Character.</param>
-        protected override void OnRegisterTransferableChildren(ref List<ITransferableDelegation> children)
+        public override void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
         {
             foreach (var i in Items)
             {
@@ -99,7 +98,7 @@ namespace BP.AdventureFramework.Interaction
                 command.RegisterTransferableChildren(ref children);
             }
 
-            base.OnRegisterTransferableChildren(ref children);
+            base.RegisterTransferableChildren(ref children);
         }
 
         /// <summary>
@@ -275,79 +274,6 @@ namespace BP.AdventureFramework.Interaction
 
         }
 
-        #region XmlSerialization
-
-        /// <summary>
-        /// Handle writing of Xml for this Character.
-        /// </summary>
-        /// <param name="writer">The XmlWriter to write Xml with.</param>
-        protected override void OnWriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("Character");
-            writer.WriteAttributeString("IsAlive", IsAlive.ToString());
-
-            writer.WriteStartElement("Items");
-
-            for (var i = 0; i < Items.Count; i++)
-                Items[i].WriteXml(writer);
-
-            writer.WriteEndElement();
-            writer.WriteStartElement("AdditionalActionableCommands");
-
-            foreach (var command in AdditionalCommands)
-                command.WriteXml(writer);
-
-            writer.WriteEndElement();
-            base.OnWriteXml(writer);
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Handle reading of Xml for this Character.
-        /// </summary>
-        /// <param name="node">The node to read Xml from.</param>
-        protected override void OnReadXmlNode(XmlNode node)
-        {
-            var itemsNode = GetNode(node, "Items");
-            var itemIdsInCollection = new List<string>();
-
-            for (var index = 0; index < itemsNode.ChildNodes.Count; index++)
-            {
-                var itemElementNode = itemsNode.ChildNodes[index];
-                var examinableObjectNode = GetNode(itemElementNode, "ExaminableObject");
-                itemIdsInCollection.Add(GetAttribute(examinableObjectNode, "ID").Value);
-
-                if (!FindItemByID(GetAttribute(examinableObjectNode, "ID").Value, out var item, true))
-                {
-                    item = new Item(string.Empty, string.Empty, false);
-                    Items.Add(item);
-                }
-
-                item.ReadXmlNode(itemElementNode);
-            }
-
-
-            var itemsToRemove = new List<Item>();
-
-            foreach (var i in Items)
-            {
-                if (!itemIdsInCollection.Contains(i.ID))
-                    itemsToRemove.Add(i);
-            }
-
-            Items.RemoveAll(i => itemsToRemove.Contains(i));
-            IsAlive = bool.Parse(GetAttribute(node, "IsAlive").Value);
-
-            var customCommandsNode = GetNode(node, "AdditionalActionableCommands");
-
-            for (var index = 0; index < customCommandsNode.ChildNodes.Count; index++)
-                AdditionalCommands[index].ReadXmlNode(customCommandsNode.ChildNodes[index]);
-
-            base.OnReadXmlNode(GetNode(node, "ExaminableObject"));
-        }
-
-        #endregion
-
         #endregion
 
         #region IImplementOwnActions Members
@@ -371,7 +297,7 @@ namespace BP.AdventureFramework.Interaction
         /// Find a command by its name.
         /// </summary>
         /// <param name="command">The name of the command to find.</param>
-        /// <returns>The ActionableCommand (if it is found).</returns>
+        /// <returns>The ActionableCommand.</returns>
         public ActionableCommand FindCommand(string command)
         {
             foreach (var c in AdditionalCommands)

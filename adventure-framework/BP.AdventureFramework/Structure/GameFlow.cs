@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using AdventureFramework.IO;
 using AdventureFramework.Rendering;
 using AdventureFramework.Rendering.Frames;
 using AdventureFramework.Sound.Players;

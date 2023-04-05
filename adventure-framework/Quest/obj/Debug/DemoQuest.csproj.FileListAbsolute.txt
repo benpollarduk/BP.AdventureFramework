@@ -1,0 +1,16 @@
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.exe
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.pdb
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\Quest.exe
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\Quest.pdb
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\AdventureFramework.dll
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\AdventureFramework.pdb
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\AdventureFramework.xml
+\\SINCOSERVER2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\DemoQuest.csprojResolveAssemblyReference.cache
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\Quest.exe
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\Quest.pdb
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\AdventureFramework.dll
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\AdventureFramework.pdb
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\AdventureFramework.xml
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\DemoQuest.csprojResolveAssemblyReference.cache
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.exe
+\\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.pdb

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DB7EA149-1914-4C0F-8859-63CB84D0E9E5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdventureFramework</RootNamespace>
+    <AssemblyName>AdventureFramework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameStructure\GameCreationHelper.cs" />
+    <Compile Include="Interaction\ActionableCommand.cs" />
+    <Compile Include="Interaction\ExaminationResult.cs" />
+    <Compile Include="Interaction\Inhabitants\Character.cs" />
+    <Compile Include="Interaction\Inhabitants\Conversation.cs" />
+    <Compile Include="Interaction\Inhabitants\ConversationElement.cs" />
+    <Compile Include="Interaction\Inhabitants\ITalkative.cs" />
+    <Compile Include="Interaction\Inhabitants\NonPlayableCharacter.cs" />
+    <Compile Include="Interaction\Inhabitants\ReasonEventArgs.cs" />
+    <Compile Include="Interaction\Inhabitants\PlayableCharacter.cs" />
+    <Compile Include="Interaction\IImplementOwnActions.cs" />
+    <Compile Include="Interaction\Items\Puzzle.cs" />
+    <Compile Include="Interaction\Items\PuzzleEventArgs.cs" />
+    <Compile Include="Interaction\Items\PuzzleResult.cs" />
+    <Compile Include="Interaction\Result.cs" />
+    <Compile Include="IO\GameSave.cs" />
+    <Compile Include="GameStructure\GameFlow.cs" />
+    <Compile Include="GameStructure\Game.cs" />
+    <Compile Include="GameStructure\GameEndedEventArgs.cs" />
+    <Compile Include="Interaction\ConditionalDescription.cs" />
+    <Compile Include="Interaction\Description.cs" />
+    <Compile Include="Interaction\ExaminableObject.cs" />
+    <Compile Include="Interaction\IInteractWithItem.cs" />
+    <Compile Include="Interaction\Items\Collectable.cs" />
+    <Compile Include="Interaction\Items\Item.cs" />
+    <Compile Include="Interaction\Items\StaticItem.cs" />
+    <Compile Include="Locations\Exit.cs" />
+    <Compile Include="Locations\GameLocation.cs" />
+    <Compile Include="Interaction\IExaminable.cs" />
+    <Compile Include="Interaction\InteractionResult.cs" />
+    <Compile Include="Locations\Overworld.cs" />
+    <Compile Include="Locations\Region.cs" />
+    <Compile Include="Locations\Room.cs" />
+    <Compile Include="Interaction\Decision.cs" />
+    <Compile Include="IO\TextParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Drawer.cs" />
+    <Compile Include="Rendering\Frames\ASCIIImageFrame.cs" />
+    <Compile Include="Rendering\Frames\Frame.cs" />
+    <Compile Include="Rendering\Frames\HelpFrame.cs" />
+    <Compile Include="Rendering\Frames\IOOperationFrame.cs" />
+    <Compile Include="Rendering\Frames\EndFrame.cs" />
+    <Compile Include="Rendering\FrameDrawer.cs" />
+    <Compile Include="Rendering\Frames\PuzzleFrame.cs" />
+    <Compile Include="Rendering\Frames\RegionMapFrame.cs" />
+    <Compile Include="Rendering\Frames\SceneFrame.cs" />
+    <Compile Include="Rendering\Frames\SceneFrameEventArgs.cs" />
+    <Compile Include="Rendering\Frames\TitleFrame.cs" />
+    <Compile Include="IO\XMLSerializeableObject.cs" />
+    <Compile Include="Rendering\ImageComparison\BitmapAnalysis\BinaryBitmapAnaysis.cs" />
+    <Compile Include="Rendering\ImageComparison\BitmapAnalysis\EightBitGrayscaleBitmapAnalysis.cs" />
+    <Compile Include="Rendering\ImageComparison\BitmapAnalysis\IBitmapAnalysis.cs" />
+    <Compile Include="Rendering\ImageComparison\BitmapAnalysis\TriColourBitmapAnalysis.cs" />
+    <Compile Include="Rendering\ImageComparison\BitmapSegment.cs" />
+    <Compile Include="Rendering\ImageComparison\SegmentedBitmap.cs" />
+    <Compile Include="Rendering\MapDrawer.cs" />
+    <Compile Include="Sound\Beep.cs" />
+    <Compile Include="Sound\IBeep.cs" />
+    <Compile Include="Sound\Note.cs" />
+    <Compile Include="Sound\Chains.cs" />
+    <Compile Include="Sound\Players\BeepPlayer.cs" />
+    <Compile Include="Sound\Chain.cs" />
+    <Compile Include="Sound\Players\SoundPlayer.cs" />
+    <Compile Include="Sound\Players\StreamPlayer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

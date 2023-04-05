@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AdventureFramework.Interaction.ActionableCommand" Collapsed="true">
+    <Position X="1.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAIgIAQQIAAABAIAAAQAAAEAAAABAAAAACQ=</HashCode>
+      <FileName>Interaction\ActionableCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Interaction.Character" Collapsed="true">
+    <Position X="7.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgAAAEIBLAAwAAgAAAIAIAAAKgBACCEQgAUAEAA=</HashCode>
+      <FileName>Interaction\Character.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Interaction.ConditionalDescription" Collapsed="true">
+    <Position X="31" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAKAIAQQIAAAAAIAAAAAAgAAAAAAAAAAACA=</HashCode>
+      <FileName>Interaction\ConditionalDescription.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Interaction.Conversation" Collapsed="true">
+    <Position X="22" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgIAAQAAAAAJAAQAAAAAAEAAAYAAgAGAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Conversation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.ConversationElement" Collapsed="true">
+    <Position X="24.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEABAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Interaction\ConversationElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.Decision" Collapsed="true">
+    <Position X="37" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAIABAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Decision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.Description" Collapsed="true">
+    <Position X="31" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAIAAQIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Description.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.ExaminableObject" Collapsed="true">
+    <Position X="10.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAgAIgoIQQIABAAAYAAEAEAAEAACARAAAAAiA=</HashCode>
+      <FileName>Interaction\ExaminableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Interaction.ExaminationResult" Collapsed="true">
+    <Position X="26.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAQAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ExaminationResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.InteractionResult" Collapsed="true">
+    <Position X="28.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAgAIAAQAAQAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\InteractionResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.Item" Collapsed="true">
+    <Position X="4" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAEIAIAAQAABAAAIAYAAEIABAECAQABQAEAA=</HashCode>
+      <FileName>Interaction\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Interaction.NonPlayableCharacter" Collapsed="true">
+    <Position X="6.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAQAAAAAAAAAgAAAAYAAEAAAAAAAAA=</HashCode>
+      <FileName>Interaction\NonPlayableCharacter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Interaction.PlayableCharacter" Collapsed="true">
+    <Position X="8.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAEAAIAAQAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Interaction\PlayableCharacter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.ReasonEventArgs" Collapsed="true">
+    <Position X="38.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ReasonEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Interaction.Result" Collapsed="true">
+    <Position X="27.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.IO.GameSave" Collapsed="true">
+    <Position X="33.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgAAAARAAAgAAAAAIAAAAAIAAAAAgAAAAAAwAAAAA=</HashCode>
+      <FileName>IO\GameSave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.IO.TextParser" Collapsed="true">
+    <Position X="33.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAwABAAAAIAAAIgAAAAAAAAAAAAgAQIAAA=</HashCode>
+      <FileName>IO\TextParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.IO.XMLSerializableObject" Collapsed="true">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAgAIAAAAICAQQAAIAACCEABBAIIAAAAAgEAAAAA=</HashCode>
+      <FileName>IO\XMLSerializeableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Locations.Exit" Collapsed="true">
+    <Position X="10.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAAAAAAIAAQACAEAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Locations\Exit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Locations.GameLocation" Collapsed="true">
+    <Position X="15.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIQIAAQAABAAAACQAIAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Locations\GameLocation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Locations.Overworld" Collapsed="true">
+    <Position X="13" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQCAAAIAoAQQAAAAAAIAgAAAAACAACAgAAAAAAE=</HashCode>
+      <FileName>Locations\Overworld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Locations.Region" Collapsed="true">
+    <Position X="15.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABIAIIAAQCAIAAAICAAIAAAAAAiQAAAIAEAA=</HashCode>
+      <FileName>Locations\Region.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Locations.Room" Collapsed="true">
+    <Position X="17.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEQgCABEEIRLQBQCE0jAAIAoBADIhFCQSUQBEQAEAg=</HashCode>
+      <FileName>Locations\Room.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Drawer" Collapsed="true">
+    <Position X="6.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAKAAAAAAADCAEAAAABBAAAAAAAAAAAABAQAAAAAA=</HashCode>
+      <FileName>Rendering\Drawer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.FrameDrawer" Collapsed="true">
+    <Position X="7.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAIACQACAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Rendering\FrameDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.InGameGraphics" Collapsed="true">
+    <Position X="37" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <FileName>Rendering\InGameGraphics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.MapDrawer" Collapsed="true">
+    <Position X="5.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAIGIAAAAgAQAAAQEAgAAEACCAAAAAQAAABEAAAA=</HashCode>
+      <FileName>Rendering\MapDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.ASCIIAnimationFrame" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhQAAACAABABAAIAASACCIABAAAAAJAQAASAAAAE=</HashCode>
+      <FileName>Rendering\Frames\ASCIIAnimationFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.ASCIIImageFrame" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAEAAgAAABAAAAAACAAACAIAAEACAAACAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\ASCIIImageFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.AsyncIOOperationFrame" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEAAAABAAA=</HashCode>
+      <FileName>Rendering\Frames\AsyncIOOperationFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.EndFrame" Collapsed="true">
+    <Position X="19.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAIAAAAACAAAAAAAAAAAAAAAIAAAACA=</HashCode>
+      <FileName>Rendering\Frames\EndFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.FileIOFrame" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEBAAAAAAAAAAAQAUAAEABQQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\FileIOFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.Frame" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgACEACAAAAAAAEACCABAAAAAAAAAAIQCAAAAEAA=</HashCode>
+      <FileName>Rendering\Frames\Frame.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.HelpFrame" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAUAAgAEAAIAAACAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\HelpFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.LoadFileFrame" Collapsed="true">
+    <Position X="1.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\LoadFileFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.RegionMapFrame" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAgAAAAAAEAAAADAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\RegionMapFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.SaveFileFrame" Collapsed="true">
+    <Position X="3.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\SaveFileFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.SceneFrame" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEABAADAAQAAAAAAABAAAAIQAAACA=</HashCode>
+      <FileName>Rendering\Frames\SceneFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.FrameEventArgs" Collapsed="true">
+    <Position X="38.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAE=</HashCode>
+      <FileName>Rendering\Frames\SceneFrameEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Rendering.Frames.TitleFrame" Collapsed="true">
+    <Position X="21.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAgAEAAIAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\TitleFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Sound.Chain" Collapsed="true">
+    <Position X="33.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAACAEAACABAAAAAAAAABAAAAAAAAIBEAAA=</HashCode>
+      <FileName>Sound\Chain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Sound.Chains" Collapsed="true">
+    <Position X="35.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAEAAAAAAAAAAAABAAAAAQAAAAA=</HashCode>
+      <FileName>Sound\Chains.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Sound.Players.BeepPlayer" Collapsed="true">
+    <Position X="0.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABQAAUAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sound\Players\BeepPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Sound.Players.SoundPlayer" Collapsed="true">
+    <Position X="1.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAA=</HashCode>
+      <FileName>Sound\Players\SoundPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Sound.Players.StreamPlayer" Collapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Sound\Players\StreamPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Structure.Game" Collapsed="true">
+    <Position X="19.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CGOgAAghrAJ4IA+QIEAAggZAQABEQgUBCCAAAQBAICA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdventureFramework.Structure.GameCreationHelper" Collapsed="true">
+    <Position X="33.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAEAAEAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameCreationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Structure.GameEndedEventArgs" Collapsed="true">
+    <Position X="35.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAI=</HashCode>
+      <FileName>Structure\GameEndedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Structure.GameFlow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgCBoiAABCAAkQAEGTMIBgMgGAsWEJAoEQ0UAUQIQAA=</HashCode>
+      <FileName>Structure\GameFlow.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdventureFramework.Structure.GameIOEventArgs" Collapsed="true">
+    <Position X="38.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameIOEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdventureFramework.Structure.HostSetup" Collapsed="true">
+    <Position X="35.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAABAAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Structure\HostSetup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="AdventureFramework.Sound.Beep" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAIAAAACAAEEAAAAAAAAAIAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Sound\Beep.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="AdventureFramework.Sound.Note" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAEAAAAAAAAAIAAAAAAAIgAAACIAAA=</HashCode>
+      <FileName>Sound\Note.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Interface Name="AdventureFramework.Interaction.IExaminable" Collapsed="true">
+    <Position X="35.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAEAAAAQAAAAAAA=</HashCode>
+      <FileName>Interaction\IExaminable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AdventureFramework.Interaction.IImplementOwnActions" Collapsed="true">
+    <Position X="37" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAIABAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\IImplementOwnActions.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AdventureFramework.Interaction.IInteractWithItem" Collapsed="true">
+    <Position X="38.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\IInteractWithItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AdventureFramework.Interaction.ITalkative" Collapsed="true">
+    <Position X="33.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ITalkative.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AdventureFramework.Interaction.ITransferableDelegation" Collapsed="true">
+    <Position X="35.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAIAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Interaction\ITransferableDelegation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AdventureFramework.Sound.IBeep" Collapsed="true">
+    <Position X="33.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sound\IBeep.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AdventureFramework.Interaction.EReactionToInput" Collapsed="true">
+    <Position X="38.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Decision.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Interaction.EExaminationResults" Collapsed="true">
+    <Position X="38.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ExaminationResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Interaction.EInteractionEffect" Collapsed="true">
+    <Position X="38.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAAAAAAAAAAAAAAAAAQBAAAAAAAAAAAAAkAA=</HashCode>
+      <FileName>Interaction\InteractionResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Interaction.ECommand" Collapsed="true">
+    <Position X="35.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAAAEEQAAAAAAA=</HashCode>
+      <FileName>Interaction\PlayableCharacter.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Locations.ECardinalDirection" Collapsed="true">
+    <Position X="33.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Locations\Room.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Rendering.EKeyType" Collapsed="true">
+    <Position X="35.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAAEAAAA=</HashCode>
+      <FileName>Rendering\FrameDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Rendering.EFrameDrawerOption" Collapsed="true">
+    <Position X="35.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAgAAAAACAAAAAAAAggAAAAA=</HashCode>
+      <FileName>Rendering\FrameDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Rendering.ERegionMapMode" Collapsed="true">
+    <Position X="35.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAACAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\MapDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Rendering.ERegionDisplayMode" Collapsed="true">
+    <Position X="33.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\MapDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Sound.EConsoleNote" Collapsed="true">
+    <Position X="37" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAIA0ACAA0AMAAAAAKAEAAAA=</HashCode>
+      <FileName>Sound\Note.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Sound.ENoteDuration" Collapsed="true">
+    <Position X="37" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwEAAAIAAAAAAAAAAJAAAgAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sound\Note.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Sound.Players.ESoundFlags" Collapsed="true">
+    <Position X="37" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAEABAAEAAAAAAAACAAIAAgAAABAAgAAAAgAIAAAA=</HashCode>
+      <FileName>Sound\Players\StreamPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Sound.Players.ESyncModes" Collapsed="true">
+    <Position X="38.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sound\Players\StreamPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Structure.EGameCommand" Collapsed="true">
+    <Position X="37" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAkMAAABAIACEAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Structure.EIOOperation" Collapsed="true">
+    <Position X="33.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AdventureFramework.Structure.EExitMode" Collapsed="true">
+    <Position X="33.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameEndedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="AdventureFramework.Interaction.ActionCallback" Collapsed="true">
+    <Position X="33.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ActionableCommand.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Interaction.Condition" Collapsed="true">
+    <Position X="37" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ConditionalDescription.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Interaction.ExaminationCallback" Collapsed="true">
+    <Position X="38.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\ExaminableObject.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Interaction.InteractionCallback" Collapsed="true">
+    <Position X="33.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\InteractionResult.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Interaction.ReasonEventHandler" Collapsed="true">
+    <Position X="35.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Interaction\ReasonEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Rendering.Frames.FrameEventHandler" Collapsed="true">
+    <Position X="33.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rendering\Frames\SceneFrameEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.GameCreator" Collapsed="true">
+    <Position X="35.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.IOOperationCallback" Collapsed="true">
+    <Position X="35.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.IOSprecifiedFileOperationCallback" Collapsed="true">
+    <Position X="37" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.CompletionCheck" Collapsed="true">
+    <Position X="35.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Structure\Game.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.OverworldGeneration" Collapsed="true">
+    <Position X="38.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameCreationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.PlayerGeneration" Collapsed="true">
+    <Position X="33.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameCreationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.GameEndedEventHandler" Collapsed="true">
+    <Position X="37" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameEndedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.WaitForKeyPressCallback" Collapsed="true">
+    <Position X="37" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\GameFlow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdventureFramework.Structure.GameIOEventHandler" Collapsed="true">
+    <Position X="38.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Structure\GameIOEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

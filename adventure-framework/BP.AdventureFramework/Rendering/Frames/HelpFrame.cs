@@ -1,79 +1,44 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace AdventureFramework.Rendering.Frames
+namespace BP.AdventureFramework.Rendering.Frames
 {
     /// <summary>
-    /// Represents a frame for displaying help
+    /// Represents a frame for displaying help.
     /// </summary>
     public class HelpFrame : Frame
     {
         #region Properties
 
         /// <summary>
-        /// Get or set the commands and descriptions to display to the user
+        /// Get or set the commands and descriptions to display to the user.
         /// </summary>
-        public Dictionary<string, string> CommandsDictionary
-        {
-            get { return commandsDictionary; }
-            set { commandsDictionary = value; }
-        }
+        public Dictionary<string, string> CommandsDictionary { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
-        /// Get or set the commands and descriptions to display to the user
+        /// Get or set the title.
         /// </summary>
-        private Dictionary<string, string> commandsDictionary = new Dictionary<string, string>();
+        public string Title { get; set; }
 
         /// <summary>
-        /// Get the title
+        /// Get the description.
         /// </summary>
-        public string Title
-        {
-            get { return title; }
-            set { title = value; }
-        }
-
-        /// <summary>
-        /// Get or set the title
-        /// </summary>
-        private string title;
-
-        /// <summary>
-        /// Get the description
-        /// </summary>
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-
-        /// <summary>
-        /// Get or set the description
-        /// </summary>
-        private string description;
+        public string Description { get; set; }
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the HelpFrame class
+        /// Initializes a new instance of the HelpFrame class.
         /// </summary>
         public HelpFrame()
         {
-            // no input
             AcceptsInput = false;
-
-            // do not show cursor
             ShowCursor = false;
-
-            // set title
             Title = "Help";
-
-            // set decription
             Description = "Provides help for in game commands";
 
-            // add commands
             CommandsDictionary.Add("About", "View information about the games creator");
             CommandsDictionary.Add("space1", "");
             CommandsDictionary.Add("CommandsOn / CommandsOff", "Turn commands on/off");
@@ -91,93 +56,57 @@ namespace AdventureFramework.Rendering.Frames
         }
 
         /// <summary>
-        /// Initializes a new instance of the HelpFrame class
+        /// Initializes a new instance of the HelpFrame class.
         /// </summary>
-        /// <param name="title">Specify the frames title</param>
-        /// <param name="description">Specify the frames description</param>
-        /// <param name="commands">Sepcify the commands and the descriptions to display</param>
+        /// <param name="title">Specify the frames title.</param>
+        /// <param name="description">Specify the frames description.</param>
+        /// <param name="commands">Specify the commands and the descriptions to display.</param>
         public HelpFrame(string title, string description, Dictionary<string, string> commands)
         {
-            // no input
             AcceptsInput = false;
-
-            // do not show cursor
             ShowCursor = false;
-
-            // set title
             Title = title;
-
-            // set decription
             Description = description;
-
-            // add commands
             CommandsDictionary = commands;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// Build this HelpFrame into a text based display
+        /// Build this HelpFrame into a text based display.
         /// </summary>
-        /// <param name="width">Specify the width of the Frame</param>
-        /// <param name="height">Specify the height of the Frame</param>
-        /// <param name="drawer">The FrameDrawer to draw the Frame with</param>
-        /// <returns>A string representing the Frame</returns>
+        /// <param name="width">Specify the width of the Frame.</param>
+        /// <param name="height">Specify the height of the Frame.</param>
+        /// <param name="drawer">The FrameDrawer to draw the Frame with.</param>
+        /// <returns>A string representing the Frame.</returns>
         public override string BuildFrame(int width, int height, FrameDrawer drawer)
         {
-            // create builder
             var builder = new StringBuilder();
-
-            // create top
-            builder.Append(drawer.ConstructDevider(width));
-
-            // add message
+            builder.Append(drawer.ConstructDivider(width));
             builder.Append(drawer.ConstructCentralisedString(Title, width));
-
-            // create devider
-            builder.Append(drawer.ConstructDevider(width));
-
-            // add message
+            builder.Append(drawer.ConstructDivider(width));
             builder.Append(drawer.ConstructCentralisedString(Description, width));
-
-            // create devider
-            builder.Append(drawer.ConstructDevider(width));
-
-            // add commands title
+            builder.Append(drawer.ConstructDivider(width));
             builder.Append(drawer.ConstructWrappedPaddedString("GENERAL COMMANDS", width, false));
-
-            // add space
             builder.Append(drawer.ConstructWrappedPaddedString(string.Empty, width, false));
 
-            // itterate keys
             foreach (var key in CommandsDictionary.Keys)
-                // if a key and a description
-                if (!string.IsNullOrEmpty(key) &&
-                    !string.IsNullOrEmpty(CommandsDictionary[key]))
-                    // add key and description
-                    builder.Append(drawer.ConstructWrappedPaddedString(string.Format("{0}{1}- {2}", key, drawer.ConstructWhitespaceString(30 - key.Length), CommandsDictionary[key]), width, false));
-                else if (!string.IsNullOrEmpty(key) &&
-                         string.IsNullOrEmpty(CommandsDictionary[key]))
-                    // add empty
+            {
+                if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(CommandsDictionary[key]))
+                    builder.Append(drawer.ConstructWrappedPaddedString($"{key}{drawer.ConstructWhitespaceString(30 - key.Length)}- {CommandsDictionary[key]}", width, false));
+                else if (!string.IsNullOrEmpty(key) && string.IsNullOrEmpty(CommandsDictionary[key]))
                     builder.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
                 else
-                    // add empty
                     builder.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
+            }
 
-            // add buffer
             builder.Append(drawer.ConstructPaddedArea(width, height - (drawer.DetermineLinesInString(builder.ToString()) + 7)));
-
-            // add commands title
             builder.Append(drawer.ConstructWrappedPaddedString("Press Enter to return to the game", width, true));
-
-            // add buffer
             builder.Append(drawer.ConstructPaddedArea(width, 4));
-
-            // create devider
-            var devider = drawer.ConstructDevider(width);
-
-            // add devider removing the last \n
-            builder.Append(devider.Remove(devider.Length - 1));
-
-            // return builder
+            var divider = drawer.ConstructDivider(width);
+            builder.Append(divider.Remove(divider.Length - 1));
             return builder.ToString();
         }
 

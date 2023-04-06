@@ -176,9 +176,9 @@ namespace Quest
             Region r = new Region("Everglades", "The starting place");
 
             // create rooms
-            r.CreateRoom(new Room("Forest Entrance", new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(ECardinalDirection.North)), 2, 0);
-            r.CreateRoom(new Room("Forest Floor", new Description("The forest is dense, with a few patches of light breaking the darkness. To the north is what looks like a small cave, to the south is the entrance to the forest"), new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.South)), 2, 1);
-            r.CreateRoom(new Room("Cave Mouth", new Description("A cave mouth looms in front of you to the north. You can hear the sound of the ocean coming from the west"), new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.West)), 2, 2);
+            r.CreateRoom(new Room("Forest Entrance", new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(CardinalDirection.North)), 2, 0);
+            r.CreateRoom(new Room("Forest Floor", new Description("The forest is dense, with a few patches of light breaking the darkness. To the north is what looks like a small cave, to the south is the entrance to the forest"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South)), 2, 1);
+            r.CreateRoom(new Room("Cave Mouth", new Description("A cave mouth looms in front of you to the north. You can hear the sound of the ocean coming from the west"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.West)), 2, 2);
 
             // create shell item
             Item conchShell = new Item("Conch shell", "A pretty conch shell, it is about the size of a coconut", true);
@@ -202,11 +202,11 @@ namespace Quest
             });
 
             // create rooms
-            r.CreateRoom(new Room("Great Western Ocean", new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungerly. To the east is a small clearing"), new[] { new Exit(ECardinalDirection.East) }, conchShell), 1, 2);
-            r.CreateRoom(new Room("Cave", new Description("The cave is so dark you struggling to see. A screetching noise is audible to the east"), new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East)), 2, 3);
+            r.CreateRoom(new Room("Great Western Ocean", new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungerly. To the east is a small clearing"), new[] { new Exit(CardinalDirection.East) }, conchShell), 1, 2);
+            r.CreateRoom(new Room("Cave", new Description("The cave is so dark you struggling to see. A screetching noise is audible to the east"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.East)), 2, 3);
 
             // create inner cave
-            Room innerCave = new Room("Inner Cave", string.Empty, new Exit(ECardinalDirection.West), new Exit(ECardinalDirection.North, true));
+            Room innerCave = new Room("Inner Cave", string.Empty, new Exit(CardinalDirection.West), new Exit(CardinalDirection.North, true));
 
             // the interaction for the cave
             InteractionCallback innerCaveInteraction = new InteractionCallback((Item i, IInteractWithItem target) =>
@@ -216,7 +216,7 @@ namespace Quest
                     i.Name.ToUpper() == "CONCH SHELL")
                 {
                     // unlock exits
-                    innerCave[ECardinalDirection.North].Unlock();
+                    innerCave[CardinalDirection.North].Unlock();
 
                     // create effect
                     return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "You blow into the Conch Shell. The Conch Shell howls, the  bats leave! Conch shell crumbles to peices");
@@ -233,11 +233,11 @@ namespace Quest
             innerCave.Interaction = innerCaveInteraction;
 
             // specify conditional description of cave
-            innerCave.SpecifyConditionalDescription(new ConditionalDescription("With the bats gone there is daylight to the north. To the west is the cave entrance", "As you enter the inner cave the screetching gets louder, and in the gloom you can make out what looks like a million sets of eyes looking back at you. Bats! You can just make out a few rays of light coming from the north, but the bats are blocking your way", new Condition(() => { return !innerCave[ECardinalDirection.North].IsLocked; })));
+            innerCave.SpecifyConditionalDescription(new ConditionalDescription("With the bats gone there is daylight to the north. To the west is the cave entrance", "As you enter the inner cave the screetching gets louder, and in the gloom you can make out what looks like a million sets of eyes looking back at you. Bats! You can just make out a few rays of light coming from the north, but the bats are blocking your way", new Condition(() => { return !innerCave[CardinalDirection.North].IsLocked; })));
 
             // add inner cave
             r.CreateRoom(innerCave, 3, 3);
-            r.CreateRoom(new Room("Outskirts", new Description("A vast chasm falls away before you"), new Exit(ECardinalDirection.South)), 3, 4);
+            r.CreateRoom(new Room("Outskirts", new Description("A vast chasm falls away before you"), new Exit(CardinalDirection.South)), 3, 4);
 
             // set start room
             r.SetStartRoom(0);
@@ -306,7 +306,7 @@ namespace Quest
             // create bedroom
             Room bedroom = new Room("Bedroom",
                 new Description("The bedroom is large, with one duck-egg blue wall. There is a double bed aginst the western wall, and a few other items of bedroom furniture are dotted around, but they all look pretty scruffy. To the north is a doorway leading to the hallway"),
-                new[] { new Exit(ECardinalDirection.North) },
+                new[] { new Exit(CardinalDirection.North) },
                 new Item("Bed", "The bed is neatly made, Beth makes it every day. By your reckoning there are way too many cushions on it though...", false),
                 new Item("Picture", "The picture is of some flowers and a mountian", false),
                 new Item("TV", "The TV is small - the screen is only 14\"! Two DVD's are propped alongside it 'Miranda' and 'The Vicar Of Dibly'", false));
@@ -315,20 +315,20 @@ namespace Quest
             // eastern hallway
             Room hallway1 = new Room("Eastern Hallway",
                 new Description("The hallway is pretty narrow, and all the walls are bare except for a strange looking telephone. To the east is the front door, but it looks to heavy to open. To the south is the bedroom, to the west the hallway continues"),
-                new[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East, true), new Exit(ECardinalDirection.West) },
+                new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.East, true), new Exit(CardinalDirection.West) },
                 new Item("Telephone", "As soon as you pickup the telephone to examine it you hear hideous feedback. You replace it quickly!", false));
 
 
             // western hallway
             Room hallway2 = new Room("Western hallway",
                 new Description("This hallway is a cotinuation of the Eastern Hallway, to the north is the Bathroom, to the west is the Kitchen, to the South is a neat looking Spare Room. The hallway continues to the East"),
-                new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East), new Exit(ECardinalDirection.West));
+                new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.East), new Exit(CardinalDirection.West));
 
 
             // bath room
             Room bathroom = new Room("Bathroom",
                 new Description("The bathroom is fairly small. There are some clothes drying on a clothes horse. A bath lies along the eastern wall. There is a remarkebly clean toilet and sink along the western wall, with a mirror above the sink. To the north is a large window, it is open and you can see out onto the roof of the flat below. The doorway to the south leads into the Western Hallway"),
-                new[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.North) },
+                new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.North) },
                 new Item("Bath", "A long but narrow bath. You wan't to fill it but you can't because there is a wetsuit in it.", false),
                 new Item("Toilet", "A clean looking toilet. You lift the lid to take a look inside... ergh a floater! You flush the toilet but it just churns around! You close the lid and pretend it isn't there.", false),
                 new Item("Mirror", "Looking in the mirror you see yourself clearly, and make a mental note to grow back some sideburns", false));
@@ -368,7 +368,7 @@ namespace Quest
             // bath room
             Room roof = new Room("Faustos Roof",
                 string.Empty,
-                new[] { new Exit(ECardinalDirection.South) },
+                new[] { new Exit(CardinalDirection.South) },
                 new Item("Sky light", "You peer down into the skylight, only to see a naked Italian man... cooking! Yikes! Not liking the idea of the accidents one could get into by cooking naked you look away quickly", false),
                 mug);
 
@@ -380,7 +380,7 @@ namespace Quest
             // create spare bedroom
             Room bedroom2 = new Room("Spare bedroom",
                 string.Empty,
-                new[] { new Exit(ECardinalDirection.North) },
+                new[] { new Exit(CardinalDirection.North) },
                 new Item("Gamecube", "A Nintendo Gamecube. You pop the disk cover, it looks like someone has been playing Killer7.", false),
                 new Item("Guitar", "The guitar is blue, with birds inlaid on the fret board. On the headstock is someones name... 'Paul Reed Smith'. Who the hell is that. The guitar is litteraly begging to be played...", true));
 
@@ -425,7 +425,7 @@ namespace Quest
             // the kitchen
             Room kitchen = new Room("Kitchen",
                 new Description("The kitchen is a small area with work tops along the northern and eastern walls. There is a kettle on the work top, it has steam rising out of it's spout. There is a also window along the northern wall. Underneath the window is a hamster cage. To the south is the living room, the Western Hallway is to the east."),
-                new[] { new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.East) },
+                new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.East) },
                 new Item("Hamster Cage", "There is a pretty large hamster cage on the floor. When you go upto it you hear a small, but irritated sniffing. Mable sounds annoyed, best leave her alone for now.", false),
                 kettle);
 
@@ -462,7 +462,7 @@ namespace Quest
             // the lounge
             Room lounge = new Room("Lounge",
                 string.Empty,
-                new[] { new Exit(ECardinalDirection.North) },
+                new[] { new Exit(CardinalDirection.North) },
                 new[] { new Item("Map", "This things huge! Who would buy one of these? It looks pretty cheap, like it could have been bought from one of theose massive Swedish outlets. The resoultion of the map is too small to see your road on.", false), new Item("Canvas", "Wow, cool canvas. It is brightly painted with aliens and planets. On one planet there is a rabbit playing a guitar and whistling, but you can't see his face because he has his back turned to you. Something looks wrong with the rabbit...", false), new Item("Table", "The coffee table is one of those large oblong ones. It is made of reconstitued wood, made to look like birch", false), new Item("TV", "The TV is large, and is playing some program with a Chinease looking man dressing a half naked middle aged woman", false), new Item("Lead", "A 10m Venom instrument lead", true) },
                 beth);
 
@@ -543,7 +543,7 @@ namespace Quest
                                 if (obj.ContainsItem("LEAD"))
                                 {
                                     // unlock door
-                                    hallway1[ECardinalDirection.East].Unlock();
+                                    hallway1[CardinalDirection.East].Unlock();
 
                                     // remove beth
                                     lounge.RemoveCharacterFromRoom("Beth");
@@ -574,7 +574,7 @@ namespace Quest
             flat.CreateRoom(bedroom2, 1, 0);
             flat.CreateRoom(kitchen, 0, 1);
             flat.CreateRoom(lounge, 0, 0);
-            flat.CreateRoom(new Room("Stairway", new Description("You are in the Stairway. It is dimly lit because the bulbs have blown again, to the north is a staircase leading down to the other flats. Fausto, your next door neighbour is standing naked at the bottom of the stairs. He looks pretty pissed off about all the noise, and doesn't look like he is going to let you past. To the west is the front door of the flat."), new Exit(ECardinalDirection.West)), 3, 1);
+            flat.CreateRoom(new Room("Stairway", new Description("You are in the Stairway. It is dimly lit because the bulbs have blown again, to the north is a staircase leading down to the other flats. Fausto, your next door neighbour is standing naked at the bottom of the stairs. He looks pretty pissed off about all the noise, and doesn't look like he is going to let you past. To the west is the front door of the flat."), new Exit(CardinalDirection.West)), 3, 1);
 
             // set start room to bedroom
             flat.SetStartRoom(bedroom);
@@ -836,7 +836,7 @@ namespace Quest
             Region castleGrounds = new Region("Castle Grounds", "The gardens around Hyrule are beautiful and well kept");
 
             // create gate
-            Room gate = new Room("Gateway to Hyrule Castle Grounds", string.Empty, new Exit(ECardinalDirection.North, true));
+            Room gate = new Room("Gateway to Hyrule Castle Grounds", string.Empty, new Exit(CardinalDirection.North, true));
 
             // create guard
             NonPlayableCharacter guard = new NonPlayableCharacter("Guard", "The guard looks mean, with a face not even a mother could love. He also looks decidely shifty, considering he is a castle guard");
@@ -903,7 +903,7 @@ namespace Quest
             gate.AddItem(keys);
 
             // create rear of gate
-            Room rearOfGate = new Room("Rear Of Gate", string.Empty, new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.East), new Exit(ECardinalDirection.South, true));
+            Room rearOfGate = new Room("Rear Of Gate", string.Empty, new Exit(CardinalDirection.North), new Exit(CardinalDirection.East), new Exit(CardinalDirection.South, true));
 
             // set description
             rearOfGate.Description = new ConditionalDescription("You are on the otherside of the castle's gate! You can see the guard with his back to you, but he has no idea you are here. He must have though you wen't back to Hyrule town. To the North the track to the castle continues, to the East a path climbs onto the cliff top", "You are on the otherside of the castle's gate. To the North the track to the castle continues, to the East a path climbs onto the cliff top", new Condition(() => { return guard.IsAlive; }));
@@ -917,7 +917,7 @@ namespace Quest
                     case "KEYS":
                         {
                             // unlock door pair
-                            castleGrounds.UnlockDoorPair(ECardinalDirection.North);
+                            castleGrounds.UnlockDoorPair(CardinalDirection.North);
 
                             // no effect
                             return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "The key fits the lock! You turn it and the gate clanks open!");
@@ -938,7 +938,7 @@ namespace Quest
                     case "KEYS":
                         {
                             // unlock door pair
-                            castleGrounds.UnlockDoorPair(ECardinalDirection.South);
+                            castleGrounds.UnlockDoorPair(CardinalDirection.South);
 
                             // no effect
                             return new InteractionResult(EInteractionEffect.ItemUsedUp, i, "The key fits the lock! You turn it and the gate clanks open!");
@@ -951,7 +951,7 @@ namespace Quest
             });
 
             // create cliff top
-            Room cliffTop = new Room("Cliff Top", new Description("The cliff overlooks the gate. You can see the top of the guards head form here, but he is unaware of your presence. To the North the clifftop continues"), new Exit(ECardinalDirection.North));
+            Room cliffTop = new Room("Cliff Top", new Description("The cliff overlooks the gate. You can see the top of the guards head form here, but he is unaware of your presence. To the North the clifftop continues"), new Exit(CardinalDirection.North));
 
             // create vines
             Item vines = new Item("Vines", "The vines grow all the way to the top of the cliff face", false);
@@ -1001,10 +1001,10 @@ namespace Quest
             cliffTop.AddItem(vines);
 
             // create northern cliff top
-            Room cliffTopNorth = new Room("Cliftop North", "The clifftop descends to the West where it meets the otherside of the gate, to the South it contiues along the cliff top", new Exit(ECardinalDirection.West), new Exit(ECardinalDirection.South));
+            Room cliffTopNorth = new Room("Cliftop North", "The clifftop descends to the West where it meets the otherside of the gate, to the South it contiues along the cliff top", new Exit(CardinalDirection.West), new Exit(CardinalDirection.South));
 
             // create corner
-            Room cornerInTrack = new Room("Track Corner", "The track to the castle is laid in a herringbone pattern, it looks very expensive! The track rounds a sharp western corner, where it continues. There is a wooden Signpost on the corner of the apex. Behind the signpost is a suspicious looking pile of rocks. To the South you can see the castle gate", new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.South));
+            Room cornerInTrack = new Room("Track Corner", "The track to the castle is laid in a herringbone pattern, it looks very expensive! The track rounds a sharp western corner, where it continues. There is a wooden Signpost on the corner of the apex. Behind the signpost is a suspicious looking pile of rocks. To the South you can see the castle gate", new Exit(CardinalDirection.North), new Exit(CardinalDirection.South));
 
             // create signpost
             Item signPost = new Item("Signpost", "The sign post is old and made of wood. It Says 'Great Fairy's Fountain'", false);
@@ -1043,7 +1043,7 @@ namespace Quest
             cornerInTrack.AddItem(signPost);
 
             // not visible
-            cornerInTrack[ECardinalDirection.North].IsPlayerVisible = false;
+            cornerInTrack[CardinalDirection.North].IsPlayerVisible = false;
 
             // create pile of rocks
             Item pileOfRocks = new Item("Pile of rocks", "There is a very suspicious pile of rocks against the nothern side of the cliff. They don't look like they have crumbled off in a landslide because they are placed too neatly", false);
@@ -1060,7 +1060,7 @@ namespace Quest
                             if (target is Item)
                             {
                                 // make visible
-                                cornerInTrack[ECardinalDirection.North].IsPlayerVisible = true;
+                                cornerInTrack[CardinalDirection.North].IsPlayerVisible = true;
 
                                 // no effect
                                 return new InteractionResult(EInteractionEffect.TargetUsedUp, i, "You place a bomb by the pile of rocks and light the fuse, then run to a safe distance. You wait as the fuse slowly burns, and then BOOOM! the bomb explodes! Pieces of rock are thrown everywhere. When the dust settles a cave mouth is revealed where the pile of rocks was");
@@ -1079,7 +1079,7 @@ namespace Quest
             cornerInTrack.AddItem(pileOfRocks);
 
             // create cave
-            Room greatFairyCave = new Room("Great Fairy Cave", "The cave is beautiful! It is covered in glow-worms and there is a large marble pool in the middle. The pool is filled with the purest water you have ever seen. On the floor infront of the pool is engraved the Crest of the Royal Family Of Hyrule. To the South light floods in through the cave mouth", new Exit(ECardinalDirection.South));
+            Room greatFairyCave = new Room("Great Fairy Cave", "The cave is beautiful! It is covered in glow-worms and there is a large marble pool in the middle. The pool is filled with the purest water you have ever seen. On the floor infront of the pool is engraved the Crest of the Royal Family Of Hyrule. To the South light floods in through the cave mouth", new Exit(CardinalDirection.South));
 
             // create crest
             Item crest = new Item("Crest", new Description("A crest of the Royal Family Of Hyrule is engraved on the floor, embossed in gold filagree"), false);

@@ -125,7 +125,7 @@ namespace Tutorial
             Region region = new Region("Kokiri Forest", "The home of the Kokiri tree folk");
 
             // create a new room
-            Room room = new Room("Link house", "You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north", new Exit(ECardinalDirection.North));
+            Room room = new Room("Link house", "You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north", new Exit(CardinalDirection.North));
 
             // add a table
             room.AddItem(new Item("Table", "A small wooden table made from a slice of a trunk of a deku tree. Pretty handy, but you can't take it with you", false));
@@ -171,7 +171,7 @@ namespace Tutorial
             room.AddItem(yoshiDoll);
 
             // create outside area
-            Room outsideLinksHouse = new Room("Outside Links House", "The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave", new Exit(ECardinalDirection.South), new Exit(ECardinalDirection.North), new Exit(ECardinalDirection.East, true));
+            Room outsideLinksHouse = new Room("Outside Links House", "The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave", new Exit(CardinalDirection.South), new Exit(CardinalDirection.North), new Exit(CardinalDirection.East, true));
 
             // create key
             Item key01 = new Item("Tail Key", "A small key, with a complex handle in the shape of a worm like creature", true);
@@ -288,7 +288,7 @@ namespace Tutorial
                     case "TAIL KEY":
                         {
                             // unlock exits
-                            region.UnlockDoorPair(ECardinalDirection.East);
+                            region.UnlockDoorPair(CardinalDirection.East);
 
                             // remove tail door from room
                             outsideLinksHouse.RemoveItemFromRoom(tailDoor);
@@ -309,10 +309,10 @@ namespace Tutorial
             });
 
             // add tail cave
-            Room tailCave = new Room("Tail Cave", "The cave is dark, and currently very empty. Quite shabby really, not like the cave on Koholint at all...", new Exit(ECardinalDirection.West, true));
+            Room tailCave = new Room("Tail Cave", "The cave is dark, and currently very empty. Quite shabby really, not like the cave on Koholint at all...", new Exit(CardinalDirection.West, true));
 
             // create stream
-            Room stream = new Room("Stream", string.Empty, new Exit(ECardinalDirection.South));
+            Room stream = new Room("Stream", string.Empty, new Exit(CardinalDirection.South));
 
             // set a conditional description for the stream depending on wether it is cut down or not
             stream.Description = new ConditionalDescription("A small stream flows east to west infront of you. The water is clear, and looks good enough to drink. On the bank is a small bush. To the south is the Kokiri forest", "A small stream flows east to west infront of you. The water is clear, and looks good enough to drink. On the bank is a stump where the bush was. To the south is the Kokiri forest", new Condition(() => stream.ContainsItem("Bush")));

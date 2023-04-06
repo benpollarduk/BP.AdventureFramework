@@ -8,9 +8,9 @@
         #region Properties
 
         /// <summary>
-        /// Get the description.
+        /// Get or set the description.
         /// </summary>
-        public string DefaultDescription { get; protected set; }
+        protected string DefaultDescription { get; set; }
 
         #endregion
 
@@ -23,6 +23,19 @@
         public Description(string description)
         {
             DefaultDescription = description;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Get the description.
+        /// </summary>
+        /// <returns>The description.</returns>
+        public virtual string GetDescription()
+        {
+            return DefaultDescription;
         }
 
         #endregion

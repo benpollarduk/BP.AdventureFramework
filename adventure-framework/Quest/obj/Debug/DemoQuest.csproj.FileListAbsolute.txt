@@ -14,3 +14,7 @@
 \\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\DemoQuest.csprojResolveAssemblyReference.cache
 \\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.exe
 \\SINCOSERVER2\RedirectedFolders\BenPollard\My Documents\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.pdb
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\Quest\obj\Debug\DemoQuest.csprojAssemblyReference.cache
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\Quest\obj\Debug\DemoQuest.csproj.CoreCompileInputs.cache
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\Quest\obj\Debug\Quest.exe
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\Quest\obj\Debug\Quest.pdb

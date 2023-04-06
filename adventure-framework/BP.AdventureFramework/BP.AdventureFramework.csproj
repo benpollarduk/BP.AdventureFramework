@@ -82,9 +82,15 @@
     <Compile Include="Interaction\ITransferableDelegation.cs" />
     <Compile Include="Interaction\ReactionToInput.cs" />
     <Compile Include="Interaction\ReasonEventHandler.cs" />
-    <Compile Include="Rendering\Frames\FileIOFrame.cs" />
-    <Compile Include="Rendering\Frames\LoadFileFrame.cs" />
-    <Compile Include="Rendering\Frames\SaveFileFrame.cs" />
+    <Compile Include="Locations\CardinalDirection.cs" />
+    <Compile Include="Rendering\KeyType.cs" />
+    <Compile Include="Rendering\FrameDrawingOption.cs" />
+    <Compile Include="Rendering\Frames\FrameEventHandler.cs" />
+    <Compile Include="Rendering\RegionDisplayMode.cs" />
+    <Compile Include="Rendering\RegionMapMode.cs" />
+    <Compile Include="Structure\CompletionCheck.cs" />
+    <Compile Include="Structure\ExitMode.cs" />
+    <Compile Include="Structure\GameCommand.cs" />
     <Compile Include="Structure\GameCreationHelper.cs" />
     <Compile Include="Interaction\ActionableCommand.cs" />
     <Compile Include="Interaction\ExaminationResult.cs" />
@@ -97,6 +103,8 @@
     <Compile Include="Interaction\PlayableCharacter.cs" />
     <Compile Include="Interaction\IImplementOwnActions.cs" />
     <Compile Include="Interaction\Result.cs" />
+    <Compile Include="Structure\GameCreator.cs" />
+    <Compile Include="Structure\GameEndedEventHandler.cs" />
     <Compile Include="Structure\GameFlow.cs" />
     <Compile Include="Structure\Game.cs" />
     <Compile Include="Structure\GameEndedEventArgs.cs" />
@@ -120,7 +128,6 @@
     <Compile Include="Rendering\Frames\ASCIIImageFrame.cs" />
     <Compile Include="Rendering\Frames\Frame.cs" />
     <Compile Include="Rendering\Frames\HelpFrame.cs" />
-    <Compile Include="Rendering\Frames\AsyncIOOperationFrame.cs" />
     <Compile Include="Rendering\Frames\EndFrame.cs" />
     <Compile Include="Rendering\FrameDrawer.cs" />
     <Compile Include="Rendering\Frames\RegionMapFrame.cs" />
@@ -129,16 +136,11 @@
     <Compile Include="Rendering\Frames\TitleFrame.cs" />
     <Compile Include="Rendering\InGameGraphics.cs" />
     <Compile Include="Rendering\MapDrawer.cs" />
-    <Compile Include="Sound\Beep.cs" />
-    <Compile Include="Sound\IBeep.cs" />
-    <Compile Include="Sound\Note.cs" />
-    <Compile Include="Sound\Chains.cs" />
-    <Compile Include="Sound\Players\BeepPlayer.cs" />
-    <Compile Include="Sound\Chain.cs" />
-    <Compile Include="Sound\Players\SoundPlayer.cs" />
-    <Compile Include="Sound\Players\StreamPlayer.cs" />
     <Compile Include="Structure\GameIOEventArgs.cs" />
     <Compile Include="Structure\HostSetup.cs" />
+    <Compile Include="Structure\OverworldGeneration.cs" />
+    <Compile Include="Structure\PlayerGeneration.cs" />
+    <Compile Include="Structure\WaitForKeyPressCallback.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

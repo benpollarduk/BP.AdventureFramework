@@ -36,7 +36,7 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Get or set the callback handling all examination of this object.
         /// </summary>
-        public ExaminationCallback Examination { get; set; } = obj => new ExaminationResult(obj.Description != null ? obj.Description.DefaultDescription : obj.GetType().Name);
+        public ExaminationCallback Examination { get; set; } = obj => new ExaminationResult(obj.Description != null ? obj.Description.GetDescription() : obj.GetType().Name);
 
         #endregion
 

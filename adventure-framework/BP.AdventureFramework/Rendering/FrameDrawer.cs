@@ -1,155 +1,78 @@
 ﻿using System;
-using AdventureFramework.Rendering.Frames;
+using BP.AdventureFramework.Rendering.Frames;
 
-namespace AdventureFramework.Rendering
+namespace BP.AdventureFramework.Rendering
 {
     /// <summary>
-    /// A class for constructing and drawing Frame's
+    /// A class for constructing and drawing Frames.
     /// </summary>
     public class FrameDrawer : Drawer
     {
-        #region StaticMethods
+        #region Fields
 
-        /// <summary>
-        /// Request a custom Frame to be displayed to any context listening for the FrameDrawer.DisplaySpecialFrame event
-        /// </summary>
-        /// <param name="frame">The frame to </param>
-        public static void DisplaySpecialFrame(Frame frame)
-        {
-            // if some listener
-            if (DisplayedSpecialFrame != null)
-                // redraw
-                DisplayedSpecialFrame(null, new FrameEventArgs(frame));
-        }
+        private readonly char dividerCharacter = Convert.ToChar("=");
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Get or set the screen devider character
+        /// Get or set if commands are displayed.
         /// </summary>
-        public char DeviderCharacter
-        {
-            get { return deviderCharacter; }
-            set { deviderCharacter = value; }
-        }
+        public bool DisplayCommands { get; set; } = true;
 
         /// <summary>
-        /// Get or set the screen devider character
-        /// </summary>
-        private char deviderCharacter = Convert.ToChar("=");
-
-        /// <summary>
-        /// Get or set if commands are displayed
-        /// </summary>
-        public bool DisplayCommands
-        {
-            get { return displayCommands; }
-            set { displayCommands = value; }
-        }
-
-        /// <summary>
-        /// Get or set if commands are displayed
-        /// </summary>
-        private bool displayCommands = true;
-
-        /// <summary>
-        /// Occurs when a special frame has been requested to be displayed
+        /// Occurs when a special frame has been requested to be displayed.
         /// </summary>
         public static event FrameEventHandler DisplayedSpecialFrame;
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the SceneDrawer class
+        /// Initializes a new instance of the FrameDrawer class.
         /// </summary>
         public FrameDrawer()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the SceneDrawer class
+        /// Initializes a new instance of the FrameDrawer class.
         /// </summary>
-        /// <param name="leftBoundaryCharacter">The character to use for left boundaries</param>
-        /// <param name="rightBoundaryCharacter">The character to use for right boundaries</param>
-        /// <param name="devidingCharacter">The character to use for deviders</param>
+        /// <param name="leftBoundaryCharacter">The character to use for left boundaries.</param>
+        /// <param name="rightBoundaryCharacter">The character to use for right boundaries.</param>
+        /// <param name="devidingCharacter">The character to use for dividers.</param>
         public FrameDrawer(char leftBoundaryCharacter, char rightBoundaryCharacter, char devidingCharacter)
         {
-            // set
             LeftBoundaryCharacter = leftBoundaryCharacter;
-
-            // set
             RightBoundaryCharacter = rightBoundaryCharacter;
-
-            // set
-            DeviderCharacter = devidingCharacter;
+            dividerCharacter = devidingCharacter;
         }
 
         /// <summary>
-        /// Construct a deviding horizontal line
+        /// Construct a dividing horizontal line.
         /// </summary>
-        /// <param name="width">The width of the devider</param>
-        /// <returns>A constructed devider</returns>
-        public virtual string ConstructDevider(int width)
+        /// <param name="width">The width of the divider.</param>
+        /// <returns>A constructed divider.</returns>
+        public virtual string ConstructDivider(int width)
         {
-            return ConstructDevider(width, LeftBoundaryCharacter, DeviderCharacter, RightBoundaryCharacter);
+            return ConstructDivider(width, LeftBoundaryCharacter, dividerCharacter, RightBoundaryCharacter);
         }
 
         #endregion
-    }
 
-    /// <summary>
-    /// Enumeration of key types
-    /// </summary>
-    public enum EKeyType
-    {
-        /// <summary>
-        /// No key
-        /// </summary>
-        None = 0,
+        #region StaticMethods
 
         /// <summary>
-        /// Full key
+        /// Request a custom Frame to be displayed to any context listening for the FrameDrawer.DisplaySpecialFrame event.
         /// </summary>
-        Full,
+        /// <param name="frame">The frame to display.</param>
+        public static void DisplaySpecialFrame(Frame frame)
+        {
+            DisplayedSpecialFrame?.Invoke(null, new FrameEventArgs(frame));
+        }
 
-        /// <summary>
-        /// Dynamic key, only show relevant key items
-        /// </summary>
-        Dynamic
-    }
-
-    /// <summary>
-    /// Enumeration of FrameDrawer options
-    /// </summary>
-    public enum EFrameDrawerOption
-    {
-        /// <summary>
-        /// Turn the key on
-        /// </summary>
-        KeyOn = 0,
-
-        /// <summary>
-        /// Turn the key off
-        /// </summary>
-        KeyOff,
-
-        /// <summary>
-        /// Turn commands on
-        /// </summary>
-        CommandsOn,
-
-        /// <summary>
-        /// Turn commands off
-        /// </summary>
-        CommandsOff,
-
-        /// <summary>
-        /// Invert display colours
-        /// </summary>
-        Invert
+        #endregion
     }
 }

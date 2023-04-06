@@ -1,53 +1,32 @@
-﻿namespace AdventureFramework.Rendering.Frames
+﻿namespace BP.AdventureFramework.Rendering.Frames
 {
     /// <summary>
-    /// Represents a frame that can be used as a title screen
+    /// Represents a frame that can be used as a title screen.
     /// </summary>
     public class TitleFrame : Frame
     {
         #region Properties
 
         /// <summary>
-        /// Get the title
+        /// Get the title.
         /// </summary>
-        public string Title
-        {
-            get { return title; }
-            set { title = value; }
-        }
+        public string Title { get; set; }
 
         /// <summary>
-        /// Get or set the title
+        /// Get the description.
         /// </summary>
-        private string title;
-
-        /// <summary>
-        /// Get the description
-        /// </summary>
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-
-        /// <summary>
-        /// Get or set the description
-        /// </summary>
-        private string description;
+        public string Description { get; set; }
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the TitleFrame class
+        /// Initializes a new instance of the TitleFrame class.
         /// </summary>
         protected TitleFrame()
         {
-            // as default don't show
             ShowCursor = false;
-
-            // as default doesn't take input
             AcceptsInput = false;
         }
 
@@ -56,61 +35,35 @@
         /// </summary>
         /// <param name="title">The title of the game</param>
         /// <param name="description">A description of the game</param>
-        public TitleFrame(string title, string description)
+        public TitleFrame(string title, string description) : this()
         {
-            // as default don't show
-            ShowCursor = false;
-
-            // as default doesn't take input
-            AcceptsInput = false;
-
-            // set title
             Title = title;
-
-            // set description
             Description = description;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// Build this TitleFrame into a text based display
+        /// Build this TitleFrame into a text based display.
         /// </summary>
-        /// <param name="width">Specify the width of the Frame</param>
-        /// <param name="height">Specify the height of the Frame</param>
-        /// <param name="drawer">The FrameDrawer to draw the Frame with</param>
-        /// <returns>A string representing the Frame</returns>
+        /// <param name="width">Specify the width of the Frame.</param>
+        /// <param name="height">Specify the height of the Frame.</param>
+        /// <param name="drawer">The FrameDrawer to draw the Frame with.</param>
+        /// <returns>A string representing the Frame.</returns>
         public override string BuildFrame(int width, int height, FrameDrawer drawer)
         {
-            // construct a devider
-            var devider = drawer.ConstructDevider(width);
-
-            // construct devider
-            var constructedScene = devider;
-
-            // add name
+            var divider = drawer.ConstructDivider(width);
+            var constructedScene = divider;
             constructedScene += drawer.ConstructWrappedPaddedString(Title, width, true);
-
-            // add another devider
-            constructedScene += devider;
-
-            // add name
+            constructedScene += divider;
             constructedScene += drawer.ConstructWrappedPaddedString(Description, width, true);
-
-            // add another devider
-            constructedScene += devider;
-
-            // add padded area
+            constructedScene += divider;
             constructedScene += drawer.ConstructPaddedArea(width, height / 2 - drawer.DetermineLinesInString(constructedScene));
-
-            // add command
             constructedScene += drawer.ConstructWrappedPaddedString("Press Enter to start", width, true);
-
-            // add padded area
             constructedScene += drawer.ConstructPaddedArea(width, height - drawer.DetermineLinesInString(constructedScene) - 2);
-
-            // add devider removing the last \n
-            constructedScene += devider.Remove(devider.Length - 1);
-
-            // return construction
+            constructedScene += divider.Remove(divider.Length - 1);
             return constructedScene;
         }
 

@@ -2,165 +2,81 @@
 using System.Xml;
 using BP.AdventureFramework.Interaction;
 
-namespace AdventureFramework.Locations
+namespace BP.AdventureFramework.Locations
 {
     /// <summary>
-    /// Represents an exit from a GameLocation
+    /// Represents an exit from a GameLocation.
     /// </summary>
     public class Exit : ExaminableObject
     {
         #region Properties
 
         /// <summary>
-        /// Get the direcion of the exit
+        /// Get the direction of the exit.
         /// </summary>
-        public ECardinalDirection Direction
+        public CardinalDirection Direction { get; protected set; }
+
+        /// <summary>
+        /// Get if this Exit is locked.
+        /// </summary>
+        public bool IsLocked { get; protected set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the Exit class.
+        /// </summary>
+        /// <param name="direction">The direction of the exit.</param>
+        public Exit(CardinalDirection direction)
         {
-            get { return direction; }
-            protected set { direction = value; }
+            Direction = direction;
+            IsLocked = false;
+            Description = GenerateDescription();
         }
 
         /// <summary>
-        /// Get or set the direcion of the exit
+        /// Initializes a new instance of the Exit class.
         /// </summary>
-        private ECardinalDirection direction;
-
-        /// <summary>
-        /// Get if this Exit is locked
-        /// </summary>
-        public bool IsLocked
+        /// <param name="direction">The direction of the exit.</param>
+        /// <param name="isLocked">If this exit is locked.</param>
+        public Exit(CardinalDirection direction, bool isLocked) : this(direction)
         {
-            get { return isLocked; }
-            protected set { isLocked = value; }
+            IsLocked = isLocked;
         }
 
         /// <summary>
-        /// Get if this Exit is locked
+        /// Initializes a new instance of the Exit class.
         /// </summary>
-        private bool isLocked;
+        /// <param name="direction">The direction of the exit.</param>
+        /// <param name="isLocked">If this exit is locked.</param>
+        /// <param name="description">A description of this exit.</param>
+        public Exit(CardinalDirection direction, bool isLocked, Description description) : this(direction, isLocked)
+        {
+            Description = description;
+        }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the Exit class
+        /// Generate a description for this exit.
         /// </summary>
-        protected Exit()
+        /// <returns>The completed Description.</returns>
+        protected Description GenerateDescription()
         {
+            return new ConditionalDescription($"The exit {Direction.ToString().ToLower()} is locked", $"The exit {Direction.ToString().ToLower()} is unlocked", () => IsLocked);
         }
 
         /// <summary>
-        /// Initializes a new instance of the Exit class
-        /// </summary>
-        /// <param name="direction">The direction of the exit</param>
-        public Exit(ECardinalDirection direction)
-        {
-            // set direction
-            Direction = direction;
-
-            // set unlocked
-            IsLocked = false;
-
-            // generate description
-            Description = GenerateDescription();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Exit class
-        /// </summary>
-        /// <param name="direction">The direction of the exit</param>
-        /// <param name="isLocked">If this exit is locked</param>
-        public Exit(ECardinalDirection direction, bool isLocked)
-        {
-            // set direction
-            Direction = direction;
-
-            // set if locked
-            IsLocked = isLocked;
-
-            // generate description
-            Description = GenerateDescription();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Exit class
-        /// </summary>
-        /// <param name="direction">The direction of the exit</param>
-        /// <param name="isLocked">If this exit is locked</param>
-        /// <param name="description">A description of this exit</param>
-        public Exit(ECardinalDirection direction, bool isLocked, Description description)
-        {
-            // set direction
-            Direction = direction;
-
-            // set if locked
-            IsLocked = isLocked;
-
-            // set description
-            Description = description;
-        }
-
-        /// <summary>
-        /// generate a description for this exit
-        /// </summary>
-        /// <returns>The completed Description</returns>
-        protected virtual Description GenerateDescription()
-        {
-            // set description
-            return new ConditionalDescription(string.Format("The exit {0} is locked", direction.ToString().ToLower()), string.Format("The exit {0} is unlocked", direction.ToString().ToLower()), () => { return IsLocked; });
-        }
-
-        /// <summary>
-        /// Set if this exit is locked
+        /// Set if this exit is locked.
         /// </summary>
         public void Unlock()
         {
-            // unlock
             IsLocked = false;
         }
-
-        #region XmlSerialization
-
-        /// <summary>
-        /// Handle writing of Xml for this Exit
-        /// </summary>
-        /// <param name="writer">The XmlWriter to write Xml with</param>
-        protected override void OnWriteXml(XmlWriter writer)
-        {
-            // write start element
-            writer.WriteStartElement("Exit");
-
-            // write direction
-            writer.WriteAttributeString("Direction", Direction.ToString());
-
-            // write if locked
-            writer.WriteAttributeString("IsLocked", IsLocked.ToString());
-
-            // write base
-            base.OnWriteXml(writer);
-
-            // write end element
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Handle reading of Xml for this Exit
-        /// </summary>
-        /// <param name="node">The node to read Xml from</param>
-        protected override void OnReadXmlNode(XmlNode node)
-        {
-            // get direction
-            Direction = (ECardinalDirection)Enum.Parse(typeof(ECardinalDirection), GetAttribute(node, "Direction").Value);
-
-            // get if locked
-            IsLocked = bool.Parse(GetAttribute(node, "IsLocked").Value);
-
-            // read base
-            base.OnReadXmlNode(GetNode(node, "ExaminableObject"));
-        }
-
-        #endregion
 
         #endregion
     }

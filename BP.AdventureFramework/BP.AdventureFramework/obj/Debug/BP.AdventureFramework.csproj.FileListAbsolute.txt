@@ -1,0 +1,7 @@
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\bin\Debug\BP.AdventureFramework.dll
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\bin\Debug\BP.AdventureFramework.pdb
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\bin\Debug\AdventureFramework.xml
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\obj\Debug\BP.AdventureFramework.csprojAssemblyReference.cache
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\obj\Debug\BP.AdventureFramework.csproj.CoreCompileInputs.cache
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\obj\Debug\BP.AdventureFramework.dll
+C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework\obj\Debug\BP.AdventureFramework.pdb

@@ -1,0 +1,5 @@
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\BackboneLibrary\obj\Release\ResolveAssemblyReference.cache
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\BackboneLibrary\bin\Release\BackboneLibrary.dll
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\BackboneLibrary\bin\Release\BackboneLibrary.pdb
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\BackboneLibrary\obj\Release\BackboneLibrary.dll
+\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\BackboneLibrary\obj\Release\BackboneLibrary.pdb

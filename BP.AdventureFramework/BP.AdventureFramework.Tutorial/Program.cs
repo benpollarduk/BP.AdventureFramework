@@ -1,6 +1,7 @@
 ﻿using System;
 using BP.AdventureFramework.GameStructure;
 using BP.AdventureFramework.Rendering;
+using BP.AdventureFramework.Tutorial.Demos;
 
 namespace BP.AdventureFramework.Tutorial
 {
@@ -10,39 +11,78 @@ namespace BP.AdventureFramework.Tutorial
         {
             try
             {
-                InGameGraphics.BufferGraphics();
-
                 SetupConsole();
+                InGameGraphics.BufferGraphics();
+                GameCreationHelper creationHelper = null;
 
-                var helper = GameCreationHelper.Create("The Legend Of Zelda: Links Texting!",
-                    "It's a sunny day in Hyrule and Link is in his tree hut...",
-                    Zelda.GenerateOverworld,
-                    Zelda.GeneratePC,
-                    DetermineIfGameHasCompleted);
-
-
-                using (var flow = new GameFlow(helper))
+                while (creationHelper == null)
                 {
-                    HostSetup.SetupWindowsConsole(flow, "The Legend Of Zelda: Links Texting!");
+                    Console.Clear();
+
+                    Console.WriteLine("Select Demo Game:");
+                    Console.WriteLine("1. Everglades");
+                    Console.WriteLine("2. Flat");
+                    Console.WriteLine("3. Zelda");
+
+                    switch (Console.ReadKey().Key)
+                    {
+                        case ConsoleKey.NumPad1:
+                        case ConsoleKey.D1:
+                            
+                            creationHelper = GameCreationHelper.Create("A Strange World",
+                                "You wake up at the entrance to a small clearing...",
+                                Everglades.GenerateOverworld,
+                                Everglades.GeneratePC,
+                                g => false);
+
+                            break;
+
+                        case ConsoleKey.NumPad2:
+                        case ConsoleKey.D2:
+                            
+                            creationHelper = GameCreationHelper.Create("Escape From Your Flat!",
+                                "You wake up in the bedroom of your flat. Your a little disorientated, but then again you are most mornings! Your itching for some punk rock!",
+                                Flat.GenerateOverworld,
+                                Flat.GeneratePC,
+                                g => false);
+
+                            break;
+
+                        case ConsoleKey.NumPad3:
+                        case ConsoleKey.D3:
+
+                            creationHelper = GameCreationHelper.Create("The Legend Of Zelda: Links Texting!",
+                                "It's a sunny day in Hyrule and Link is in his tree hut...",
+                                Zelda.GenerateOverworld,
+                                Zelda.GeneratePC,
+                                Zelda.DetermineIfGameHasCompleted);
+
+                            break;
+                    }
+                }
+
+                using (var flow = new GameFlow(creationHelper))
+                {
+                    HostSetup.SetupWindowsConsole(flow, "BP.AdventureFramework Demo");
                     flow.Begin();
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception caught running Tutorial: {0}\nPress enter to close", e.Message);
-                Console.ReadLine();
-                Console.WriteLine("Closing...");
+                Console.WriteLine("Exception caught running demo: {0}", e.Message);
+                Console.ReadKey();
             }
         }
 
         /// <summary>
-        /// Setup the console.
+        /// Setup the console
         /// </summary>
         private static void SetupConsole()
         {
             try
             {
                 // try and set desired size
+
                 Console.SetWindowSize(80, 50);
                 Console.SetBufferSize(80, 50);
             }
@@ -53,16 +93,6 @@ namespace BP.AdventureFramework.Tutorial
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
-        }
-
-        /// <summary>
-        /// Determine if the game has completed.
-        /// </summary>
-        /// <param name="game">The Game to check for completion.</param>
-        /// <returns>True if the Game is complete, else false.</returns>
-        private static bool DetermineIfGameHasCompleted(Game game)
-        {
-            return game.Overworld.CurrentRegion.CurrentRoom.Name.ToUpper() == "TAIL CAVE";
         }
     }
 }

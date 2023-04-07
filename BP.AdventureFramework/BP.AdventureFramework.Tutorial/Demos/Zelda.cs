@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using BP.AdventureFramework.Characters;
+using BP.AdventureFramework.GameStructure;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
 
-namespace BP.AdventureFramework.Tutorial
+namespace BP.AdventureFramework.Tutorial.Demos
 {
     public static class Zelda
     {
@@ -199,6 +200,16 @@ namespace BP.AdventureFramework.Tutorial
             overworld.CreateRegion(region, 0, 0);
 
             return overworld;
+        }
+
+        /// <summary>
+        /// Determine if the game has completed.
+        /// </summary>
+        /// <param name="game">The Game to check for completion.</param>
+        /// <returns>True if the Game is complete, else false.</returns>
+        public static bool DetermineIfGameHasCompleted(Game game)
+        {
+            return game.Overworld.CurrentRegion.CurrentRoom.Name.ToUpper() == "TAIL CAVE";
         }
     }
 }

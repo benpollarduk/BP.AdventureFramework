@@ -1,7 +1,0 @@
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\ResolveAssemblyReference.cache
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\Quest.exe
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\Quest.pdb
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\BackboneLibrary.dll
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\bin\Debug\BackboneLibrary.pdb
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.exe
-\\Sincoserver2\Company Data\RoToR\BenServoToRotorDevelopment\Ben's test apps and notes\BackboneLibrary\Quest\obj\Debug\Quest.pdb

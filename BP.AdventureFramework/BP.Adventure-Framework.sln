@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework", "BP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Tutorial", "BP.AdventureFramework.Tutorial\BP.AdventureFramework.Tutorial.csproj", "{BC0652A7-6EC4-480D-B98D-919D461FB518}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.DemoQuest", "BP.AdventureFramework.DemoQuest\BP.AdventureFramework.DemoQuest.csproj", "{3FAF397A-2B5D-446A-9C48-D97497912794}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FAF397A-2B5D-446A-9C48-D97497912794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FAF397A-2B5D-446A-9C48-D97497912794}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FAF397A-2B5D-446A-9C48-D97497912794}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FAF397A-2B5D-446A-9C48-D97497912794}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

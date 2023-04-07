@@ -3,7 +3,7 @@ using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 
-namespace BP.AdventureFramework.DemoQuest
+namespace BP.AdventureFramework.Tutorial.Demos
 {
     public static class Flat
     {

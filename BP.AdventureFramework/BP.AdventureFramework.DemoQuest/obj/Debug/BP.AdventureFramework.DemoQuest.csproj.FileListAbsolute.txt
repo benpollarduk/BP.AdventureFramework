@@ -1,9 +1,0 @@
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\bin\Debug\BP.AdventureFramework.DemoQuest.exe
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\bin\Debug\BP.AdventureFramework.DemoQuest.pdb
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\bin\Debug\BP.AdventureFramework.dll
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\bin\Debug\BP.AdventureFramework.pdb
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\obj\Debug\BP.AdventureFramework.DemoQuest.csprojAssemblyReference.cache
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\obj\Debug\BP.AdventureFramework.DemoQuest.csproj.CoreCompileInputs.cache
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\obj\Debug\BP.AdventureFramework.DemoQuest.csproj.CopyComplete
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\obj\Debug\BP.AdventureFramework.DemoQuest.exe
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.DemoQuest\obj\Debug\BP.AdventureFramework.DemoQuest.pdb

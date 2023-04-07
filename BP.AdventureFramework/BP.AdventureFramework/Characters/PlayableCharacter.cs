@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Interaction;
+﻿using System;
+using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Characters
 {
@@ -12,7 +13,7 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Occurs if this player dies.
         /// </summary>
-        public event ReasonEventHandler Died;
+        public event EventHandler<string> Died;
 
         #endregion
 
@@ -104,7 +105,7 @@ namespace BP.AdventureFramework.Characters
         public override void Kill(string reason)
         {
             base.Kill(reason);
-            Died?.Invoke(this, new ReasonEventArgs(reason));
+            Died?.Invoke(this, reason);
         }
 
         #endregion

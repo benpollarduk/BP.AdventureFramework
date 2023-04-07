@@ -82,11 +82,9 @@
     <Compile Include="Interaction\InteractionEffect.cs" />
     <Compile Include="Interaction\ITransferableDelegation.cs" />
     <Compile Include="Interaction\ReactionToInput.cs" />
-    <Compile Include="Interaction\ReasonEventHandler.cs" />
     <Compile Include="Locations\CardinalDirection.cs" />
     <Compile Include="Rendering\KeyType.cs" />
     <Compile Include="Rendering\FrameDrawingOption.cs" />
-    <Compile Include="Rendering\Frames\FrameEventHandler.cs" />
     <Compile Include="Rendering\RegionDisplayMode.cs" />
     <Compile Include="Rendering\RegionMapMode.cs" />
     <Compile Include="GameStructure\CompletionCheck.cs" />
@@ -100,15 +98,12 @@
     <Compile Include="Characters\ConversationElement.cs" />
     <Compile Include="Characters\ITalkative.cs" />
     <Compile Include="Characters\NonPlayableCharacter.cs" />
-    <Compile Include="Interaction\ReasonEventArgs.cs" />
     <Compile Include="Characters\PlayableCharacter.cs" />
     <Compile Include="Interaction\IImplementOwnActions.cs" />
     <Compile Include="Interaction\Result.cs" />
     <Compile Include="GameStructure\GameCreator.cs" />
-    <Compile Include="GameStructure\GameEndedEventHandler.cs" />
     <Compile Include="GameStructure\GameFlow.cs" />
     <Compile Include="GameStructure\Game.cs" />
-    <Compile Include="GameStructure\GameEndedEventArgs.cs" />
     <Compile Include="Interaction\ConditionalDescription.cs" />
     <Compile Include="Interaction\Description.cs" />
     <Compile Include="Interaction\ExaminableObject.cs" />
@@ -133,7 +128,6 @@
     <Compile Include="Rendering\FrameDrawer.cs" />
     <Compile Include="Rendering\Frames\RegionMapFrame.cs" />
     <Compile Include="Rendering\Frames\SceneFrame.cs" />
-    <Compile Include="Rendering\Frames\SceneFrameEventArgs.cs" />
     <Compile Include="Rendering\Frames\TitleFrame.cs" />
     <Compile Include="Rendering\InGameGraphics.cs" />
     <Compile Include="Rendering\MapDrawer.cs" />

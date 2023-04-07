@@ -1,9 +1,0 @@
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\bin\Debug\BP.AdventureFramework.Tutorial.exe
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\bin\Debug\BP.AdventureFramework.Tutorial.pdb
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\bin\Debug\BP.AdventureFramework.dll
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\bin\Debug\BP.AdventureFramework.pdb
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\obj\Debug\BP.AdventureFramework.Tutorial.csprojAssemblyReference.cache
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\obj\Debug\BP.AdventureFramework.Tutorial.csproj.CoreCompileInputs.cache
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\obj\Debug\BP.AdventureFramework.Tutorial.csproj.CopyComplete
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\obj\Debug\BP.AdventureFramework.Tutorial.exe
-C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\adventure-framework\BP.AdventureFramework.Tutorial\obj\Debug\BP.AdventureFramework.Tutorial.pdb

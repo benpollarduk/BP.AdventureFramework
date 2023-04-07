@@ -84,17 +84,17 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Occurs when the CurrentFrame is updated.
         /// </summary>
-        public event FrameEventHandler CurrentFrameUpdated;
+        public event EventHandler<Frame> CurrentFrameUpdated;
 
         /// <summary>
         /// Occurs when the Game has ended.
         /// </summary>
-        public event GameEndedEventHandler Ended;
+        public event EventHandler<ExitMode> Ended;
 
         /// <summary>
         /// Occurs when the Game has been completed.
         /// </summary>
-        public event GameEndedEventHandler Completed;
+        public event EventHandler<ExitMode> Completed;
 
         /// <summary>
         /// Get or set the last used width.
@@ -159,7 +159,7 @@ namespace BP.AdventureFramework.GameStructure
         protected virtual void OnCurrentFrameUpdated(Frame frame)
         {
             CurrentFrame = frame;
-            CurrentFrameUpdated?.Invoke(this, new FrameEventArgs(frame));
+            CurrentFrameUpdated?.Invoke(this, frame);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace BP.AdventureFramework.GameStructure
         protected virtual void OnGameEnded(ExitMode mode)
         {
             HasEnded = true;
-            Ended?.Invoke(this, new GameEndedEventArgs(mode));
+            Ended?.Invoke(this, mode);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace BP.AdventureFramework.GameStructure
             if (!CompletionCondition(this))
                 return new Decision(reacted, message);
 
-            Completed?.Invoke(this, new GameEndedEventArgs(ExitMode.ReturnToTitleScreen));
+            Completed?.Invoke(this, ExitMode.ReturnToTitleScreen);
 
             CurrentFrame = CompletionFrame;
 
@@ -372,9 +372,9 @@ namespace BP.AdventureFramework.GameStructure
 
         #region EventHandlers
 
-        private void player_Died(object sender, ReasonEventArgs e)
+        private void player_Died(object sender, string e)
         {
-            OnHandlePlayerDied("YOU ARE DEAD!!!", e.Reason);
+            OnHandlePlayerDied("YOU ARE DEAD!!!", e);
         }
 
         #endregion

@@ -101,12 +101,12 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Occurs when the frame draw begins.
         /// </summary>
-        public event FrameEventHandler StartingFrameDraw;
+        public event EventHandler<Frame> StartingFrameDraw;
 
         /// <summary>
         /// Occurs when the frame draw exits.
         /// </summary>
-        public event FrameEventHandler FinishingFrameDraw;
+        public event EventHandler<Frame> FinishingFrameDraw;
 
         /// <summary>
         /// Occurs when the display is inverted.
@@ -353,7 +353,7 @@ namespace BP.AdventureFramework.GameStructure
         {
             try
             {
-                StartingFrameDraw?.Invoke(this, new FrameEventArgs(frame));
+                StartingFrameDraw?.Invoke(this, frame);
 
                 if (lastFrame != null)
                     lastFrame.Invalidated -= Frame_Invalidated;
@@ -369,7 +369,7 @@ namespace BP.AdventureFramework.GameStructure
 
                 Output.WriteLine(frame.BuildFrame(DisplaySize.Width, DisplaySize.Height, FrameDrawer));
 
-                FinishingFrameDraw?.Invoke(this, new FrameEventArgs(frame));
+                FinishingFrameDraw?.Invoke(this, frame);
             }
             catch (Exception e)
             {
@@ -445,29 +445,29 @@ namespace BP.AdventureFramework.GameStructure
 
         #region EventHandlers
 
-        private void Game_CurrentFrameUpdated(object sender, FrameEventArgs e)
+        private void Game_CurrentFrameUpdated(object sender, Frame e)
         {
-            OnFrameUpdated(e.Frame);
+            OnFrameUpdated(e);
         }
 
-        private void Game_Ended(object sender, GameEndedEventArgs e)
+        private void Game_Ended(object sender, ExitMode e)
         {
-            OnGameEnded(e.ExitMode);
+            OnGameEnded(e);
         }
 
-        private void Game_Completed(object sender, GameEndedEventArgs e)
+        private void Game_Completed(object sender, ExitMode e)
         {
             OnGameCompleted();
         }
 
-        private void FrameDrawer_DisplayedSpecialFrame(object sender, FrameEventArgs e)
+        private void FrameDrawer_DisplayedSpecialFrame(object sender, Frame e)
         {
-            Game.Refresh(e.Frame);
+            Game.Refresh(e);
         }
 
-        private void Frame_Invalidated(object sender, FrameEventArgs e)
+        private void Frame_Invalidated(object sender, Frame e)
         {
-            DrawFrame(e.Frame);
+            DrawFrame(e);
         }
 
         #endregion

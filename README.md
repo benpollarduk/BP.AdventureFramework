@@ -8,17 +8,17 @@ Provides simple classes for developing game elements:
     * Overworld
     * Region
     * Room
-  * NPC's which can be interacted with either with items or conversation.
-  * Items which can be interacted with.
+  * NPC's that support interaction with items and conversation.
+  * Interactive items.
     * Items can morph in to other items. For example, using item A on item B may cause item B to morph in to item C.
   
 Provides keywords for interacting with game elements:
   * Drop - drop an item.
   * Examine - allows items, characters and environments to be examined.
-  * Use - use an item.
   * On - used in conjunction with the Use keyword to use an item on a character, another item or environment.
-  * Talk to - talk to a NPC.
   * Take - take an item.
+  * Talk to - talk to a NPC.
+  * Use - use an item.
   
 Provides global commands to help with game flow:
   * About - display version information.

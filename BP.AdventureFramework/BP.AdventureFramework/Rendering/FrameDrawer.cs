@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Rendering
         /// <summary>
         /// Occurs when a special frame has been requested to be displayed.
         /// </summary>
-        public static event FrameEventHandler DisplayedSpecialFrame;
+        public static event EventHandler<Frame> DisplayedSpecialFrame;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace BP.AdventureFramework.Rendering
         /// <param name="frame">The frame to display.</param>
         public static void DisplaySpecialFrame(Frame frame)
         {
-            DisplayedSpecialFrame?.Invoke(null, new FrameEventArgs(frame));
+            DisplayedSpecialFrame?.Invoke(null, frame);
         }
 
         #endregion

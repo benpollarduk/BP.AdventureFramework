@@ -32,7 +32,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <summary>
         /// Occurs if this Frame becomes invalid.
         /// </summary>
-        public event FrameEventHandler Invalidated;
+        public event EventHandler<Frame> Invalidated;
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// </summary>
         protected virtual void Invalidate()
         {
-            Invalidated?.Invoke(this, new FrameEventArgs(this));
+            Invalidated?.Invoke(this, this);
         }
 
         #endregion

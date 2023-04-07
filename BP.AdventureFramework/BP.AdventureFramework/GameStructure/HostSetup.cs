@@ -40,13 +40,13 @@ namespace BP.AdventureFramework.GameStructure
             Console.ForegroundColor = background;
         }
 
-        private static void ConsoleFlow_FinishingFrameDraw(object sender, FrameEventArgs e)
+        private static void ConsoleFlow_FinishingFrameDraw(object sender, Frame e)
         {
-            Console.CursorVisible = e.Frame.ShowCursor;
-            Console.SetCursorPosition(e.Frame.CursorLeft, e.Frame.CursorTop);
+            Console.CursorVisible = e.ShowCursor;
+            Console.SetCursorPosition(e.CursorLeft, e.CursorTop);
         }
 
-        private static void ConsoleFlow_StartingFrameDraw(object sender, FrameEventArgs e)
+        private static void ConsoleFlow_StartingFrameDraw(object sender, Frame e)
         {
             Console.Clear();
         }

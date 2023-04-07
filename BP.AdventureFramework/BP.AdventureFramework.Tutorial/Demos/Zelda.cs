@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
             {
                 Examination = t =>
                 {
-                    var frame = ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["link"], Console.WindowWidth, Console.WindowHeight);
+                    var frame = ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Link"], Console.WindowWidth, Console.WindowHeight);
                     FrameDrawer.DisplaySpecialFrame(frame);
                     return new ExaminationResult(string.Empty, ExaminationResults.SelfContained);
                 }

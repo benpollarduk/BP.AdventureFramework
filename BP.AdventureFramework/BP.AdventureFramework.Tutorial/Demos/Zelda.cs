@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
         public static PlayableCharacter GeneratePC()
         {
-            var character = new PlayableCharacter("Link".ToIdentifier(), "A Kokiri boy from the forest")
+            var character = new PlayableCharacter("Link".ToIdentifier(), "A Kokiri boy from the forest".ToDescription())
             {
                 Examination = t =>
                 {
@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
                 }
             };
 
-            var shield = new Item("Shield".ToIdentifier(), "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.", true);
+            var shield = new Item("Shield".ToIdentifier(), "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.".ToDescription(), true);
             character.AquireItem(shield);
 
             return character;
@@ -38,13 +38,13 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
         public static Overworld GenerateOverworld(PlayableCharacter pC)
         {
-            var overworld = new Overworld("Hyrule".ToIdentifier(), "The ancient land of Hyrule");
-            var region = new Region("Kokiri Forest".ToIdentifier(), "The home of the Kokiri tree folk");
+            var overworld = new Overworld("Hyrule".ToIdentifier(), "The ancient land of Hyrule".ToDescription());
+            var region = new Region("Kokiri Forest".ToIdentifier(), "The home of the Kokiri tree folk".ToDescription());
             var room = new Room("Link house".ToIdentifier(), new Description("You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north"), new Exit(CardinalDirection.North));
 
-            room.AddItem(new Item("Table".ToIdentifier(), "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you", false));
+            room.AddItem(new Item("Table".ToIdentifier(), "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you".ToDescription(), false));
 
-            var sword = new Item("Sword".ToIdentifier(), "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp", true)
+            var sword = new Item("Sword".ToIdentifier(), "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp".ToDescription(), true)
             {
                 Examination = target =>
                 {
@@ -56,7 +56,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             room.AddItem(sword);
 
-            var yoshiDoll = new Item("Yoshi Doll".ToIdentifier(), "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...", false)
+            var yoshiDoll = new Item("Yoshi Doll".ToIdentifier(), "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...".ToDescription(), false)
             {
                 Examination = t =>
                 {
@@ -74,8 +74,8 @@ namespace BP.AdventureFramework.Tutorial.Demos
             room.AddItem(yoshiDoll);
 
             var outsideLinksHouse = new Room("Outside Links House".ToIdentifier(), new Description("The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.North), new Exit(CardinalDirection.East, true));
-            var key01 = new Item("Tail Key".ToIdentifier(), "A small key, with a complex handle in the shape of a worm like creature", true);
-            var saria = new NonPlayableCharacter("Saria".ToIdentifier(), "A very annoying, but admittedly quite pretty elf, dressed, like you, completely in green");
+            var key01 = new Item("Tail Key".ToIdentifier(), "A small key, with a complex handle in the shape of a worm like creature".ToDescription(), true);
+            var saria = new NonPlayableCharacter("Saria".ToIdentifier(), "A very annoying, but admittedly quite pretty elf, dressed, like you, completely in green".ToDescription());
 
             saria.AquireItem(key01);
 
@@ -116,7 +116,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             outsideLinksHouse.AddCharacter(saria);
 
-            var blockOfWood = new Item("Stump".ToIdentifier(), "A small stump of wood", false);
+            var blockOfWood = new Item("Stump".ToIdentifier(), "A small stump of wood".ToDescription(), false);
 
             blockOfWood.Interaction = (item, target) =>
             {
@@ -129,7 +129,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
                     case Sword:
 
-                        blockOfWood.Morph(new Item("Splinters of wood".ToIdentifier(), "Some splinters of wood left from your chopping frenzy on the stump", false));
+                        blockOfWood.Morph(new Item("Splinters of wood".ToIdentifier(), "Some splinters of wood left from your chopping frenzy on the stump".ToDescription(), false));
                         return new InteractionResult(InteractionEffect.ItemMorphed, item, "You chop the stump into tiny pieces in a mad rage. All that is left is some splinters of wood");
 
                     default:
@@ -140,7 +140,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             outsideLinksHouse.AddItem(blockOfWood);
 
-            var tailDoor = new Item("Tail Door".ToIdentifier(), "The doorway to the tail cave", false);
+            var tailDoor = new Item("Tail Door".ToIdentifier(), "The doorway to the tail cave".ToDescription(), false);
 
             outsideLinksHouse.AddItem(tailDoor);
 
@@ -167,8 +167,8 @@ namespace BP.AdventureFramework.Tutorial.Demos
             var stream = new Room("Stream".ToIdentifier(), new Description(string.Empty), new Exit(CardinalDirection.South));
             stream.Description = new ConditionalDescription("A small stream flows east to west in front of you. The water is clear, and looks good enough to drink. On the bank is a small bush. To the south is the Kokiri forest", "A small stream flows east to west infront of you. The water is clear, and looks good enough to drink. On the bank is a stump where the bush was. To the south is the Kokiri forest", () => stream.ContainsItem("Bush"));
 
-            var bush = new Item("Bush".ToIdentifier(), "The bush is small, but very dense. Something is gleaming inside, but you cant reach it because the bush is so thick", false);
-            var rupee = new Item("Rupee".ToIdentifier(), "A red rupee! Wow this thing is worth 10 normal rupees", true) { IsPlayerVisible = false };
+            var bush = new Item("Bush".ToIdentifier(), "The bush is small, but very dense. Something is gleaming inside, but you cant reach it because the bush is so thick".ToDescription(), false);
+            var rupee = new Item("Rupee".ToIdentifier(), "A red rupee! Wow this thing is worth 10 normal rupees".ToDescription(), true) { IsPlayerVisible = false };
 
             bush.Interaction = (item, target) =>
             {
@@ -176,7 +176,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
                 {
                     case Sword:
 
-                        bush.Morph(new Item("Stump".ToIdentifier(), "A small, hacked up stump from where the bush once was, until you decimated it", false));
+                        bush.Morph(new Item("Stump".ToIdentifier(), "A small, hacked up stump from where the bush once was, until you decimated it".ToDescription(), false));
                         rupee.IsPlayerVisible = true;
                         return new InteractionResult(InteractionEffect.ItemMorphed, item, "You slash wildly at the bush and reduce it to a stump. This exposes a red rupee, that must have been what was glinting from within the bush...");
 

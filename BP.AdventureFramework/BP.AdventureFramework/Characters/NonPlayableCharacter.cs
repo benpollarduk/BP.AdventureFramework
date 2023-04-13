@@ -23,28 +23,6 @@ namespace BP.AdventureFramework.Characters
         /// </summary>
         /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
-        public NonPlayableCharacter(Identifier identifier, string description)
-        {
-            Identifier = identifier;
-            Description = new Description(description);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the NonPlayableCharacter class.
-        /// </summary>
-        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
-        /// <param name="description">The description of this NonPlayableCharacter.</param>
-        /// <param name="conversation">The conversation.</param>
-        public NonPlayableCharacter(Identifier identifier, string description, Conversation conversation) : this(identifier, description)
-        {
-            Conversation = conversation;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the NonPlayableCharacter class.
-        /// </summary>
-        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
-        /// <param name="description">The description of this NonPlayableCharacter.</param>
         public NonPlayableCharacter(Identifier identifier, Description description)
         {
             Identifier = identifier;

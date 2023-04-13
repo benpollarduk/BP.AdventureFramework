@@ -10,6 +10,16 @@ namespace BP.AdventureFramework.Extensions
         #region Extensions
 
         /// <summary>
+        /// Returns this string as a Description.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>This string as a description.</returns>
+        public static Description ToDescription(this string value)
+        {
+            return new Description(value);
+        }
+
+        /// <summary>
         /// Returns this string as an Identifier.
         /// </summary>
         /// <param name="value">The value.</param>

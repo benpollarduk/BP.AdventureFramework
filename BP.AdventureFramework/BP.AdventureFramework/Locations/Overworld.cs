@@ -40,24 +40,6 @@ namespace BP.AdventureFramework.Locations
         /// <summary>
         /// Initializes a new instance of the Overworld class.
         /// </summary>
-        protected Overworld()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Overworld class.
-        /// </summary>
-        /// <param name="identifier">The identifier for this Overworld.</param>
-        /// <param name="description">A description of this Overworld.</param>
-        public Overworld(Identifier identifier, string description)
-        {
-            Identifier = identifier; 
-            Description = new Description(description);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Overworld class.
-        /// </summary>
         /// <param name="identifier">The identifier for this Overworld.</param>
         /// <param name="description">A description of this Overworld.</param>
         public Overworld(Identifier identifier, Description description)

@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
         public static PlayableCharacter GeneratePC()
         {
-            var player = new PlayableCharacter("Ben".ToIdentifier(), "25 year old man", new Item("Knife".ToIdentifier(), "A small pocket knife", true))
+            var player = new PlayableCharacter("Ben".ToIdentifier(), "25 year old man".ToDescription(), new Item("Knife".ToIdentifier(), "A small pocket knife".ToDescription(), true))
             {
                 Interaction = (i, target) =>
                 {
@@ -28,12 +28,12 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
         public static Overworld GenerateOverworld()
         {
-            var r = new Region("Everglades".ToIdentifier(), "The starting place");
+            var r = new Region("Everglades".ToIdentifier(), "The starting place".ToDescription());
             r.CreateRoom(new Room("Forest Entrance".ToIdentifier(), new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(CardinalDirection.North)), 2, 0);
             r.CreateRoom(new Room("Forest Floor".ToIdentifier(), new Description("The forest is dense, with a few patches of light breaking the darkness. To the north is what looks like a small cave, to the south is the entrance to the forest"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South)), 2, 1);
             r.CreateRoom(new Room("Cave Mouth".ToIdentifier(), new Description("A cave mouth looms in front of you to the north. You can hear the sound of the ocean coming from the west"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.West)), 2, 2);
 
-            var conchShell = new Item("Conch shell".ToIdentifier(), "A pretty conch shell, it is about the size of a coconut", true)
+            var conchShell = new Item("Conch shell".ToIdentifier(), "A pretty conch shell, it is about the size of a coconut".ToDescription(), true)
             {
                 Interaction = (item, target) =>
                 {
@@ -72,7 +72,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
             r.CreateRoom(new Room("Outskirts".ToIdentifier(), new Description("A vast chasm falls away before you"), new Exit(CardinalDirection.South)), 3, 4);
             r.SetStartRoom(0);
 
-            var o = new Overworld("A place".ToIdentifier(), "Who knows");
+            var o = new Overworld("A place".ToIdentifier(), "Who knows".ToDescription());
             o.CreateRegion(r, 0, 0);
             return o;
         }

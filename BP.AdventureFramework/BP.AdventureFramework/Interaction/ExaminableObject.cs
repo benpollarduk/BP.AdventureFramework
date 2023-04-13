@@ -6,59 +6,14 @@ namespace BP.AdventureFramework.Interaction
     /// <summary>
     /// Represents an object that can be examined.
     /// </summary>
-    public class ExaminableObject : IExaminable, ITransferableDelegation
+    public class ExaminableObject : IExaminable
     {
-        #region StaticProperties
-
-        private static long usedIDS;
-
-        #endregion
-
-        #region StaticMethods
-
-        /// <summary>
-        /// Reset the ID seed.
-        /// </summary>
-        public static void ResetIDSeed()
-        {
-            usedIDS = 0;
-        }
-
-        #endregion
-
         #region Properties
-
-        /// <summary>
-        /// Get this objects ID.
-        /// </summary>
-        internal string ID { get; } = "0";
 
         /// <summary>
         /// Get or set the callback handling all examination of this object.
         /// </summary>
         public ExaminationCallback Examination { get; set; } = obj => new ExaminationResult(obj.Description != null ? obj.Description.GetDescription() : obj.GetType().Name);
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Initializes a new instance of the ExaminableObject class.
-        /// </summary>
-        protected ExaminableObject()
-        {
-            ID = GenerateID();
-        }
-
-        /// <summary>
-        /// Generate an ID from a name.
-        /// </summary>
-        /// <returns>The generated ID.</returns>
-        protected string GenerateID()
-        {
-            usedIDS++;
-            return Convert.ToString(usedIDS, 16);
-        }
 
         #endregion
 
@@ -86,42 +41,6 @@ namespace BP.AdventureFramework.Interaction
         public virtual ExaminationResult Examime()
         {
             return Examination(this);
-        }
-
-        #endregion
-
-        #region ITransferableDelegation Members
-
-        /// <summary>
-        /// Generate a transferable ID for this ExaminableObject.
-        /// </summary>
-        /// <returns>The ID of this object as a string.</returns>
-        public virtual string GenerateTransferalID()
-        {
-            return ID;
-        }
-
-        /// <summary>
-        /// Transfer delegation to this ExaminableObject from a source ITransferableDelegation object.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public virtual void TransferFrom(ITransferableDelegation source)
-        {
-            Examination = ((ExaminableObject)source).Examination;
-        }
-
-        /// <summary>
-        /// Register all child properties of this ExaminableObject that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this ExaminableObject.</param>
-        public virtual void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            if (!(Description is ITransferableDelegation)) 
-
-                return;
-
-            children.Add(Description as ITransferableDelegation);
-            ((ITransferableDelegation)Description).RegisterTransferableChildren(ref children);
         }
 
         #endregion

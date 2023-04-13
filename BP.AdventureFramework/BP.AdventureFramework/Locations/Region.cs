@@ -349,21 +349,6 @@ namespace BP.AdventureFramework.Locations
             return new ExaminationResult(Identifier + ": " + Description.GetDescription());
         }
 
-        /// <summary>
-        /// Handle registration of all child properties of this Region that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this Region.</param>
-        public override void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            foreach (var r in Rooms)
-            {
-                children.Add(r);
-                r.RegisterTransferableChildren(ref children);
-            }
-
-            base.RegisterTransferableChildren(ref children);
-        }
-
         #endregion
     }
 }

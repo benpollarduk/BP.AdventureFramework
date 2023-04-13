@@ -14,7 +14,7 @@ namespace BP.AdventureFramework.GameStructure
     /// <summary>
     /// Represents the structure of the game
     /// </summary>
-    public class Game : ITransferableDelegation
+    public class Game
     {
         #region Fields
 
@@ -322,12 +322,10 @@ namespace BP.AdventureFramework.GameStructure
         /// <returns>The first IInteractWithItem object which has a name that matches the name parameter.</returns>
         public virtual IInteractWithItem FindInteractionTarget(string name)
         {
-            name = name.ToUpper();
-
             if (name.EqualsExaminable(player))
                 return Player;
 
-            if (Player.Items.Any(i => name.EqualsExaminable(i)))
+            if (Player.Items.Any(name.EqualsExaminable))
             {
                 Player.FindItem(name, out var i);
                 return i;
@@ -376,41 +374,6 @@ namespace BP.AdventureFramework.GameStructure
         private void player_Died(object sender, string e)
         {
             OnHandlePlayerDied("YOU ARE DEAD!!!", e);
-        }
-
-        #endregion
-
-        #region ITransferableDelegation Members
-
-        /// <summary>
-        /// Generate a transferable ID for this Game.
-        /// </summary>
-        /// <returns>The ID of this object as a string.</returns>
-        public virtual string GenerateTransferalID()
-        {
-            return Name;
-        }
-
-        /// <summary>
-        /// Transfer delegation to this Game from a source ITransferableDelegation object. This should only concern top level properties and fields.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public void TransferFrom(ITransferableDelegation source)
-        {
-            var g = source as Game;
-            CompletionCondition = g.CompletionCondition;
-        }
-
-        /// <summary>
-        /// Register all child properties of this Game that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this Game.</param>
-        public void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            children.Add(Player);
-            Player.RegisterTransferableChildren(ref children);
-            children.Add(Overworld);
-            Overworld.RegisterTransferableChildren(ref children);
         }
 
         #endregion

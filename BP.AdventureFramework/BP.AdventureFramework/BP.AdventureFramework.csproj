@@ -82,7 +82,6 @@
     <Compile Include="Interaction\ExaminationResults.cs" />
     <Compile Include="Interaction\InteractionCallback.cs" />
     <Compile Include="Interaction\InteractionEffect.cs" />
-    <Compile Include="Interaction\ITransferableDelegation.cs" />
     <Compile Include="Interaction\ReactionToInput.cs" />
     <Compile Include="Locations\CardinalDirection.cs" />
     <Compile Include="Rendering\KeyType.cs" />

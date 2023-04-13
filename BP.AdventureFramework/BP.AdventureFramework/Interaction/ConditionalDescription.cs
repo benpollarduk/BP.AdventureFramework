@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Interaction
     /// <summary>
     /// Represents a conditional description of an object.
     /// </summary>
-    public class ConditionalDescription : Description, ITransferableDelegation
+    public class ConditionalDescription : Description
     {
         #region Properties
 
@@ -45,37 +45,6 @@ namespace BP.AdventureFramework.Interaction
                 return Condition.Invoke() ? DefaultDescription : falseDescription;
 
             return DefaultDescription;
-        }
-
-        #endregion
-
-        #region ITransferableDelegation Members
-
-        /// <summary>
-        /// Generate a transferable ID for this ConditionalDescription.
-        /// </summary>
-        /// <returns>The ID as a string.</returns>
-        public virtual string GenerateTransferalID()
-        {
-            return DefaultDescription + falseDescription;
-        }
-
-        /// <summary>
-        /// Transfer delegation to this ConditionalDescription from a source ITransferableDelegation object.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public virtual void TransferFrom(ITransferableDelegation source)
-        {
-            Condition = ((ConditionalDescription)source).Condition;
-        }
-
-        /// <summary>
-        /// Register all child properties of this ConditionalDescription that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this ConditionalDescription.</param>
-        public void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            // no children to register
         }
 
         #endregion

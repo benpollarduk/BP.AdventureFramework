@@ -312,21 +312,6 @@ namespace BP.AdventureFramework.Locations
             return false;
         }
 
-        /// <summary>
-        /// Register all child properties of this Overworld that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this Overworld.</param>
-        public override void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            foreach (var r in Regions)
-            {
-                children.Add(r);
-                r.RegisterTransferableChildren(ref children);
-            }
-
-            base.RegisterTransferableChildren(ref children);
-        }
-
         #endregion
     }
 }

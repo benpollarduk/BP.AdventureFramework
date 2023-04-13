@@ -72,37 +72,6 @@ namespace BP.AdventureFramework.Characters
         }
 
         /// <summary>
-        /// Handle transferal of delegation to this Character from a source ITransferableDelegation object.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public override void TransferFrom(ITransferableDelegation source)
-        {
-            var c = source as Character;
-            Interaction = c?.Interaction;
-        }
-
-        /// <summary>
-        /// Handle registration of all child properties of this Character that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this Character.</param>
-        public override void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            foreach (var i in Items)
-            {
-                children.Add(i);
-                i.RegisterTransferableChildren(ref children);
-            }
-
-            foreach (var command in AdditionalCommands)
-            {
-                children.Add(command);
-                command.RegisterTransferableChildren(ref children);
-            }
-
-            base.RegisterTransferableChildren(ref children);
-        }
-
-        /// <summary>
         /// Acquire an item.
         /// </summary>
         /// <param name="item">The item to acquire.</param>
@@ -183,38 +152,6 @@ namespace BP.AdventureFramework.Characters
         public virtual bool FindItem(string itemName, out Item item, bool includeInvisibleItems)
         {
             var items = Items.Where(x => x.Identifier.Equals(itemName) && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
-
-            if (items.Length > 0)
-            {
-                item = items[0];
-                return true;
-            }
-
-            item = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Find an item. This will not include items whose ExaminableObject.IsPlayerVisible property is set to false.
-        /// </summary>
-        /// <param name="itemID">The items ID. This is case insensitive.</param>
-        /// <param name="item">The item.</param>
-        /// <returns>True if the item was found.</returns>
-        internal virtual bool FindItemByID(string itemID, out Item item)
-        {
-            return FindItemByID(itemID, out item, false);
-        }
-
-        /// <summary>
-        /// Find an item.
-        /// </summary>
-        /// <param name="itemID">The items ID. This is case insensitive.</param>
-        /// <param name="item">The item.</param>
-        /// <param name="includeInvisibleItems">Specify if invisible items should be included.</param>
-        /// <returns>True if the item was found.</returns>
-        internal virtual bool FindItemByID(string itemID, out Item item, bool includeInvisibleItems)
-        {
-            var items = Items.Where(x => x.ID == itemID && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
 
             if (items.Length > 0)
             {

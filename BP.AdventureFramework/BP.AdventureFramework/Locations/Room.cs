@@ -591,42 +591,6 @@ namespace BP.AdventureFramework.Locations
             base.MovedInto(fromDirection);
         }
 
-        /// <summary>
-        /// Handle transferal of delegation to this Room from a source ITransferableDelegation object. This should only concern top level properties and fields.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public override void TransferFrom(ITransferableDelegation source)
-        {
-            Interaction = ((Room)source).Interaction;
-        }
-
-        /// <summary>
-        /// Handle registration of all child properties of this Room that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this Room.</param>
-        public override void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            foreach (var i in Items)
-            {
-                children.Add(i);
-                i.RegisterTransferableChildren(ref children);
-            }
-
-            foreach (var c in Characters)
-            {
-                children.Add(c);
-                c.RegisterTransferableChildren(ref children);
-            }
-
-            foreach (var aC in AdditionalCommands)
-            {
-                children.Add(aC);
-                aC.RegisterTransferableChildren(ref children);
-            }
-
-            base.RegisterTransferableChildren(ref children);
-        }
-
         #endregion
 
         #region IImplementOwnActions Members

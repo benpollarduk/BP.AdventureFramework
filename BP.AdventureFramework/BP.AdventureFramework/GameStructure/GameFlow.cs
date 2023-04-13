@@ -144,7 +144,6 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         public virtual void Begin()
         {
-            ExaminableObject.ResetIDSeed();
             Game = Creator.Invoke();
             EnterGameLoop();
         }
@@ -270,7 +269,6 @@ namespace BP.AdventureFramework.GameStructure
                     {
                         if (!newHasBeenLoaded)
                         {
-                            ExaminableObject.ResetIDSeed();
                             Game = Creator.Invoke();
                         }
 

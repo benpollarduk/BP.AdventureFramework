@@ -82,35 +82,6 @@ namespace BP.AdventureFramework.Interaction
 
         #endregion
 
-        #region Overrides of ExaminableObject
-
-        /// <summary>
-        /// Transfer delegation to this ExaminableObject from a source ITransferableDelegation object.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public override void TransferFrom(ITransferableDelegation source)
-        {
-            var i = source as Item;
-            Interaction = i?.Interaction;
-        }
-
-        /// <summary>
-        /// Register all child properties of this ExaminableObject that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this ExaminableObject.</param>
-        public override void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            foreach (var command in AdditionalCommands)
-            {
-                children.Add(command);
-                command.RegisterTransferableChildren(ref children);
-            }
-
-            base.RegisterTransferableChildren(ref children);
-        }
-
-        #endregion
-
         #region IImplementOwnActions Members
 
         /// <summary>

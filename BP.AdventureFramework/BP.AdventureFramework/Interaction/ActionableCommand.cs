@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Interaction
     /// <summary>
     /// Represents an actionable command.
     /// </summary>
-    public class ActionableCommand : ITransferableDelegation
+    public class ActionableCommand
     {
         #region Properties
 
@@ -65,37 +65,6 @@ namespace BP.AdventureFramework.Interaction
         public ActionableCommand(string command, string description, bool isPlayerVisible, ActionCallback action) : this(command, description, isPlayerVisible)
         {
             Action = action;
-        }
-
-        #endregion
-
-        #region ITransferableDelegation Members
-
-        /// <summary>
-        /// Generate a transferable ID for this ActionableCommand.
-        /// </summary>
-        /// <returns>The ID of this object as a string.</returns>
-        public virtual string GenerateTransferalID()
-        {
-            return Command + Description;
-        }
-
-        /// <summary>
-        /// Transfer delegation to this ActionableCommand from a source ITransferableDelegation object.
-        /// </summary>
-        /// <param name="source">The source ITransferableDelegation object to transfer from.</param>
-        public virtual void TransferFrom(ITransferableDelegation source)
-        {
-            Action = ((ActionableCommand)source).Action;
-        }
-
-        /// <summary>
-        /// Register all child properties of this ActionableCommand that are ITransferableDelegation.
-        /// </summary>
-        /// <param name="children">A list containing all the ITransferableDelegation properties of this ActionableComand.</param>
-        public virtual void RegisterTransferableChildren(ref List<ITransferableDelegation> children)
-        {
-            // no children to register
         }
 
         #endregion

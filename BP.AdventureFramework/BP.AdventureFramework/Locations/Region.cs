@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Locations
@@ -63,22 +64,22 @@ namespace BP.AdventureFramework.Locations
         /// <summary>
         /// Initializes a new instance of the Region class.
         /// </summary>
-        /// <param name="name">The name of this Region.</param>
+        /// <param name="identifier">This Regions identifier.</param>
         /// <param name="description">The description of this Region.</param>
-        public Region(string name, string description)
+        public Region(Identifier identifier, string description)
         {
-            Name = name;
+            Identifier = identifier;
             Description = new Description(description);
         }
 
         /// <summary>
         /// Initializes a new instance of the Region class.
-        /// </summary>
-        /// <param name="name">The name of this Region.</param>
+        /// </summary>s
+        /// <param name="identifier">This Regions identifier.</param>
         /// <param name="description">The description of this Region.</param>
-        public Region(string name, Description description)
+        public Region(Identifier identifier, Description description)
         {
-            Name = name;
+            Identifier = identifier;
             Description = description;
         }
 
@@ -216,7 +217,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>If a move was successful.</returns>
         public bool Move(string roomName)
         {
-            var matches = Rooms.Where(r => r.Name == roomName).ToArray();
+            var matches = Rooms.Where(roomName.EqualsExaminable).ToArray();
             return matches.Any() && Move(matches.ElementAt(0));
         }
 
@@ -356,7 +357,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>The result of this examination.</returns>
         public override ExaminationResult Examime()
         {
-            return new ExaminationResult(Name + ": " + Description.GetDescription());
+            return new ExaminationResult(Identifier + ": " + Description.GetDescription());
         }
 
         /// <summary>

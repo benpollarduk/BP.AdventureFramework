@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BP.AdventureFramework.Characters;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.GameStructure;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
@@ -177,7 +178,7 @@ namespace BP.AdventureFramework.Parsing
         {
             input = input.ToUpper();
             string noun;
-            var obj = string.Empty;
+            string obj = string.Empty;
 
             if (input.IndexOf(" ", StringComparison.Ordinal) > -1)
             {
@@ -217,7 +218,7 @@ namespace BP.AdventureFramework.Parsing
                             {
                                 game.Overworld.CurrentRegion.CurrentRoom.AddItem(droppedItem);
                                 game.Player.DequireItem(droppedItem);
-                                result = "Dropped " + droppedItem.Name;
+                                result = "Dropped " + droppedItem.Identifier;
                                 return ReactionToInput.CouldReact;
                             }
 
@@ -262,19 +263,19 @@ namespace BP.AdventureFramework.Parsing
                                     return ReactionToInput.CouldntReact;
                                 }
                             }
-                            else if (obj == "ME" || obj == game.Player.Name.ToUpper())
+                            else if (obj == "ME" || obj.EqualsExaminable(game.Player))
                             {
                                 examinationResult = game.Player.Examime();
                             }
-                            else if (obj == "ROOM" || obj == game.Overworld.CurrentRegion.CurrentRoom.Name.ToUpper())
+                            else if (obj == "ROOM" || obj.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom))
                             {
                                 examinationResult = game.Overworld.CurrentRegion.CurrentRoom.Examime();
                             }
-                            else if (obj == "REGION" || obj == game.Overworld.CurrentRegion.Name.ToUpper())
+                            else if (obj == "REGION" || obj.EqualsExaminable(game.Overworld.CurrentRegion))
                             {
                                 examinationResult = new ExaminationResult(game.Overworld.CurrentRegion.Description.GetDescription(), ExaminationResults.DescriptionReturned);
                             }
-                            else if (obj == "OVERWORLD" || obj == game.Overworld.Name.ToUpper())
+                            else if (obj == "OVERWORLD" || obj.EqualsExaminable(game.Overworld))
                             {
                                 examinationResult = new ExaminationResult(game.Overworld.Description.GetDescription(), ExaminationResults.DescriptionReturned);
                             }
@@ -308,7 +309,7 @@ namespace BP.AdventureFramework.Parsing
                     case Command.Take:
                         
                         if (game.Overworld.CurrentRegion.CurrentRoom.Items.Count(i => i.IsTakeable) == 1 && string.IsNullOrEmpty(obj))
-                            obj = game.Overworld.CurrentRegion.CurrentRoom.Items.Where(i => i.IsTakeable).ToArray()[0].Name;
+                            obj = game.Overworld.CurrentRegion.CurrentRoom.Items.Where(i => i.IsTakeable).ToArray()[0].Identifier.Name;
 
                         var reaction = game.Overworld.CurrentRegion.CurrentRoom.RemoveItemFromRoom(obj, out var removedItem);
 
@@ -323,7 +324,7 @@ namespace BP.AdventureFramework.Parsing
                         var aliveCharactersInRoom = game.Overworld.CurrentRegion.CurrentRoom.Characters.Where<Character>(c => c.IsAlive && c.IsPlayerVisible).ToArray();
 
                         if (aliveCharactersInRoom.Length == 1 && string.IsNullOrEmpty(obj))
-                            obj = aliveCharactersInRoom[0].Name;
+                            obj = aliveCharactersInRoom[0].Identifier.Name;
 
                         if (obj.Length > 3 && obj.Substring(0, 3) == "TO ")
                             obj = obj.Remove(0, 3);
@@ -336,7 +337,7 @@ namespace BP.AdventureFramework.Parsing
 
                         var isSomething = game.Overworld.CurrentRegion.CurrentRoom.ContainsItem(obj) ||
                                           game.Overworld.CurrentRegion.CurrentRoom.ContainsCharacter(obj) ||
-                                          game.Player.Items.Any(i => i.Name.ToUpper() == obj);
+                                          game.Player.Items.Any(i => obj.EqualsExaminable(i));
 
                         if (isSomething)
                             result = obj.Substring(0, 1) + obj.Substring(1).ToLower() + " cannot be talked to";
@@ -437,7 +438,7 @@ namespace BP.AdventureFramework.Parsing
                                 
                                 if (game.Overworld.CurrentRegion.CurrentRoom.ContainsItem(item))
                                     game.Overworld.CurrentRegion.CurrentRoom.RemoveItemFromRoom(interaction.Item);
-                                else if (game.Player.FindItem(item.Name, out item))
+                                else if (game.Player.FindItem(item.Identifier.Name, out item))
                                     game.Player.DequireItem(item);
 
                                 break;
@@ -448,7 +449,7 @@ namespace BP.AdventureFramework.Parsing
 
                                 if (examinable != null)
                                 {
-                                    if (game.Overworld.CurrentRegion.CurrentRoom.ContainsInteractionTarget(examinable.Name))
+                                    if (game.Overworld.CurrentRegion.CurrentRoom.ContainsInteractionTarget(examinable.Identifier.Name))
                                         game.Overworld.CurrentRegion.CurrentRoom.RemoveInteractionTargetFromRoom(target);
                                 }
 

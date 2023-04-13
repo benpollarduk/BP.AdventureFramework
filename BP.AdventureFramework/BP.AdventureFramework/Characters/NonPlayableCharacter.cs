@@ -21,21 +21,21 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.
         /// </summary>
-        /// <param name="name">The name of this NonPlayableCharacter.</param>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
-        public NonPlayableCharacter(string name, string description)
+        public NonPlayableCharacter(Identifier identifier, string description)
         {
-            Name = name;
+            Identifier = identifier;
             Description = new Description(description);
         }
 
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.
         /// </summary>
-        /// <param name="name">The name of this NonPlayableCharacter.</param>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
         /// <param name="conversation">The conversation.</param>
-        public NonPlayableCharacter(string name, string description, Conversation conversation) : this(name, description)
+        public NonPlayableCharacter(Identifier identifier, string description, Conversation conversation) : this(identifier, description)
         {
             Conversation = conversation;
         }
@@ -43,21 +43,21 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.
         /// </summary>
-        /// <param name="name">The name of this NonPlayableCharacter.</param>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
-        public NonPlayableCharacter(string name, Description description)
+        public NonPlayableCharacter(Identifier identifier, Description description)
         {
-            Name = name;
+            Identifier = identifier;
             Description = description;
         }
 
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.
         /// </summary>
-        /// <param name="name">The name of this NonPlayableCharacter.</param>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
         /// <param name="conversation">The conversation.</param>
-        public NonPlayableCharacter(string name, Description description, Conversation conversation) : this(name, description)   
+        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation) : this(identifier, description)   
         {
             Conversation = conversation;
         }
@@ -65,12 +65,12 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.
         /// </summary>
-        /// <param name="name">The name of this NonPlayableCharacter.</param>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
         /// <param name="conversation">The conversation.</param>
         /// <param name="isAlive">Set if this NonPlayableCharacter is alive.</param>
         /// <param name="interaction">Set this NonPlayableCharacter's interaction.</param>
-        public NonPlayableCharacter(string name, Description description, Conversation conversation, bool isAlive, InteractionCallback interaction) : this(name, description, conversation)
+        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation, bool isAlive, InteractionCallback interaction) : this(identifier, description, conversation)
         {
             IsAlive = isAlive;
             Interaction = interaction;
@@ -79,13 +79,13 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.
         /// </summary>
-        /// <param name="name">The name of this NonPlayableCharacter.</param>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
         /// <param name="conversation">The conversation.</param>
         /// <param name="isAlive">Set if this NonPlayableCharacter is alive.</param>
         /// <param name="interaction">Set this NonPlayableCharacter's interaction.</param>
         /// <param name="examination">Set this NonPlayableCharacter's examination.</param>
-        public NonPlayableCharacter(string name, Description description, Conversation conversation, bool isAlive, InteractionCallback interaction, ExaminationCallback examination) : this(name, description, conversation, isAlive, interaction)
+        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation, bool isAlive, InteractionCallback interaction, ExaminationCallback examination) : this(identifier, description, conversation, isAlive, interaction)
         {
             Examination = examination;
         }
@@ -101,12 +101,12 @@ namespace BP.AdventureFramework.Characters
         protected virtual string OnTalk()
         {
             if (Conversation == null) 
-                return Name + " has nothing to say";
+                return Identifier + " has nothing to say";
             
             if (Conversation.HasSomeRemainingLines || Conversation.RepeatLastElement)
-                return Name + ": \"" + Conversation.NextLine() + "\"";
+                return Identifier + ": \"" + Conversation.NextLine() + "\"";
 
-            return Name + " has nothing else to say";
+            return Identifier + " has nothing else to say";
 
         }
 

@@ -82,7 +82,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         {
             var scene = new StringBuilder();
             scene.Append(drawer.ConstructDivider(width));
-            scene.Append(drawer.ConstructWrappedPaddedString($"LOCATION: {Room.Name}", width));
+            scene.Append(drawer.ConstructWrappedPaddedString($"LOCATION: {Room.Identifier}", width));
             scene.Append(drawer.ConstructDivider(width));
             scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
             scene.Append(drawer.ConstructWrappedPaddedString(Room.Description.GetDescription(), width));
@@ -99,17 +99,17 @@ namespace BP.AdventureFramework.Rendering.Frames
             {
                 if (visibleCharacters.Length == 1)
                 {
-                    scene.Append(drawer.ConstructWrappedPaddedString(visibleCharacters[0].Name + " is in this area", width));
+                    scene.Append(drawer.ConstructWrappedPaddedString(visibleCharacters[0].Identifier + " is in this area", width));
                 }
                 else
                 {
                     var characters = string.Empty;
 
                     foreach (var character in visibleCharacters)
-                        characters += character.Name + ", ";
+                        characters += character.Identifier + ", ";
 
                     characters = characters.Remove(characters.Length - 2);
-                    scene.Append(drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + Room.Name, width));
+                    scene.Append(drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + Room.Identifier, width));
                 }
             }
 

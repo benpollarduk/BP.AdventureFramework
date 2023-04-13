@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Characters;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 using BP.AdventureFramework.Parsing;
@@ -323,16 +324,16 @@ namespace BP.AdventureFramework.GameStructure
         {
             name = name.ToUpper();
 
-            if (Player.Name.ToUpper() == name)
+            if (name.EqualsExaminable(player))
                 return Player;
 
-            if (Player.Items.Any(i => string.Equals(i.Name.ToUpper(), name, StringComparison.InvariantCultureIgnoreCase)))
+            if (Player.Items.Any(i => name.EqualsExaminable(i)))
             {
                 Player.FindItem(name, out var i);
                 return i;
             }
 
-            if (string.Equals(Overworld.CurrentRegion.CurrentRoom.Name.ToUpper(), name, StringComparison.InvariantCultureIgnoreCase))
+            if (name.EqualsExaminable(Overworld.CurrentRegion.CurrentRoom))
                 return Overworld.CurrentRegion.CurrentRoom;
 
             if (!Overworld.CurrentRegion.CurrentRoom.ContainsInteractionTarget(name))

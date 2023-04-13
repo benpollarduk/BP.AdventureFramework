@@ -62,7 +62,7 @@ namespace BP.AdventureFramework.Rendering.Frames
             var scene = new StringBuilder();
 
             scene.Append(drawer.ConstructDivider(width));
-            scene.Append(drawer.ConstructWrappedPaddedString(Region.Name, width, true));
+            scene.Append(drawer.ConstructWrappedPaddedString(Region.Identifier.Name, width, true));
             scene.Append(drawer.ConstructDivider(width));
 
             if (MapDrawer != null)

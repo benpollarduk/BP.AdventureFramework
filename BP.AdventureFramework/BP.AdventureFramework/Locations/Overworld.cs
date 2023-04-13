@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Locations
@@ -46,22 +47,22 @@ namespace BP.AdventureFramework.Locations
         /// <summary>
         /// Initializes a new instance of the Overworld class.
         /// </summary>
-        /// <param name="name">The name of this Overworld.</param>
+        /// <param name="identifier">The identifier for this Overworld.</param>
         /// <param name="description">A description of this Overworld.</param>
-        public Overworld(string name, string description)
+        public Overworld(Identifier identifier, string description)
         {
-            Name = name; 
+            Identifier = identifier; 
             Description = new Description(description);
         }
 
         /// <summary>
         /// Initializes a new instance of the Overworld class.
         /// </summary>
-        /// <param name="name">The name of this Overworld.</param>
+        /// <param name="identifier">The identifier for this Overworld.</param>
         /// <param name="description">A description of this Overworld.</param>
-        public Overworld(string name, Description description)
+        public Overworld(Identifier identifier, Description description)
         {
-            Name = name;
+            Identifier = identifier;
             Description = description;
         }
 
@@ -145,7 +146,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>If a move was successful.</returns>
         public bool MoveRegion(string regionName)
         {
-            var matches = Regions.Where(r => string.Equals(r.Name, regionName, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+            var matches = Regions.Where(regionName.EqualsExaminable).ToArray();
 
             // move region
             if (matches.Any())

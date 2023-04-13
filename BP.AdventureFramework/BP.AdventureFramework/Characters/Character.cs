@@ -68,7 +68,7 @@ namespace BP.AdventureFramework.Characters
             if (AdditionalCommands.Contains(command))
                 return command.Action.Invoke();
 
-            throw new ArgumentException($"Command {command.Command} was not found on object {Name}");
+            throw new ArgumentException($"Command {command.Command} was not found on object {Identifier}");
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace BP.AdventureFramework.Characters
         /// <returns>True if the item was found.</returns>
         public virtual bool FindItem(string itemName, out Item item, bool includeInvisibleItems)
         {
-            var items = Items.Where(x => x.Name.ToUpper() == itemName.ToUpper() && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
+            var items = Items.Where(x => x.Identifier.Equals(itemName) && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
 
             if (items.Length > 0)
             {
@@ -236,7 +236,7 @@ namespace BP.AdventureFramework.Characters
                 return string.Empty;
 
             var itemsInRoom = string.Empty;
-            var itemNames = (from i in Items where i.IsPlayerVisible select i.Name).ToList();
+            var itemNames = (from i in Items where i.IsPlayerVisible select i.Identifier).ToList();
 
             itemNames.Sort();
 

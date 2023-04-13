@@ -6,9 +6,9 @@
     public interface IExaminable
     {
         /// <summary>
-        /// Get the name of this object.
+        /// Get this objects identifier.
         /// </summary>
-        string Name { get; }
+        Identifier Identifier { get; }
         /// <summary>
         /// Get or set a description of this object.
         /// </summary>

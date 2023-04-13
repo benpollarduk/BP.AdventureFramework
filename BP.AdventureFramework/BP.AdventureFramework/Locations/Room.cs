@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using BP.AdventureFramework.Characters;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Parsing;
 using static System.String;
@@ -64,21 +64,21 @@ namespace BP.AdventureFramework.Locations
         /// <summary>
         /// Initializes a new instance of the Room class.
         /// </summary>
-        /// <param name="name">This rooms name.</param>
+        /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
-        public Room(string name, Description description)
+        public Room(Identifier identifier, Description description)
         {
-            Name = name;
+            Identifier = identifier;
             Description = description;
         }
 
         /// <summary>
         /// Initializes a new instance of the Room class.
         /// </summary>
-        /// <param name="name">This rooms name.</param>
+        /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
         /// <param name="exits">The exits from this room.</param>
-        public Room(string name, Description description, params Exit[] exits) : this(name, description)
+        public Room(Identifier identifier, Description description, params Exit[] exits) : this(identifier, description)
         {
             Exits.AddRange(exits);
         }
@@ -86,11 +86,11 @@ namespace BP.AdventureFramework.Locations
         /// <summary>
         /// Initializes a new instance of the Room class.
         /// </summary>
-        /// <param name="name">This rooms name.</param>
+        /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
         /// <param name="exits">The exits from this room.</param>
         /// <param name="items">The items in this room.</param>
-        public Room(string name, Description description, Exit[] exits, params Item[] items) : this(name, description, exits)
+        public Room(Identifier identifier, Description description, Exit[] exits, params Item[] items) : this(identifier, description, exits)
         {
             Items.AddRange(items);
         }
@@ -118,15 +118,6 @@ namespace BP.AdventureFramework.Locations
         }
 
         /// <summary>
-        /// Add an exit to this room.
-        /// </summary>
-        /// <param name="exit">The exit to add.</param>
-        public void AddExit(Exit exit)
-        {
-            Exits.Add(exit);
-        }
-
-        /// <summary>
         /// Remove an item from the room.
         /// </summary>
         /// <param name="item">The item to remove.</param>
@@ -141,21 +132,11 @@ namespace BP.AdventureFramework.Locations
         /// Remove an item from the room.
         /// </summary>
         /// <param name="itemName">The name of the item to remove.</param>
-        /// <returns>If the item was removed correctly.</returns>
-        public Decision RemoveItemFromRoom(string itemName)
-        {
-            return RemoveItemFromRoom(itemName, out _);
-        }
-
-        /// <summary>
-        /// Remove an item from the room.
-        /// </summary>
-        /// <param name="itemName">The name of the item to remove.</param>
         /// <param name="removedItem">The item removed from this room.</param>
         /// <returns>If the item was removed correctly.</returns>
         public Decision RemoveItemFromRoom(string itemName, out Item removedItem)
         {
-            var matchingItems = Items.Where(x => String.Equals(x.Name, itemName, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+            var matchingItems = Items.Where(itemName.EqualsExaminable).ToArray();
 
             if (matchingItems.Length <= 0)
             {
@@ -172,23 +153,12 @@ namespace BP.AdventureFramework.Locations
             if (!matchingItems[0].IsTakeable)
             {
                 removedItem = null;
-                return new Decision(ReactionToInput.CouldntReact, matchingItems[0].Name + " is not takeable");
+                return new Decision(ReactionToInput.CouldntReact, matchingItems[0].Identifier + " is not takeable");
             }
 
             removedItem = matchingItems[0];
             Items.Remove(removedItem);
-            return new Decision(ReactionToInput.CouldReact, "Took " + removedItem.Name);
-        }
-
-        /// <summary>
-        /// Remove a character from the room.
-        /// </summary>
-        /// <param name="character">The character to remove.</param>
-        /// <returns>The character removed from this room.</returns>
-        public Character RemoveCharacterFromRoom(NonPlayableCharacter character)
-        {
-            Characters.Remove(character);
-            return character;
+            return new Decision(ReactionToInput.CouldReact, "Took " + removedItem.Identifier);
         }
 
         /// <summary>
@@ -209,13 +179,13 @@ namespace BP.AdventureFramework.Locations
         /// <returns>If the character was removed correctly.</returns>
         public Decision RemoveCharacterFromRoom(string characterName, out NonPlayableCharacter removedCharacter)
         {
-            var matchingCharacters = Characters.Where(x => String.Equals(x.Name, characterName, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+            var matchingCharacters = Characters.Where(characterName.EqualsExaminable).ToArray();
 
             if (matchingCharacters.Length > 0)
             {
                 removedCharacter = matchingCharacters[0];
                 Characters.Remove(removedCharacter);
-                return new Decision(ReactionToInput.CouldReact, "Removed " + removedCharacter.Name);
+                return new Decision(ReactionToInput.CouldReact, "Removed " + removedCharacter.Identifier);
             }
 
             removedCharacter = null;
@@ -274,7 +244,7 @@ namespace BP.AdventureFramework.Locations
             if (Items.Where(i => i.IsPlayerVisible).ToArray().Length == 1)
             {
                 var singularItem = Items.Where(i => i.IsPlayerVisible).ToArray()[0];
-                return new ExaminationResult($"There {(TextParser.IsPlural(singularItem.Name) ? "are" : "is")} {TextParser.GetObjectifier(singularItem.Name)} {singularItem.Name}");
+                return new ExaminationResult($"There {(TextParser.IsPlural(singularItem.Identifier.Name) ? "are" : "is")} {TextParser.GetObjectifier(singularItem.Identifier.Name)} {singularItem.Identifier}");
             }
 
             var sentance = GetItemsAsString();
@@ -321,7 +291,7 @@ namespace BP.AdventureFramework.Locations
             foreach (var i in Items)
             {
                 if (i.IsPlayerVisible)
-                    itemNames.Add(i.Name);
+                    itemNames.Add(i.Identifier.Name);
             }
 
             itemNames.Sort();
@@ -385,17 +355,6 @@ namespace BP.AdventureFramework.Locations
         public bool HasUnlockedExitInDirection(CardinalDirection direction, bool includeInvisibleExits)
         {
             return Exits.Any(x => x.Direction == direction && !x.IsLocked && (includeInvisibleExits || x.IsPlayerVisible));
-        }
-
-        /// <summary>
-        /// Get if this Room contains an exit.
-        /// </summary>
-        /// <param name="exit">The exit to check for.</param>
-        /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
-        /// <returns>True if the exit exists, else false.</returns>
-        public bool ContainsExit(Exit exit, bool includeInvisibleExits)
-        {
-            return Exits.Contains(exit) && (includeInvisibleExits || exit.IsPlayerVisible);
         }
 
         /// <summary>
@@ -479,7 +438,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>True if the item is in this room, else false.</returns>
         public bool ContainsItem(string itemName, bool includeInvisibleItems)
         {
-            return Items.Any(item => item.Name.ToUpper() == itemName.ToUpper() && (includeInvisibleItems || item.IsPlayerVisible));
+            return Items.Any(item => itemName.EqualsExaminable(item) && (includeInvisibleItems || item.IsPlayerVisible));
         }
 
         /// <summary>
@@ -489,7 +448,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>True if the target is in this room, else false.</returns>
         public virtual bool ContainsInteractionTarget(string targetName)
         {
-            return Items.Any(i => String.Equals(i.Name, targetName, StringComparison.CurrentCultureIgnoreCase)) || Characters.Any(nPC => String.Equals(nPC.Name, targetName, StringComparison.CurrentCultureIgnoreCase));
+            return Items.Any(i => targetName.EqualsExaminable(i) || Characters.Any(targetName.EqualsExaminable));
         }
 
         /// <summary>
@@ -512,28 +471,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>True if the item was found.</returns>
         public bool FindItem(string itemName, out Item item, bool includeInvisibleItems)
         {
-            var items = Items.Where(x => String.Equals(x.Name, itemName, StringComparison.CurrentCultureIgnoreCase) && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
-
-            if (items.Length > 0)
-            {
-                item = items[0];
-                return true;
-            }
-
-            item = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Find an item.
-        /// </summary>
-        /// <param name="itemID">The items ID.</param>
-        /// <param name="item">The item.</param>
-        /// <param name="includeInvisibleItems">Specify if invisible items should be included.</param>
-        /// <returns>True if the item was found.</returns>
-        internal bool FindItemByID(string itemID, out Item item, bool includeInvisibleItems)
-        {
-            var items = Items.Where(x => x.ID == itemID && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
+            var items = Items.Where(x => itemName.EqualsExaminable(x) && (includeInvisibleItems || x.IsPlayerVisible)).ToArray();
 
             if (items.Length > 0)
             {
@@ -553,8 +491,8 @@ namespace BP.AdventureFramework.Locations
         /// <returns>True if the target was found.</returns>
         public virtual bool FindInteractionTarget(string targetName, out IInteractWithItem target)
         {
-            var items = Items.Where(x => String.Equals(x.Name, targetName, StringComparison.CurrentCultureIgnoreCase)).ToArray();
-            var nPCS = Characters.Where(n => String.Equals(n.Name, targetName, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+            var items = Items.Where(targetName.EqualsExaminable).ToArray();
+            var nPCS = Characters.Where(targetName.EqualsExaminable).ToArray();
             var interactions = new List<IInteractWithItem>(items);
             interactions.AddRange(nPCS);
 
@@ -586,7 +524,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>True if the item is in this room, else false.</returns>
         public bool ContainsCharacter(string characterName, bool includeInvisibleCharacters)
         {
-            return Characters.Any(character => String.Equals(character.Name, characterName, StringComparison.CurrentCultureIgnoreCase) && (includeInvisibleCharacters || character.IsPlayerVisible));
+            return Characters.Any(character => characterName.EqualsExaminable(character) && (includeInvisibleCharacters || character.IsPlayerVisible));
         }
 
         /// <summary>
@@ -609,7 +547,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>True if the character was found.</returns>
         public bool FindCharacter(string characterName, out NonPlayableCharacter character, bool includeInvisibleCharacters)
         {
-            var characters = Characters.Where(x => String.Equals(x.Name, characterName, StringComparison.CurrentCultureIgnoreCase) && (includeInvisibleCharacters || x.IsPlayerVisible)).ToArray();
+            var characters = Characters.Where(x => characterName.EqualsExaminable(x) && (includeInvisibleCharacters || x.IsPlayerVisible)).ToArray();
 
             if (characters.Length > 0)
             {
@@ -708,7 +646,7 @@ namespace BP.AdventureFramework.Locations
             if (AdditionalCommands.Contains(command))
                 return command.Action.Invoke();
 
-            throw new ArgumentException($"Command {command.Command} was not found on object {Name}");
+            throw new ArgumentException($"Command {command.Command} was not found on object {Identifier}");
         }
 
         /// <summary>

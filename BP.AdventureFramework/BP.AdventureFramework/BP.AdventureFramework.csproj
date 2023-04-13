@@ -73,9 +73,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interaction\ActionCallback.cs" />
     <Compile Include="Interaction\Command.cs" />
     <Compile Include="Interaction\Condition.cs" />
+    <Compile Include="Interaction\Identifier.cs" />
     <Compile Include="Interaction\ExaminationCallback.cs" />
     <Compile Include="Interaction\ExaminationResults.cs" />
     <Compile Include="Interaction\InteractionCallback.cs" />

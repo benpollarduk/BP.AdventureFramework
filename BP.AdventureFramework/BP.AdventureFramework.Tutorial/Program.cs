@@ -69,7 +69,7 @@ namespace BP.AdventureFramework.Tutorial
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception caught running demo: {0}", e.Message);
+                Console.WriteLine($"Exception caught running demo: {e.Message}");
                 Console.ReadKey();
             }
         }

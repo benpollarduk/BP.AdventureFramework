@@ -43,12 +43,12 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Initializes a new instance of the Item class.
         /// </summary>
-        /// <param name="name">The name of this Item.</param>
+        /// <param name="identifier">This Items identifier.</param>
         /// <param name="description">A description of this Item.</param>
         /// <param name="isTakeable">Specify if this item is takeable.</param>
-        public Item(string name, string description, bool isTakeable)
+        public Item(Identifier identifier, string description, bool isTakeable)
         {
-            Name = name;
+            Identifier = identifier;
             Description = new Description(description);
             IsTakeable = isTakeable;
         }
@@ -56,12 +56,12 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Initializes a new instance of the Item class.
         /// </summary>
-        /// <param name="name">The name of this Item.</param>
+        /// <param name="identifier">This Items identifier.</param>
         /// <param name="description">A description of this Item.</param>
         /// <param name="isTakeable">Specify if this item is takeable.</param>
-        public Item(string name, Description description, bool isTakeable)
+        public Item(Identifier identifier, Description description, bool isTakeable)
         {
-            Name = name;
+            Identifier = identifier;
             Description = description;
             IsTakeable = isTakeable;
         }
@@ -76,7 +76,7 @@ namespace BP.AdventureFramework.Interaction
         /// <param name="item">The item to morph into.</param>
         public virtual void Morph(Item item)
         {
-            Name = item.Name;
+            Identifier = item.Identifier;
             Description = item.Description;
             IsPlayerVisible = item.IsPlayerVisible;
             IsTakeable = item.IsTakeable;
@@ -141,7 +141,7 @@ namespace BP.AdventureFramework.Interaction
             if (AdditionalCommands.Contains(command))
                 return command.Action.Invoke();
 
-            throw new ArgumentException($"Command {command.Command} was not found on object {Name}");
+            throw new ArgumentException($"Command {command.Command} was not found on object {Identifier}");
         }
 
         /// <summary>

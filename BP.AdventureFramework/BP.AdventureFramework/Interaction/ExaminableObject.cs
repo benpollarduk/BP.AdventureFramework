@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Get this objects ID.
         /// </summary>
-        internal string ID { get; private set; } = "0";
+        internal string ID { get; } = "0";
 
         /// <summary>
         /// Get or set the callback handling all examination of this object.
@@ -65,9 +65,9 @@ namespace BP.AdventureFramework.Interaction
         #region IExaminable Members
 
         /// <summary>
-        /// Get the name of this object.
+        /// Get this objects identifier.
         /// </summary>
-        public string Name { get; protected set; }
+        public Identifier Identifier { get; protected set; }
 
         /// <summary>
         /// Get or set a description of this object.

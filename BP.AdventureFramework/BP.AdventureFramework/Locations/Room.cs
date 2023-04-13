@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Locations
     /// <summary>
     /// Represents a room
     /// </summary>
-    public class Room : GameLocation, IInteractWithItem, IImplementOwnActions
+    public class Room : GameLocation, IInteractWithItem
     {
         #region Fields
 
@@ -122,43 +122,9 @@ namespace BP.AdventureFramework.Locations
         /// </summary>
         /// <param name="item">The item to remove.</param>
         /// <returns>The item removed from this room.</returns>
-        public Item RemoveItemFromRoom(Item item)
+        public void RemoveItemFromRoom(Item item)
         {
             Items.Remove(item);
-            return item;
-        }
-
-        /// <summary>
-        /// Remove an item from the room.
-        /// </summary>
-        /// <param name="itemName">The name of the item to remove.</param>
-        /// <param name="removedItem">The item removed from this room.</param>
-        /// <returns>If the item was removed correctly.</returns>
-        public Decision RemoveItemFromRoom(string itemName, out Item removedItem)
-        {
-            var matchingItems = Items.Where(itemName.EqualsExaminable).ToArray();
-
-            if (matchingItems.Length <= 0)
-            {
-                removedItem = null;
-                return new Decision(ReactionToInput.CouldntReact, "That is not an item");
-            }
-
-            if (!matchingItems[0].IsPlayerVisible)
-            {
-                removedItem = null;
-                return new Decision(ReactionToInput.CouldntReact, "That is not an item");
-            }
-
-            if (!matchingItems[0].IsTakeable)
-            {
-                removedItem = null;
-                return new Decision(ReactionToInput.CouldntReact, matchingItems[0].Identifier + " is not takeable");
-            }
-
-            removedItem = matchingItems[0];
-            Items.Remove(removedItem);
-            return new Decision(ReactionToInput.CouldReact, "Took " + removedItem.Identifier);
         }
 
         /// <summary>
@@ -185,11 +151,11 @@ namespace BP.AdventureFramework.Locations
             {
                 removedCharacter = matchingCharacters[0];
                 Characters.Remove(removedCharacter);
-                return new Decision(ReactionToInput.CouldReact, "Removed " + removedCharacter.Identifier);
+                return new Decision(ReactionResult.CouldReact, "Removed " + removedCharacter.Identifier);
             }
 
             removedCharacter = null;
-            return new Decision(ReactionToInput.CouldntReact, "That is not an character");
+            return new Decision(ReactionResult.NoReaction, "That is not an character");
         }
 
         /// <summary>
@@ -244,36 +210,36 @@ namespace BP.AdventureFramework.Locations
             if (Items.Where(i => i.IsPlayerVisible).ToArray().Length == 1)
             {
                 var singularItem = Items.Where(i => i.IsPlayerVisible).ToArray()[0];
-                return new ExaminationResult($"There {(TextParser.IsPlural(singularItem.Identifier.Name) ? "are" : "is")} {TextParser.GetObjectifier(singularItem.Identifier.Name)} {singularItem.Identifier}");
+                return new ExaminationResult($"There {(Interpreter.IsPlural(singularItem.Identifier.Name) ? "are" : "is")} {Interpreter.GetObjectifier(singularItem.Identifier.Name)} {singularItem.Identifier}");
             }
 
-            var sentance = GetItemsAsString();
+            var sentence = GetItemsAsString();
             var somethingLeftToCheck = true;
             var index = 0;
             string currentItemName;
 
             while (somethingLeftToCheck)
             {
-                index = sentance.IndexOf(",", index, StringComparison.Ordinal);
+                index = sentence.IndexOf(",", index, StringComparison.Ordinal);
 
-                if (index == sentance.LastIndexOf(", ", StringComparison.Ordinal))
+                if (index == sentence.LastIndexOf(", ", StringComparison.Ordinal))
                 {
-                    sentance = sentance.Remove(index, 2);
-                    currentItemName = sentance.Substring(index).Trim(Convert.ToChar(" "));
-                    sentance = sentance.Insert(index, $" and {TextParser.GetObjectifier(currentItemName)} ");
+                    sentence = sentence.Remove(index, 2);
+                    currentItemName = sentence.Substring(index).Trim(Convert.ToChar(" "));
+                    sentence = sentence.Insert(index, $" and {Interpreter.GetObjectifier(currentItemName)} ");
                     somethingLeftToCheck = false;
                 }
                 else
                 {
-                    sentance = sentance.Remove(index, 2);
-                    currentItemName = sentance.Substring(index, sentance.IndexOf(", ", index, StringComparison.Ordinal) - index).Trim(Convert.ToChar(" "));
-                    sentance = sentance.Insert(index, $", {TextParser.GetObjectifier(currentItemName)} ");
+                    sentence = sentence.Remove(index, 2);
+                    currentItemName = sentence.Substring(index, sentence.IndexOf(", ", index, StringComparison.Ordinal) - index).Trim(Convert.ToChar(" "));
+                    sentence = sentence.Insert(index, $", {Interpreter.GetObjectifier(currentItemName)} ");
                     index += 1;
                 }
             }
 
-            currentItemName = sentance.Substring(0, sentance.Contains(", ") ? sentance.IndexOf(", ", StringComparison.Ordinal) : sentance.IndexOf(" and ", StringComparison.Ordinal));
-            return new ExaminationResult($"There {(TextParser.IsPlural(currentItemName) ? "are" : "is")} {TextParser.GetObjectifier(currentItemName)} {sentance}");
+            currentItemName = sentence.Substring(0, sentence.Contains(", ") ? sentence.IndexOf(", ", StringComparison.Ordinal) : sentence.IndexOf(" and ", StringComparison.Ordinal));
+            return new ExaminationResult($"There {(Interpreter.IsPlural(currentItemName) ? "are" : "is")} {Interpreter.GetObjectifier(currentItemName)} {sentence}");
         }
 
         /// <summary>
@@ -557,19 +523,6 @@ namespace BP.AdventureFramework.Locations
         }
 
         /// <summary>
-        /// Get all IImplementOwnActions objects within this Room.
-        /// </summary>
-        /// <returns>An array of all IImplementOwnActions objects within this Room.</returns>
-        public IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
-        {
-            var customCommands = new List<IImplementOwnActions>();
-            customCommands.AddRange(Items.Where(i => i.IsPlayerVisible).ToArray());
-            customCommands.AddRange(Characters.Where<Character>(c => c.IsPlayerVisible).ToArray());
-            customCommands.Add(this);
-            return customCommands.ToArray<IImplementOwnActions>();
-        }
-
-        /// <summary>
         /// Handle movement into this Room.
         /// </summary>
         /// <param name="fromDirection">The direction movement into this Room is from. Use null if there should be no direction.</param>
@@ -577,38 +530,6 @@ namespace BP.AdventureFramework.Locations
         {
             EnteredFrom = fromDirection;
             base.MovedInto(fromDirection);
-        }
-
-        #endregion
-
-        #region IImplementOwnActions Members
-
-        /// <summary>
-        /// Get or set the ActionableCommands this object can interact with.
-        /// </summary>
-        public List<ActionableCommand> AdditionalCommands { get; set; } = new List<ActionableCommand>();
-
-        /// <summary>
-        /// React to an ActionableCommand.
-        /// </summary>
-        /// <param name="command">The command to react to.</param>
-        /// <returns>The result of the interaction.</returns>
-        public InteractionResult ReactToAction(ActionableCommand command)
-        {
-            if (AdditionalCommands.Contains(command))
-                return command.Action.Invoke();
-
-            throw new ArgumentException($"Command {command.Command} was not found on object {Identifier}");
-        }
-
-        /// <summary>
-        /// Find a command by it's name.
-        /// </summary>
-        /// <param name="command">The name of the command to find.</param>
-        /// <returns>The ActionableCommand (if it is found).</returns>
-        public ActionableCommand FindCommand(string command)
-        {
-            return AdditionalCommands.FirstOrDefault(c => string.Equals(c.Command, command, StringComparison.CurrentCultureIgnoreCase));
         }
 
         #endregion

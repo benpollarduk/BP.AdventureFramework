@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Locations
@@ -77,12 +76,12 @@ namespace BP.AdventureFramework.Locations
         #region Methods
 
         /// <summary>
-        /// Create a Room in this Region.
+        /// Add a Room to this Region.
         /// </summary>
-        /// <param name="room">The Room to create.</param>
+        /// <param name="room">The Room to add.</param>
         /// <param name="columnInRegion">The column of the Room with this Region.</param>
         /// <param name="rowInRegion">The row of the Room within this Region.</param>
-        public bool CreateRoom(Room room, int columnInRegion, int rowInRegion)
+        public bool AddRoom(Room room, int columnInRegion, int rowInRegion)
         {
             room.Column = columnInRegion;
             room.Row = rowInRegion;
@@ -94,7 +93,6 @@ namespace BP.AdventureFramework.Locations
 
             return addable;
         }
-
 
         /// <summary>
         /// Get an adjoining Room to the Region.CurrentRoom property.

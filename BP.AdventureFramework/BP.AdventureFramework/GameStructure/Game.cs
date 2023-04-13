@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Extensions;
@@ -117,11 +116,6 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         public CompletionCheck CompletionCondition { get; set; }
 
-        /// <summary>
-        /// Get or set the parser for this Game.
-        /// </summary>
-        public TextParser Parser { get; set; } = new TextParser();
-
         #endregion
 
         #region Constructors
@@ -180,7 +174,8 @@ namespace BP.AdventureFramework.GameStructure
         /// <returns>A result detailing the reaction.</returns>
         public Decision ReactToInput(string input)
         {
-            var reacted = Parser.ReactToInput(input, this, out var message);
+            var command = Interpreter.Interpret(input, this);
+            var reaction = command.Invoke();
 
             if (!CompletionCondition(this))
                 return new Decision(reacted, message);
@@ -189,7 +184,7 @@ namespace BP.AdventureFramework.GameStructure
 
             CurrentFrame = CompletionFrame;
 
-            return new Decision(ReactionToInput.SelfContainedReaction, "You have finished the game");
+            return new Decision(ReactionResult.SelfContainedReaction, "You have finished the game");
         }
 
         /// <summary>
@@ -251,48 +246,6 @@ namespace BP.AdventureFramework.GameStructure
         protected void OnHandlePlayerDied(string titleMessage, string reason)
         {
             OnCurrentFrameUpdated(new EndFrame(titleMessage, reason));
-        }
-
-        /// <summary>
-        /// Get all objects in this Game (that are within the current scope) that implement IImplementOwnActions.
-        /// </summary>
-        /// <returns>All IImplementOwnActions objects.</returns>
-        public IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
-        {
-            var commandables = new List<IImplementOwnActions>();
-            commandables.AddRange(Overworld.CurrentRegion.CurrentRoom.GetAllObjectsWithAdditionalCommands());
-            commandables.AddRange(Player.GetAllObjectsWithAdditionalCommands());
-            return commandables.ToArray<IImplementOwnActions>();
-        }
-
-        /// <summary>
-        /// Get if a string is a valid ActionableCommand.
-        /// </summary>
-        /// <param name="command">The command to search for.</param>
-        /// <returns>True if the command was found, else false.</returns>
-        public bool IsValidActionableCommand(string command)
-        {
-            return FindActionableCommand(command) != null;
-        }
-
-        /// <summary>
-        /// Find a ActionableCommand in this Games IImplementOwnActions objects
-        /// </summary>
-        /// <param name="command">The command to search for</param>
-        /// <returns>The first ActionableCommand whose Command property matches the command parameter</returns>
-        public ActionableCommand FindActionableCommand(string command)
-        {
-            var commandables = GetAllObjectsWithAdditionalCommands();
-
-            foreach (var commandable in commandables)
-            {
-                var customCommand = commandable.FindCommand(command);
-
-                if (customCommand != null)
-                    return customCommand;
-            }
-
-            return null;
         }
 
         /// <summary>

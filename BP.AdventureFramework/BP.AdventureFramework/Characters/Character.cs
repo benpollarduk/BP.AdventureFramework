@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Interaction;
 
@@ -8,7 +7,7 @@ namespace BP.AdventureFramework.Characters
     /// <summary>
     /// Represents a generic in game character.
     /// </summary>
-    public abstract class Character : ExaminableObject, IInteractWithItem, IImplementOwnActions
+    public abstract class Character : ExaminableObject, IInteractWithItem
     {
         #region Properties
 
@@ -56,19 +55,6 @@ namespace BP.AdventureFramework.Characters
         public virtual void Kill(string reason)
         {
             IsAlive = false;
-        }
-
-        /// <summary>
-        /// Handle reactions to ActionableCommands.
-        /// </summary>
-        /// <param name="command">The command to react to.</param>
-        /// <returns>The result of the command.</returns>
-        protected virtual InteractionResult OnReactToAction(ActionableCommand command)
-        {
-            if (AdditionalCommands.Contains(command))
-                return command.Action.Invoke();
-
-            throw new ArgumentException($"Command {command.Command} was not found on object {Identifier}");
         }
 
         /// <summary>
@@ -163,18 +149,6 @@ namespace BP.AdventureFramework.Characters
         }
 
         /// <summary>
-        /// Get all IImplementOwnActions objects within this Character.
-        /// </summary>
-        /// <returns>An array of all IImplementOwnActions objects within this Character.</returns>
-        public virtual IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
-        {
-            var customCommands = new List<IImplementOwnActions>();
-            customCommands.AddRange(Items.Where(i => i.IsPlayerVisible).ToArray());
-            customCommands.Add(this);
-            return customCommands.ToArray<IImplementOwnActions>();
-        }
-
-        /// <summary>
         /// Give an item to another in game Character.
         /// </summary>
         /// <param name="item">The item to give.</param>
@@ -189,41 +163,6 @@ namespace BP.AdventureFramework.Characters
             character.AquireItem(item);
             return true;
 
-        }
-
-        #endregion
-
-        #region IImplementOwnActions Members
-
-        /// <summary>
-        /// Get or set the ActionableCommands this object can interact with.
-        /// </summary>
-        public List<ActionableCommand> AdditionalCommands { get; set; } = new List<ActionableCommand>();
-
-        /// <summary>
-        /// React to an ActionableCommand.
-        /// </summary>
-        /// <param name="command">The command to react to.</param>
-        /// <returns>The result of the interaction.</returns>
-        public InteractionResult ReactToAction(ActionableCommand command)
-        {
-            return OnReactToAction(command);
-        }
-
-        /// <summary>
-        /// Find a command by its name.
-        /// </summary>
-        /// <param name="command">The name of the command to find.</param>
-        /// <returns>The ActionableCommand.</returns>
-        public ActionableCommand FindCommand(string command)
-        {
-            foreach (var c in AdditionalCommands)
-            {
-                if (string.Equals(c.Command, command, StringComparison.CurrentCultureIgnoreCase))
-                    return c;
-            }
-
-            return null;
         }
 
         #endregion

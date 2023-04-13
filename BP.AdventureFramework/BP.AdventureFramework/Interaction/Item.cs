@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace BP.AdventureFramework.Interaction
+﻿namespace BP.AdventureFramework.Interaction
 {
     /// <summary>
     /// Represents an item that can be used within the game.
     /// </summary>
-    public class Item : ExaminableObject, IInteractWithItem, IImplementOwnActions
+    public class Item : ExaminableObject, IInteractWithItem
     {
         #region Fields
 
@@ -78,38 +74,6 @@ namespace BP.AdventureFramework.Interaction
         public InteractionResult Use(IInteractWithItem target)
         {
             return target.Interact(this);
-        }
-
-        #endregion
-
-        #region IImplementOwnActions Members
-
-        /// <summary>
-        /// Get or set the ActionableCommands this object can interact with.
-        /// </summary>
-        public List<ActionableCommand> AdditionalCommands { get; set; } = new List<ActionableCommand>();
-
-        /// <summary>
-        /// React to an ActionableCommand.
-        /// </summary>
-        /// <param name="command">The command to react to.</param>
-        /// <returns>The result of the interaction.</returns>
-        public InteractionResult ReactToAction(ActionableCommand command)
-        {
-            if (AdditionalCommands.Contains(command))
-                return command.Action.Invoke();
-
-            throw new ArgumentException($"Command {command.Command} was not found on object {Identifier}");
-        }
-
-        /// <summary>
-        /// Find a command by it's name.
-        /// </summary>
-        /// <param name="command">The name of the command to find.</param>
-        /// <returns>The ActionableCommand.</returns>
-        public ActionableCommand FindCommand(string command)
-        {
-            return AdditionalCommands.FirstOrDefault(c => string.Equals(c.Command, command, StringComparison.CurrentCultureIgnoreCase));
         }
 
         #endregion

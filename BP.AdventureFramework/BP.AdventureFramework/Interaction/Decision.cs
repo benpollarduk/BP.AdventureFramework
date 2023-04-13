@@ -10,7 +10,7 @@
         /// <summary>
         /// Get the result of the Decision.
         /// </summary>
-        public ReactionToInput Result { get; protected set; }
+        public ReactionResult Result { get; protected set; }
 
         /// <summary>
         /// Get a reason for this Decision.
@@ -25,7 +25,7 @@
         /// Initializes a new instance of the Decision class.
         /// </summary>
         /// <param name="result">The result of the decision.</param>
-        public Decision(ReactionToInput result)
+        public Decision(ReactionResult result)
         {
             Result = result;
             Reason = string.Empty;
@@ -36,7 +36,7 @@
         /// </summary>
         /// <param name="result">The result of the decision.</param>
         /// <param name="reason">The reason for this decision.</param>
-        public Decision(ReactionToInput result, string reason)
+        public Decision(ReactionResult result, string reason)
         {
             Result = result;
             Reason = reason;

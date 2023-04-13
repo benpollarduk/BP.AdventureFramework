@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BP.AdventureFramework.Interaction
+﻿namespace BP.AdventureFramework.Interaction
 {
     /// <summary>
     /// Represents an object that can be examined.

@@ -74,16 +74,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Interaction\ActionCallback.cs" />
-    <Compile Include="Interaction\Command.cs" />
     <Compile Include="Interaction\Condition.cs" />
     <Compile Include="Interaction\Identifier.cs" />
     <Compile Include="Interaction\ExaminationCallback.cs" />
     <Compile Include="Interaction\ExaminationResults.cs" />
     <Compile Include="Interaction\InteractionCallback.cs" />
     <Compile Include="Interaction\InteractionEffect.cs" />
-    <Compile Include="Interaction\ReactionToInput.cs" />
+    <Compile Include="Interaction\Reaction.cs" />
+    <Compile Include="Interaction\ReactionResult.cs" />
     <Compile Include="Locations\CardinalDirection.cs" />
+    <Compile Include="Parsing\Commands\Talk.cs" />
+    <Compile Include="Parsing\Commands\Examine.cs" />
+    <Compile Include="Parsing\Commands\ICommand.cs" />
+    <Compile Include="Parsing\Commands\Drop.cs" />
+    <Compile Include="Parsing\Commands\Take.cs" />
+    <Compile Include="Parsing\Commands\Unactionable.cs" />
+    <Compile Include="Parsing\Commands\Move.cs" />
+    <Compile Include="Parsing\Commands\UseOn.cs" />
+    <Compile Include="Parsing\Interpreter.cs" />
     <Compile Include="Rendering\KeyType.cs" />
     <Compile Include="Rendering\FrameDrawingOption.cs" />
     <Compile Include="Rendering\RegionDisplayMode.cs" />
@@ -92,7 +100,6 @@
     <Compile Include="GameStructure\ExitMode.cs" />
     <Compile Include="GameStructure\GameCommand.cs" />
     <Compile Include="GameStructure\GameCreationHelper.cs" />
-    <Compile Include="Interaction\ActionableCommand.cs" />
     <Compile Include="Interaction\ExaminationResult.cs" />
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\Conversation.cs" />
@@ -100,7 +107,6 @@
     <Compile Include="Characters\ITalkative.cs" />
     <Compile Include="Characters\NonPlayableCharacter.cs" />
     <Compile Include="Characters\PlayableCharacter.cs" />
-    <Compile Include="Interaction\IImplementOwnActions.cs" />
     <Compile Include="Interaction\Result.cs" />
     <Compile Include="GameStructure\GameCreator.cs" />
     <Compile Include="GameStructure\GameFlow.cs" />
@@ -118,7 +124,6 @@
     <Compile Include="Locations\Region.cs" />
     <Compile Include="Locations\Room.cs" />
     <Compile Include="Interaction\Decision.cs" />
-    <Compile Include="Parsing\TextParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Drawer.cs" />
     <Compile Include="Rendering\Frames\ASCIIAnimationFrame.cs" />

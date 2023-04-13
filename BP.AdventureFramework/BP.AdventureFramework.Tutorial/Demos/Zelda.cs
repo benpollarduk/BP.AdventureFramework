@@ -194,10 +194,10 @@ namespace BP.AdventureFramework.Tutorial.Demos
             stream.AddItem(rupee);
 
             // add all rooms to region
-            region.CreateRoom(room, 0, 0);
-            region.CreateRoom(outsideLinksHouse, 0, 1);
-            region.CreateRoom(tailCave, 1, 1);
-            region.CreateRoom(stream, 0, 2);
+            region.AddRoom(room, 0, 0);
+            region.AddRoom(outsideLinksHouse, 0, 1);
+            region.AddRoom(tailCave, 1, 1);
+            region.AddRoom(stream, 0, 2);
 
             // set start room to first room
             region.SetStartRoom(0);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Xml;
-using BP.AdventureFramework.Interaction;
+﻿using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Locations
 {

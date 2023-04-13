@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BP.AdventureFramework.Characters;
-using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 
 namespace BP.AdventureFramework.Rendering.Frames
@@ -153,31 +151,6 @@ namespace BP.AdventureFramework.Rendering.Frames
                     {
                         scene.Append(drawer.ConstructWrappedPaddedString("Use __: Use an item on the this Room", width));
                         scene.Append(drawer.ConstructWrappedPaddedString("Use __ on __: Use an item on another item or character", width));
-                    }
-
-                    scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
-                }
-
-                var customCommands = new List<IImplementOwnActions>();
-                customCommands.AddRange(Player.GetAllObjectsWithAdditionalCommands());
-                customCommands.AddRange(Room.GetAllObjectsWithAdditionalCommands());
-
-                if (customCommands.Any(c => c.AdditionalCommands.Any()))
-                {
-                    var hasAddedTitle = false;
-
-                    foreach (var commandable in customCommands)
-                    {
-                        foreach (var command in commandable.AdditionalCommands.Where(aC => aC.IsPlayerVisible))
-                        {
-                            if (!hasAddedTitle)
-                            {
-                                scene.Append(drawer.ConstructWrappedPaddedString("ADDITIONAL COMMANDS:", width));
-                                hasAddedTitle = true;
-                            }
-
-                            scene.Append(drawer.ConstructWrappedPaddedString($"{command.Command.ToUpper()}: {command.Description}", width));
-                        }
                     }
 
                     scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));

@@ -152,27 +152,27 @@ namespace BP.AdventureFramework.GameStructure
                         else
                             Game.Refresh("AdventureFramework by Ben Pollard 2011-2023");
 
-                        return new Decision(ReactionToInput.SelfContainedReaction);
+                        return new Decision(ReactionResult.SelfContainedReaction);
                     
                     case GameCommand.Exit:
 
                         Game.End();
-                        return new Decision(ReactionToInput.SelfContainedReaction, "Exiting...");
+                        return new Decision(ReactionResult.SelfContainedReaction, "Exiting...");
                     
                     case GameCommand.Help:
 
                         Game.Refresh(Game.HelpFrame);
-                        return new Decision(ReactionToInput.SelfContainedReaction, string.Empty);
+                        return new Decision(ReactionResult.SelfContainedReaction, string.Empty);
 
                     case GameCommand.Map:
 
                         Game.Refresh(new RegionMapFrame(Game.Overworld.CurrentRegion, MapDrawer));
-                        return new Decision(ReactionToInput.SelfContainedReaction, string.Empty);
+                        return new Decision(ReactionResult.SelfContainedReaction, string.Empty);
                     
                     case GameCommand.New:
                         
                         Game.Refresh(Game.TitleFrame);
-                        return new Decision(ReactionToInput.SelfContainedReaction, "New game");
+                        return new Decision(ReactionResult.SelfContainedReaction, "New game");
                     
                     default:
                         throw new NotImplementedException();
@@ -180,7 +180,7 @@ namespace BP.AdventureFramework.GameStructure
             }
 
             if (!game.Parser.IsFrameDrawingOption(input)) 
-                return new Decision(ReactionToInput.CouldntReact);
+                return new Decision(ReactionResult.NoReaction);
 
             game.Parser.TryParseToFrameDrawingOption(input, out var drawCommand);
 
@@ -189,30 +189,30 @@ namespace BP.AdventureFramework.GameStructure
                 case FrameDrawingOption.CommandsOff:
 
                     FrameDrawer.DisplayCommands = false;
-                    return new Decision(ReactionToInput.CouldReact, "Commands have been turned off");
+                    return new Decision(ReactionResult.CouldReact, "Commands have been turned off");
                 
                 case FrameDrawingOption.CommandsOn:
                     
                     FrameDrawer.DisplayCommands = true;
-                    return new Decision(ReactionToInput.CouldReact, "Commands have been turned on");
+                    return new Decision(ReactionResult.CouldReact, "Commands have been turned on");
                 
                 case FrameDrawingOption.Invert:
 
                     if (DisplayInverted == null) 
-                        return new Decision(ReactionToInput.CouldntReact, "Colours have been not been inverted as no handling has been specified");
+                        return new Decision(ReactionResult.NoReaction, "Colours have been not been inverted as no handling has been specified");
                     
                     DisplayInverted(this, new EventArgs());
-                    return new Decision(ReactionToInput.CouldReact, "Colours have been inverted");
+                    return new Decision(ReactionResult.CouldReact, "Colours have been inverted");
 
                 case FrameDrawingOption.KeyOff:
                     
                     MapDrawer.Key = KeyType.None;
-                    return new Decision(ReactionToInput.CouldReact, "Key has been turned off");
+                    return new Decision(ReactionResult.CouldReact, "Key has been turned off");
                 
                 case FrameDrawingOption.KeyOn:
                     
                     MapDrawer.Key = KeyType.Dynamic;
-                    return new Decision(ReactionToInput.CouldReact, "Key has been turned on");
+                    return new Decision(ReactionResult.CouldReact, "Key has been turned on");
                 
                 default:
                     throw new NotImplementedException();
@@ -280,8 +280,8 @@ namespace BP.AdventureFramework.GameStructure
 
                         switch (reaction.Result)
                         {
-                            case ReactionToInput.CouldReact:
-                            case ReactionToInput.SelfContainedReaction:
+                            case ReactionResult.CouldReact:
+                            case ReactionResult.SelfContainedReaction:
                                 break;
                             default:
                                 reaction = Game.ReactToInput(input);
@@ -294,19 +294,19 @@ namespace BP.AdventureFramework.GameStructure
                     
                     switch (reaction.Result)
                     {
-                        case ReactionToInput.CouldntReact:
+                        case ReactionResult.NoReaction:
 
                             message = ErrorPrefix + ": " + reaction.Reason;
                             UpdateScreenWithCurrentFrame(message);
                             break;
 
-                        case ReactionToInput.CouldReact:
+                        case ReactionResult.CouldReact:
                             
                             message = reaction.Reason;
                             UpdateScreenWithCurrentFrame(message);
                             break;
 
-                        case ReactionToInput.SelfContainedReaction:
+                        case ReactionResult.SelfContainedReaction:
                             break;
                         default:
                             throw new NotImplementedException();

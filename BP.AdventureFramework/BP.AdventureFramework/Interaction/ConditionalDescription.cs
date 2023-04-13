@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BP.AdventureFramework.Interaction
+﻿namespace BP.AdventureFramework.Interaction
 {
     /// <summary>
     /// Represents a conditional description of an object.

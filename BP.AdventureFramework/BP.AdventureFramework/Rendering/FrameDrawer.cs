@@ -55,7 +55,7 @@ namespace BP.AdventureFramework.Rendering
         /// </summary>
         /// <param name="width">The width of the divider.</param>
         /// <returns>A constructed divider.</returns>
-        public virtual string ConstructDivider(int width)
+        public string ConstructDivider(int width)
         {
             return ConstructDivider(width, LeftBoundaryCharacter, dividerCharacter, RightBoundaryCharacter);
         }

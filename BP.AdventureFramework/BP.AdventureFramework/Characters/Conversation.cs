@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BP.AdventureFramework.Characters;
 
-namespace BP.AdventureFramework.Interaction
+namespace BP.AdventureFramework.Characters
 {
     /// <summary>
     /// Represents an in-game conversation with a character.
@@ -42,16 +41,6 @@ namespace BP.AdventureFramework.Interaction
         /// Initializes a new instance of the Conversation class.
         /// </summary>
         /// <param name="lines">The lines to add in this conversation.</param>
-        public Conversation(params string[] lines)
-        {
-            foreach (var t in lines)
-                Lines.Add(new ConversationElement(t));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Conversation class.
-        /// </summary>
-        /// <param name="lines">The lines to add in this conversation.</param>
         public Conversation(params ConversationElement[] lines)
         {
             Lines.AddRange(lines);
@@ -64,7 +53,7 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Reset this conversation.
         /// </summary>
-        public virtual void Reset()
+        public void Reset()
         {
             CurrentLine = 0;
         }
@@ -73,7 +62,7 @@ namespace BP.AdventureFramework.Interaction
         /// Get the next line of the conversation.
         /// </summary>
         /// <returns>The next line of the conversation.</returns>
-        public virtual string NextLine()
+        public string NextLine()
         {
             if (HasSomeRemainingLines)
             {

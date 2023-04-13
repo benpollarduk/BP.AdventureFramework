@@ -157,7 +157,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Handle CurrentFrame updating.
         /// </summary>
         /// <param name="frame">The updated frame.</param>
-        protected virtual void OnCurrentFrameUpdated(Frame frame)
+        protected void OnCurrentFrameUpdated(Frame frame)
         {
             CurrentFrame = frame;
             CurrentFrameUpdated?.Invoke(this, frame);
@@ -167,7 +167,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Handle game ended.
         /// </summary>
         /// <param name="mode">The exit mode.</param>
-        protected virtual void OnGameEnded(ExitMode mode)
+        protected void OnGameEnded(ExitMode mode)
         {
             HasEnded = true;
             Ended?.Invoke(this, mode);
@@ -178,7 +178,7 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         /// <param name="input">The input to react to.</param>
         /// <returns>A result detailing the reaction.</returns>
-        public virtual Decision ReactToInput(string input)
+        public Decision ReactToInput(string input)
         {
             var reacted = Parser.ReactToInput(input, this, out var message);
 
@@ -235,7 +235,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <param name="height">The height of the scene.</param>
         /// <param name="messageToUser">A message to the user.</param>
         /// <returns>A constructed frame of the scene.</returns>
-        public virtual SceneFrame GetScene(MapDrawer drawer, int width, int height, string messageToUser)
+        public SceneFrame GetScene(MapDrawer drawer, int width, int height, string messageToUser)
         {
             lastUsedWidth = width;
             lastUsedHeight = height;
@@ -248,7 +248,7 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         /// <param name="titleMessage">A title message to display.</param>
         /// <param name="reason">A reason for the death.</param>
-        protected virtual void OnHandlePlayerDied(string titleMessage, string reason)
+        protected void OnHandlePlayerDied(string titleMessage, string reason)
         {
             OnCurrentFrameUpdated(new EndFrame(titleMessage, reason));
         }
@@ -257,7 +257,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Get all objects in this Game (that are within the current scope) that implement IImplementOwnActions.
         /// </summary>
         /// <returns>All IImplementOwnActions objects.</returns>
-        public virtual IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
+        public IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
         {
             var commandables = new List<IImplementOwnActions>();
             commandables.AddRange(Overworld.CurrentRegion.CurrentRoom.GetAllObjectsWithAdditionalCommands());
@@ -280,7 +280,7 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         /// <param name="command">The command to search for</param>
         /// <returns>The first ActionableCommand whose Command property matches the command parameter</returns>
-        public virtual ActionableCommand FindActionableCommand(string command)
+        public ActionableCommand FindActionableCommand(string command)
         {
             var commandables = GetAllObjectsWithAdditionalCommands();
 
@@ -296,31 +296,11 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// Find a IImplementOwnActions in this objects IImplementOwnActions objects.
-        /// </summary>
-        /// <param name="command">The command to search for.</param>
-        /// <returns>The first IImplementOwnActions object whose Command property matches the command parameter.</returns>
-        public virtual IImplementOwnActions FindIImplementOwnActionsObject(string command)
-        {
-            var commandables = GetAllObjectsWithAdditionalCommands();
-
-            foreach (var commandable in commandables)
-            {
-                commandable.FindCommand(command);
-
-                if (command != null)
-                    return commandable;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Find an interaction target within the current scope for this Game.
         /// </summary>
         /// <param name="name">The targets name.</param>
         /// <returns>The first IInteractWithItem object which has a name that matches the name parameter.</returns>
-        public virtual IInteractWithItem FindInteractionTarget(string name)
+        public IInteractWithItem FindInteractionTarget(string name)
         {
             if (name.EqualsExaminable(player))
                 return Player;
@@ -344,7 +324,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Refresh the current frame.
         /// </summary>
-        public virtual void Refresh()
+        public void Refresh()
         {
             Refresh(string.Empty);
         }
@@ -353,7 +333,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Refresh the current frame.
         /// </summary>
         /// <param name="message">Any message to display.</param>
-        public virtual void Refresh(string message)
+        public void Refresh(string message)
         {
             OnCurrentFrameUpdated(new SceneFrame(Overworld.CurrentRegion.CurrentRoom, Player, message));
         }
@@ -362,7 +342,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Refresh the current frame.
         /// </summary>
         /// <param name="frame">A frame to display.</param>
-        public virtual void Refresh(Frame frame)
+        public void Refresh(Frame frame)
         {
             OnCurrentFrameUpdated(frame);
         }

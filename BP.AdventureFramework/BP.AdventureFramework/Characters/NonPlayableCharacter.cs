@@ -75,8 +75,8 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Handle talking.
         /// </summary>
-        /// <returns>A string representing the dialogue.</returns>
-        protected virtual string OnTalk()
+        /// <returns>A string representing the dialog.</returns>
+        protected string OnTalk()
         {
             if (Conversation == null) 
                 return Identifier + " has nothing to say";

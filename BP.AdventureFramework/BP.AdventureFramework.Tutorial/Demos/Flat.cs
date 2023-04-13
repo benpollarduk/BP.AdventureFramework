@@ -144,7 +144,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
                 }
             };
 
-            var beth = new NonPlayableCharacter("Beth".ToIdentifier(), "Beth is very pretty, she has blue eyes and ginger hair. She is sat on the sofa watching the TV".ToDescription(), new Conversation("Hello Ben", "You have a big dong"));
+            var beth = new NonPlayableCharacter("Beth".ToIdentifier(), "Beth is very pretty, she has blue eyes and ginger hair. She is sat on the sofa watching the TV".ToDescription(), new Conversation(new ConversationElement("Hello Ben"), new ConversationElement("How are you?")));
 
             var lounge = new Room("Lounge".ToIdentifier(),
                 new Description(string.Empty),

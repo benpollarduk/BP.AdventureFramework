@@ -26,15 +26,6 @@ namespace BP.AdventureFramework.Interaction
         /// <summary>
         /// Initializes a new instance of the InteractionResult class.
         /// </summary>
-        public InteractionResult()
-        {
-            Effect = InteractionEffect.NoEffect;
-            Desciption = "There was no effect";
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the InteractionResult class.
-        /// </summary>
         /// <param name="effect">The effect of this interaction.</param>
         /// <param name="item">The item used in this interaction.</param>
         public InteractionResult(InteractionEffect effect, Item item)

@@ -95,51 +95,13 @@ namespace BP.AdventureFramework.Locations
             return addable;
         }
 
-        /// <summary>
-        /// Create a Room in this Region.
-        /// </summary>
-        /// <param name="room">The Room to create.</param>
-        /// <param name="relativeLocation">The direction this Room lies in relative to the last Room created.</param>
-        public bool CreateRoom(Room room, CardinalDirection relativeLocation)
-        {
-            room.Column = Rooms.Any() ? Rooms[Rooms.Count - 1].Column : 0;
-            room.Row = Rooms.Any() ? Rooms[Rooms.Count - 1].Row : 0;
-
-            if (Rooms.Any())
-            {
-                switch (relativeLocation)
-                {
-                    case CardinalDirection.East:
-                        room.Column++;
-                        break;
-                    case CardinalDirection.North:
-                        room.Row++;
-                        break;
-                    case CardinalDirection.South:
-                        room.Row--;
-                        break;
-                    case CardinalDirection.West:
-                        room.Column--;
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-
-            var addable = Rooms.All(r => r.Column != room.Column || r.Row != room.Row);
-
-            if (addable)
-                Rooms.Add(room);
-
-            return addable;
-        }
 
         /// <summary>
         /// Get an adjoining Room to the Region.CurrentRoom property.
         /// </summary>
         /// <param name="direction">The direction of the adjoining Room.</param>
         /// <returns>The adjoining Room, if there is one.</returns>
-        public virtual Room GetAdjoiningRoom(CardinalDirection direction)
+        public Room GetAdjoiningRoom(CardinalDirection direction)
         {
             return GetAdjoiningRoom(direction, CurrentRoom);
         }
@@ -150,7 +112,7 @@ namespace BP.AdventureFramework.Locations
         /// <param name="direction">The direction of the adjoining Room.</param>
         /// <param name="startRoom">The Room to start the check in.</param>
         /// <returns>The adjoining Room, if there is one.</returns>
-        public virtual Room GetAdjoiningRoom(CardinalDirection direction, Room startRoom)
+        public Room GetAdjoiningRoom(CardinalDirection direction, Room startRoom)
         {
             if (!startRoom.CanMove(direction)) 
                 return null;
@@ -195,39 +157,6 @@ namespace BP.AdventureFramework.Locations
 
             CurrentRoom = GetAdjoiningRoom(direction);
             CurrentRoom.MovedInto((CardinalDirection)(-(int)direction));
-
-            return true;
-        }
-
-        /// <summary>
-        /// Move to a Room.
-        /// </summary>
-        /// <param name="roomName">The name of the Room to move to.</param>
-        /// <returns>If a move was successful.</returns>
-        public bool Move(string roomName)
-        {
-            var matches = Rooms.Where(roomName.EqualsExaminable).ToArray();
-            return matches.Any() && Move(matches.ElementAt(0));
-        }
-
-        /// <summary>
-        /// Move to a room.
-        /// </summary>
-        /// <param name="room">The room to move to.</param>
-        /// <returns>If a move was successful.</returns>
-        public bool Move(Room room)
-        {
-            if (!Rooms.Contains(room)) 
-                return false;
-
-            var movedCorrectly = TryGetDirectionOfAdjoiningRoom(CurrentRoom, room, out var direction);
-
-            CurrentRoom = room;
-
-            if (movedCorrectly)
-                CurrentRoom.MovedInto((CardinalDirection)(-(int)direction));
-            else
-                CurrentRoom.MovedInto(null);
 
             return true;
         }
@@ -297,53 +226,14 @@ namespace BP.AdventureFramework.Locations
             }
         }
 
-        /// <summary>
-        /// Try and get the direction of an adjoining room.
-        /// </summary>
-        /// <param name="sourceRoom">The source room.</param>
-        /// <param name="destinationRoom">The destination room.</param>
-        /// <param name="direction">The direction the destinationRoom lies in relative to the sourceRoom.</param>
-        /// <returns>True if the Room's connect, false if they don't connect.</returns>
-        public bool TryGetDirectionOfAdjoiningRoom(Room sourceRoom, Room destinationRoom, out CardinalDirection direction)
-        {
-            if (sourceRoom == null || destinationRoom == null)
-            {
-                direction = CardinalDirection.North;
-                return false;
-            }
+        #endregion
 
-            if (sourceRoom.Column == destinationRoom.Column && sourceRoom.Row == destinationRoom.Row - 1)
-            {
-                direction = CardinalDirection.North;
-                return true;
-            }
-
-            if (sourceRoom.Column == destinationRoom.Column && sourceRoom.Row == destinationRoom.Row + 1)
-            {
-                direction = CardinalDirection.South;
-                return true;
-            }
-
-            if (sourceRoom.Column == destinationRoom.Column - 1 && sourceRoom.Row == destinationRoom.Row)
-            {
-                direction = CardinalDirection.East;
-                return true;
-            }
-
-            if (sourceRoom.Column == destinationRoom.Column + 1 && sourceRoom.Row == destinationRoom.Row)
-            {
-                direction = CardinalDirection.West;
-                return true;
-            }
-
-            direction = CardinalDirection.North;
-            return false;
-        }
+        #region Overrides of ExaminableObject
 
         /// <summary>
-        /// Handle examination this Region.
+        /// Examine this object.
         /// </summary>
-        /// <returns>The result of this examination.</returns>
+        /// <returns>A ExaminationResult detailing the examination of this object.</returns>
         public override ExaminationResult Examime()
         {
             return new ExaminationResult(Identifier + ": " + Description.GetDescription());

@@ -46,17 +46,6 @@ namespace BP.AdventureFramework.Locations
             IsLocked = isLocked;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the Exit class.
-        /// </summary>
-        /// <param name="direction">The direction of the exit.</param>
-        /// <param name="isLocked">If this exit is locked.</param>
-        /// <param name="description">A description of this exit.</param>
-        public Exit(CardinalDirection direction, bool isLocked, Description description) : this(direction, isLocked)
-        {
-            Description = description;
-        }
-
         #endregion
 
         #region Methods

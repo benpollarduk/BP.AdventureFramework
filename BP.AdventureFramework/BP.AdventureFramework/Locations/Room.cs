@@ -197,7 +197,7 @@ namespace BP.AdventureFramework.Locations
         /// </summary>
         /// <param name="target">The target to remove.</param>
         /// <returns>The target removed from this room.</returns>
-        public virtual IInteractWithItem RemoveInteractionTargetFromRoom(IInteractWithItem target)
+        public IInteractWithItem RemoveInteractionTargetFromRoom(IInteractWithItem target)
         {
             if (Items.Contains(target))
             {
@@ -217,7 +217,7 @@ namespace BP.AdventureFramework.Locations
         /// </summary>
         /// <param name="direction">The direction to test.</param>
         /// <returns>If a move in the specified direction is possible.</returns>
-        public virtual bool CanMove(CardinalDirection direction)
+        public bool CanMove(CardinalDirection direction)
         {
             return UnlockedExits.Any(x => x.Direction == direction);
         }
@@ -227,7 +227,7 @@ namespace BP.AdventureFramework.Locations
         /// </summary>
         /// <param name="item">The item to interact with.</param>
         /// <returns>The result of the interaction.</returns>
-        protected virtual InteractionResult InteractWithItem(Item item)
+        protected InteractionResult InteractWithItem(Item item)
         {
             return Interaction.Invoke(item, this);
         }
@@ -301,18 +301,6 @@ namespace BP.AdventureFramework.Locations
 
             itemsInRoom = itemsInRoom.Remove(itemsInRoom.Length - 2);
             return itemsInRoom;
-        }
-
-        /// <summary>
-        /// Get everything that can be examined within this room.
-        /// </summary>
-        /// <returns>An array of everything that can be examined in this room.</returns>
-        public virtual IExaminable[] GetExaminableObjects()
-        {
-            var examinable = new List<IExaminable>();
-            examinable.AddRange(Characters.Where<Character>(x => x.IsPlayerVisible).ToArray());
-            examinable.AddRange(Items.Where(x => x.IsPlayerVisible).ToArray());
-            return examinable.ToArray<IExaminable>();
         }
 
         /// <summary>
@@ -446,7 +434,7 @@ namespace BP.AdventureFramework.Locations
         /// </summary>
         /// <param name="targetName">The name of the target to check for. This is case insensitive.</param>
         /// <returns>True if the target is in this room, else false.</returns>
-        public virtual bool ContainsInteractionTarget(string targetName)
+        public bool ContainsInteractionTarget(string targetName)
         {
             return Items.Any(i => targetName.EqualsExaminable(i) || Characters.Any(targetName.EqualsExaminable));
         }
@@ -489,7 +477,7 @@ namespace BP.AdventureFramework.Locations
         /// <param name="targetName">The targets name. This is case insensitive.</param>
         /// <param name="target">The target.</param>
         /// <returns>True if the target was found.</returns>
-        public virtual bool FindInteractionTarget(string targetName, out IInteractWithItem target)
+        public bool FindInteractionTarget(string targetName, out IInteractWithItem target)
         {
             var items = Items.Where(targetName.EqualsExaminable).ToArray();
             var nPCS = Characters.Where(targetName.EqualsExaminable).ToArray();
@@ -572,7 +560,7 @@ namespace BP.AdventureFramework.Locations
         /// Get all IImplementOwnActions objects within this Room.
         /// </summary>
         /// <returns>An array of all IImplementOwnActions objects within this Room.</returns>
-        public virtual IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
+        public IImplementOwnActions[] GetAllObjectsWithAdditionalCommands()
         {
             var customCommands = new List<IImplementOwnActions>();
             customCommands.AddRange(Items.Where(i => i.IsPlayerVisible).ToArray());
@@ -605,7 +593,7 @@ namespace BP.AdventureFramework.Locations
         /// </summary>
         /// <param name="command">The command to react to.</param>
         /// <returns>The result of the interaction.</returns>
-        public virtual InteractionResult ReactToAction(ActionableCommand command)
+        public InteractionResult ReactToAction(ActionableCommand command)
         {
             if (AdditionalCommands.Contains(command))
                 return command.Action.Invoke();

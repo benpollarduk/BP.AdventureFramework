@@ -44,29 +44,6 @@ namespace BP.AdventureFramework.Interaction
             Description = description;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the ActionableCommand class.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <param name="description">A description of the command.</param>
-        /// <param name="isPlayerVisible">Specify it this command is visible to the player.</param>
-        public ActionableCommand(string command, string description, bool isPlayerVisible) : this(command, description)
-        {
-            IsPlayerVisible = isPlayerVisible;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the ActionableCommand class.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <param name="description">A description of the command.</param>
-        /// <param name="isPlayerVisible">Specify it this command is visible to the player.</param>
-        /// <param name="action">The action callback to the command.</param>
-        public ActionableCommand(string command, string description, bool isPlayerVisible, ActionCallback action) : this(command, description, isPlayerVisible)
-        {
-            Action = action;
-        }
-
         #endregion
     }
 }

@@ -79,7 +79,11 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             saria.AquireItem(key01);
 
-            saria.Conversation = new Conversation("Hi Link, how's it going", "I lost my red rupee, if you find it will you please bring it to me?", "Oh Link you are so adorable", "OK Link your annoying me now, I'm just going to ignore you") { RepeatLastElement = true };
+            saria.Conversation = new Conversation(
+                new ConversationElement("Hi Link, how's it going"),
+                new ConversationElement("I lost my red rupee, if you find it will you please bring it to me?"),
+                new ConversationElement("Oh Link you are so adorable"),
+                new ConversationElement("OK Link your annoying me now, I'm just going to ignore you")) { RepeatLastElement = true };
 
             // define the interaction with items for Saria
             saria.Interaction = (item, target) =>

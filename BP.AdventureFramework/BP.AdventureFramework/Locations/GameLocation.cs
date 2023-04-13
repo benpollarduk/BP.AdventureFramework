@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Locations
     /// <summary>
     /// Represents any location within the game.
     /// </summary>
-    public class GameLocation : ExaminableObject
+    public abstract class GameLocation : ExaminableObject
     {
         #region Properties
 
@@ -23,28 +23,6 @@ namespace BP.AdventureFramework.Locations
         /// Get if this location has been visited.
         /// </summary>
         public bool HasBeenVisited { get; protected set; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the GameLocation class
-        /// </summary>
-        public GameLocation()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the GameLocation class.
-        /// </summary>
-        /// <param name="columnWithinParnt">The column this GameLocation resides within its parent.</param>
-        /// <param name="rowWithinParent">The row this GameLocation resides within it's parent.</param>
-        public GameLocation(int columnWithinParnt, int rowWithinParent)
-        {
-            Column = columnWithinParnt;
-            Row = rowWithinParent;
-        }
 
         #endregion
 

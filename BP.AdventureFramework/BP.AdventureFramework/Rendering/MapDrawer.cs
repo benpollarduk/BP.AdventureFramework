@@ -93,7 +93,7 @@ namespace BP.AdventureFramework.Rendering
         /// <param name="room">The Room to draw.</param>
         /// <param name="width">The allocated with to draw within.</param>
         /// <returns>A map of the Room in a String.</returns>
-        public virtual string ConstructRoomMap(Room room, int width)
+        public string ConstructRoomMap(Room room, int width)
         {
             if (width <= 0)
                 throw new ArgumentException("The width parameter must be greater than 0");
@@ -361,7 +361,7 @@ namespace BP.AdventureFramework.Rendering
         /// <param name="width">The allocated width to draw within.</param>
         /// <param name="height">The allocated height to draw within.</param>
         /// <returns>A map of the Region in a string.</returns>
-        public virtual string ConstructRegionMap(Region region, int width, int height)
+        public string ConstructRegionMap(Region region, int width, int height)
         {
             if (!TryGetRegionExtremities(region, out var minColumn, out var maxColumn, out var minRow, out var maxRow)) 
                 return string.Empty;

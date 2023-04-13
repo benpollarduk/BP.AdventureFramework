@@ -111,27 +111,6 @@ namespace BP.AdventureFramework.Characters
         }
 
         /// <summary>
-        /// Determine if this PlayableCharacter has an item. This will not include items whose ExaminableObject.IsPlayerVisible property is set to false.
-        /// </summary>
-        /// <param name="itemName">The items name. This is case insensitive.</param>
-        /// <returns>True if the item is found, else false.</returns>
-        public virtual bool HasItem(string itemName)
-        {
-            return FindItem(itemName, out _, false);
-        }
-
-        /// <summary>
-        /// Determine if this PlayableCharacter has an item.
-        /// </summary>
-        /// <param name="itemName">The items name. This is case insensitive.</param>
-        /// <param name="includeInvisibleItems">Specify if invisible items should be included.</param>
-        /// <returns>True if the item is found, else false.</returns>
-        public virtual bool HasItem(string itemName, bool includeInvisibleItems)
-        {
-            return FindItem(itemName, out _, includeInvisibleItems);
-        }
-
-        /// <summary>
         /// Find an item. This will not include items whose ExaminableObject.IsPlayerVisible property is set to false.
         /// </summary>
         /// <param name="itemName">The items name. This is case insensitive.</param>

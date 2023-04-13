@@ -61,7 +61,7 @@ namespace BP.AdventureFramework.Interaction
         /// Handle item morphing.
         /// </summary>
         /// <param name="item">The item to morph into.</param>
-        public virtual void Morph(Item item)
+        public void Morph(Item item)
         {
             Identifier = item.Identifier;
             Description = item.Description;
@@ -75,7 +75,7 @@ namespace BP.AdventureFramework.Interaction
         /// </summary>
         /// <param name="target">The target to use the item on.</param>
         /// <retunrs>The result of the interaction.</retunrs>
-        public virtual InteractionResult Use(IInteractWithItem target)
+        public InteractionResult Use(IInteractWithItem target)
         {
             return target.Interact(this);
         }
@@ -94,7 +94,7 @@ namespace BP.AdventureFramework.Interaction
         /// </summary>
         /// <param name="command">The command to react to.</param>
         /// <returns>The result of the interaction.</returns>
-        public virtual InteractionResult ReactToAction(ActionableCommand command)
+        public InteractionResult ReactToAction(ActionableCommand command)
         {
             if (AdditionalCommands.Contains(command))
                 return command.Action.Invoke();
@@ -121,7 +121,7 @@ namespace BP.AdventureFramework.Interaction
         /// </summary>
         /// <param name="item">The item to interact with.</param>
         /// <returns>The result of the interaction.</returns>
-        public virtual InteractionResult Interact(Item item)
+        public InteractionResult Interact(Item item)
         {
             return Interaction.Invoke(item, this);
         }

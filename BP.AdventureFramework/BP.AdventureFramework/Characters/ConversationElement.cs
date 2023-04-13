@@ -26,13 +26,6 @@ namespace BP.AdventureFramework.Characters
         /// <summary>
         /// Initializes a new instance of the ConversationElement class.
         /// </summary>
-        public ConversationElement()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the ConversationElement class.
-        /// </summary>
         /// <param name="line">Specify the line in this conversation.</param>
         public ConversationElement(string line)
         {

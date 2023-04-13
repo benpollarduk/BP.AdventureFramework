@@ -69,11 +69,6 @@ namespace BP.AdventureFramework.GameStructure
         public MapDrawer MapDrawer { get; set; } = new MapDrawer();
 
         /// <summary>
-        /// Get if this should encrypt all files.
-        /// </summary>
-        public bool EncryptFiles { get; protected set; } = true;
-
-        /// <summary>
         /// Get or set the output stream.
         /// </summary>
         public TextWriter Output { get; set; }
@@ -120,15 +115,6 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Initializes a new instance of the GameFlow class.
         /// </summary>
-        /// <param name="gameCreator">A game creator to create the GameFlow.Game property from.</param>
-        public GameFlow(GameCreator gameCreator)
-        {
-            Creator = gameCreator;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the GameFlow class.
-        /// </summary>
         /// <param name="helper">A game helper to create the GameFlow.Creator property from.</param>
         public GameFlow(GameCreationHelper helper)
         {
@@ -142,7 +128,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Begin the game.
         /// </summary>
-        public virtual void Begin()
+        public void Begin()
         {
             Game = Creator.Invoke();
             EnterGameLoop();
@@ -153,7 +139,7 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         /// <param name="input">The input to handle.</param>
         /// <returns>The decision based on the input.</returns>
-        protected virtual Decision TryHandleInputAtGlobalLevel(string input)
+        protected Decision TryHandleInputAtGlobalLevel(string input)
         {
             if (Game.Parser.TryParseToGameCommand(input, out var gameCommand))
             {
@@ -236,7 +222,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Enter the game loop.
         /// </summary>
-        protected virtual void EnterGameLoop()
+        protected void EnterGameLoop()
         {
             try
             {
@@ -337,7 +323,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Update the screen with the current Frame, provided by the GameFlow.Game property.
         /// </summary>
         /// <param name="message">An additional message to display to the user.</param>
-        protected virtual void UpdateScreenWithCurrentFrame(string message)
+        protected void UpdateScreenWithCurrentFrame(string message)
         {
             var scene = Game.GetScene(MapDrawer, DisplaySize.Width, DisplaySize.Height, message);
             DrawFrame(scene);
@@ -347,7 +333,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Draw a Frame onto the output stream.
         /// </summary>
         /// <param name="frame">The frame to draw.</param>
-        protected virtual void DrawFrame(Frame frame)
+        protected void DrawFrame(Frame frame)
         {
             try
             {
@@ -379,7 +365,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Handle GameFlow.Frame property updating.
         /// </summary>
         /// <param name="frame">The new frame.</param>
-        protected virtual void OnFrameUpdated(Frame frame)
+        protected void OnFrameUpdated(Frame frame)
         {
             DrawFrame(frame);
         }
@@ -388,7 +374,7 @@ namespace BP.AdventureFramework.GameStructure
         /// Handle the GameFlow.Game.Ended event.
         /// </summary>
         /// <param name="exitMode">The exit mode from the game.</param>
-        protected virtual void OnGameEnded(ExitMode exitMode)
+        protected void OnGameEnded(ExitMode exitMode)
         {
             switch (exitMode)
             {
@@ -410,7 +396,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Handle the GameFlow.Game.Completed event.
         /// </summary>
-        protected virtual void OnGameCompleted()
+        protected void OnGameCompleted()
         {
             DrawFrame(game.CompletionFrame);
         }
@@ -418,7 +404,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Handle disposal of this GameFlow.
         /// </summary>
-        protected virtual void OnDisposed()
+        protected void OnDisposed()
         {
             if (Input != null)
             {

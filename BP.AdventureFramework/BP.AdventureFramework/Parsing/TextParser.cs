@@ -174,7 +174,7 @@ namespace BP.AdventureFramework.Parsing
         /// <param name="game">The game to action the input on.</param>
         /// <param name="result">Any result of the reaction.</param>
         /// <returns>The reaction to the input.</returns>
-        public virtual ReactionToInput ReactToInput(string input, Game game, out string result)
+        public ReactionToInput ReactToInput(string input, Game game, out string result)
         {
             input = input.ToUpper();
             string noun;

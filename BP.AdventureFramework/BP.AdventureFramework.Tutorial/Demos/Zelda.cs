@@ -21,16 +21,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
         public static PlayableCharacter GeneratePC()
         {
-            var character = new PlayableCharacter("Link".ToIdentifier(), "A Kokiri boy from the forest".ToDescription())
-            {
-                Examination = t =>
-                {
-                    var frame = ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Link"], Console.WindowWidth, Console.WindowHeight);
-                    FrameDrawer.DisplaySpecialFrame(frame);
-                    return new ExaminationResult(string.Empty, ExaminationResults.SelfContained);
-                }
-            };
-
+            var character = new PlayableCharacter("Link".ToIdentifier(), "A Kokiri boy from the forest".ToDescription());
             var shield = new Item("Shield".ToIdentifier(), "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.".ToDescription(), true);
             character.AquireItem(shield);
 
@@ -45,36 +36,15 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             room.AddItem(new Item("Table".ToIdentifier(), "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you".ToDescription(), false));
 
-            var sword = new Item("Sword".ToIdentifier(), "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp".ToDescription(), true)
-            {
-                Examination = target =>
-                {
-                    var frame = ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Sword"], Console.WindowWidth, Console.WindowHeight, 20);
-                    FrameDrawer.DisplaySpecialFrame(frame);
-                    return new ExaminationResult(string.Empty, ExaminationResults.SelfContained);
-                }
-            };
+            var sword = new Item("Sword".ToIdentifier(), "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp".ToDescription(), true);
 
             room.AddItem(sword);
 
-            var yoshiDoll = new Item("Yoshi Doll".ToIdentifier(), "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...".ToDescription(), false)
-            {
-                Examination = t =>
-                {
-                    // create an animation frame
-                    var frame = new ASCIIAnimationFrame(Timeout.Infinite, 125, false,
-                        ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario1"], Console.WindowWidth, Console.WindowHeight, -20),
-                        ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario2"], Console.WindowWidth, Console.WindowHeight, -20),
-                        ASCIIImageFrame.Create(InGameGraphics.UserDefinedGraphics["Mario3"], Console.WindowWidth, Console.WindowHeight, -20));
-
-                    FrameDrawer.DisplaySpecialFrame(frame);
-                    return new ExaminationResult(string.Empty, ExaminationResults.SelfContained);
-                }
-            };
+            var yoshiDoll = new Item("Yoshi Doll".ToIdentifier(), "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...".ToDescription(), false);
 
             room.AddItem(yoshiDoll);
 
-            var outsideLinksHouse = new Room("Outside Links House".ToIdentifier(), new Description("The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.North), new Exit(CardinalDirection.East, true));
+            var outsideLinksHouse = new Room("4Outside Links House".ToIdentifier(), new Description("The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.North), new Exit(CardinalDirection.East, true));
             var key01 = new Item("Tail Key".ToIdentifier(), "A small key, with a complex handle in the shape of a worm like creature".ToDescription(), true);
             var saria = new NonPlayableCharacter("Saria".ToIdentifier(), "A very annoying, but admittedly quite pretty elf, dressed, like you, completely in green".ToDescription());
 

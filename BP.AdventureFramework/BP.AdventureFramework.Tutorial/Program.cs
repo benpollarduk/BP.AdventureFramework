@@ -12,7 +12,6 @@ namespace BP.AdventureFramework.Tutorial
             try
             {
                 SetupConsole();
-                InGameGraphics.BufferGraphics();
                 GameCreationCallback creator = null;
 
                 while (creator == null)

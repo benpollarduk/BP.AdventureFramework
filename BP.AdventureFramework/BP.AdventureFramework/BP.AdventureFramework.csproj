@@ -138,8 +138,6 @@
     <Compile Include="GameAssets\Locations\Room.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Drawer.cs" />
-    <Compile Include="Rendering\Frames\ASCIIAnimationFrame.cs" />
-    <Compile Include="Rendering\Frames\ASCIIImageFrame.cs" />
     <Compile Include="Rendering\Frames\Frame.cs" />
     <Compile Include="Rendering\Frames\HelpFrame.cs" />
     <Compile Include="Rendering\Frames\EndFrame.cs" />
@@ -147,7 +145,6 @@
     <Compile Include="Rendering\Frames\RegionMapFrame.cs" />
     <Compile Include="Rendering\Frames\SceneFrame.cs" />
     <Compile Include="Rendering\Frames\TitleFrame.cs" />
-    <Compile Include="Rendering\InGameGraphics.cs" />
     <Compile Include="Rendering\MapDrawer.cs" />
     <Compile Include="GameStructure\HostSetup.cs" />
     <Compile Include="GameStructure\OverworldCreationCallback.cs" />

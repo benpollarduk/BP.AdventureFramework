@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading;
-using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.GameAssets;
+using BP.AdventureFramework.GameAssets.Characters;
+using BP.AdventureFramework.GameAssets.Interaction;
+using BP.AdventureFramework.GameAssets.Locations;
 using BP.AdventureFramework.GameStructure;
-using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Locations;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
 

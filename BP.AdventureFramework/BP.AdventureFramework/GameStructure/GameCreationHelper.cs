@@ -1,7 +1,4 @@
-﻿using System;
-using BP.AdventureFramework.Characters;
-using BP.AdventureFramework.Locations;
-using BP.AdventureFramework.Rendering.Frames;
+﻿using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.GameStructure
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using BP.AdventureFramework.Characters;
-using BP.AdventureFramework.Locations;
+using BP.AdventureFramework.GameAssets.Characters;
+using BP.AdventureFramework.GameAssets.Locations;
 using BP.AdventureFramework.Parsing.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames

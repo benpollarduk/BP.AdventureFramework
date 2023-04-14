@@ -1,7 +1,8 @@
-﻿using BP.AdventureFramework.Characters;
-using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Locations;
-using BP.AdventureFramework.Parsing.Commands.Game;
+﻿using BP.AdventureFramework.Commands.Game;
+using BP.AdventureFramework.GameAssets;
+using BP.AdventureFramework.GameAssets.Characters;
+using BP.AdventureFramework.GameAssets.Interaction;
+using BP.AdventureFramework.GameAssets.Locations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Game

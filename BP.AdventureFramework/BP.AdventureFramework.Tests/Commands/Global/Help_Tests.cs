@@ -1,5 +1,5 @@
-﻿using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Parsing.Commands.Global;
+﻿using BP.AdventureFramework.Commands.Global;
+using BP.AdventureFramework.GameAssets.Interaction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Global

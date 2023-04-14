@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Locations;
+using BP.AdventureFramework.GameAssets.Characters;
+using BP.AdventureFramework.GameAssets.Interaction;
+using BP.AdventureFramework.GameAssets.Locations;
 using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;

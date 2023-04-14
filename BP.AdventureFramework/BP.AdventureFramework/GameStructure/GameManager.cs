@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using BP.AdventureFramework.Interaction;
+using BP.AdventureFramework.GameAssets.Interaction;
 using BP.AdventureFramework.Parsing.Interpretation;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;

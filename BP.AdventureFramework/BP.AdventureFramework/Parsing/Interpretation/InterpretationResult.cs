@@ -1,5 +1,5 @@
-﻿using BP.AdventureFramework.Parsing.Commands;
-using BP.AdventureFramework.Parsing.Commands.Game;
+﻿using BP.AdventureFramework.Commands.Game;
+using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Parsing.Interpretation
 {

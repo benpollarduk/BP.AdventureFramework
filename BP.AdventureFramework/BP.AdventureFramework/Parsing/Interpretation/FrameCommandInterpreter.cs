@@ -1,6 +1,6 @@
 ﻿using System;
+using BP.AdventureFramework.Commands.Frame;
 using BP.AdventureFramework.GameStructure;
-using BP.AdventureFramework.Parsing.Commands.Frame;
 using BP.AdventureFramework.Rendering;
 
 namespace BP.AdventureFramework.Parsing.Interpretation

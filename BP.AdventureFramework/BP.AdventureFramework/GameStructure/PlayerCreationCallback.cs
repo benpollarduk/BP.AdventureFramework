@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.Characters;
+﻿using BP.AdventureFramework.GameAssets.Characters;
 
 namespace BP.AdventureFramework.GameStructure
 {

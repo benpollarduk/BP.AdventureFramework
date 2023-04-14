@@ -1,5 +1,5 @@
-﻿using BP.AdventureFramework.Characters;
-using BP.AdventureFramework.Locations;
+﻿using BP.AdventureFramework.GameAssets.Characters;
+using BP.AdventureFramework.GameAssets.Locations;
 
 namespace BP.AdventureFramework.GameStructure
 {

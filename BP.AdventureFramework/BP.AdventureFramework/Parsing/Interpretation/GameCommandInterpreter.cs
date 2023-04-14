@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.GameAssets;
+using BP.AdventureFramework.GameAssets.Interaction;
+using BP.AdventureFramework.GameAssets.Locations;
 using BP.AdventureFramework.GameStructure;
-using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Locations;
 using BP.AdventureFramework.Parsing.Commands;
-using BP.AdventureFramework.Parsing.Commands.Game;
 
 namespace BP.AdventureFramework.Parsing.Interpretation
 {
@@ -284,7 +285,7 @@ namespace BP.AdventureFramework.Parsing.Interpretation
             // check exits to room
             if (TryParseToCardinalDirection(obj, out var direction))
             {
-                if (game.Overworld.CurrentRegion.CurrentRoom.FindExit(direction, out var exit))
+                if (game.Overworld.CurrentRegion.CurrentRoom.FindExit(direction, false, out var exit))
                 {
                     command = new Examine(exit);
                     return true;

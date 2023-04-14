@@ -1,7 +1,7 @@
-﻿namespace BP.AdventureFramework.Assets.Interaction
+﻿namespace BP.AdventureFramework.Assets
 {
     /// <summary>
-    /// Represents anything that is examinable.
+    /// Represents any object that is examinable.
     /// </summary>
     public interface IExaminable
     {

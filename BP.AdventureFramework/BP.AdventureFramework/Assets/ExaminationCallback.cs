@@ -1,4 +1,4 @@
-﻿namespace BP.AdventureFramework.Assets.Interaction
+﻿namespace BP.AdventureFramework.Assets
 {
     /// <summary>
     /// Represents the callback for examinations.

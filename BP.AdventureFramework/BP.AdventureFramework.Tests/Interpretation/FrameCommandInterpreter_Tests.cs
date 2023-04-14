@@ -1,8 +1,8 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Interpretation;
+using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

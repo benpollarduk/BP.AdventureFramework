@@ -1,6 +1,5 @@
 ﻿using System;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Tutorial.Demos;
 
 namespace BP.AdventureFramework.Tutorial

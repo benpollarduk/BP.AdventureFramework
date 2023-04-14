@@ -1,8 +1,8 @@
-﻿using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Assets;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Tutorial.Demos

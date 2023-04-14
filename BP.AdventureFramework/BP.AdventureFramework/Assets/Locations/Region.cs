@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Assets.Locations
 {

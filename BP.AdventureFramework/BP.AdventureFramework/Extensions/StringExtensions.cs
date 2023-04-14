@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Extensions
 {

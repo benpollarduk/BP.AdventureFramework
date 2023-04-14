@@ -1,6 +1,4 @@
-﻿using BP.AdventureFramework.Assets.Interaction;
-
-namespace BP.AdventureFramework.Assets
+﻿namespace BP.AdventureFramework.Assets
 {
     /// <summary>
     /// Represents an object that can be examined.

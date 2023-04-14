@@ -1,6 +1,6 @@
 ﻿using BP.AdventureFramework.Interaction;
 
-namespace BP.AdventureFramework.Assets.Interaction
+namespace BP.AdventureFramework.Assets
 {
     /// <summary>
     /// Represents the result of an examination.

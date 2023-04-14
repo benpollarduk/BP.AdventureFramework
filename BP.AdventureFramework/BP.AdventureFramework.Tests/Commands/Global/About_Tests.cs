@@ -1,8 +1,8 @@
-﻿using BP.AdventureFramework.Commands.Global;
-using BP.AdventureFramework.Assets;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Commands.Global;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Exit = BP.AdventureFramework.Assets.Locations.Exit;
 

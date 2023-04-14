@@ -1,4 +1,4 @@
-﻿namespace BP.AdventureFramework.Assets.Interaction
+﻿namespace BP.AdventureFramework.Assets
 {
     /// <summary>
     /// Enumeration of examination results.

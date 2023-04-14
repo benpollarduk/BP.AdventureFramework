@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using BP.AdventureFramework.Commands.Game;
-using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Commands.Game;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Parsing.Commands;
 

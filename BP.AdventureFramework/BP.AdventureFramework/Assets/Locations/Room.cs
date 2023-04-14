@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing;
+using BP.AdventureFramework.Extensions;
 using static System.String;
 
 namespace BP.AdventureFramework.Assets.Locations

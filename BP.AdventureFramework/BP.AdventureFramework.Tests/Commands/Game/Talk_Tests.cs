@@ -1,15 +1,15 @@
 ﻿using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
+using BP.AdventureFramework.Parsing.Commands.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands
+namespace BP.AdventureFramework.Tests.Commands.Game
 {
     [TestClass]
     public class Talk_Tests
     {
         [TestMethod]
-        public void GivenInvoke_WhenNoTarget_ThenNoReaction()
+        public void GivenNoTarget_WhenInvoke_ThenNoReaction()
         {
             var command = new Talk(null);
 
@@ -19,7 +19,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenTargetIsDead_ThenNoReaction()
+        public void GivenTargetIsDead_WhenInvoke_ThenNoReaction()
         {
             var npc = new NonPlayableCharacter(new Identifier(""), new Description(""), null, false, null);
             var command = new Talk(npc);
@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenTarget_ThenReacted()
+        public void GivenTarget_WhenInvoke_ThenReacted()
         {
             var npc = new NonPlayableCharacter(new Identifier(""), new Description(""));
             var command = new Talk(npc);

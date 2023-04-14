@@ -1,6 +1,6 @@
 ﻿using BP.AdventureFramework.Interaction;
 
-namespace BP.AdventureFramework.Parsing.Commands
+namespace BP.AdventureFramework.Parsing.Commands.Game
 {
     /// <summary>
     /// Represents the Examine command.

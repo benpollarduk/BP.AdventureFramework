@@ -1,15 +1,15 @@
 ﻿using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
-using BP.AdventureFramework.Parsing.Commands;
+using BP.AdventureFramework.Parsing.Commands.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands
+namespace BP.AdventureFramework.Tests.Commands.Game
 {
     [TestClass]
     public class Examine_Tests
     {
         [TestMethod]
-        public void GivenInvoke_WhenNothingToExamine_ThenNoReaction()
+        public void GivenNothingToExamine_WhenInvoke_ThenNoReaction()
         {
             var command = new Examine(null);
 
@@ -19,7 +19,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenSomethingToExamine_ThenReacted()
+        public void GivenSomethingToExamine_WhenInvoke_ThenReacted()
         {
             var region = new Region(new Identifier(""), new Description(""));
             var command = new Examine(region);

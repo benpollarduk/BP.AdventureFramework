@@ -1,16 +1,16 @@
 ﻿using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
-using BP.AdventureFramework.Parsing.Commands;
+using BP.AdventureFramework.Parsing.Commands.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands
+namespace BP.AdventureFramework.Tests.Commands.Game
 {
     [TestClass]
     public class Take_Tests
     {
         [TestMethod]
-        public void GivenInvoke_WhenNoCharacter_ThenNoReaction()
+        public void GivenNoCharacter_WhenInvoke_ThenNoReaction()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var command = new Take(null, null, room);
@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenNoItem_ThenNoReaction()
+        public void GivenNoItem_WhenInvoke_ThenNoReaction()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));
@@ -33,7 +33,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenRoomDoesNotContainThatItem_ThenNoReaction()
+        public void GivenRoomDoesNotContainThatItem_WhenInvoke_ThenNoReaction()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));
@@ -47,7 +47,7 @@ namespace BP.AdventureFramework.Tests.Commands
 
 
         [TestMethod]
-        public void GivenInvoke_WhenItemIsNotTakeable_ThenNoReaction()
+        public void GivenItemIsNotTakeable_WhenInvoke_ThenNoReaction()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));
@@ -61,7 +61,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenItemIsDroppable_ThenReacted()
+        public void GivenItemIsDroppable_WhenInvoke_ThenReacted()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));

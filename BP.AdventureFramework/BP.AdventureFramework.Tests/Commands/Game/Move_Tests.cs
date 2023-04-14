@@ -1,15 +1,15 @@
 ﻿using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
-using BP.AdventureFramework.Parsing.Commands;
+using BP.AdventureFramework.Parsing.Commands.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands
+namespace BP.AdventureFramework.Tests.Commands.Game
 {
     [TestClass]
     public class Move_Tests
     {
         [TestMethod]
-        public void GivenInvoke_WhenCantMove_ThenNoReaction()
+        public void GivenCantMove_WhenInvoke_ThenNoReaction()
         {
             var region = new Region(new Identifier(""), new Description(""));
             region.AddRoom(new Room(new Identifier(""), new Description(""), new Exit(CardinalDirection.North)), 0, 0);
@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tests.Commands
         }
 
         [TestMethod]
-        public void GivenInvoke_WhenCanMove_ThenReacted()
+        public void GivenCanMove_WhenInvoke_ThenReacted()
         {
             var region = new Region(new Identifier(""), new Description(""));
             region.AddRoom(new Room(new Identifier(""), new Description(""), new Exit(CardinalDirection.North)), 0, 0);

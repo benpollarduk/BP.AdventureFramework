@@ -49,12 +49,22 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Unactionable_Tests.cs" />
-    <Compile Include="Commands\Talk_Tests.cs" />
-    <Compile Include="Commands\Take_Tests.cs" />
-    <Compile Include="Commands\Drop_Tests.cs" />
-    <Compile Include="Commands\Examine_Tests.cs" />
-    <Compile Include="Commands\Move_Tests.cs" />
+    <Compile Include="Commands\Frame\Invert_Tests.cs" />
+    <Compile Include="Commands\Frame\KeyOn_Tests.cs" />
+    <Compile Include="Commands\Frame\KeyOff_Tests.cs" />
+    <Compile Include="Commands\Frame\CommandsOn_Tests.cs" />
+    <Compile Include="Commands\Frame\CommandsOff_Tests.cs" />
+    <Compile Include="Commands\Game\Unactionable_Tests.cs" />
+    <Compile Include="Commands\Game\Talk_Tests.cs" />
+    <Compile Include="Commands\Game\Take_Tests.cs" />
+    <Compile Include="Commands\Game\Drop_Tests.cs" />
+    <Compile Include="Commands\Game\Examine_Tests.cs" />
+    <Compile Include="Commands\Game\Move_Tests.cs" />
+    <Compile Include="Commands\Global\New_Tests.cs" />
+    <Compile Include="Commands\Global\Map_Tests.cs" />
+    <Compile Include="Commands\Global\Help_Tests.cs" />
+    <Compile Include="Commands\Global\Exit_Tests.cs" />
+    <Compile Include="Commands\Global\About_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

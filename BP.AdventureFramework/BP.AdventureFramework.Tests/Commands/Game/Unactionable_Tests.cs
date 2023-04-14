@@ -1,14 +1,14 @@
 ﻿using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
+using BP.AdventureFramework.Parsing.Commands.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands
+namespace BP.AdventureFramework.Tests.Commands.Game
 {
     [TestClass]
     public class Unactionable_Tests
     {
         [TestMethod]
-        public void GivenInvoke_WhenDefault_ThenNoReaction()
+        public void GivenDefault_WhenInvoke_ThenNoReaction()
         {
             var command = new Unactionable();
 

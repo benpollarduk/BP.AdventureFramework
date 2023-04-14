@@ -3,7 +3,7 @@ using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 
-namespace BP.AdventureFramework.Parsing.Commands
+namespace BP.AdventureFramework.Parsing.Commands.Game
 {
     /// <summary>
     /// Represents the UseOn command.

@@ -1,7 +1,7 @@
 ﻿using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Interaction;
 
-namespace BP.AdventureFramework.Parsing.Commands
+namespace BP.AdventureFramework.Parsing.Commands.Game
 {
     /// <summary>
     /// Represents the Talk command.

@@ -2,17 +2,17 @@
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 
-namespace BP.AdventureFramework.Parsing.Commands
+namespace BP.AdventureFramework.Parsing.Commands.Game
 {
     /// <summary>
-    /// Represents the Take command.
+    /// Represents the Drop command.
     /// </summary>
-    public class Take : ICommand
+    public class Drop : ICommand
     {
         #region Properties
 
         /// <summary>
-        /// Get the character will acquire the item.
+        /// Get the character who has the item.
         /// </summary>
         public PlayableCharacter Character { get; }
 
@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Parsing.Commands
         public Item Item { get; }
 
         /// <summary>
-        /// Get the room to take the item from.
+        /// Get the room to drop the item in.
         /// </summary>
         public Room Room { get; }
 
@@ -31,12 +31,12 @@ namespace BP.AdventureFramework.Parsing.Commands
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the Take command.
+        /// Initializes a new instance of the Drop command.
         /// </summary>
-        /// <param name="character">The character who will acquire the item.</param>
+        /// <param name="character">The character who has the item.</param>
         /// <param name="item">The item to take.</param>
-        /// <param name="room">The room to take the item from.</param>
-        public Take(PlayableCharacter character, Item item, Room room)
+        /// <param name="room">The room to drop the item in.</param>
+        public Drop(PlayableCharacter character, Item item, Room room)
         {
             Character = character;
             Item = item;
@@ -57,18 +57,14 @@ namespace BP.AdventureFramework.Parsing.Commands
                 return new Reaction(ReactionResult.NoReaction, "You must specify a character.");
 
             if (Item == null)
-                return new Reaction(ReactionResult.NoReaction, "You must specify what to take.");
+                return new Reaction(ReactionResult.NoReaction, "You must specify what to drop.");
 
-            if (!Room.ContainsItem(Item))
-                return new Reaction(ReactionResult.NoReaction, "The room does not contain that item.");
+            if (!Character.HasItem(Item))
+                return new Reaction(ReactionResult.NoReaction, "You don't have that item.");
 
-            if (!Item.IsTakeable)
-                return new Reaction(ReactionResult.NoReaction, $"{Item.Identifier.Name} cannot be taken.");
-
-            Room.RemoveItemFromRoom(Item);
-            Character.AquireItem(Item);
-
-            return new Reaction(ReactionResult.Reacted, $"Took {Item.Identifier.Name}");
+            Room.AddItem(Item);
+            Character.DequireItem(Item);
+            return new Reaction(ReactionResult.Reacted, $"Dropped {Item.Identifier.Name}.");
         }
 
         #endregion

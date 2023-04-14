@@ -5,6 +5,7 @@ using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
 using BP.AdventureFramework.Parsing;
+using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
 
@@ -168,23 +169,21 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// React to input.
+        /// Handle a reaction.
         /// </summary>
-        /// <param name="input">The input to react to.</param>
-        /// <returns>A result detailing the reaction.</returns>
-        public Decision ReactToInput(string input)
+        /// <param name="command">The command to react to.</param>
+        /// <returns>The reaction to the command.</returns>
+        public Reaction RunCommand(ICommand command)
         {
-            var command = Interpreter.Interpret(input, this);
             var reaction = command.Invoke();
 
-            if (!CompletionCondition(this))
-                return new Decision(reacted, message);
+            if (CompletionCondition(this))
+            {
+                Completed?.Invoke(this, ExitMode.ReturnToTitleScreen);
+                CurrentFrame = CompletionFrame;
+            }
 
-            Completed?.Invoke(this, ExitMode.ReturnToTitleScreen);
-
-            CurrentFrame = CompletionFrame;
-
-            return new Decision(ReactionResult.SelfContainedReaction, "You have finished the game");
+            return reaction;
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using BP.AdventureFramework.Interaction;
+using BP.AdventureFramework.Parsing.Interpretation;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
 
@@ -59,14 +60,19 @@ namespace BP.AdventureFramework.GameStructure
         public string ErrorPrefix { get; set; } = "OOPS";
 
         /// <summary>
-        /// Get or set the drawer for drawing all frames.
+        /// Get the drawer for drawing all frames.
         /// </summary>
-        public FrameDrawer FrameDrawer { get; set; } = new FrameDrawer();
+        public FrameDrawer FrameDrawer { get; } = new FrameDrawer();
 
         /// <summary>
-        /// Get or set the drawer used for constructing room maps.
+        /// Get the drawer used for constructing room maps.
         /// </summary>
-        public MapDrawer MapDrawer { get; set; } = new MapDrawer();
+        public MapDrawer MapDrawer { get; } = new MapDrawer();
+
+        /// <summary>
+        /// Get the input interpreter.
+        /// </summary>
+        public InputInterpreter InputInterpreter { get; }
 
         /// <summary>
         /// Get or set the output stream.
@@ -119,6 +125,7 @@ namespace BP.AdventureFramework.GameStructure
         public GameFlow(GameCreationHelper helper)
         {
             Creator = helper.Creator;
+            InputInterpreter = new InputInterpreter(FrameDrawer, MapDrawer);
         }
 
         #endregion
@@ -132,91 +139,6 @@ namespace BP.AdventureFramework.GameStructure
         {
             Game = Creator.Invoke();
             EnterGameLoop();
-        }
-
-        /// <summary>
-        /// Try to handle the input at a global level, i.e higher operations on a Game such creating new games.
-        /// </summary>
-        /// <param name="input">The input to handle.</param>
-        /// <returns>The decision based on the input.</returns>
-        protected Decision TryHandleInputAtGlobalLevel(string input)
-        {
-            if (Game.Parser.TryParseToGameCommand(input, out var gameCommand))
-            {
-                switch (gameCommand)
-                {
-                    case GameCommand.About:
-                        
-                        if (!string.IsNullOrEmpty(Game.Description))
-                            Game.Refresh(Game.Description + "\n\nAdventureFramework by Ben Pollard 2011-2023");
-                        else
-                            Game.Refresh("AdventureFramework by Ben Pollard 2011-2023");
-
-                        return new Decision(ReactionResult.SelfContainedReaction);
-                    
-                    case GameCommand.Exit:
-
-                        Game.End();
-                        return new Decision(ReactionResult.SelfContainedReaction, "Exiting...");
-                    
-                    case GameCommand.Help:
-
-                        Game.Refresh(Game.HelpFrame);
-                        return new Decision(ReactionResult.SelfContainedReaction, string.Empty);
-
-                    case GameCommand.Map:
-
-                        Game.Refresh(new RegionMapFrame(Game.Overworld.CurrentRegion, MapDrawer));
-                        return new Decision(ReactionResult.SelfContainedReaction, string.Empty);
-                    
-                    case GameCommand.New:
-                        
-                        Game.Refresh(Game.TitleFrame);
-                        return new Decision(ReactionResult.SelfContainedReaction, "New game");
-                    
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-
-            if (!game.Parser.IsFrameDrawingOption(input)) 
-                return new Decision(ReactionResult.NoReaction);
-
-            game.Parser.TryParseToFrameDrawingOption(input, out var drawCommand);
-
-            switch (drawCommand)
-            {
-                case FrameDrawingOption.CommandsOff:
-
-                    FrameDrawer.DisplayCommands = false;
-                    return new Decision(ReactionResult.CouldReact, "Commands have been turned off");
-                
-                case FrameDrawingOption.CommandsOn:
-                    
-                    FrameDrawer.DisplayCommands = true;
-                    return new Decision(ReactionResult.CouldReact, "Commands have been turned on");
-                
-                case FrameDrawingOption.Invert:
-
-                    if (DisplayInverted == null) 
-                        return new Decision(ReactionResult.NoReaction, "Colours have been not been inverted as no handling has been specified");
-                    
-                    DisplayInverted(this, new EventArgs());
-                    return new Decision(ReactionResult.CouldReact, "Colours have been inverted");
-
-                case FrameDrawingOption.KeyOff:
-                    
-                    MapDrawer.Key = KeyType.None;
-                    return new Decision(ReactionResult.CouldReact, "Key has been turned off");
-                
-                case FrameDrawingOption.KeyOn:
-                    
-                    MapDrawer.Key = KeyType.Dynamic;
-                    return new Decision(ReactionResult.CouldReact, "Key has been turned on");
-                
-                default:
-                    throw new NotImplementedException();
-            }
         }
 
         /// <summary>
@@ -237,7 +159,7 @@ namespace BP.AdventureFramework.GameStructure
                 {
                     string message;
                     var displayReactionToInput = true;
-                    Decision reaction = null;
+                    var reaction = new Reaction(ReactionResult.NoReaction, "Error.");
 
                     if (!Game.CurrentFrame.AcceptsInput)
                     {
@@ -276,17 +198,10 @@ namespace BP.AdventureFramework.GameStructure
                         if (newHasBeenLoaded)
                             newHasBeenLoaded = false;
 
-                        reaction = TryHandleInputAtGlobalLevel(input);
+                        var interpretation = InputInterpreter.Interpret(input, Game);
 
-                        switch (reaction.Result)
-                        {
-                            case ReactionResult.CouldReact:
-                            case ReactionResult.SelfContainedReaction:
-                                break;
-                            default:
-                                reaction = Game.ReactToInput(input);
-                                break;
-                        }
+                        if (interpretation.WasInterpretedSuccessfully)
+                            reaction = Game.RunCommand(interpretation.Command);
                     }
 
                     if (!displayReactionToInput) 
@@ -296,18 +211,15 @@ namespace BP.AdventureFramework.GameStructure
                     {
                         case ReactionResult.NoReaction:
 
-                            message = ErrorPrefix + ": " + reaction.Reason;
+                            message = ErrorPrefix + ": " + reaction.Description;
                             UpdateScreenWithCurrentFrame(message);
                             break;
 
-                        case ReactionResult.CouldReact:
+                        case ReactionResult.Reacted:
                             
-                            message = reaction.Reason;
-                            UpdateScreenWithCurrentFrame(message);
+                            UpdateScreenWithCurrentFrame(reaction.Description);
                             break;
 
-                        case ReactionResult.SelfContainedReaction:
-                            break;
                         default:
                             throw new NotImplementedException();
                     }

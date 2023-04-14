@@ -40,7 +40,7 @@ namespace BP.AdventureFramework.Parsing.Interpretation
         /// <param name="command">The command.</param>
         public InterpretationResult(bool wasInterpretedSuccessfully, ICommand command)
         {
-            WasInterpretedSuccessfully = true;
+            WasInterpretedSuccessfully = wasInterpretedSuccessfully;
             Command = command;
         }
 

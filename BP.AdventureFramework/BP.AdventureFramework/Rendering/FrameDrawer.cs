@@ -10,7 +10,7 @@ namespace BP.AdventureFramework.Rendering
     {
         #region Fields
 
-        private readonly char dividerCharacter = Convert.ToChar("=");
+        private readonly char dividerCharacter;
 
         #endregion
 
@@ -33,21 +33,14 @@ namespace BP.AdventureFramework.Rendering
         /// <summary>
         /// Initializes a new instance of the FrameDrawer class.
         /// </summary>
-        public FrameDrawer()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the FrameDrawer class.
-        /// </summary>
         /// <param name="leftBoundaryCharacter">The character to use for left boundaries.</param>
         /// <param name="rightBoundaryCharacter">The character to use for right boundaries.</param>
-        /// <param name="devidingCharacter">The character to use for dividers.</param>
-        public FrameDrawer(char leftBoundaryCharacter, char rightBoundaryCharacter, char devidingCharacter)
+        /// <param name="dividingCharacter">The character to use for dividers.</param>
+        public FrameDrawer(char leftBoundaryCharacter = (char)124, char rightBoundaryCharacter = (char)124, char dividingCharacter = (char)45)
         {
             LeftBoundaryCharacter = leftBoundaryCharacter;
             RightBoundaryCharacter = rightBoundaryCharacter;
-            dividerCharacter = devidingCharacter;
+            dividerCharacter = dividingCharacter;
         }
 
         /// <summary>
@@ -55,7 +48,7 @@ namespace BP.AdventureFramework.Rendering
         /// </summary>
         /// <param name="width">The width of the divider.</param>
         /// <returns>A constructed divider.</returns>
-        public virtual string ConstructDivider(int width)
+        public string ConstructDivider(int width)
         {
             return ConstructDivider(width, LeftBoundaryCharacter, dividerCharacter, RightBoundaryCharacter);
         }

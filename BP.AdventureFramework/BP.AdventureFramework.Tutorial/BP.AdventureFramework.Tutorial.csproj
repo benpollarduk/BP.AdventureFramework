@@ -92,24 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BP.AdventureFramework\BP.AdventureFramework.csproj">
-      <Project>{db7ea149-1914-4c0f-8859-63cb84d0e9e5}</Project>
+      <Project>{d0a9b7d8-4e26-49ef-93f6-648e5cc38c97}</Project>
       <Name>BP.AdventureFramework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Graphics\Mario\Mario1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Mario\Mario2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Mario\Mario3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Misc\Link.jpg" />
-    <Content Include="Graphics\Sword.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

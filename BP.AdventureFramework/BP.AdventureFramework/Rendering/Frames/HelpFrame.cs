@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {
@@ -39,15 +40,14 @@ namespace BP.AdventureFramework.Rendering.Frames
             Title = "Help";
             Description = "Provides help for in game commands";
 
-            CommandsDictionary.Add("About", "View information about the games creator");
+            CommandsDictionary.Add(GlobalCommandInterpreter.About, "View information about the games creator");
             CommandsDictionary.Add("space1", "");
-            CommandsDictionary.Add("CommandsOn / CommandsOff", "Turn commands on/off");
-            CommandsDictionary.Add("KeyOn / KeyOff", "Turn the key on/off");
-            CommandsDictionary.Add("Invert", "Invert foreground/background colours");
-            CommandsDictionary.Add("Map", "View a map of the current region");
+            CommandsDictionary.Add($"{FrameCommandInterpreter.CommandsOn} / {FrameCommandInterpreter.CommandsOff}", "Turn commands on/off");
+            CommandsDictionary.Add($"{FrameCommandInterpreter.KeyOn}  / {FrameCommandInterpreter.KeyOff} ", "Turn the key on/off");
+            CommandsDictionary.Add(GlobalCommandInterpreter.Map, "View a map of the current region");
             CommandsDictionary.Add("space2", "");
-            CommandsDictionary.Add("Exit", "Exit the game");
-            CommandsDictionary.Add("New", "Start a new game");
+            CommandsDictionary.Add(GlobalCommandInterpreter.Exit, "Exit the game");
+            CommandsDictionary.Add(GlobalCommandInterpreter.New, "Start a new game");
         }
 
         /// <summary>

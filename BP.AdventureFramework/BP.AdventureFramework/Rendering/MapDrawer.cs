@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BP.AdventureFramework.Locations;
+using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Rendering
 {
@@ -15,60 +15,31 @@ namespace BP.AdventureFramework.Rendering
         /// <summary>
         /// Get or set the string used for representing a locked exit.
         /// </summary>
-        public string LockedExitString { get; set; } = "x";
+        public string LockedExitString { get; set; }
 
         /// <summary>
         /// Get or set the string used for representing there is an item in the room.
         /// </summary>
-        public string ItemInRoomString { get; set; } = "?";
+        public string ItemInRoomString { get; set; }
 
         /// <summary>
         /// Get or set the type of key to use.
         /// </summary>
-        public KeyType Key { get; set; } = KeyType.Dynamic;
+        public KeyType Key { get; set; }
 
         /// <summary>
-        /// Get or set the visibility mode to use for Rooms.
+        /// Get the visibility mode to use for Rooms.
         /// </summary>
-        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.VistitedRoomsOnly;
+        public RegionDisplayMode RoomVisibilityMode { get; }
 
         /// <summary>
-        /// Get or set the detail to use for a Region map.
+        /// Get the detail to use for a Region map.
         /// </summary>
-        public RegionMapMode RegionMapDetail { get; set; } = RegionMapMode.Dynamic;
+        public RegionMapMode RegionMapDetail { get; }
 
         #endregion
 
         #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the MapDrawer class.
-        /// </summary>
-        public MapDrawer()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the MapDrawer class.
-        /// </summary>
-        /// <param name="key">Specify the type of key to use.</param>
-        public MapDrawer(KeyType key)
-        {
-            Key = key;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the MapDrawer class.
-        /// </summary>
-        /// <param name="key">Specify the type of key to use.</param>
-        /// <param name="lockedExitString">Specify a string used for representing a locked exit.</param>
-        /// <param name="itemInRoomString">Specify a string used for representing there is an item in the room.</param>
-        public MapDrawer(KeyType key, string lockedExitString, string itemInRoomString)
-        {
-            Key = key;
-            LockedExitString = lockedExitString;
-            ItemInRoomString = itemInRoomString;
-        }
 
         /// <summary>
         /// Initializes a new instance of the MapDrawer class.
@@ -78,7 +49,7 @@ namespace BP.AdventureFramework.Rendering
         /// <param name="itemInRoomString">Specify a string used for representing there is an item in the room.</param>
         /// <param name="roomVisibilityMode">Specify a visibility mode to be used for Rooms.</param>
         /// <param name="regionMapDetail">Specify a Region map detail mode.</param>
-        public MapDrawer(KeyType key, string lockedExitString, string itemInRoomString, RegionDisplayMode roomVisibilityMode, RegionMapMode regionMapDetail)
+        public MapDrawer(KeyType key = KeyType.Dynamic, string lockedExitString = "x", string itemInRoomString = "?", RegionDisplayMode roomVisibilityMode = RegionDisplayMode.VistitedRoomsOnly, RegionMapMode regionMapDetail = RegionMapMode.Dynamic)
         {
             Key = key;
             LockedExitString = lockedExitString;
@@ -87,44 +58,52 @@ namespace BP.AdventureFramework.Rendering
             RegionMapDetail = regionMapDetail;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Construct a map for a Room.
         /// </summary>
         /// <param name="room">The Room to draw.</param>
         /// <param name="width">The allocated with to draw within.</param>
         /// <returns>A map of the Room in a String.</returns>
-        public virtual string ConstructRoomMap(Room room, int width)
+        public string ConstructRoomMap(Room room, int width)
         {
             if (width <= 0)
                 throw new ArgumentException("The width parameter must be greater than 0");
 
             var map = string.Empty;
             var keyLines = new Queue<string>();
+            var lockedExitString = "{LockedExitString}=Locked Exit";
+            var unlockedExitString = "N/E/S/W = Unlocked Exit";
+            var entranceString = "n/e/s/w = Entrance";
+            var itemsString = $"{ItemInRoomString}=Item(s) In Room";
 
             switch (Key)
             {
                 case KeyType.Dynamic:
 
                     if (room.UnlockedExits.Count(x => x.IsPlayerVisible) != room.Exits.Count(x => x.IsPlayerVisible))
-                        keyLines.Enqueue($"  {LockedExitString}=Locked Exit");
+                        keyLines.Enqueue($"  {lockedExitString}");
 
                     if (room.UnlockedExits.Any(x => x.IsPlayerVisible))
-                        keyLines.Enqueue($"  {"N/E/S/W"}=Unlocked Exit");
+                        keyLines.Enqueue($"  {unlockedExitString}");
 
                     if (room.EnteredFrom.HasValue)
                         keyLines.Enqueue($"  {room.EnteredFrom.Value.ToString().ToLower().Substring(0, 1)}=Entrance");
 
                     if (room.Items.Any(x => x.IsPlayerVisible))
-                        keyLines.Enqueue($"  {ItemInRoomString}=Item(s) In Room");
+                        keyLines.Enqueue($"  {itemsString}");
 
                     break;
 
                 case KeyType.Full:
 
-                    keyLines.Enqueue($"  {LockedExitString}=Locked Exit");
-                    keyLines.Enqueue($"  {"N/E/S/W"}=Unlocked Exit");
-                    keyLines.Enqueue($"  {"n/e/s/w"}=Entrance");
-                    keyLines.Enqueue($"  {ItemInRoomString}=Item(s) In Room");
+                    keyLines.Enqueue($"  {lockedExitString}");
+                    keyLines.Enqueue($"  {unlockedExitString}");
+                    keyLines.Enqueue($"  {entranceString}");
+                    keyLines.Enqueue($"  {itemsString}");
 
                     break;
 
@@ -143,7 +122,8 @@ namespace BP.AdventureFramework.Rendering
                 {
                     if (room.HasUnlockedExitInDirection(direction))
                     {
-                        exitRepresentations.Add(direction, room.EnteredFrom.Value.ToString().ToLower().Substring(0, 1));
+                        if (room.EnteredFrom != null) 
+                            exitRepresentations.Add(direction, room.EnteredFrom.Value.ToString().ToLower().Substring(0, 1));
                     }
                     else if (room.HasLockedExitInDirection(direction))
                     {
@@ -361,7 +341,7 @@ namespace BP.AdventureFramework.Rendering
         /// <param name="width">The allocated width to draw within.</param>
         /// <param name="height">The allocated height to draw within.</param>
         /// <returns>A map of the Region in a string.</returns>
-        public virtual string ConstructRegionMap(Region region, int width, int height)
+        public string ConstructRegionMap(Region region, int width, int height)
         {
             if (!TryGetRegionExtremities(region, out var minColumn, out var maxColumn, out var minRow, out var maxRow)) 
                 return string.Empty;

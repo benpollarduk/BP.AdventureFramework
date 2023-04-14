@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BP.AdventureFramework.Characters;
-using BP.AdventureFramework.Interaction;
-using BP.AdventureFramework.Locations;
+using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {
@@ -82,7 +81,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         {
             var scene = new StringBuilder();
             scene.Append(drawer.ConstructDivider(width));
-            scene.Append(drawer.ConstructWrappedPaddedString($"LOCATION: {Room.Name}", width));
+            scene.Append(drawer.ConstructWrappedPaddedString($"LOCATION: {Room.Identifier}", width));
             scene.Append(drawer.ConstructDivider(width));
             scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
             scene.Append(drawer.ConstructWrappedPaddedString(Room.Description.GetDescription(), width));
@@ -99,17 +98,17 @@ namespace BP.AdventureFramework.Rendering.Frames
             {
                 if (visibleCharacters.Length == 1)
                 {
-                    scene.Append(drawer.ConstructWrappedPaddedString(visibleCharacters[0].Name + " is in this area", width));
+                    scene.Append(drawer.ConstructWrappedPaddedString(visibleCharacters[0].Identifier + " is in this area", width));
                 }
                 else
                 {
                     var characters = string.Empty;
 
                     foreach (var character in visibleCharacters)
-                        characters += character.Name + ", ";
+                        characters += character.Identifier + ", ";
 
                     characters = characters.Remove(characters.Length - 2);
-                    scene.Append(drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + Room.Name, width));
+                    scene.Append(drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + Room.Identifier, width));
                 }
             }
 
@@ -129,7 +128,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                 scene.Append(drawer.ConstructWrappedPaddedString("COMMANDS:", width));
                 scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
                 scene.Append(drawer.ConstructWrappedPaddedString("MOVEMENT:", width));
-                scene.Append(drawer.ConstructWrappedPaddedString("N: North, S: South, E: East, W: West", width));
+                scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.NorthShort}: {GameCommandInterpreter.North}, {GameCommandInterpreter.SouthShort}: {GameCommandInterpreter.South}, {GameCommandInterpreter.EastShort}: {GameCommandInterpreter.East}, {GameCommandInterpreter.WestShort}: {GameCommandInterpreter.West}", width));
                 scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
 
                 var usedLinesSoFar = drawer.DetermineLinesInString(scene.ToString()) + 14 + drawer.DetermineLinesInString(drawer.ConstructWrappedPaddedString(Message, width));
@@ -139,45 +138,20 @@ namespace BP.AdventureFramework.Rendering.Frames
                     scene.Append(drawer.ConstructWrappedPaddedString("INTERACTION:", width));
 
                     if (Player.Items.Any())
-                        scene.Append(drawer.ConstructWrappedPaddedString("Drop __: Drop an item", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Drop} __: Drop an item", width));
 
-                    scene.Append(drawer.ConstructWrappedPaddedString("Examine __: Examine a character, item, room, region, overworld or me", width));
+                    scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Examine} __: Examine a character, item, room, region, overworld or me", width));
 
                     if (Room.Items.Any())
-                        scene.Append(drawer.ConstructWrappedPaddedString("Take __: Take an item", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Take} __: Take an item", width));
 
                     if (Room.Characters.Any())
-                        scene.Append(drawer.ConstructWrappedPaddedString("Talk to __: Talk to a character", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Talk} {GameCommandInterpreter.To.ToLower()} __: Talk to a character", width));
 
                     if (Room.Items.Any() || Player.Items.Any())
                     {
-                        scene.Append(drawer.ConstructWrappedPaddedString("Use __: Use an item on the this Room", width));
-                        scene.Append(drawer.ConstructWrappedPaddedString("Use __ on __: Use an item on another item or character", width));
-                    }
-
-                    scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
-                }
-
-                var customCommands = new List<IImplementOwnActions>();
-                customCommands.AddRange(Player.GetAllObjectsWithAdditionalCommands());
-                customCommands.AddRange(Room.GetAllObjectsWithAdditionalCommands());
-
-                if (customCommands.Any(c => c.AdditionalCommands.Any()))
-                {
-                    var hasAddedTitle = false;
-
-                    foreach (var commandable in customCommands)
-                    {
-                        foreach (var command in commandable.AdditionalCommands.Where(aC => aC.IsPlayerVisible))
-                        {
-                            if (!hasAddedTitle)
-                            {
-                                scene.Append(drawer.ConstructWrappedPaddedString("ADDITIONAL COMMANDS:", width));
-                                hasAddedTitle = true;
-                            }
-
-                            scene.Append(drawer.ConstructWrappedPaddedString($"{command.Command.ToUpper()}: {command.Description}", width));
-                        }
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Use} __: Use an item on the this Room", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Use} __ {GameCommandInterpreter.On.ToLower()} __: Use an item on another item or character", width));
                     }
 
                     scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));

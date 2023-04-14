@@ -1,5 +1,5 @@
 ﻿using System;
-using BP.AdventureFramework.GameStructure;
+using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Tutorial.Demos;
 
@@ -12,10 +12,9 @@ namespace BP.AdventureFramework.Tutorial
             try
             {
                 SetupConsole();
-                InGameGraphics.BufferGraphics();
-                GameCreationHelper creationHelper = null;
+                GameCreationCallback creator = null;
 
-                while (creationHelper == null)
+                while (creator == null)
                 {
                     Console.Clear();
 
@@ -28,8 +27,8 @@ namespace BP.AdventureFramework.Tutorial
                     {
                         case ConsoleKey.NumPad1:
                         case ConsoleKey.D1:
-                            
-                            creationHelper = GameCreationHelper.Create("A Strange World",
+
+                            creator = GameCreationHelper.Create("A Strange World",
                                 "You wake up at the entrance to a small clearing...",
                                 Everglades.GenerateOverworld,
                                 Everglades.GeneratePC,
@@ -39,8 +38,8 @@ namespace BP.AdventureFramework.Tutorial
 
                         case ConsoleKey.NumPad2:
                         case ConsoleKey.D2:
-                            
-                            creationHelper = GameCreationHelper.Create("Escape From Your Flat!",
+
+                            creator = GameCreationHelper.Create("Escape From Your Flat!",
                                 "You wake up in the bedroom of your flat. Your a little disorientated, but then again you are most mornings! Your itching for some punk rock!",
                                 Flat.GenerateOverworld,
                                 Flat.GeneratePC,
@@ -51,7 +50,7 @@ namespace BP.AdventureFramework.Tutorial
                         case ConsoleKey.NumPad3:
                         case ConsoleKey.D3:
 
-                            creationHelper = GameCreationHelper.Create("The Legend Of Zelda: Links Texting!",
+                            creator = GameCreationHelper.Create("The Legend Of Zelda: Links Texting!",
                                 "It's a sunny day in Hyrule and Link is in his tree hut...",
                                 Zelda.GenerateOverworld,
                                 Zelda.GeneratePC,
@@ -61,7 +60,7 @@ namespace BP.AdventureFramework.Tutorial
                     }
                 }
 
-                using (var flow = new GameFlow(creationHelper))
+                using (var flow = new GameManager(creator))
                 {
                     HostSetup.SetupWindowsConsole(flow, "BP.AdventureFramework Demo");
                     flow.Begin();
@@ -69,7 +68,7 @@ namespace BP.AdventureFramework.Tutorial
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception caught running demo: {0}", e.Message);
+                Console.WriteLine($"Exception caught running demo: {e.Message}");
                 Console.ReadKey();
             }
         }

@@ -5,11 +5,12 @@
     <AssemblyName>BP.AdventureFramework</AssemblyName>
     <Authors>Ben Pollard</Authors>
     <Copyright />
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed issue with key not rendering correctly.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/ben-pollard-uk/adventure-framework.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ben-pollard-uk/adventure-framework</PackageProjectUrl>
     <Description>An open source library for creating text adventures. Provides game assets, parsers, and other classes to assist with logic. For examples see the project website at https://github.com/ben-pollard-uk/adventure-framework.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

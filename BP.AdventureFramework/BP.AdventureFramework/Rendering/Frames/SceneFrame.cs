@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames
@@ -84,13 +85,13 @@ namespace BP.AdventureFramework.Rendering.Frames
             scene.Append(drawer.ConstructWrappedPaddedString($"LOCATION: {Room.Identifier}", width));
             scene.Append(drawer.ConstructDivider(width));
             scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
-            scene.Append(drawer.ConstructWrappedPaddedString(Room.Description.GetDescription(), width));
+            scene.Append(drawer.ConstructWrappedPaddedString(Room.Description.GetDescription().EnsureFinishedSentence(), width));
             scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
 
             if (Room.Items.Any())
-                scene.Append(drawer.ConstructWrappedPaddedString(Room.Examime().Desciption, width));
+                scene.Append(drawer.ConstructWrappedPaddedString(Room.Examime().Desciption.EnsureFinishedSentence(), width));
             else
-                scene.Append(drawer.ConstructWrappedPaddedString("There are no items in this area", width));
+                scene.Append(drawer.ConstructWrappedPaddedString("There are no items in this area.", width));
 
             var visibleCharacters = Room.Characters.Where(c => c.IsPlayerVisible && c.IsAlive).ToArray<Character>();
 
@@ -98,7 +99,7 @@ namespace BP.AdventureFramework.Rendering.Frames
             {
                 if (visibleCharacters.Length == 1)
                 {
-                    scene.Append(drawer.ConstructWrappedPaddedString(visibleCharacters[0].Identifier + " is in this area", width));
+                    scene.Append(drawer.ConstructWrappedPaddedString(visibleCharacters[0].Identifier + " is in this area.", width));
                 }
                 else
                 {
@@ -108,7 +109,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                         characters += character.Identifier + ", ";
 
                     characters = characters.Remove(characters.Length - 2);
-                    scene.Append(drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + Room.Identifier, width));
+                    scene.Append(drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + Room.Identifier + ".", width));
                 }
             }
 
@@ -158,7 +159,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                 }
             }
 
-            var wrappedMessage = drawer.ConstructWrappedPaddedString(Message, width);
+            var wrappedMessage = drawer.ConstructWrappedPaddedString(Message.EnsureFinishedSentence(), width);
             var linesAfterWhitespace = 7 + drawer.DetermineLinesInString(wrappedMessage);
             var linesInString = drawer.DetermineLinesInString(scene.ToString());
 

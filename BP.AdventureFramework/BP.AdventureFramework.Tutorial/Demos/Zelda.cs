@@ -7,7 +7,7 @@ using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Tutorial.Demos
 {
-    public static class Zelda
+    internal static class Zelda
     {
         private const string Sword = "Sword";
         private const string Shield = "Sheld";
@@ -28,7 +28,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
         private const string LinksHouse = "Links House";
         private const string OutsideLinksHouse = "Outside Links House";
 
-        public static PlayableCharacter GeneratePC()
+        internal static PlayableCharacter GeneratePC()
         {
             var character = new PlayableCharacter(Link.ToIdentifier(), "A Kokiri boy from the forest".ToDescription());
             var shield = new Item(Shield.ToIdentifier(), "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.".ToDescription(), true);
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
             return character;
         }
 
-        public static Overworld GenerateOverworld(PlayableCharacter pC)
+        internal static Overworld GenerateOverworld(PlayableCharacter pC)
         {
             var overworld = new Overworld(Hyrule.ToIdentifier(), "The ancient land of Hyrule".ToDescription());
             var region = new Region(KokiriForest.ToIdentifier(), "The home of the Kokiri tree folk".ToDescription());

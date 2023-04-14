@@ -53,6 +53,7 @@
     <Compile Include="Commands\Frame\KeyOff_Tests.cs" />
     <Compile Include="Commands\Frame\CommandsOn_Tests.cs" />
     <Compile Include="Commands\Frame\CommandsOff_Tests.cs" />
+    <Compile Include="Commands\Game\UseOn_Tests.cs" />
     <Compile Include="Commands\Game\Unactionable_Tests.cs" />
     <Compile Include="Commands\Game\Talk_Tests.cs" />
     <Compile Include="Commands\Game\Take_Tests.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Commands\Global\Help_Tests.cs" />
     <Compile Include="Commands\Global\Exit_Tests.cs" />
     <Compile Include="Commands\Global\About_Tests.cs" />
+    <Compile Include="Extensions\StringExtensions_Tests.cs" />
     <Compile Include="Interpretation\GameCommandInterpreter_Tests.cs" />
     <Compile Include="Interpretation\GlobalCommandInterpreter_Tests.cs" />
     <Compile Include="Interpretation\FrameCommandInterpreter_Tests.cs" />

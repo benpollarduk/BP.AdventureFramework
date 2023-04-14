@@ -59,10 +59,10 @@ namespace BP.AdventureFramework.Extensions
         /// </summary>
         /// <param name="word">The word to check.</param>
         /// <returns>True if the word is plural.</returns>
-        internal static bool IsPlural(this string word)
+        public static bool IsPlural(this string word)
         {
             if (string.IsNullOrEmpty(word))
-                throw new ArgumentException("Parameter 'word' must have a value");
+                return false;
 
             word = word.Trim(Convert.ToChar(" "));
 
@@ -77,10 +77,10 @@ namespace BP.AdventureFramework.Extensions
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns>The objectifier.</returns>
-        internal static string GetObjectifier(this string word)
+        public static string GetObjectifier(this string word)
         {
             if (string.IsNullOrEmpty(word))
-                throw new ArgumentException("Parameter 'word' must have a value");
+                return string.Empty;
 
             if (IsPlural(word))
                 return "some";
@@ -95,13 +95,32 @@ namespace BP.AdventureFramework.Extensions
         /// </summary>
         /// <param name="value">The value to check.</param>
         /// <returns>True if the character is a vowel.</returns>
-        internal static bool IsVowel(this string value)
+        public static bool IsVowel(this string value)
         {
             if (value.Length != 1)
                 return false;
 
             var vowels = new[] { "A", "E", "I", "O", "U" };
             return vowels.Any(x => x.Equals(value, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        /// <summary>
+        /// Ensure this string is a finished sentence, ending in either ?, ! or .
+        /// </summary>
+        /// <param name="value">The string to finish.</param>
+        /// <returns>The finished string.</returns>
+        public static string EnsureFinishedSentence(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            if (value.EndsWith(".") || value.EndsWith("!") || value.EndsWith("?"))
+                return value;
+
+            if (value.EndsWith(","))
+                return value.Substring(0, value.Length - 1) + ".";
+
+            return value + ".";
         }
 
         #endregion

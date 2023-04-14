@@ -40,7 +40,7 @@ namespace BP.AdventureFramework.Tutorial
                         case ConsoleKey.D2:
 
                             creator = GameCreationHelper.Create("Escape From Your Flat!",
-                                "You wake up in the bedroom of your flat. Your a little disorientated, but then again you are most mornings! Your itching for some punk rock!",
+                                "You wake up in the bedroom of your flat. Your a little disorientated, but then again you are most mornings! You're itching for some punk rock!",
                                 Flat.GenerateOverworld,
                                 Flat.GeneratePC,
                                 g => false);

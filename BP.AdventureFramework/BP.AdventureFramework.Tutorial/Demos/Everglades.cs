@@ -6,7 +6,7 @@ using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Tutorial.Demos
 {
-    public static class Everglades
+    internal static class Everglades
     {
         private const string Knife = "Knife";
         private const string ConchShell = "Conch Shell";
@@ -20,8 +20,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
         private const string Outskirts = "Outskirts";
         private const string Overworld = "Unknown Place";
 
-
-        public static PlayableCharacter GeneratePC()
+        internal static PlayableCharacter GeneratePC()
         {
             var player = new PlayableCharacter("Ben".ToIdentifier(), "25 year old man".ToDescription(), new Item(Knife.ToIdentifier(), "A small pocket knife".ToDescription(), true))
             {
@@ -37,7 +36,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
             return player;
         }
 
-        public static Overworld GenerateOverworld(PlayableCharacter pC)
+        internal static Overworld GenerateOverworld(PlayableCharacter pC)
         {
             var r = new Region(Region.ToIdentifier(), "The starting place".ToDescription());
             r.AddRoom(new Room(ForestEntrance.ToIdentifier(), new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(CardinalDirection.North)), 2, 0);

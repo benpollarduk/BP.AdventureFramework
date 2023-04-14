@@ -1,5 +1,5 @@
 # Introduction 
-.NET 4.6.1 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
+.NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
 
 ![image](https://user-images.githubusercontent.com/129943363/230678655-a1c76828-997c-4bce-913e-70fc83889029.png)
 
@@ -25,7 +25,6 @@ Provides global commands to help with game flow:
   * CommandsOn / CommandsOff - toggle commands on/off.
   * Exit - exit the game.
   * Help - display help.
-  * Invert - invert the console colours.
   * KeyOn / KeyOff - turn the Key on/off.
   * Map - display the map.
   * New - start a new game.
@@ -33,10 +32,6 @@ Provides global commands to help with game flow:
 Maps are automatically generated for regions:
 
 ![image](https://user-images.githubusercontent.com/129943363/230676860-4bb57929-61a3-43d4-9c24-9b824b45bafc.png)
-
-A simple ASCII art engine supports conversion of images to ASCII art that can be displayed when an element is examined. This also supports basic animation.
-
-![image](https://user-images.githubusercontent.com/129943363/230678519-6ff42c27-7322-43ca-8151-977417102b7f.png)
 
 # Prerequisites
  * Windows

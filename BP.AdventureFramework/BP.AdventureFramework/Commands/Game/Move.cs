@@ -1,5 +1,5 @@
-﻿using BP.AdventureFramework.GameAssets.Interaction;
-using BP.AdventureFramework.GameAssets.Locations;
+﻿using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game

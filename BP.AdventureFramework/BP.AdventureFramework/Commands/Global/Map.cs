@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.GameAssets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
@@ -15,7 +15,7 @@ namespace BP.AdventureFramework.Commands.Global
         /// <summary>
         /// Get the game.
         /// </summary>
-        public GameStructure.Game Game { get; }
+        public Logic.Game Game { get; }
 
         /// <summary>
         /// Get the map drawer.
@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Commands.Global
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="mapDrawer">The map drawer.</param>
-        public Map(GameStructure.Game game, MapDrawer mapDrawer)
+        public Map(Logic.Game game, MapDrawer mapDrawer)
         {
             Game = game;
             MapDrawer = mapDrawer;

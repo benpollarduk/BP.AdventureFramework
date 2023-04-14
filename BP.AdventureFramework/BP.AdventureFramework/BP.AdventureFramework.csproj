@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="GameAssets\Interaction\Visual Studio 2008\Backup Files\BackboneLibrary\~AutoRecover.BP.AdventureFramework.csproj" />
+    <None Include="Assets\Interaction\Visual Studio 2008\Backup Files\BackboneLibrary\~AutoRecover.BP.AdventureFramework.csproj" />
   </ItemGroup>
 
 </Project>

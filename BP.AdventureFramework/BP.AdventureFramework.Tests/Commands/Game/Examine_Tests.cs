@@ -1,7 +1,7 @@
 ﻿using BP.AdventureFramework.Commands.Game;
-using BP.AdventureFramework.GameAssets;
-using BP.AdventureFramework.GameAssets.Interaction;
-using BP.AdventureFramework.GameAssets.Locations;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Game

@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.GameAssets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Parsing.Commands
 {

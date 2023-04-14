@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.GameAssets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Global
@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Commands.Global
         /// <summary>
         /// Get the game.
         /// </summary>
-        public GameStructure.Game Game { get; }
+        public Logic.Game Game { get; }
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace BP.AdventureFramework.Commands.Global
         /// Initializes a new instance of the New class.
         /// </summary>
         /// <param name="game">The game.</param>
-        public New(GameStructure.Game game)
+        public New(Logic.Game game)
         {
             Game = game;
         }

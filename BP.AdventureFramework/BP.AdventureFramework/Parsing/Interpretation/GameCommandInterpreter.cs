@@ -2,10 +2,10 @@
 using System.Linq;
 using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.GameAssets;
-using BP.AdventureFramework.GameAssets.Interaction;
-using BP.AdventureFramework.GameAssets.Locations;
-using BP.AdventureFramework.GameStructure;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Parsing.Interpretation
@@ -393,28 +393,32 @@ namespace BP.AdventureFramework.Parsing.Interpretation
         /// <returns>The result of the parse.</returns>
         private static bool TryParseToCardinalDirection(string text, out CardinalDirection direction)
         {
-            switch (text.ToUpper())
+            if (text.Equals(North, StringComparison.CurrentCultureIgnoreCase) || text.Equals(NorthShort, StringComparison.CurrentCultureIgnoreCase))
             {
-                case East:
-                case EastShort:
-                    direction = CardinalDirection.East;
-                    return true;
-                case North:
-                case NorthShort:
-                    direction = CardinalDirection.North;
-                    return true;
-                case South:
-                case SouthShort:
-                    direction = CardinalDirection.South;
-                    return true;
-                case West:
-                case WestShort:
-                    direction = CardinalDirection.West;
-                    return true;
-                default:
-                    direction = CardinalDirection.East;
-                    return false;
+                direction = CardinalDirection.North;
+                return true;
             }
+
+            if (text.Equals(East, StringComparison.CurrentCultureIgnoreCase) || text.Equals(EastShort, StringComparison.CurrentCultureIgnoreCase))
+            {
+                direction = CardinalDirection.East;
+                return true;
+            }
+
+            if (text.Equals(South, StringComparison.CurrentCultureIgnoreCase) || text.Equals(SouthShort, StringComparison.CurrentCultureIgnoreCase))
+            {
+                direction = CardinalDirection.South;
+                return true;
+            }
+
+            if (text.Equals(West, StringComparison.CurrentCultureIgnoreCase) || text.Equals(WestShort, StringComparison.CurrentCultureIgnoreCase))
+            {
+                direction = CardinalDirection.West;
+                return true;
+            }
+
+            direction = CardinalDirection.East;
+            return false;
         }
 
 

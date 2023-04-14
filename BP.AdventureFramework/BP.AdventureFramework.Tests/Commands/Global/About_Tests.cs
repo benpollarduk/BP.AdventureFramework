@@ -1,10 +1,10 @@
 ﻿using BP.AdventureFramework.Commands.Global;
-using BP.AdventureFramework.GameAssets;
-using BP.AdventureFramework.GameAssets.Characters;
-using BP.AdventureFramework.GameAssets.Interaction;
-using BP.AdventureFramework.GameAssets.Locations;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Exit = BP.AdventureFramework.GameAssets.Locations.Exit;
+using Exit = BP.AdventureFramework.Assets.Locations.Exit;
 
 namespace BP.AdventureFramework.Tests.Commands.Global
 {
@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Tests.Commands.Global
             region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.North)), 0, 0);
             region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.South)), 0, 1);
             overworld.Regions.Add(region);
-            var command = new About(new GameStructure.Game(string.Empty, string.Empty, new PlayableCharacter(Identifier.Empty, Description.Empty), overworld));
+            var command = new About(new Logic.Game(string.Empty, string.Empty, new PlayableCharacter(Identifier.Empty, Description.Empty), overworld));
 
             var result = command.Invoke();
 

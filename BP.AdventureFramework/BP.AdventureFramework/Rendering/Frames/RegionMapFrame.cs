@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using BP.AdventureFramework.GameAssets.Locations;
+using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.GameAssets;
-using BP.AdventureFramework.GameAssets.Characters;
-using BP.AdventureFramework.GameAssets.Interaction;
-using BP.AdventureFramework.GameAssets.Locations;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Tutorial.Demos
 {

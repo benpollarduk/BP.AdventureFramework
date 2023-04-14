@@ -1,8 +1,8 @@
 ﻿using BP.AdventureFramework.Commands.Global;
-using BP.AdventureFramework.GameAssets;
-using BP.AdventureFramework.GameAssets.Characters;
-using BP.AdventureFramework.GameAssets.Interaction;
-using BP.AdventureFramework.GameAssets.Locations;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Tests.Commands.Global
         [TestMethod]
         public void GivenNullMapDrawer_WhenInvoke_ThenNone()
         {
-            var command = new Map(new GameStructure.Game(string.Empty, string.Empty, null, null), null);
+            var command = new Map(new Logic.Game(string.Empty, string.Empty, null, null), null);
 
             var result = command.Invoke();
 
@@ -36,10 +36,10 @@ namespace BP.AdventureFramework.Tests.Commands.Global
         {
             var overworld = new Overworld(Identifier.Empty, Description.Empty);
             var region = new Region(Identifier.Empty, Description.Empty);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new GameAssets.Locations.Exit(CardinalDirection.North)), 0, 0);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new GameAssets.Locations.Exit(CardinalDirection.South)), 0, 1);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Assets.Locations.Exit(CardinalDirection.North)), 0, 0);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Assets.Locations.Exit(CardinalDirection.South)), 0, 1);
             overworld.Regions.Add(region);
-            var command = new Map(new GameStructure.Game(string.Empty, string.Empty, new PlayableCharacter(Identifier.Empty, Description.Empty), overworld), new MapDrawer());
+            var command = new Map(new Logic.Game(string.Empty, string.Empty, new PlayableCharacter(Identifier.Empty, Description.Empty), overworld), new MapDrawer());
 
             var result = command.Invoke();
 

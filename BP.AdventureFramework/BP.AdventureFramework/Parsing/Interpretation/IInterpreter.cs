@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.GameStructure;
+﻿using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Parsing.Interpretation
 {

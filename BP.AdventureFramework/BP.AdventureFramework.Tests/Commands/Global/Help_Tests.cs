@@ -1,5 +1,5 @@
 ﻿using BP.AdventureFramework.Commands.Global;
-using BP.AdventureFramework.GameAssets.Interaction;
+using BP.AdventureFramework.Assets.Interaction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Global
@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Tests.Commands.Global
         [TestMethod]
         public void GivenValidGame_WhenInvoke_ThenSelfContained()
         {
-            var command = new Help(new GameStructure.Game(string.Empty, string.Empty, null, null));
+            var command = new Help(new Logic.Game(string.Empty, string.Empty, null, null));
 
             var result = command.Invoke();
 

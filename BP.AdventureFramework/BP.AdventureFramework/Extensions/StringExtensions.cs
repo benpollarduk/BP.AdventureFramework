@@ -1,5 +1,5 @@
-﻿using BP.AdventureFramework.GameAssets;
-using BP.AdventureFramework.GameAssets.Interaction;
+﻿using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Extensions
 {

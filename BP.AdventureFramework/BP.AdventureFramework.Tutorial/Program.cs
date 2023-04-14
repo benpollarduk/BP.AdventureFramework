@@ -1,5 +1,5 @@
 ﻿using System;
-using BP.AdventureFramework.GameStructure;
+using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Tutorial.Demos;
 

@@ -1,5 +1,5 @@
 ﻿using BP.AdventureFramework.Commands.Frame;
-using BP.AdventureFramework.GameAssets.Interaction;
+using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

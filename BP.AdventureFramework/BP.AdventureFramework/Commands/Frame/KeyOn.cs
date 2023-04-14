@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.GameAssets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 

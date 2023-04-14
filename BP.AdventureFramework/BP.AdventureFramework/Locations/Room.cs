@@ -151,7 +151,7 @@ namespace BP.AdventureFramework.Locations
             {
                 removedCharacter = matchingCharacters[0];
                 Characters.Remove(removedCharacter);
-                return new Decision(ReactionResult.CouldReact, "Removed " + removedCharacter.Identifier);
+                return new Decision(ReactionResult.Reacted, "Removed " + removedCharacter.Identifier);
             }
 
             removedCharacter = null;
@@ -210,7 +210,7 @@ namespace BP.AdventureFramework.Locations
             if (Items.Where(i => i.IsPlayerVisible).ToArray().Length == 1)
             {
                 var singularItem = Items.Where(i => i.IsPlayerVisible).ToArray()[0];
-                return new ExaminationResult($"There {(Interpreter.IsPlural(singularItem.Identifier.Name) ? "are" : "is")} {Interpreter.GetObjectifier(singularItem.Identifier.Name)} {singularItem.Identifier}");
+                return new ExaminationResult($"There {(StringHelper.IsPlural(singularItem.Identifier.Name) ? "are" : "is")} {StringHelper.GetObjectifier(singularItem.Identifier.Name)} {singularItem.Identifier}");
             }
 
             var sentence = GetItemsAsString();
@@ -226,20 +226,20 @@ namespace BP.AdventureFramework.Locations
                 {
                     sentence = sentence.Remove(index, 2);
                     currentItemName = sentence.Substring(index).Trim(Convert.ToChar(" "));
-                    sentence = sentence.Insert(index, $" and {Interpreter.GetObjectifier(currentItemName)} ");
+                    sentence = sentence.Insert(index, $" and {StringHelper.GetObjectifier(currentItemName)} ");
                     somethingLeftToCheck = false;
                 }
                 else
                 {
                     sentence = sentence.Remove(index, 2);
                     currentItemName = sentence.Substring(index, sentence.IndexOf(", ", index, StringComparison.Ordinal) - index).Trim(Convert.ToChar(" "));
-                    sentence = sentence.Insert(index, $", {Interpreter.GetObjectifier(currentItemName)} ");
+                    sentence = sentence.Insert(index, $", {StringHelper.GetObjectifier(currentItemName)} ");
                     index += 1;
                 }
             }
 
             currentItemName = sentence.Substring(0, sentence.Contains(", ") ? sentence.IndexOf(", ", StringComparison.Ordinal) : sentence.IndexOf(" and ", StringComparison.Ordinal));
-            return new ExaminationResult($"There {(Interpreter.IsPlural(currentItemName) ? "are" : "is")} {Interpreter.GetObjectifier(currentItemName)} {sentence}");
+            return new ExaminationResult($"There {(StringHelper.IsPlural(currentItemName) ? "are" : "is")} {StringHelper.GetObjectifier(currentItemName)} {sentence}");
         }
 
         /// <summary>

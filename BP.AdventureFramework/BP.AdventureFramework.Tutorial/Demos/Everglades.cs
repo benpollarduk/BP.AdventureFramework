@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
             return player;
         }
 
-        public static Overworld GenerateOverworld()
+        public static Overworld GenerateOverworld(PlayableCharacter pC)
         {
             var r = new Region("Everglades".ToIdentifier(), "The starting place".ToDescription());
             r.AddRoom(new Room("Forest Entrance".ToIdentifier(), new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(CardinalDirection.North)), 2, 0);

@@ -70,26 +70,6 @@ namespace BP.AdventureFramework.Characters
 
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// Handle talking.
-        /// </summary>
-        /// <returns>A string representing the dialog.</returns>
-        protected string OnTalk()
-        {
-            if (Conversation == null) 
-                return Identifier + " has nothing to say";
-            
-            if (Conversation.HasSomeRemainingLines || Conversation.RepeatLastElement)
-                return Identifier + ": \"" + Conversation.NextLine() + "\"";
-
-            return Identifier + " has nothing else to say";
-
-        }
-
-        #endregion
-
         #region ITalkative Members
 
         /// <summary>
@@ -98,7 +78,13 @@ namespace BP.AdventureFramework.Characters
         /// <returns>A string representing the conversation.</returns>
         public string Talk()
         {
-            return OnTalk();
+            if (Conversation == null)
+                return Identifier + " has nothing to say";
+
+            if (Conversation.HasSomeRemainingLines || Conversation.RepeatLastElement)
+                return Identifier + ": \"" + Conversation.NextLine() + "\"";
+
+            return Identifier + " has nothing else to say";
         }
 
         #endregion

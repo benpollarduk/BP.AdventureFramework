@@ -4,7 +4,6 @@ using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interaction;
 using BP.AdventureFramework.Locations;
-using BP.AdventureFramework.Parsing;
 using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
@@ -19,18 +18,25 @@ namespace BP.AdventureFramework.GameStructure
         #region Fields
 
         private PlayableCharacter player;
+        private int lastUsedWidth;
+        private int lastUsedHeight;
+
+        /// <summary>
+        /// Get or set the last used map drawer.
+        /// </summary>
+        private MapDrawer lastUsedMapDrawer;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Get or set the player.
+        /// Get the player.
         /// </summary>
         public PlayableCharacter Player
         {
             get { return player; }
-            set
+            private set
             {
                 if (player != null)
                     player.Died -= player_Died;
@@ -43,19 +49,19 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// Get or set the Overworld.
+        /// Get the Overworld.
         /// </summary>
-        public Overworld Overworld { get; set; }
+        public Overworld Overworld { get; }
 
         /// <summary>
-        /// Get or set the name.
+        /// Get the name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
-        /// Get or set the description.
+        /// Get the description.
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; }
 
         /// <summary>
         /// Get if this game has ended.
@@ -96,21 +102,6 @@ namespace BP.AdventureFramework.GameStructure
         /// Occurs when the Game has been completed.
         /// </summary>
         public event EventHandler<ExitMode> Completed;
-
-        /// <summary>
-        /// Get or set the last used width.
-        /// </summary>
-        protected int lastUsedWidth;
-
-        /// <summary>
-        /// Get or set the last used height.
-        /// </summary>
-        protected int lastUsedHeight;
-
-        /// <summary>
-        /// Get or set the last used map drawer.
-        /// </summary>
-        protected MapDrawer lastUsedMapDrawer;
 
         /// <summary>
         /// Get or set the completion condition.

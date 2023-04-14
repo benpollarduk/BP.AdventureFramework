@@ -51,14 +51,6 @@ namespace BP.AdventureFramework.Characters
         #region Methods
 
         /// <summary>
-        /// Reset this conversation.
-        /// </summary>
-        public void Reset()
-        {
-            CurrentLine = 0;
-        }
-
-        /// <summary>
         /// Get the next line of the conversation.
         /// </summary>
         /// <returns>The next line of the conversation.</returns>
@@ -78,33 +70,6 @@ namespace BP.AdventureFramework.Characters
             var element = Lines[Lines.Count - 1];
             element.Action?.Invoke();
             return element.Line;
-        }
-
-        /// <summary>
-        /// Add a line to this conversation.
-        /// </summary>
-        /// <param name="line">The line to add to this conversation.</param>
-        public void AddLine(string line)
-        {
-            Lines.Add(new ConversationElement(line));
-        }
-
-        /// <summary>
-        /// Add a line to this conversation.
-        /// </summary>
-        /// <param name="line">The line to add to this conversation.</param>
-        public void AddLine(ConversationElement line)
-        {
-            Lines.Add(line);
-        }
-
-        /// <summary>
-        /// Truncate this conversation at the current line.
-        /// </summary>
-        public void Truncate()
-        {
-            for (var index = 0; index < CurrentLine; index++)
-                Lines.RemoveAt(index);
         }
 
         #endregion

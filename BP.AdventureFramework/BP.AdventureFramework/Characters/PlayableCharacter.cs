@@ -41,16 +41,9 @@ namespace BP.AdventureFramework.Characters
             Items.AddRange(items);
         }
 
-        /// <summary>
-        /// Use an item.
-        /// </summary>
-        /// <param name="targetObject">A target object to use the item on.</param>
-        /// <param name="itemIndex">The index of the item to use.</param>
-        /// <returns>The result of the items usage.</returns>
-        public InteractionResult UseItem(IInteractWithItem targetObject, short itemIndex)
-        {
-            return UseItem(targetObject, Items[itemIndex]);
-        }
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Use an item.
@@ -66,14 +59,6 @@ namespace BP.AdventureFramework.Characters
                 IsAlive = false;
 
             return result;
-        }
-
-        /// <summary>
-        /// Kill the character.
-        /// </summary>
-        public override void Kill()
-        {
-            Kill(string.Empty);
         }
 
         /// <summary>

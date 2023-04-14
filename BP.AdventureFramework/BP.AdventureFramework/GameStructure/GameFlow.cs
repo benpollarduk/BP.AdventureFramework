@@ -121,10 +121,10 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Initializes a new instance of the GameFlow class.
         /// </summary>
-        /// <param name="helper">A game helper to create the GameFlow.Creator property from.</param>
-        public GameFlow(GameCreationHelper helper)
+        /// <param name="creator">A game creator.</param>
+        public GameFlow(GameCreator creator)
         {
-            Creator = helper.Creator;
+            Creator = creator;
             InputInterpreter = new InputInterpreter(FrameDrawer, MapDrawer);
         }
 
@@ -157,7 +157,6 @@ namespace BP.AdventureFramework.GameStructure
 
                 do
                 {
-                    string message;
                     var displayReactionToInput = true;
                     var reaction = new Reaction(ReactionResult.None, "Error.");
 
@@ -211,7 +210,7 @@ namespace BP.AdventureFramework.GameStructure
                     {
                         case ReactionResult.None:
 
-                            message = ErrorPrefix + ": " + reaction.Description;
+                            var message = ErrorPrefix + ": " + reaction.Description;
                             UpdateScreenWithCurrentFrame(message);
                             break;
 
@@ -227,7 +226,8 @@ namespace BP.AdventureFramework.GameStructure
                         default:
                             throw new NotImplementedException();
                     }
-                } while (!Game.HasEnded);
+                } 
+                while (!Game.HasEnded);
             }
             finally
             {
@@ -315,30 +315,6 @@ namespace BP.AdventureFramework.GameStructure
         protected void OnGameCompleted()
         {
             DrawFrame(game.CompletionFrame);
-        }
-
-        /// <summary>
-        /// Handle disposal of this GameFlow.
-        /// </summary>
-        protected void OnDisposed()
-        {
-            if (Input != null)
-            {
-                Input.Dispose();
-                Input = null;
-            }
-
-            if (Output != null)
-            {
-                Output.Dispose();
-                Output = null;
-            }
-
-            if (Error != null)
-            {
-                Error.Dispose();
-                Error = null;
-            }
         }
 
         #endregion

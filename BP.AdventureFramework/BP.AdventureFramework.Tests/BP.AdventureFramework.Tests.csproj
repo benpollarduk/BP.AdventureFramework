@@ -71,11 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BP.AdventureFramework\BP.AdventureFramework.csproj">
-      <Project>{db7ea149-1914-4c0f-8859-63cb84d0e9e5}</Project>
+      <Project>{d0a9b7d8-4e26-49ef-93f6-648e5cc38c97}</Project>
       <Name>BP.AdventureFramework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

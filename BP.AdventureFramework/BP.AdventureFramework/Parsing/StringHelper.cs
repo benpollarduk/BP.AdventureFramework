@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Parsing
     /// <summary>
     /// Provides a helper class for strings.
     /// </summary>
-    public static class StringHelper
+    internal static class StringHelper
     {
         #region StaticProperties
 
@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.Parsing
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns>The objectifier.</returns>
-        public static string GetObjectifier(string word)
+        internal static string GetObjectifier(string word)
         {
             if (string.IsNullOrEmpty(word))
                 throw new ArgumentException("Parameter 'word' must have a value");
@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Parsing
         /// </summary>
         /// <param name="c">The character to check.</param>
         /// <returns>True if the character is a vowel.</returns>
-        public static bool IsVowel(char c)
+        internal static bool IsVowel(char c)
         {
             return Vowels.Any(x => x.Equals(c.ToString(), StringComparison.CurrentCultureIgnoreCase));
         }
@@ -49,7 +49,7 @@ namespace BP.AdventureFramework.Parsing
         /// </summary>
         /// <param name="word">The word to check.</param>
         /// <returns>True if the word is plural.</returns>
-        public static bool IsPlural(string word)
+        internal static bool IsPlural(string word)
         {
             if (string.IsNullOrEmpty(word))
                 throw new ArgumentException("Parameter 'word' must have a value");

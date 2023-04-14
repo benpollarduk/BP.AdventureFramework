@@ -114,7 +114,6 @@
     <Compile Include="Rendering\RegionMapMode.cs" />
     <Compile Include="GameStructure\CompletionCheck.cs" />
     <Compile Include="GameStructure\ExitMode.cs" />
-    <Compile Include="GameStructure\GameCommand.cs" />
     <Compile Include="GameStructure\GameCreationHelper.cs" />
     <Compile Include="Interaction\ExaminationResult.cs" />
     <Compile Include="Characters\Character.cs" />
@@ -139,7 +138,6 @@
     <Compile Include="Locations\Overworld.cs" />
     <Compile Include="Locations\Region.cs" />
     <Compile Include="Locations\Room.cs" />
-    <Compile Include="Interaction\Decision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Drawer.cs" />
     <Compile Include="Rendering\Frames\ASCIIAnimationFrame.cs" />

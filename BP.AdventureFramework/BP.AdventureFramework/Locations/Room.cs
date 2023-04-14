@@ -131,31 +131,15 @@ namespace BP.AdventureFramework.Locations
         /// Remove a character from the room.
         /// </summary>
         /// <param name="characterName">The name of the character to remove.</param>
-        /// <returns>If the character was removed correctly.</returns>
-        public Decision RemoveCharacterFromRoom(string characterName)
-        {
-            return RemoveCharacterFromRoom(characterName, out _);
-        }
-
-        /// <summary>
-        /// Remove a character from the room.
-        /// </summary>
-        /// <param name="characterName">The name of the character to remove.</param>
-        /// <param name="removedCharacter">The character removed from this room.</param>
-        /// <returns>If the character was removed correctly.</returns>
-        public Decision RemoveCharacterFromRoom(string characterName, out NonPlayableCharacter removedCharacter)
+        public void RemoveCharacterFromRoom(string characterName)
         {
             var matchingCharacters = Characters.Where(characterName.EqualsExaminable).ToArray();
 
-            if (matchingCharacters.Length > 0)
-            {
-                removedCharacter = matchingCharacters[0];
-                Characters.Remove(removedCharacter);
-                return new Decision(ReactionResult.Reacted, "Removed " + removedCharacter.Identifier);
-            }
-
-            removedCharacter = null;
-            return new Decision(ReactionResult.NoReaction, "That is not an character");
+            if (matchingCharacters.Length <= 0)
+                return;
+            
+            var removedCharacter = matchingCharacters[0];
+            Characters.Remove(removedCharacter);
         }
 
         /// <summary>

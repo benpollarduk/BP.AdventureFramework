@@ -38,10 +38,10 @@ namespace BP.AdventureFramework.Parsing.Commands.Global
         public Reaction Invoke()
         {
             if (Game == null)
-                return new Reaction(ReactionResult.NoReaction, "No game specified.");
+                return new Reaction(ReactionResult.None, "No game specified.");
 
             Game.Refresh(Game.HelpFrame);
-            return new Reaction(ReactionResult.Reacted, "Helping...");
+            return new Reaction(ReactionResult.SelfContained, string.Empty);
         }
 
         #endregion

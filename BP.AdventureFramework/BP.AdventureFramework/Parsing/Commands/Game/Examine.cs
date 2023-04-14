@@ -38,7 +38,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Game
         public Reaction Invoke()
         {
             if (Examinable == null)
-                return new Reaction(ReactionResult.NoReaction, "Nothing to examine.");
+                return new Reaction(ReactionResult.None, "Nothing to examine.");
 
             return new Reaction(ReactionResult.Reacted, Examinable.Examime().Desciption);
         }

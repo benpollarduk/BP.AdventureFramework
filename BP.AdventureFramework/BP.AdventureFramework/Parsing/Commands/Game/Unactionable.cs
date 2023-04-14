@@ -44,7 +44,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Game
         /// <returns>The reaction.</returns>
         public Reaction Invoke()
         {
-            return new Reaction(ReactionResult.NoReaction, Description);
+            return new Reaction(ReactionResult.None, Description);
         }
 
         #endregion

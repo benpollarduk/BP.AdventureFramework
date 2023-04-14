@@ -38,7 +38,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Global
         public Reaction Invoke()
         {
             if (Game == null)
-                return new Reaction(ReactionResult.NoReaction, "No game specified.");
+                return new Reaction(ReactionResult.None, "No game specified.");
 
             var defaultString = "AdventureFramework by Ben Pollard 2011 - 2023";
 
@@ -47,7 +47,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Global
             else
                 Game.Refresh(defaultString);
 
-            return new Reaction(ReactionResult.Reacted, string.Empty);
+            return new Reaction(ReactionResult.SelfContained, string.Empty);
         }
 
         #endregion

@@ -8,13 +8,13 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Unactionable_Tests
     {
         [TestMethod]
-        public void GivenDefault_WhenInvoke_ThenNoReaction()
+        public void GivenDefault_WhenInvoke_ThenNone()
         {
             var command = new Unactionable();
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
     }
 }

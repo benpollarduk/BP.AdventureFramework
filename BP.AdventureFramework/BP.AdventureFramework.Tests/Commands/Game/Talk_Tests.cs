@@ -9,24 +9,24 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Talk_Tests
     {
         [TestMethod]
-        public void GivenNoTarget_WhenInvoke_ThenNoReaction()
+        public void GivenNoTarget_WhenInvoke_ThenNone()
         {
             var command = new Talk(null);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]
-        public void GivenTargetIsDead_WhenInvoke_ThenNoReaction()
+        public void GivenTargetIsDead_WhenInvoke_ThenNone()
         {
             var npc = new NonPlayableCharacter(new Identifier(""), new Description(""), null, false, null);
             var command = new Talk(npc);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

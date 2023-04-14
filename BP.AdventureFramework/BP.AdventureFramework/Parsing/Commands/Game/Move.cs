@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Game
             if (Region.Move(Direction))
                 return new Reaction(ReactionResult.Reacted, $"Moved {Direction}.");
 
-            return new Reaction(ReactionResult.NoReaction, $"Could not move {Direction}.");
+            return new Reaction(ReactionResult.None, $"Could not move {Direction}.");
         }
 
         #endregion

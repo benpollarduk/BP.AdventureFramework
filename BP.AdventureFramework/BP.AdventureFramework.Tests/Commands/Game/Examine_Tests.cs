@@ -9,13 +9,13 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Examine_Tests
     {
         [TestMethod]
-        public void GivenNothingToExamine_WhenInvoke_ThenNoReaction()
+        public void GivenNothingToExamine_WhenInvoke_ThenNone()
         {
             var command = new Examine(null);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

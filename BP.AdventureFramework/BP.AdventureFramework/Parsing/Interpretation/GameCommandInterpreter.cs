@@ -16,25 +16,100 @@ namespace BP.AdventureFramework.Parsing.Interpretation
     {
         #region Constants
 
-        private const string North = "North";
-        private const string NorthShort = "N";
-        private const string South = "South";
-        private const string SouthShort = "S";
-        private const string East = "East";
-        private const string EastShort = "E";
-        private const string West = "West";
-        private const string WestShort = "W";
-        private const string Drop = "Drop";
-        private const string Use = "Use";
-        private const string On = "On";
-        private const string Talk = "Talk";
-        private const string To = "To";
-        private const string Take = "Take";
-        private const string Examine = "Examine";
-        private const string Me = "Me";
-        private const string Room = "Room";
-        private const string Region = "Region";
-        private const string Overworld = "Overworld";
+        /// <summary>
+        /// Get the north command.
+        /// </summary>
+        public const string North = "North";
+
+        /// <summary>
+        /// Get the north (short) command.
+        /// </summary>
+        public const string NorthShort = "N";
+
+        /// <summary>
+        /// Get the south command.
+        /// </summary>
+        public const string South = "South";
+
+        /// <summary>
+        /// Get the south (short) command.
+        /// </summary>
+        public const string SouthShort = "S";
+
+        /// <summary>
+        /// Get the east command.
+        /// </summary>
+        public const string East = "East";
+
+        /// <summary>
+        /// Get the east (short) command.
+        /// </summary>
+        public const string EastShort = "E";
+
+        /// <summary>
+        /// Get the west command.
+        /// </summary>
+        public const string West = "West";
+
+        /// <summary>
+        /// Get the west (short) command.
+        /// </summary>
+        public const string WestShort = "W";
+
+        /// <summary>
+        /// Get the drop command.
+        /// </summary>
+        public const string Drop = "Drop";
+
+        /// <summary>
+        /// Get the use command.
+        /// </summary>
+        public const string Use = "Use";
+
+        /// <summary>
+        /// Get the on command.
+        /// </summary>
+        public const string On = "On";
+
+        /// <summary>
+        /// Get the talk command.
+        /// </summary>
+        public const string Talk = "Talk";
+
+        /// <summary>
+        /// Get the to command.
+        /// </summary>
+        public const string To = "To";
+
+        /// <summary>
+        /// Get the take command.
+        /// </summary>
+        public const string Take = "Take";
+
+        /// <summary>
+        /// Get the examine command.
+        /// </summary>
+        public const string Examine = "Examine";
+
+        /// <summary>
+        /// Get the me command.
+        /// </summary>
+        public const string Me = "Me";
+
+        /// <summary>
+        /// Get the room command.
+        /// </summary>
+        public const string Room = "Room";
+
+        /// <summary>
+        /// Get the region command.
+        /// </summary>
+        public const string Region = "Region";
+
+        /// <summary>
+        /// Get the overworld command.
+        /// </summary>
+        public const string Overworld = "Overworld";
 
         #endregion
 

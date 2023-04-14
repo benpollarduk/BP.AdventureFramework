@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using BP.AdventureFramework.Characters;
 using BP.AdventureFramework.Locations;
+using BP.AdventureFramework.Parsing.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {
@@ -127,7 +128,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                 scene.Append(drawer.ConstructWrappedPaddedString("COMMANDS:", width));
                 scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
                 scene.Append(drawer.ConstructWrappedPaddedString("MOVEMENT:", width));
-                scene.Append(drawer.ConstructWrappedPaddedString("N: North, S: South, E: East, W: West", width));
+                scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.NorthShort}: {GameCommandInterpreter.North}, {GameCommandInterpreter.SouthShort}: {GameCommandInterpreter.South}, {GameCommandInterpreter.EastShort}: {GameCommandInterpreter.East}, {GameCommandInterpreter.WestShort}: {GameCommandInterpreter.West}", width));
                 scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));
 
                 var usedLinesSoFar = drawer.DetermineLinesInString(scene.ToString()) + 14 + drawer.DetermineLinesInString(drawer.ConstructWrappedPaddedString(Message, width));
@@ -137,20 +138,20 @@ namespace BP.AdventureFramework.Rendering.Frames
                     scene.Append(drawer.ConstructWrappedPaddedString("INTERACTION:", width));
 
                     if (Player.Items.Any())
-                        scene.Append(drawer.ConstructWrappedPaddedString("Drop __: Drop an item", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Drop} __: Drop an item", width));
 
-                    scene.Append(drawer.ConstructWrappedPaddedString("Examine __: Examine a character, item, room, region, overworld or me", width));
+                    scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Examine} __: Examine a character, item, room, region, overworld or me", width));
 
                     if (Room.Items.Any())
-                        scene.Append(drawer.ConstructWrappedPaddedString("Take __: Take an item", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Take} __: Take an item", width));
 
                     if (Room.Characters.Any())
-                        scene.Append(drawer.ConstructWrappedPaddedString("Talk to __: Talk to a character", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Talk} {GameCommandInterpreter.To.ToLower()} __: Talk to a character", width));
 
                     if (Room.Items.Any() || Player.Items.Any())
                     {
-                        scene.Append(drawer.ConstructWrappedPaddedString("Use __: Use an item on the this Room", width));
-                        scene.Append(drawer.ConstructWrappedPaddedString("Use __ on __: Use an item on another item or character", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Use} __: Use an item on the this Room", width));
+                        scene.Append(drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Use} __ {GameCommandInterpreter.On.ToLower()} __: Use an item on another item or character", width));
                     }
 
                     scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));

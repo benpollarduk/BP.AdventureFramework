@@ -8,13 +8,13 @@ namespace BP.AdventureFramework.Tests.Commands.Global
     public class Exit_Tests
     {
         [TestMethod]
-        public void GivenNullGame_WhenInvoke_ThenNoReaction()
+        public void GivenNullGame_WhenInvoke_ThenNone()
         {
             var command = new Exit(null);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

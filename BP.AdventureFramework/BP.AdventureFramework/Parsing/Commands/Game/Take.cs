@@ -54,16 +54,16 @@ namespace BP.AdventureFramework.Parsing.Commands.Game
         public Reaction Invoke()
         {
             if (Character == null)
-                return new Reaction(ReactionResult.NoReaction, "You must specify a character.");
+                return new Reaction(ReactionResult.None, "You must specify a character.");
 
             if (Item == null)
-                return new Reaction(ReactionResult.NoReaction, "You must specify what to take.");
+                return new Reaction(ReactionResult.None, "You must specify what to take.");
 
             if (!Room.ContainsItem(Item))
-                return new Reaction(ReactionResult.NoReaction, "The room does not contain that item.");
+                return new Reaction(ReactionResult.None, "The room does not contain that item.");
 
             if (!Item.IsTakeable)
-                return new Reaction(ReactionResult.NoReaction, $"{Item.Identifier.Name} cannot be taken.");
+                return new Reaction(ReactionResult.None, $"{Item.Identifier.Name} cannot be taken.");
 
             Room.RemoveItemFromRoom(Item);
             Character.AquireItem(Item);

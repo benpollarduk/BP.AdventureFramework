@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Frame
         public Reaction Invoke()
         {
             if (FrameDrawer == null)
-                return new Reaction(ReactionResult.NoReaction, "No frame drawer specified.");
+                return new Reaction(ReactionResult.None, "No frame drawer specified.");
 
             FrameDrawer.DisplayCommands = true;
             return new Reaction(ReactionResult.Reacted, "Commands have been turned on.");

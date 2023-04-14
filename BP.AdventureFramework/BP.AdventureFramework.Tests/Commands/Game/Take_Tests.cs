@@ -10,18 +10,18 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Take_Tests
     {
         [TestMethod]
-        public void GivenNoCharacter_WhenInvoke_ThenNoReaction()
+        public void GivenNoCharacter_WhenInvoke_ThenNone()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var command = new Take(null, null, room);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]
-        public void GivenNoItem_WhenInvoke_ThenNoReaction()
+        public void GivenNoItem_WhenInvoke_ThenNone()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));
@@ -29,11 +29,11 @@ namespace BP.AdventureFramework.Tests.Commands.Game
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]
-        public void GivenRoomDoesNotContainThatItem_WhenInvoke_ThenNoReaction()
+        public void GivenRoomDoesNotContainThatItem_WhenInvoke_ThenNone()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));
@@ -42,12 +42,12 @@ namespace BP.AdventureFramework.Tests.Commands.Game
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
 
         [TestMethod]
-        public void GivenItemIsNotTakeable_WhenInvoke_ThenNoReaction()
+        public void GivenItemIsNotTakeable_WhenInvoke_ThenNone()
         {
             var room = new Room(new Identifier(""), new Description(""));
             var character = new PlayableCharacter(new Identifier(""), new Description(""));
@@ -57,7 +57,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

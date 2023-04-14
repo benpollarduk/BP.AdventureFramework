@@ -159,7 +159,7 @@ namespace BP.AdventureFramework.GameStructure
                 {
                     string message;
                     var displayReactionToInput = true;
-                    var reaction = new Reaction(ReactionResult.NoReaction, "Error.");
+                    var reaction = new Reaction(ReactionResult.None, "Error.");
 
                     if (!Game.CurrentFrame.AcceptsInput)
                     {
@@ -209,7 +209,7 @@ namespace BP.AdventureFramework.GameStructure
                     
                     switch (reaction.Result)
                     {
-                        case ReactionResult.NoReaction:
+                        case ReactionResult.None:
 
                             message = ErrorPrefix + ": " + reaction.Description;
                             UpdateScreenWithCurrentFrame(message);
@@ -218,6 +218,10 @@ namespace BP.AdventureFramework.GameStructure
                         case ReactionResult.Reacted:
                             
                             UpdateScreenWithCurrentFrame(reaction.Description);
+                            break;
+
+                        case ReactionResult.SelfContained:
+
                             break;
 
                         default:

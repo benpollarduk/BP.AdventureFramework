@@ -9,13 +9,13 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
     public class CommandsOn_Tests
     {
         [TestMethod]
-        public void GivenNullFrameDrawer_WhenInvoke_ThenNoReaction()
+        public void GivenNullFrameDrawer_WhenInvoke_ThenNone()
         {
             var command = new CommandsOn(null);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

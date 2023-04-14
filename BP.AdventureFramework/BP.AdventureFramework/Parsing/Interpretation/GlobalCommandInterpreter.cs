@@ -12,11 +12,30 @@ namespace BP.AdventureFramework.Parsing.Interpretation
     {
         #region Constants
 
-        private const string About = "About";
-        private const string Exit = "Exit";
-        private const string Help = "Help";
-        private const string Map = "Map";
-        private const string New = "New";
+        /// <summary>
+        /// Get the about command.
+        /// </summary>
+        public const string About = "About";
+
+        /// <summary>
+        /// Get the exit command.
+        /// </summary>
+        public const string Exit = "Exit";
+
+        /// <summary>
+        /// Get the help command.
+        /// </summary>
+        public const string Help = "Help";
+
+        /// <summary>
+        /// Get the map command.
+        /// </summary>
+        public const string Map = "Map";
+
+        /// <summary>
+        /// Get the new command.
+        /// </summary>
+        public const string New = "New";
 
         #endregion
 

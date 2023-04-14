@@ -109,7 +109,6 @@
     <Compile Include="Parsing\Interpretation\InterpretationResult.cs" />
     <Compile Include="Parsing\StringHelper.cs" />
     <Compile Include="Rendering\KeyType.cs" />
-    <Compile Include="Rendering\FrameDrawingOption.cs" />
     <Compile Include="Rendering\RegionDisplayMode.cs" />
     <Compile Include="Rendering\RegionMapMode.cs" />
     <Compile Include="GameStructure\CompletionCheck.cs" />

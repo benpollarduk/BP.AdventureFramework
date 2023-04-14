@@ -62,13 +62,13 @@ namespace BP.AdventureFramework.Parsing.Commands.Game
         public Reaction Invoke()
         {
             if (Item == null)
-                return new Reaction(ReactionResult.NoReaction, "You must specify an item.");
+                return new Reaction(ReactionResult.None, "You must specify an item.");
 
             if (Target == null)
-                return new Reaction(ReactionResult.NoReaction, "You must specify a target.");
+                return new Reaction(ReactionResult.None, "You must specify a target.");
 
             if (Character == null)
-                return new Reaction(ReactionResult.NoReaction, "You must specify the character that is using this item.");
+                return new Reaction(ReactionResult.None, "You must specify the character that is using this item.");
 
             var result = Target.Interact(Item);
 

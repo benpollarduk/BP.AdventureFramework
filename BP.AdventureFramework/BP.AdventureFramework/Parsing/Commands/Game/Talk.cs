@@ -39,11 +39,11 @@ namespace BP.AdventureFramework.Parsing.Commands.Game
         public Reaction Invoke()
         {
             if (Target == null)
-                return new Reaction(ReactionResult.NoReaction, "No-one is around to talk to.");
+                return new Reaction(ReactionResult.None, "No-one is around to talk to.");
 
             if (Target is Character character && !character.IsAlive)
             {
-                return new Reaction(ReactionResult.NoReaction, $"{character.Identifier.Name} is dead.");
+                return new Reaction(ReactionResult.None, $"{character.Identifier.Name} is dead.");
             }
 
             return new Reaction(ReactionResult.Reacted, Target.Talk());

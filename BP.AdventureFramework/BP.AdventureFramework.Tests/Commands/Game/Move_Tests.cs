@@ -9,7 +9,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Move_Tests
     {
         [TestMethod]
-        public void GivenCantMove_WhenInvoke_ThenNoReaction()
+        public void GivenCantMove_WhenInvoke_ThenNone()
         {
             var region = new Region(new Identifier(""), new Description(""));
             region.AddRoom(new Room(new Identifier(""), new Description(""), new Exit(CardinalDirection.North)), 0, 0);
@@ -18,7 +18,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

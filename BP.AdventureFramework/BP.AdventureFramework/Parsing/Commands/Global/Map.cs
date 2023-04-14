@@ -47,13 +47,13 @@ namespace BP.AdventureFramework.Parsing.Commands.Global
         public Reaction Invoke()
         {
             if (Game == null)
-                return new Reaction(ReactionResult.NoReaction, "No game specified.");
+                return new Reaction(ReactionResult.None, "No game specified.");
 
             if (MapDrawer == null)
-                return new Reaction(ReactionResult.NoReaction, "No map drawer specified.");
+                return new Reaction(ReactionResult.None, "No map drawer specified.");
 
             Game.Refresh(new RegionMapFrame(Game.Overworld.CurrentRegion, MapDrawer));
-            return new Reaction(ReactionResult.Reacted, string.Empty);
+            return new Reaction(ReactionResult.SelfContained, string.Empty);
         }
 
         #endregion

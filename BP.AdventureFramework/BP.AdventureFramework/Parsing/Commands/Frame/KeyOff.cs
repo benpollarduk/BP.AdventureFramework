@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Parsing.Commands.Frame
         public Reaction Invoke()
         {
             if (MapDrawer == null)
-                return new Reaction(ReactionResult.NoReaction, "No map drawer specified.");
+                return new Reaction(ReactionResult.None, "No map drawer specified.");
 
             MapDrawer.Key = KeyType.None;
             return new Reaction(ReactionResult.Reacted, "Key has been turned off.");

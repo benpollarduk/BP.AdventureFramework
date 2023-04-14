@@ -12,11 +12,30 @@ namespace BP.AdventureFramework.Parsing.Interpretation
     {
         #region Constants
 
-        private const string CommandsOff = "CommandsOff";
-        private const string CommandsOn = "CommandsOn";
-        private const string Invert = "Invert";
-        private const string KeyOn = "KeyOn";
-        private const string KeyOff = "KeyOff";
+        /// <summary>
+        /// Get the commands off command.
+        /// </summary>
+        public const string CommandsOff = "CommandsOff";
+
+        /// <summary>
+        /// Get the commands on command.
+        /// </summary>
+        public const string CommandsOn = "CommandsOn";
+
+        /// <summary>
+        /// Get the invert command.
+        /// </summary>
+        public const string Invert = "Invert";
+
+        /// <summary>
+        /// Get the keys on command.
+        /// </summary>
+        public const string KeyOn = "KeyOn";
+
+        /// <summary>
+        /// Get the commands off command.
+        /// </summary>
+        public const string KeyOff = "KeyOff";
 
         #endregion
 

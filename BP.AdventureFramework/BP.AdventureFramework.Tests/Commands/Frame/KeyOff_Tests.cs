@@ -9,13 +9,13 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
     public class KeyOff_Tests
     {
         [TestMethod]
-        public void GivenNullMapDrawer_WhenInvoke_ThenNoReaction()
+        public void GivenNullMapDrawer_WhenInvoke_ThenNone()
         {
             var command = new KeyOff(null);
 
             var result = command.Invoke();
 
-            Assert.AreEqual(ReactionResult.NoReaction, result.Result);
+            Assert.AreEqual(ReactionResult.None, result.Result);
         }
 
         [TestMethod]

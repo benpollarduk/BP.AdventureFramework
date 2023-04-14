@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Tutorial
             {
                 SetupConsole();
                 InGameGraphics.BufferGraphics();
-                GameCreator creator = null;
+                GameCreationCallback creator = null;
 
                 while (creator == null)
                 {
@@ -61,7 +61,7 @@ namespace BP.AdventureFramework.Tutorial
                     }
                 }
 
-                using (var flow = new GameFlow(creator))
+                using (var flow = new GameManager(creator))
                 {
                     HostSetup.SetupWindowsConsole(flow, "BP.AdventureFramework Demo");
                     flow.Begin();

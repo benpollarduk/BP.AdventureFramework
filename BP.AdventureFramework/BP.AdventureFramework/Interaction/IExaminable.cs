@@ -14,7 +14,7 @@
         /// </summary>
         Description Description { get; set; }
         /// <summary>
-        /// Get if this is player visible.
+        /// Get if this is visible to the player.
         /// </summary>
         bool IsPlayerVisible { get; set; }
         /// <summary>

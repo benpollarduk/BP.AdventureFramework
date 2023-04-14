@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <param name="playerGenerator">The callback for generating the Player.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreator Create(string name, string description, OverworldGeneration overworldGenerator, PlayerGeneration playerGenerator, CompletionCheck completionCondition)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
         {
             return Create(name, description, overworldGenerator, playerGenerator, completionCondition, new TitleFrame(name, description));
         }
@@ -36,7 +36,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <param name="completionCondition">The callback used to check game completion.</param>
         /// <param name="titleFrame">The title Frame.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreator Create(string name, string description, OverworldGeneration overworldGenerator, PlayerGeneration playerGenerator, CompletionCheck completionCondition, TitleFrame titleFrame)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, TitleFrame titleFrame)
         {
             return Create(name, description, overworldGenerator, playerGenerator, completionCondition, titleFrame, new TitleFrame("You have completed " + name + "!!!", "Well done you have completed the game. Thanks for playing"));
         }
@@ -52,7 +52,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <param name="titleFrame">The title Frame.</param>
         /// <param name="completionFrame">The completion Frame.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreator Create(string name, string description, OverworldGeneration overworldGenerator, PlayerGeneration playerGenerator, CompletionCheck completionCondition, TitleFrame titleFrame, Frame completionFrame)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, TitleFrame titleFrame, Frame completionFrame)
         {
             return Create(name, description, overworldGenerator, playerGenerator, completionCondition, titleFrame, completionFrame, new HelpFrame());
         }
@@ -69,7 +69,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <param name="completionFrame">The completion Frame.</param>
         /// <param name="help">The help Frame.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreator Create(string name, string description, OverworldGeneration overworldGenerator, PlayerGeneration playerGenerator, CompletionCheck completionCondition, TitleFrame titleFrame, Frame completionFrame, HelpFrame help)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, TitleFrame titleFrame, Frame completionFrame, HelpFrame help)
         {
             return () =>
             {

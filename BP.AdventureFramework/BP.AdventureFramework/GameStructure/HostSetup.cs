@@ -12,33 +12,25 @@ namespace BP.AdventureFramework.GameStructure
         #region StaticMethods
 
         /// <summary>
-        /// Setup the windows console for a new GameFlow.
+        /// Setup the windows console for a new GameManager.
         /// </summary>
-        /// <param name="flow">The flow to prepare the windows Console for.</param>
+        /// <param name="gameManager">The game manager to prepare the windows Console for.</param>
         /// <param name="title">The title to display as the Console.Title property.</param>
-        public static void SetupWindowsConsole(GameFlow flow, string title)
+        public static void SetupWindowsConsole(GameManager gameManager, string title)
         {
             Console.Title = title;
-            flow.Input = Console.In;
-            flow.Output = Console.Out;
-            flow.Error = Console.Error;
-            flow.WaitForKeyPressCallback = key => Console.ReadKey().KeyChar == key;
-            flow.DisplaySize = new Size(Console.WindowWidth, Console.WindowHeight);
-            flow.DisplayInverted += ConsoleFlow_DisplayInverted;
-            flow.FinishingFrameDraw += ConsoleFlow_FinishingFrameDraw;
-            flow.StartingFrameDraw += ConsoleFlow_StartingFrameDraw;
+            gameManager.Input = Console.In;
+            gameManager.Output = Console.Out;
+            gameManager.Error = Console.Error;
+            gameManager.WaitForKeyPressCallback = key => Console.ReadKey().KeyChar == key;
+            gameManager.DisplaySize = new Size(Console.WindowWidth, Console.WindowHeight);
+            gameManager.FinishingFrameDraw += ConsoleFlow_FinishingFrameDraw;
+            gameManager.StartingFrameDraw += ConsoleFlow_StartingFrameDraw;
         }
 
         #endregion
 
         #region EventHandlers
-
-        private static void ConsoleFlow_DisplayInverted(object sender, EventArgs e)
-        {
-            var background = Console.BackgroundColor;
-            Console.BackgroundColor = Console.ForegroundColor;
-            Console.ForegroundColor = background;
-        }
 
         private static void ConsoleFlow_FinishingFrameDraw(object sender, Frame e)
         {

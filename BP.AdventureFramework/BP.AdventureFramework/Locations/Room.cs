@@ -14,10 +14,6 @@ namespace BP.AdventureFramework.Locations
     /// </summary>
     public class Room : GameLocation, IInteractWithItem
     {
-        #region Fields
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -293,16 +289,6 @@ namespace BP.AdventureFramework.Locations
         public bool HasUnlockedExitInDirection(CardinalDirection direction, bool includeInvisibleExits)
         {
             return Exits.Any(x => x.Direction == direction && !x.IsLocked && (includeInvisibleExits || x.IsPlayerVisible));
-        }
-
-        /// <summary>
-        /// Get if this Room contains an exit. This will not include exits whose ExaminableObject.IsPlayerVisible property is set to false.
-        /// </summary>
-        /// <param name="direction">The direction of the exit to check for.</param>
-        /// <returns>True if the exit exists, else false.</returns>
-        public bool ContainsExit(CardinalDirection direction)
-        {
-            return ContainsExit(direction, false);
         }
 
         /// <summary>

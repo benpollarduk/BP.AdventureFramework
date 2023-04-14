@@ -3,8 +3,8 @@
 namespace BP.AdventureFramework.GameStructure
 {
     /// <summary>
-    /// Represents a callback for Player generation.
+    /// Represents a callback for Player creation.
     /// </summary>
     /// <returns>A generated Player.</returns>
-    public delegate PlayableCharacter PlayerGeneration();
+    public delegate PlayableCharacter PlayerCreationCallback();
 }

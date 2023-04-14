@@ -83,7 +83,6 @@
     <Compile Include="Interaction\Reaction.cs" />
     <Compile Include="Interaction\ReactionResult.cs" />
     <Compile Include="Locations\CardinalDirection.cs" />
-    <Compile Include="Parsing\Commands\Frame\Invert.cs" />
     <Compile Include="Parsing\Commands\Frame\KeyOn.cs" />
     <Compile Include="Parsing\Commands\Frame\KeyOff.cs" />
     <Compile Include="Parsing\Commands\Frame\CommandsOn.cs" />
@@ -122,8 +121,8 @@
     <Compile Include="Characters\NonPlayableCharacter.cs" />
     <Compile Include="Characters\PlayableCharacter.cs" />
     <Compile Include="Interaction\Result.cs" />
-    <Compile Include="GameStructure\GameCreator.cs" />
-    <Compile Include="GameStructure\GameFlow.cs" />
+    <Compile Include="GameStructure\GameCreationCallback.cs" />
+    <Compile Include="GameStructure\GameManager.cs" />
     <Compile Include="GameStructure\Game.cs" />
     <Compile Include="Interaction\ConditionalDescription.cs" />
     <Compile Include="Interaction\Description.cs" />
@@ -151,8 +150,8 @@
     <Compile Include="Rendering\InGameGraphics.cs" />
     <Compile Include="Rendering\MapDrawer.cs" />
     <Compile Include="GameStructure\HostSetup.cs" />
-    <Compile Include="GameStructure\OverworldGeneration.cs" />
-    <Compile Include="GameStructure\PlayerGeneration.cs" />
+    <Compile Include="GameStructure\OverworldCreationCallback.cs" />
+    <Compile Include="GameStructure\PlayerCreationCallback.cs" />
     <Compile Include="GameStructure\WaitForKeyPressCallback.cs" />
   </ItemGroup>
   <ItemGroup>

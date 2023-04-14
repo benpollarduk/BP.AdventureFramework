@@ -10,18 +10,11 @@
         /// <summary>
         /// Get the type of result.
         /// </summary>
-        public ExaminationResults Type { get; set; } = ExaminationResults.DescriptionReturned;
+        public ExaminationResults Type { get; set; }
 
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Initializes a new instance of the ExaminationResult class.
-        /// </summary>
-        protected ExaminationResult()
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the ExaminationResult class.

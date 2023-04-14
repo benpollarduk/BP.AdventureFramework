@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenNoCharacter_WhenInvoke_ThenNone()
         {
-            var room = new Room(new Identifier(""), new Description(""));
+            var room = new Room(Identifier.Empty, Description.Empty);
             var command = new Take(null, null, room);
 
             var result = command.Invoke();
@@ -23,8 +23,8 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenNoItem_WhenInvoke_ThenNone()
         {
-            var room = new Room(new Identifier(""), new Description(""));
-            var character = new PlayableCharacter(new Identifier(""), new Description(""));
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var command = new Take(character, null, room);
 
             var result = command.Invoke();
@@ -35,9 +35,9 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenRoomDoesNotContainThatItem_WhenInvoke_ThenNone()
         {
-            var room = new Room(new Identifier(""), new Description(""));
-            var character = new PlayableCharacter(new Identifier(""), new Description(""));
-            var item = new Item(new Identifier("A"), new Description(""), true);
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
+            var item = new Item(new Identifier("A"), Description.Empty, true);
             var command = new Take(character, item, room);
 
             var result = command.Invoke();
@@ -49,9 +49,9 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenItemIsNotTakeable_WhenInvoke_ThenNone()
         {
-            var room = new Room(new Identifier(""), new Description(""));
-            var character = new PlayableCharacter(new Identifier(""), new Description(""));
-            var item = new Item(new Identifier("A"), new Description(""), false);
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
+            var item = new Item(new Identifier("A"), Description.Empty, false);
             room.AddItem(item);
             var command = new Take(character, item, room);
 
@@ -63,9 +63,9 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenItemIsDroppable_WhenInvoke_ThenReacted()
         {
-            var room = new Room(new Identifier(""), new Description(""));
-            var character = new PlayableCharacter(new Identifier(""), new Description(""));
-            var item = new Item(new Identifier("A"), new Description(""), true);
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
+            var item = new Item(new Identifier("A"), Description.Empty, true);
             room.AddItem(item);
             var command = new Take(character, item, room);
 

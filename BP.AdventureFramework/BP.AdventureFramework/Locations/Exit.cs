@@ -54,7 +54,7 @@ namespace BP.AdventureFramework.Locations
         /// <returns>The completed Description.</returns>
         protected Description GenerateDescription()
         {
-            return new ConditionalDescription($"The exit {Direction.ToString().ToLower()} is locked", $"The exit {Direction.ToString().ToLower()} is unlocked", () => IsLocked);
+            return new ConditionalDescription($"The exit {Direction.ToString().ToLower()} is locked.", $"The exit {Direction.ToString().ToLower()} is unlocked.", () => IsLocked);
         }
 
         /// <summary>

@@ -7,6 +7,15 @@ namespace BP.AdventureFramework.Interaction
     /// </summary>
     public class Identifier : IEquatable<string>, IEquatable<Identifier>
     {
+        #region StaticProperties
+
+        /// <summary>
+        /// Get an empty identifier.
+        /// </summary>
+        public static Identifier Empty { get; } = new Identifier(string.Empty);
+
+        #endregion
+
         #region Properties
 
         /// <summary>

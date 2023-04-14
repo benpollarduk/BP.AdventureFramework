@@ -10,7 +10,7 @@
         /// <summary>
         /// Get or set the description for when this condition is false
         /// </summary>
-        private string falseDescription;
+        private readonly string falseDescription;
 
         /// <summary>
         /// Get or set the condition
@@ -19,7 +19,7 @@
 
         #endregion
 
-        #region Methods
+        #region Constructors
 
         /// <summary>
         /// Initializes anew instance of the ConditionalDescription class.
@@ -33,10 +33,14 @@
             Condition = condition;
         }
 
+        #endregion
+
+        #region Overrides of Description
+
         /// <summary>
         /// Get the description.
         /// </summary>
-        /// <returns>The description as a string.</returns>
+        /// <returns>The description.</returns>
         public override string GetDescription()
         {
             if (Condition != null)

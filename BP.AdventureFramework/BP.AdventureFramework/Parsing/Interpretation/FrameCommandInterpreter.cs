@@ -23,11 +23,6 @@ namespace BP.AdventureFramework.Parsing.Interpretation
         public const string CommandsOn = "CommandsOn";
 
         /// <summary>
-        /// Get the invert command.
-        /// </summary>
-        public const string Invert = "Invert";
-
-        /// <summary>
         /// Get the keys on command.
         /// </summary>
         public const string KeyOn = "KeyOn";
@@ -83,9 +78,6 @@ namespace BP.AdventureFramework.Parsing.Interpretation
 
             if (input.Equals(CommandsOn, StringComparison.CurrentCultureIgnoreCase))
                 return new InterpretationResult(true, new CommandsOn(FrameDrawer));
-
-            if (input.Equals(Invert, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new Invert());
 
             if (input.Equals(KeyOff, StringComparison.CurrentCultureIgnoreCase))
                 return new InterpretationResult(true, new KeyOff(MapDrawer));

@@ -5,6 +5,15 @@
     /// </summary>
     public class Description
     {
+        #region StaticProperties
+
+        /// <summary>
+        /// Get an empty description.
+        /// </summary>
+        public static Description Empty { get; } = new Description(string.Empty);
+
+        #endregion
+
         #region Properties
 
         /// <summary>

@@ -5,12 +5,6 @@
     /// </summary>
     public class Item : ExaminableObject, IInteractWithItem
     {
-        #region Fields
-
-        private string morphicType;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -22,15 +16,6 @@
         /// Get or set the interaction.
         /// </summary>
         public InteractionCallback Interaction { get; set; } = (i, target) => new InteractionResult(InteractionEffect.NoEffect, i);
-
-        /// <summary>
-        /// Get or set the morphic type of this item. This allows correct file IO for the type of this item if it has morphed into a new type.
-        /// </summary>
-        protected string MorphicType
-        {
-            get { return morphicType ?? GetType().Name; }
-            set { morphicType = value; }
-        }
 
         #endregion
 
@@ -63,7 +48,6 @@
             Description = item.Description;
             IsPlayerVisible = item.IsPlayerVisible;
             IsTakeable = item.IsTakeable;
-            MorphicType = item.GetType().Name;
         }
 
         /// <summary>

@@ -10,9 +10,9 @@ using BP.AdventureFramework.Rendering.Frames;
 namespace BP.AdventureFramework.GameStructure
 {
     /// <summary>
-    /// Represents a class for controlling the flow of a Game.
+    /// Represents a class for managing a Game.
     /// </summary>
-    public class GameFlow : IDisposable
+    public class GameManager : IDisposable
     {
         #region Fields
 
@@ -52,7 +52,7 @@ namespace BP.AdventureFramework.GameStructure
         /// <summary>
         /// Get or set the game creator.
         /// </summary>
-        public GameCreator Creator { get; set; }
+        public GameCreationCallback Creator { get; set; }
 
         /// <summary>
         /// Get or set the error prefix.
@@ -109,20 +109,15 @@ namespace BP.AdventureFramework.GameStructure
         /// </summary>
         public event EventHandler<Frame> FinishingFrameDraw;
 
-        /// <summary>
-        /// Occurs when the display is inverted.
-        /// </summary>
-        public event EventHandler DisplayInverted;
-
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the GameFlow class.
+        /// Initializes a new instance of the GameManager class.
         /// </summary>
         /// <param name="creator">A game creator.</param>
-        public GameFlow(GameCreator creator)
+        public GameManager(GameCreationCallback creator)
         {
             Creator = creator;
             InputInterpreter = new InputInterpreter(FrameDrawer, MapDrawer);
@@ -236,7 +231,7 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// Update the screen with the current Frame, provided by the GameFlow.Game property.
+        /// Update the screen with the current Frame, provided by the GameManager.Game property.
         /// </summary>
         /// <param name="message">An additional message to display to the user.</param>
         protected void UpdateScreenWithCurrentFrame(string message)
@@ -278,7 +273,7 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// Handle GameFlow.Frame property updating.
+        /// Handle GameManager.Frame property updating.
         /// </summary>
         /// <param name="frame">The new frame.</param>
         protected void OnFrameUpdated(Frame frame)
@@ -287,7 +282,7 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// Handle the GameFlow.Game.Ended event.
+        /// Handle the GameManager.Game.Ended event.
         /// </summary>
         /// <param name="exitMode">The exit mode from the game.</param>
         protected void OnGameEnded(ExitMode exitMode)
@@ -310,7 +305,7 @@ namespace BP.AdventureFramework.GameStructure
         }
 
         /// <summary>
-        /// Handle the GameFlow.Game.Completed event.
+        /// Handle the GameManager.Game.Completed event.
         /// </summary>
         protected void OnGameCompleted()
         {

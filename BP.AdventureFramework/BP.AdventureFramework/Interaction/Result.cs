@@ -21,7 +21,7 @@
         /// </summary>
         protected Result()
         {
-            Desciption = "There was no effect";
+            Desciption = "There was no effect.";
         }
 
         #endregion

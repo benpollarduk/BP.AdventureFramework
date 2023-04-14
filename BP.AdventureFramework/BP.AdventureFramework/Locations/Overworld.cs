@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Locations
@@ -57,18 +58,10 @@ namespace BP.AdventureFramework.Locations
         /// <param name="rowInOverworld">The row of the Region within this Overworld.</param>
         public bool CreateRegion(Region region, int columnInOverworld, int rowInOverworld)
         {
-            var addable = true;
             region.Column = columnInOverworld;
             region.Row = rowInOverworld;
 
-            foreach (var r in Regions)
-            {
-                if (r.Column != region.Column || r.Row != region.Row)
-                    continue;
-
-                addable = false;
-                break;
-            }
+            var addable = Regions.All(r => r.Column != region.Column || r.Row != region.Row);
 
             if (addable)
                 Regions.Add(region);

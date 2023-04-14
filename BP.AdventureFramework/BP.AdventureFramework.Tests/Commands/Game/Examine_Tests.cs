@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenSomethingToExamine_WhenInvoke_ThenReacted()
         {
-            var region = new Region(new Identifier(""), new Description(""));
+            var region = new Region(Identifier.Empty, Description.Empty);
             var command = new Examine(region);
 
             var result = command.Invoke();

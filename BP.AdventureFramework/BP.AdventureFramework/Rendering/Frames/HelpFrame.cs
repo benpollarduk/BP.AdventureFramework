@@ -44,7 +44,6 @@ namespace BP.AdventureFramework.Rendering.Frames
             CommandsDictionary.Add("space1", "");
             CommandsDictionary.Add($"{FrameCommandInterpreter.CommandsOn} / {FrameCommandInterpreter.CommandsOff}", "Turn commands on/off");
             CommandsDictionary.Add($"{FrameCommandInterpreter.KeyOn}  / {FrameCommandInterpreter.KeyOff} ", "Turn the key on/off");
-            CommandsDictionary.Add(FrameCommandInterpreter.Invert, "Invert foreground/background colours");
             CommandsDictionary.Add(GlobalCommandInterpreter.Map, "View a map of the current region");
             CommandsDictionary.Add("space2", "");
             CommandsDictionary.Add(GlobalCommandInterpreter.Exit, "Exit the game");

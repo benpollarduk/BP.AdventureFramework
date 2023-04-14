@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenTargetIsDead_WhenInvoke_ThenNone()
         {
-            var npc = new NonPlayableCharacter(new Identifier(""), new Description(""), null, false, null);
+            var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty, null, false, null);
             var command = new Talk(npc);
 
             var result = command.Invoke();
@@ -32,7 +32,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenTarget_WhenInvoke_ThenReacted()
         {
-            var npc = new NonPlayableCharacter(new Identifier(""), new Description(""));
+            var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty);
             var command = new Talk(npc);
 
             var result = command.Invoke();

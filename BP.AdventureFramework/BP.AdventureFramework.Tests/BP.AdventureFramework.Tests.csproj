@@ -64,9 +64,9 @@
     <Compile Include="Commands\Global\Help_Tests.cs" />
     <Compile Include="Commands\Global\Exit_Tests.cs" />
     <Compile Include="Commands\Global\About_Tests.cs" />
-    <Compile Include="Parsing\GameCommandInterpreter_Tests.cs" />
-    <Compile Include="Parsing\GlobalCommandInterpreter_Tests.cs" />
-    <Compile Include="Parsing\FrameCommandInterpreter_Tests.cs" />
+    <Compile Include="Interpretation\GameCommandInterpreter_Tests.cs" />
+    <Compile Include="Interpretation\GlobalCommandInterpreter_Tests.cs" />
+    <Compile Include="Interpretation\FrameCommandInterpreter_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

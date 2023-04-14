@@ -1,6 +1,6 @@
 ﻿using BP.AdventureFramework.Logic;
 
-namespace BP.AdventureFramework.Parsing.Interpretation
+namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Represents any object that can act as an interpreter for input.

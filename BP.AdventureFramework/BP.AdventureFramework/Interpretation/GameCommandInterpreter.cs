@@ -8,7 +8,7 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Parsing.Commands;
 
-namespace BP.AdventureFramework.Parsing.Interpretation
+namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Represents an object that can be used for interpreting game commands.

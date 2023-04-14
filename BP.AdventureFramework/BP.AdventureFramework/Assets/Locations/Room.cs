@@ -190,7 +190,7 @@ namespace BP.AdventureFramework.Assets.Locations
             if (Items.Where(i => i.IsPlayerVisible).ToArray().Length == 1)
             {
                 var singularItem = Items.Where(i => i.IsPlayerVisible).ToArray()[0];
-                return new ExaminationResult($"There {(StringHelper.IsPlural(singularItem.Identifier.Name) ? "are" : "is")} {StringHelper.GetObjectifier(singularItem.Identifier.Name)} {singularItem.Identifier}");
+                return new ExaminationResult($"There {(singularItem.Identifier.Name.IsPlural() ? "are" : "is")} {singularItem.Identifier.Name.GetObjectifier()} {singularItem.Identifier}");
             }
 
             var sentence = GetItemsAsString();
@@ -206,20 +206,20 @@ namespace BP.AdventureFramework.Assets.Locations
                 {
                     sentence = sentence.Remove(index, 2);
                     currentItemName = sentence.Substring(index).Trim(Convert.ToChar(" "));
-                    sentence = sentence.Insert(index, $" and {StringHelper.GetObjectifier(currentItemName)} ");
+                    sentence = sentence.Insert(index, $" and {currentItemName.GetObjectifier()} ");
                     somethingLeftToCheck = false;
                 }
                 else
                 {
                     sentence = sentence.Remove(index, 2);
                     currentItemName = sentence.Substring(index, sentence.IndexOf(", ", index, StringComparison.Ordinal) - index).Trim(Convert.ToChar(" "));
-                    sentence = sentence.Insert(index, $", {StringHelper.GetObjectifier(currentItemName)} ");
+                    sentence = sentence.Insert(index, $", {currentItemName.GetObjectifier()} ");
                     index += 1;
                 }
             }
 
             currentItemName = sentence.Substring(0, sentence.Contains(", ") ? sentence.IndexOf(", ", StringComparison.Ordinal) : sentence.IndexOf(" and ", StringComparison.Ordinal));
-            return new ExaminationResult($"There {(StringHelper.IsPlural(currentItemName) ? "are" : "is")} {StringHelper.GetObjectifier(currentItemName)} {sentence}");
+            return new ExaminationResult($"There {(currentItemName.IsPlural() ? "are" : "is")} {currentItemName.GetObjectifier()} {sentence}");
         }
 
         /// <summary>

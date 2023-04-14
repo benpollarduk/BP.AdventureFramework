@@ -1,7 +1,7 @@
 ﻿using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Parsing.Commands;
 
-namespace BP.AdventureFramework.Parsing.Interpretation
+namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Represents the result of an interpretation.

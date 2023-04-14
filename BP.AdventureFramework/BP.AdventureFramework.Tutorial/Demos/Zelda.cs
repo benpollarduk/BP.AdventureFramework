@@ -82,7 +82,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
                 if (Sword.EqualsIdentifier(item.Identifier))
                 {
-                    saria.Kill();
+                    saria.Kill(string.Empty);
 
                     if (!saria.HasItem(key01))
                         return new InteractionResult(InteractionEffect.SelfContained, item, "You strike Saria in the face with the sword and she falls down dead.");

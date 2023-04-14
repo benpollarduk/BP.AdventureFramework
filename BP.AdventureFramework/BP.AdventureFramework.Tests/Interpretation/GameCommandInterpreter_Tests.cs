@@ -2,7 +2,7 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Parsing.Interpretation;
+using BP.AdventureFramework.Interpretation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Parsing

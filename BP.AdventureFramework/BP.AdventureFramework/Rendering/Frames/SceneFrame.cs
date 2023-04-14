@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Parsing.Interpretation;
+using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {

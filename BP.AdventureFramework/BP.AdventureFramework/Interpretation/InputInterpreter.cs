@@ -1,7 +1,7 @@
 ﻿using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering;
 
-namespace BP.AdventureFramework.Parsing.Interpretation
+namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Represents an object that can be used for interpreting game input.

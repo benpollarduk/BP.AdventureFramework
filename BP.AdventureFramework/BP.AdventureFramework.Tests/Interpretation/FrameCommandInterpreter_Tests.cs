@@ -2,14 +2,14 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Parsing.Interpretation;
+using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Parsing
 {
     [TestClass]
-    public class GlobalCommandInterpreter_Tests
+    public class FrameCommandInterpreter_Tests
     {
         [TestInitialize]
         public void Setup()
@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenEmptyString_WhenInterpret_ThenReturnFalse()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
+            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
             var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
 
             var result = interpreter.Interpret(string.Empty, game);
@@ -35,56 +35,45 @@ namespace BP.AdventureFramework.Tests.Parsing
         }
 
         [TestMethod]
-        public void GivenNew_WhenInterpret_ThenReturnTrue()
+        public void GivenKeyOff_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
+            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
             var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
 
-            var result = interpreter.Interpret(GlobalCommandInterpreter.New, game);
+            var result = interpreter.Interpret(FrameCommandInterpreter.KeyOff, game);
 
             Assert.IsTrue(result.WasInterpretedSuccessfully);
         }
 
         [TestMethod]
-        public void GivenAbout_WhenInterpret_ThenReturnTrue()
+        public void GivenKeyOn_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
+            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
             var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
 
-            var result = interpreter.Interpret(GlobalCommandInterpreter.About, game);
+            var result = interpreter.Interpret(FrameCommandInterpreter.KeyOn, game);
 
             Assert.IsTrue(result.WasInterpretedSuccessfully);
         }
 
         [TestMethod]
-        public void GivenExit_WhenInterpret_ThenReturnTrue()
+        public void GivenCommandsOff_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
+            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
             var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
 
-            var result = interpreter.Interpret(GlobalCommandInterpreter.Exit, game);
+            var result = interpreter.Interpret(FrameCommandInterpreter.CommandsOff, game);
 
             Assert.IsTrue(result.WasInterpretedSuccessfully);
         }
 
         [TestMethod]
-        public void GivenHelp_WhenInterpret_ThenReturnTrue()
+        public void GivenCommandsOn_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
+            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
             var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
 
-            var result = interpreter.Interpret(GlobalCommandInterpreter.Help, game);
-
-            Assert.IsTrue(result.WasInterpretedSuccessfully);
-        }
-
-        [TestMethod]
-        public void GivenMap_WhenInterpret_ThenReturnTrue()
-        {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
-
-            var result = interpreter.Interpret(GlobalCommandInterpreter.Map, game);
+            var result = interpreter.Interpret(FrameCommandInterpreter.CommandsOn, game);
 
             Assert.IsTrue(result.WasInterpretedSuccessfully);
         }

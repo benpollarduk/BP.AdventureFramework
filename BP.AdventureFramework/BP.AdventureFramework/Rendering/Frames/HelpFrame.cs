@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using BP.AdventureFramework.Parsing.Interpretation;
+using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {

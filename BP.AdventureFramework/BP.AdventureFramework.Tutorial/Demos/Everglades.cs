@@ -8,12 +8,12 @@ namespace BP.AdventureFramework.Tutorial.Demos
 {
     public static class Everglades
     {
-        private const string Knife = "KNIFE";
-        private const string ConchShell = "CONCH SHELL";
+        private const string Knife = "Knife";
+        private const string ConchShell = "Conch Shell";
 
         public static PlayableCharacter GeneratePC()
         {
-            var player = new PlayableCharacter("Ben".ToIdentifier(), "25 year old man".ToDescription(), new Item("Knife".ToIdentifier(), "A small pocket knife".ToDescription(), true))
+            var player = new PlayableCharacter("Ben".ToIdentifier(), "25 year old man".ToDescription(), new Item(Knife.ToIdentifier(), "A small pocket knife".ToDescription(), true))
             {
                 Interaction = (i, target) =>
                 {
@@ -34,21 +34,21 @@ namespace BP.AdventureFramework.Tutorial.Demos
             r.AddRoom(new Room("Forest Floor".ToIdentifier(), new Description("The forest is dense, with a few patches of light breaking the darkness. To the north is what looks like a small cave, to the south is the entrance to the forest"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South)), 2, 1);
             r.AddRoom(new Room("Cave Mouth".ToIdentifier(), new Description("A cave mouth looms in front of you to the north. You can hear the sound of the ocean coming from the west"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.West)), 2, 2);
 
-            var conchShell = new Item("Conch shell".ToIdentifier(), "A pretty conch shell, it is about the size of a coconut".ToDescription(), true)
+            var conchShell = new Item(ConchShell.ToIdentifier(), "A pretty conch shell, it is about the size of a coconut".ToDescription(), true)
             {
                 Interaction = (item, target) =>
                 {
                     switch (item.Identifier.IdentifiableName)
                     {
                         case Knife:
-                            return new InteractionResult(InteractionEffect.FatalEffect, item, "You slash at the conch shell and it shatters into tiny peices. Without the conch shell you are well and truly fucked");
+                            return new InteractionResult(InteractionEffect.FatalEffect, item, "You slash at the conch shell and it shatters into tiny pieces. Without the conch shell you are well and truly fucked");
                         default:
                             return new InteractionResult(InteractionEffect.NoEffect, item);
                     }
                 }
             };
 
-            r.AddRoom(new Room("Great Western Ocean".ToIdentifier(), new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungerly. To the east is a small clearing"), new[] { new Exit(CardinalDirection.East) }, conchShell), 1, 2);
+            r.AddRoom(new Room("Great Western Ocean".ToIdentifier(), new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungrily. To the east is a small clearing"), new[] { new Exit(CardinalDirection.East) }, conchShell), 1, 2);
             r.AddRoom(new Room("Cave".ToIdentifier(), new Description("The cave is so dark you struggling to see. A screeching noise is audible to the east"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.East)), 2, 3);
 
             var innerCave = new Room("Inner Cave".ToIdentifier(), new Description(string.Empty), new Exit(CardinalDirection.West), new Exit(CardinalDirection.North, true));

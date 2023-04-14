@@ -1,28 +1,27 @@
-﻿using System;
-using System.Threading;
-using BP.AdventureFramework.Extensions;
+﻿using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.GameAssets;
 using BP.AdventureFramework.GameAssets.Characters;
 using BP.AdventureFramework.GameAssets.Interaction;
 using BP.AdventureFramework.GameAssets.Locations;
 using BP.AdventureFramework.GameStructure;
-using BP.AdventureFramework.Rendering;
-using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Tutorial.Demos
 {
     public static class Zelda
     {
-        private const string Sword = "SWORD";
-        private const string Shield = "SHIELD";
-        private const string Rupee = "RUPEE";
-        private const string TailKey = "TAIL KEY";
-        private const string TailCave = "TAIL CAVE";
+        private const string Sword = "Sword";
+        private const string Shield = "Sheld";
+        private const string Rupee = "Rupee";
+        private const string TailKey = "Tail Key";
+        private const string TailCave = "Tail Cave";
+        private const string YoshiDoll = "Yoshi Doll";
+        private const string Table = "Table";
+        private const string Stump = "Stump";
 
         public static PlayableCharacter GeneratePC()
         {
             var character = new PlayableCharacter("Link".ToIdentifier(), "A Kokiri boy from the forest".ToDescription());
-            var shield = new Item("Shield".ToIdentifier(), "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.".ToDescription(), true);
+            var shield = new Item(Shield.ToIdentifier(), "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.".ToDescription(), true);
             character.AquireItem(shield);
 
             return character;
@@ -34,18 +33,18 @@ namespace BP.AdventureFramework.Tutorial.Demos
             var region = new Region("Kokiri Forest".ToIdentifier(), "The home of the Kokiri tree folk".ToDescription());
             var room = new Room("Link house".ToIdentifier(), new Description("You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north"), new Exit(CardinalDirection.North));
 
-            room.AddItem(new Item("Table".ToIdentifier(), "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you".ToDescription(), false));
+            room.AddItem(new Item(Table.ToIdentifier(), "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you".ToDescription(), false));
 
-            var sword = new Item("Sword".ToIdentifier(), "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp".ToDescription(), true);
+            var sword = new Item(Sword.ToIdentifier(), "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp".ToDescription(), true);
 
             room.AddItem(sword);
 
-            var yoshiDoll = new Item("Yoshi Doll".ToIdentifier(), "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...".ToDescription(), false);
+            var yoshiDoll = new Item(YoshiDoll.ToIdentifier(), "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...".ToDescription(), false);
 
             room.AddItem(yoshiDoll);
 
             var outsideLinksHouse = new Room("4Outside Links House".ToIdentifier(), new Description("The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.North), new Exit(CardinalDirection.East, true));
-            var key01 = new Item("Tail Key".ToIdentifier(), "A small key, with a complex handle in the shape of a worm like creature".ToDescription(), true);
+            var key01 = new Item(TailKey.ToIdentifier(), "A small key, with a complex handle in the shape of a worm like creature".ToDescription(), true);
             var saria = new NonPlayableCharacter("Saria".ToIdentifier(), "A very annoying, but admittedly quite pretty elf, dressed, like you, completely in green".ToDescription());
 
             saria.AquireItem(key01);
@@ -59,58 +58,53 @@ namespace BP.AdventureFramework.Tutorial.Demos
             // define the interaction with items for Saria
             saria.Interaction = (item, target) =>
             {
-                switch (item.Identifier.IdentifiableName)
+                if (Rupee.EqualsIdentifier(item.Identifier))
                 {
-                    case Rupee:
-
-                        pC.Give(item, saria);
-                        saria.Give(key01, pC);
-                        return new InteractionResult(InteractionEffect.SelfContained, item, "Saria looks excited! \"Thanks Link, here take the Tail Key!\"You got the Tail Key, awesome!");
-
-                    case Shield:
-
-                        return new InteractionResult(InteractionEffect.NoEffect, item, "Saria looks at your shield, but seems pretty unimpressed.");
-
-                    case Sword:
-
-                        saria.Kill();
-
-                        if (!saria.HasItem(key01))
-                            return new InteractionResult(InteractionEffect.SelfContained, item, "You strike Saria in the face with the sword and she falls down dead.");
-
-                        saria.DequireItem(key01);
-                        outsideLinksHouse.AddItem(key01);
-
-                        return new InteractionResult(InteractionEffect.SelfContained, item, "You strike Saria in the face with the sword and she falls down dead. When she fell you saw something drop to out of her hand, it looked like a key...");
-
-                    default:
-
-                        return new InteractionResult(InteractionEffect.NoEffect, item);
+                    pC.Give(item, saria);
+                    saria.Give(key01, pC);
+                    return new InteractionResult(InteractionEffect.SelfContained, item, "Saria looks excited! \"Thanks Link, here take the Tail Key!\"You got the Tail Key, awesome!");
                 }
+
+                if (Shield.EqualsIdentifier(item.Identifier))
+                {
+                    return new InteractionResult(InteractionEffect.NoEffect, item, "Saria looks at your shield, but seems pretty unimpressed.");
+                }
+
+                if (Sword.EqualsIdentifier(item.Identifier))
+                {
+                    saria.Kill();
+
+                    if (!saria.HasItem(key01))
+                        return new InteractionResult(InteractionEffect.SelfContained, item, "You strike Saria in the face with the sword and she falls down dead.");
+
+                    saria.DequireItem(key01);
+                    outsideLinksHouse.AddItem(key01);
+
+                    return new InteractionResult(InteractionEffect.SelfContained, item, "You strike Saria in the face with the sword and she falls down dead. When she fell you saw something drop to out of her hand, it looked like a key...");
+                }
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             outsideLinksHouse.AddCharacter(saria);
 
-            var blockOfWood = new Item("Stump".ToIdentifier(), "A small stump of wood".ToDescription(), false);
+            var blockOfWood = new Item(Stump.ToIdentifier(), "A small stump of wood".ToDescription(), false);
 
             blockOfWood.Interaction = (item, target) =>
             {
-                // select by name
-                switch (item.Identifier.IdentifiableName)
+                if (Shield.EqualsExaminable(item))
                 {
-                    case Shield:
-
-                        return new InteractionResult(InteractionEffect.NoEffect, item, "You hit the stump, and it makes a solid knocking noise");
-
-                    case Sword:
-
-                        blockOfWood.Morph(new Item("Splinters of wood".ToIdentifier(), "Some splinters of wood left from your chopping frenzy on the stump".ToDescription(), false));
-                        return new InteractionResult(InteractionEffect.ItemMorphed, item, "You chop the stump into tiny pieces in a mad rage. All that is left is some splinters of wood");
-
-                    default:
-
-                        return new InteractionResult(InteractionEffect.NoEffect, item);
+                    return new InteractionResult(InteractionEffect.NoEffect, item, "You hit the stump, and it makes a solid knocking noise");
                 }
+
+                if (Sword.EqualsExaminable(item))
+                {
+                    blockOfWood.Morph(new Item("Splinters of wood".ToIdentifier(), "Some splinters of wood left from your chopping frenzy on the stump".ToDescription(), false));
+                    return new InteractionResult(InteractionEffect.ItemMorphed, item, "You chop the stump into tiny pieces in a mad rage. All that is left is some splinters of wood");
+
+                }
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             outsideLinksHouse.AddItem(blockOfWood);
@@ -121,21 +115,19 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             tailDoor.Interaction = (item, target) =>
             {
-                switch (item.Identifier.IdentifiableName)
+                if (TailKey.EqualsExaminable(item))
                 {
-                    case TailKey:
-
-                        region.UnlockDoorPair(CardinalDirection.East);
-                        outsideLinksHouse.RemoveItemFromRoom(tailDoor);
-                        return new InteractionResult(InteractionEffect.ItemUsedUp, item, "The Tail Key fits perfectly in the lock, you turn it and the door swings open, revealing a gaping cave mouth...");
-
-                    case Sword:
-
-                        return new InteractionResult(InteractionEffect.NoEffect, item, "Clang clang!");
-
-                    default:
-                        return new InteractionResult(InteractionEffect.NoEffect, item);
+                    region.UnlockDoorPair(CardinalDirection.East);
+                    outsideLinksHouse.RemoveItemFromRoom(tailDoor);
+                    return new InteractionResult(InteractionEffect.ItemUsedUp, item, "The Tail Key fits perfectly in the lock, you turn it and the door swings open, revealing a gaping cave mouth...");
                 }
+
+                if (Sword.EqualsExaminable(item))
+                {
+                    return new InteractionResult(InteractionEffect.NoEffect, item, "Clang clang!");
+                }
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             var tailCave = new Room("Tail Cave".ToIdentifier(), new Description("The cave is dark, and currently very empty. Quite shabby really, not like the cave on Koholint at all..."), new Exit(CardinalDirection.West, true));
@@ -147,18 +139,14 @@ namespace BP.AdventureFramework.Tutorial.Demos
 
             bush.Interaction = (item, target) =>
             {
-                switch (item.Identifier.IdentifiableName)
+                if (Sword.EqualsExaminable(item))
                 {
-                    case Sword:
-
-                        bush.Morph(new Item("Stump".ToIdentifier(), "A small, hacked up stump from where the bush once was, until you decimated it".ToDescription(), false));
-                        rupee.IsPlayerVisible = true;
-                        return new InteractionResult(InteractionEffect.ItemMorphed, item, "You slash wildly at the bush and reduce it to a stump. This exposes a red rupee, that must have been what was glinting from within the bush...");
-
-                    default:
-
-                        return new InteractionResult(InteractionEffect.NoEffect, item);
+                    bush.Morph(new Item("Stump".ToIdentifier(), "A small, hacked up stump from where the bush once was, until you decimated it".ToDescription(), false));
+                    rupee.IsPlayerVisible = true;
+                    return new InteractionResult(InteractionEffect.ItemMorphed, item, "You slash wildly at the bush and reduce it to a stump. This exposes a red rupee, that must have been what was glinting from within the bush...");
                 }
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             stream.AddItem(bush);

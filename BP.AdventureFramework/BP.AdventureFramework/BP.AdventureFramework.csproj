@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>BP.AdventureFramework</AssemblyName>
+    <Authors>Ben Pollard</Authors>
+    <Copyright />
   </PropertyGroup>
 
   <ItemGroup>

@@ -75,7 +75,7 @@ namespace BP.AdventureFramework.Rendering
 
             var map = string.Empty;
             var keyLines = new Queue<string>();
-            var lockedExitString = "{LockedExitString}=Locked Exit";
+            var lockedExitString = $"{LockedExitString}=Locked Exit";
             var unlockedExitString = "N/E/S/W = Unlocked Exit";
             var entranceString = "n/e/s/w = Entrance";
             var itemsString = $"{ItemInRoomString}=Item(s) In Room";

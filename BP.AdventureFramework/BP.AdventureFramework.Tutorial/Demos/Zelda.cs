@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
         private const string Stream = "Stream";
         private const string Saria = "Saria";
         private const string Link = "Link";
-        private const string SplintersOfWood = "Splinters of wood";
+        private const string SplintersOfWood = "Splinters Of Wood";
         private const string Hyrule = "Hyrule";
         private const string KokiriForest = "Kokiri Forest";
         private const string LinksHouse = "Links House";

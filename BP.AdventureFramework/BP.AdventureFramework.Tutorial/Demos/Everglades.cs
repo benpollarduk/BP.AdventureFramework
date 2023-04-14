@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Tutorial.Demos
         private const string Region = "Everglades";
         private const string ForestEntrance = "Forest Entrance";
         private const string ForestFloor = "Forest Floor";
-        private const string CaveMouth = "CaveMouth";
+        private const string CaveMouth = "Cave Mouth";
         private const string Cave = "Cave";
         private const string InnerCave = "Inner Cave";
         private const string GreatWesternOcean = "Great Western Ocean";

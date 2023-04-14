@@ -154,7 +154,28 @@ namespace BP.AdventureFramework.Assets.Locations
                 return false;
 
             CurrentRoom = GetAdjoiningRoom(direction);
-            CurrentRoom.MovedInto((CardinalDirection)(-(int)direction));
+
+            CardinalDirection enteredFrom;
+
+            switch (direction)
+            {
+                case CardinalDirection.North:
+                    enteredFrom = CardinalDirection.South;
+                    break;
+                case CardinalDirection.East:
+                    enteredFrom = CardinalDirection.West;
+                    break;
+                case CardinalDirection.South:
+                    enteredFrom = CardinalDirection.North;
+                    break;
+                case CardinalDirection.West:
+                    enteredFrom = CardinalDirection.East;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+
+            CurrentRoom.MovedInto(enteredFrom);
 
             return true;
         }

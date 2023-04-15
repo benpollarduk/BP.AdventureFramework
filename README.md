@@ -4,13 +4,14 @@
 ![image](https://user-images.githubusercontent.com/129943363/230678655-a1c76828-997c-4bce-913e-70fc83889029.png)
 
 Provides simple classes for developing game elements:
-  * Hierarchical environments with the following elements:
+  * Hierarchical environments constructed from:
     * Overworld
     * Region
     * Room
-  * NPC's that support interaction with items and conversation.
-  * Interactive items.
-    * Items can morph in to other items. For example, using item A on item B may cause item B to morph in to item C.
+  * NPC's that support interaction with items and the player through conversation.
+  * Items
+    * Support interaction with the player, rooms, other items, NPC's.
+    * Items can morph in to other items. For example, using item A on item B may cause item B to morph into item C.
   
 Provides keywords for interacting with game elements:
   * Drop - drop an item.
@@ -28,6 +29,8 @@ Provides global commands to help with game flow:
   * KeyOn / KeyOff - turn the Key on/off.
   * Map - display the map.
   * New - start a new game.
+
+All game management is provided by the framework, including title screens, completion screens and parsing of user input.
   
 Maps are automatically generated for regions:
 
@@ -40,7 +43,7 @@ Maps are automatically generated for regions:
 # Getting Started
  * Clone the repo
  * Build all projects
- * Run the BP.AdventureFramework.Demo project
+ * Run the BP.AdventureFramework.Tutorial project
 
 # Contribute
 It´s Open Source (License >> MIT), please feel free to use or contribute. To raise a pull request visit https://github.com/ben-pollard-uk/adventure-framework/pulls.

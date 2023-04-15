@@ -4,33 +4,54 @@
 ![image](https://user-images.githubusercontent.com/129943363/230678655-a1c76828-997c-4bce-913e-70fc83889029.png)
 
 Provides simple classes for developing game elements:
-  * Hierarchical environments constructed from:
+  * Interface and base class for examinable objects:
+    * Examination returns a description of the object.
+    * Descriptions can be conditional, with different results generated from the game state
+  * Hierarchical environments:
     * Overworld
+      * Acts as a container of regions.
     * Region
+      * Acts as a container of rooms.
     * Room
-  * NPC's that support interaction with items and the player through conversation.
+      * The player traverses through the rooms.
+      * Provides a description of itself.
+      * Supports up to 4 exits. Each exit can be locked until a condition is met.
+      * Can contain multiple items.
+  * NPC's:
+    * Support provided for conversations with the player.
+    * Can interact with items.
+    * Can contain multiple items.
   * Items
-    * Support interaction with the player, rooms, other items, NPC's.
+    * Support interaction with the player, rooms, other items and NPC's.
     * Items can morph in to other items. For example, using item A on item B may cause item B to morph into item C.
   
-Provides keywords for interacting with game elements:
+The framework provides keywords for interacting with game elements:
   * Drop - drop an item.
   * Examine - allows items, characters and environments to be examined.
-  * On - used in conjunction with the Use keyword to use an item on a character, another item or environment.
   * Take - take an item.
   * Talk to - talk to a NPC.
-  * Use - use an item.
+  * Use on - use an item. Items can be used on a variety of targets.
+  * N, S, E, W - traverse through the rooms in a region.
   
-Provides global commands to help with game flow:
+The framework also provides global commands to help with game flow:
   * About - display version information.
   * CommandsOn / CommandsOff - toggle commands on/off.
   * Exit - exit the game.
-  * Help - display help.
+  * Help - display the help screen.
   * KeyOn / KeyOff - turn the Key on/off.
   * Map - display the map.
   * New - start a new game.
 
-All game management is provided by the framework, including title screens, completion screens and parsing of user input.
+All game management is provided by the framework, including:
+  * Rendering of game screens:
+    * Default frame.
+    * Help frame.
+    * Map frame.
+    * Title frame.
+    * Completion frame.
+  * Input parsing.
+  * State management.
+  * Game creation.
   
 Maps are automatically generated for regions:
 

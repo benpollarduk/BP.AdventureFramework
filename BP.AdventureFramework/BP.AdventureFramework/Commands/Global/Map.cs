@@ -1,5 +1,4 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
 
@@ -8,7 +7,7 @@ namespace BP.AdventureFramework.Commands.Global
     /// <summary>
     /// Represents the Map command.
     /// </summary>
-    public class Map : ICommand
+    internal class Map : ICommand
     {
         #region Properties
 

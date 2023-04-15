@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Assets.Characters
     /// <summary>
     /// Represents an element of a Conversation.
     /// </summary>
-    public class ConversationElement
+    public sealed class ConversationElement
     {
         #region Properties
 

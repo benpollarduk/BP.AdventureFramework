@@ -5,12 +5,12 @@
     <AssemblyName>BP.AdventureFramework</AssemblyName>
     <Authors>Ben Pollard</Authors>
     <Copyright />
-    <PackageReleaseNotes>Fixed some minor issues with namespaces and comments.</PackageReleaseNotes>
+    <PackageReleaseNotes>Reduced visibility of underlying mechanics.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/ben-pollard-uk/adventure-framework.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ben-pollard-uk/adventure-framework</PackageProjectUrl>
     <Description>An open source library for creating text adventures. Provides game assets, parsers, and other classes to assist with logic. For examples see the project website at https://github.com/ben-pollard-uk/adventure-framework.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
@@ -18,5 +18,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\BP.AdventureFramework\BP.AdventureFramework\BP.AdventureFramework.xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>BP.AdventureFramework.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using BP.AdventureFramework.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Assets
 {

@@ -3,8 +3,8 @@ using System.Linq;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
 
@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Logic
     /// <summary>
     /// Represents the structure of the game
     /// </summary>
-    public class Game
+    public sealed class Game
     {
         #region Fields
 
@@ -66,32 +66,32 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get if this game has ended.
         /// </summary>
-        public bool HasEnded { get; protected set; }
+        public bool HasEnded { get; private set; }
 
         /// <summary>
         /// Get or set this Games frame to display for the title screen.
         /// </summary>
-        public TitleFrame TitleFrame { get; set; }
+        internal TitleFrame TitleFrame { get; set; }
 
         /// <summary>
         /// Get or set this Games frame to display upon completion.
         /// </summary>
-        public Frame CompletionFrame { get; set; }
+        internal Frame CompletionFrame { get; set; }
 
         /// <summary>
         /// Get or set this Games help screen.
         /// </summary>
-        public HelpFrame HelpFrame { get; set; }
+        internal HelpFrame HelpFrame { get; set; } = new HelpFrame();
 
         /// <summary>
         /// Get the current Frame.
         /// </summary>
-        public Frame CurrentFrame { get; protected set; }
+        internal Frame CurrentFrame { get; private set; }
 
         /// <summary>
         /// Occurs when the CurrentFrame is updated.
         /// </summary>
-        public event EventHandler<Frame> CurrentFrameUpdated;
+        internal event EventHandler<Frame> CurrentFrameUpdated;
 
         /// <summary>
         /// Occurs when the Game has ended.
@@ -136,27 +136,18 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void End()
         {
-            OnGameEnded(ExitMode.ExitApplication);
+            HasEnded = true;
+            Ended?.Invoke(this, ExitMode.ExitApplication);
         }
 
         /// <summary>
         /// Handle CurrentFrame updating.
         /// </summary>
         /// <param name="frame">The updated frame.</param>
-        protected void OnCurrentFrameUpdated(Frame frame)
+        private void OnCurrentFrameUpdated(Frame frame)
         {
             CurrentFrame = frame;
             CurrentFrameUpdated?.Invoke(this, frame);
-        }
-
-        /// <summary>
-        /// Handle game ended.
-        /// </summary>
-        /// <param name="mode">The exit mode.</param>
-        protected void OnGameEnded(ExitMode mode)
-        {
-            HasEnded = true;
-            Ended?.Invoke(this, mode);
         }
 
         /// <summary>
@@ -164,7 +155,7 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         /// <param name="command">The command to react to.</param>
         /// <returns>The reaction to the command.</returns>
-        public Reaction RunCommand(ICommand command)
+        internal Reaction RunCommand(ICommand command)
         {
             var reaction = command.Invoke();
 
@@ -183,7 +174,7 @@ namespace BP.AdventureFramework.Logic
         /// <param name="width">The width of the game.</param>
         /// <param name="height">The height of the game.</param>
         /// <param name="drawer">A drawer to use for constructing the map.</param>
-        public void EnterGame(int width, int height, MapDrawer drawer)
+        internal void EnterGame(int width, int height, MapDrawer drawer)
         {
             lastUsedWidth = width;
             lastUsedHeight = height;
@@ -195,7 +186,7 @@ namespace BP.AdventureFramework.Logic
         /// Get a scene based on the current game.
         /// </summary>
         /// <returns>A constructed frame of the scene.</returns>
-        public SceneFrame GetScene()
+        internal SceneFrame GetScene()
         {
             return GetScene(lastUsedMapDrawer, lastUsedWidth, lastUsedHeight);
         }
@@ -207,7 +198,7 @@ namespace BP.AdventureFramework.Logic
         /// <param name="width">The width of the scene.</param>
         /// <param name="height">The height of the scene.</param>
         /// <returns>A constructed frame of the scene.</returns>
-        public SceneFrame GetScene(MapDrawer drawer, int width, int height)
+        internal SceneFrame GetScene(MapDrawer drawer, int width, int height)
         {
             return GetScene(drawer, width, height, string.Empty);
         }
@@ -220,22 +211,12 @@ namespace BP.AdventureFramework.Logic
         /// <param name="height">The height of the scene.</param>
         /// <param name="messageToUser">A message to the user.</param>
         /// <returns>A constructed frame of the scene.</returns>
-        public SceneFrame GetScene(MapDrawer drawer, int width, int height, string messageToUser)
+        internal SceneFrame GetScene(MapDrawer drawer, int width, int height, string messageToUser)
         {
             lastUsedWidth = width;
             lastUsedHeight = height;
             lastUsedMapDrawer = drawer;
             return new SceneFrame(Overworld.CurrentRegion.CurrentRoom, Player, messageToUser, drawer);
-        }
-
-        /// <summary>
-        /// Handle player deaths.
-        /// </summary>
-        /// <param name="titleMessage">A title message to display.</param>
-        /// <param name="reason">A reason for the death.</param>
-        protected void OnHandlePlayerDied(string titleMessage, string reason)
-        {
-            OnCurrentFrameUpdated(new EndFrame(titleMessage, reason));
         }
 
         /// <summary>
@@ -285,7 +266,7 @@ namespace BP.AdventureFramework.Logic
         /// Refresh the current frame.
         /// </summary>
         /// <param name="frame">A frame to display.</param>
-        public void Refresh(Frame frame)
+        internal void Refresh(Frame frame)
         {
             OnCurrentFrameUpdated(frame);
         }
@@ -296,7 +277,7 @@ namespace BP.AdventureFramework.Logic
 
         private void player_Died(object sender, string e)
         {
-            OnHandlePlayerDied("YOU ARE DEAD!!!", e);
+            OnCurrentFrameUpdated(new EndFrame("YOU ARE DEAD!!!", e));
         }
 
         #endregion

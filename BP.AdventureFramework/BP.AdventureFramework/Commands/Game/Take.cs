@@ -2,14 +2,13 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game
 {
     /// <summary>
     /// Represents the Take command.
     /// </summary>
-    public class Take : ICommand
+    internal class Take : ICommand
     {
         #region Properties
 

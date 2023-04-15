@@ -5,14 +5,14 @@ namespace BP.AdventureFramework.Assets
     /// <summary>
     /// Represents an item that can be used within the game.
     /// </summary>
-    public class Item : ExaminableObject, IInteractWithItem
+    public sealed class Item : ExaminableObject, IInteractWithItem
     {
         #region Properties
 
         /// <summary>
         /// Get or set if this is takeable.
         /// </summary>
-        public bool IsTakeable { get; protected set; }
+        public bool IsTakeable { get; private set; }
 
         /// <summary>
         /// Get or set the interaction.

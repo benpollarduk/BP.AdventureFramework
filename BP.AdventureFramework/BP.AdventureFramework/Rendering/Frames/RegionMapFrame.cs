@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Rendering.Frames
     /// <summary>
     /// Represents a frame for displaying a Region map.
     /// </summary>
-    public class RegionMapFrame : Frame
+    internal sealed class RegionMapFrame : Frame
     {
         #region Properties
 

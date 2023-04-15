@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a reaction.
     /// </summary>
-    public class Reaction
+    public sealed class Reaction
     {
         #region Properties
 

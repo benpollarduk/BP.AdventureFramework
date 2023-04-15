@@ -1,12 +1,11 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game
 {
     /// <summary>
     /// Represents the Unactionable command.
     /// </summary>
-    public class Unactionable : ICommand
+    internal class Unactionable : ICommand
     {
         #region Properties
 

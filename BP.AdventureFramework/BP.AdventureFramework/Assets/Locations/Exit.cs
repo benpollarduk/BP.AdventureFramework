@@ -3,19 +3,19 @@
     /// <summary>
     /// Represents an exit from a GameLocation.
     /// </summary>
-    public class Exit : ExaminableObject
+    public sealed class Exit : ExaminableObject
     {
         #region Properties
 
         /// <summary>
         /// Get the direction of the exit.
         /// </summary>
-        public CardinalDirection Direction { get; protected set; }
+        public CardinalDirection Direction { get; }
 
         /// <summary>
         /// Get if this Exit is locked.
         /// </summary>
-        public bool IsLocked { get; protected set; }
+        public bool IsLocked { get; private set; }
 
         #endregion
 
@@ -50,7 +50,7 @@
         /// Generate a description for this exit.
         /// </summary>
         /// <returns>The completed Description.</returns>
-        protected Description GenerateDescription()
+        private Description GenerateDescription()
         {
             return new ConditionalDescription($"The exit {Direction.ToString().ToLower()} is locked.", $"The exit {Direction.ToString().ToLower()} is unlocked.", () => IsLocked);
         }

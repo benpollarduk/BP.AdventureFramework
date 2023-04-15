@@ -1,12 +1,11 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Global
 {
     /// <summary>
     /// Represents the New command.
     /// </summary>
-    public class New : ICommand
+    internal class New : ICommand
     {
         #region Properties
 

@@ -1,24 +1,23 @@
 ﻿using System;
-using BP.AdventureFramework.Interaction;
 
 namespace BP.AdventureFramework.Assets.Interaction
 {
     /// <summary>
     /// Represents a result of an interaction.
     /// </summary>
-    public class InteractionResult : Result
+    public sealed class InteractionResult : Result
     {
         #region Properties
 
         /// <summary>
         /// Get the effect.
         /// </summary>
-        public InteractionEffect Effect { get; protected set; }
+        public InteractionEffect Effect { get; }
 
         /// <summary>
         /// Get the item used in the interaction.
         /// </summary>
-        public Item Item { get; protected set; }
+        public Item Item { get; }
 
         #endregion
 

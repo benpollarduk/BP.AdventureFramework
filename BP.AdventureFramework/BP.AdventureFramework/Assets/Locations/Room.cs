@@ -11,14 +11,14 @@ namespace BP.AdventureFramework.Assets.Locations
     /// <summary>
     /// Represents a room
     /// </summary>
-    public class Room : GameLocation, IInteractWithItem
+    public sealed class Room : GameLocation, IInteractWithItem
     {
         #region Properties
 
         /// <summary>
         /// Get the exits.
         /// </summary>
-        public List<Exit> Exits { get; protected set; } = new List<Exit>();
+        public List<Exit> Exits { get; } = new List<Exit>();
 
         /// <summary>
         /// Get all unlocked exits.
@@ -28,12 +28,12 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get the characters of this Room
         /// </summary>
-        public List<NonPlayableCharacter> Characters { get; protected set; } = new List<NonPlayableCharacter>();
+        public List<NonPlayableCharacter> Characters { get; } = new List<NonPlayableCharacter>();
 
         /// <summary>
         /// Get the items in this Room.
         /// </summary>
-        public List<Item> Items { get; protected set; } = new List<Item>();
+        public List<Item> Items { get; } = new List<Item>();
 
         /// <summary>
         /// Get or set the interaction.
@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get which direction this Room was entered from.
         /// </summary>
-        public CardinalDirection? EnteredFrom { get; protected set; }
+        public CardinalDirection? EnteredFrom { get; private set; }
 
         #endregion
 
@@ -172,7 +172,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="item">The item to interact with.</param>
         /// <returns>The result of the interaction.</returns>
-        protected InteractionResult InteractWithItem(Item item)
+        private InteractionResult InteractWithItem(Item item)
         {
             return Interaction.Invoke(item, this);
         }

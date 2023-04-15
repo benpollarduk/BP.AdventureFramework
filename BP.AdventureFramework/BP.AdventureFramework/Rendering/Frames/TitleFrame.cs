@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a frame that can be used as a title screen.
     /// </summary>
-    public class TitleFrame : Frame
+    internal sealed class TitleFrame : Frame
     {
         #region Properties
 
@@ -22,21 +22,14 @@
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the TitleFrame class.
-        /// </summary>
-        protected TitleFrame()
-        {
-            ShowCursor = false;
-            AcceptsInput = false;
-        }
-
-        /// <summary>
         /// Initializes a new instance of the TitleFrame class
         /// </summary>
         /// <param name="title">The title of the game</param>
         /// <param name="description">A description of the game</param>
-        public TitleFrame(string title, string description) : this()
+        public TitleFrame(string title, string description)
         {
+            ShowCursor = false;
+            AcceptsInput = false;
             Title = title;
             Description = description;
         }

@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Logic
     /// <summary>
     /// Represents a class for managing a Game.
     /// </summary>
-    public class GameManager : IDisposable
+    public sealed class GameManager : IDisposable
     {
         #region Fields
 
@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Logic
         public Game Game
         {
             get { return game; }
-            protected set
+            private set
             {
                 if (game != null)
                 {
@@ -62,17 +62,17 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get the drawer for drawing all frames.
         /// </summary>
-        public FrameDrawer FrameDrawer { get; } = new FrameDrawer();
+        internal FrameDrawer FrameDrawer { get; } = new FrameDrawer();
 
         /// <summary>
         /// Get the drawer used for constructing room maps.
         /// </summary>
-        public MapDrawer MapDrawer { get; } = new MapDrawer();
+        internal MapDrawer MapDrawer { get; } = new MapDrawer();
 
         /// <summary>
         /// Get the input interpreter.
         /// </summary>
-        public InputInterpreter InputInterpreter { get; }
+        internal InputInterpreter InputInterpreter { get; }
 
         /// <summary>
         /// Get or set the output stream.
@@ -97,17 +97,17 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the callback to invoke when waiting for key presses.
         /// </summary>
-        public WaitForKeyPressCallback WaitForKeyPressCallback { get; set; }
+        internal WaitForKeyPressCallback WaitForKeyPressCallback { get; set; }
 
         /// <summary>
         /// Occurs when the frame draw begins.
         /// </summary>
-        public event EventHandler<Frame> StartingFrameDraw;
+        internal event EventHandler<Frame> StartingFrameDraw;
 
         /// <summary>
         /// Occurs when the frame draw exits.
         /// </summary>
-        public event EventHandler<Frame> FinishingFrameDraw;
+        internal event EventHandler<Frame> FinishingFrameDraw;
 
         #endregion
 
@@ -139,7 +139,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Enter the game loop.
         /// </summary>
-        protected void EnterGameLoop()
+        private void EnterGameLoop()
         {
             try
             {
@@ -234,7 +234,7 @@ namespace BP.AdventureFramework.Logic
         /// Update the screen with the current Frame, provided by the GameManager.Game property.
         /// </summary>
         /// <param name="message">An additional message to display to the user.</param>
-        protected void UpdateScreenWithCurrentFrame(string message)
+        private void UpdateScreenWithCurrentFrame(string message)
         {
             var scene = Game.GetScene(MapDrawer, DisplaySize.Width, DisplaySize.Height, message);
             DrawFrame(scene);
@@ -244,7 +244,7 @@ namespace BP.AdventureFramework.Logic
         /// Draw a Frame onto the output stream.
         /// </summary>
         /// <param name="frame">The frame to draw.</param>
-        protected void DrawFrame(Frame frame)
+        private void DrawFrame(Frame frame)
         {
             try
             {
@@ -272,30 +272,26 @@ namespace BP.AdventureFramework.Logic
             }
         }
 
-        /// <summary>
-        /// Handle GameManager.Frame property updating.
-        /// </summary>
-        /// <param name="frame">The new frame.</param>
-        protected void OnFrameUpdated(Frame frame)
+        #endregion
+
+        #region EventHandlers
+
+        private void Game_CurrentFrameUpdated(object sender, Frame e)
         {
-            DrawFrame(frame);
+            DrawFrame(e);
         }
 
-        /// <summary>
-        /// Handle the GameManager.Game.Ended event.
-        /// </summary>
-        /// <param name="exitMode">The exit mode from the game.</param>
-        protected void OnGameEnded(ExitMode exitMode)
+        private void Game_Ended(object sender, ExitMode e)
         {
-            switch (exitMode)
+            switch (e)
             {
                 case ExitMode.ExitApplication:
-                    
+
                     Environment.Exit(0);
                     break;
 
                 case ExitMode.ReturnToTitleScreen:
-                    
+
                     Game.Refresh(Game.TitleFrame);
                     break;
 
@@ -304,31 +300,9 @@ namespace BP.AdventureFramework.Logic
             }
         }
 
-        /// <summary>
-        /// Handle the GameManager.Game.Completed event.
-        /// </summary>
-        protected void OnGameCompleted()
-        {
-            DrawFrame(game.CompletionFrame);
-        }
-
-        #endregion
-
-        #region EventHandlers
-
-        private void Game_CurrentFrameUpdated(object sender, Frame e)
-        {
-            OnFrameUpdated(e);
-        }
-
-        private void Game_Ended(object sender, ExitMode e)
-        {
-            OnGameEnded(e);
-        }
-
         private void Game_Completed(object sender, ExitMode e)
         {
-            OnGameCompleted();
+            DrawFrame(game.CompletionFrame);
         }
 
         private void FrameDrawer_DisplayedSpecialFrame(object sender, Frame e)

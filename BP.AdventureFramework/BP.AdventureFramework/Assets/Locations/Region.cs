@@ -7,7 +7,7 @@ namespace BP.AdventureFramework.Assets.Locations
     /// <summary>
     /// Represents a region.
     /// </summary>
-    public class Region : GameLocation
+    public sealed class Region : GameLocation
     {
         #region Fields
 
@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get the Rooms in this Region.
         /// </summary>
-        public List<Room> Rooms { get; protected set; } = new List<Room>();
+        public List<Room> Rooms { get; } = new List<Room>();
 
         /// <summary>
         /// Get the current Room.
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Assets.Locations
 
                 return currentRoom;
             }
-            protected set { currentRoom = value; }
+            private set { currentRoom = value; }
         }
 
         /// <summary>

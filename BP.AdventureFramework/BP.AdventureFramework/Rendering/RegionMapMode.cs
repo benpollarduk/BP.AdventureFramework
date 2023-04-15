@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumeration of region map modes.
     /// </summary>
-    public enum RegionMapMode
+    internal enum RegionMapMode
     {
         /// <summary>
         /// Shows rooms at a detailed level.

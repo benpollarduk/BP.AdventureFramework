@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Assets.Characters
     /// <summary>
     /// Represents a playable character.
     /// </summary>
-    public class PlayableCharacter : Character
+    public sealed class PlayableCharacter : Character
     {
         #region Properties
 

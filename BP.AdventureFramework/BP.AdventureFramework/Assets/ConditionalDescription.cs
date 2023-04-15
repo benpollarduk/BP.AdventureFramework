@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Assets
     /// <summary>
     /// Represents a conditional description of an object.
     /// </summary>
-    public class ConditionalDescription : Description
+    public sealed class ConditionalDescription : Description
     {
         #region Properties
 

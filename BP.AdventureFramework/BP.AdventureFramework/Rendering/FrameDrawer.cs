@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Rendering
     /// <summary>
     /// A class for constructing and drawing Frames.
     /// </summary>
-    public class FrameDrawer : Drawer
+    internal sealed class FrameDrawer : Drawer
     {
         #region Fields
 

@@ -3,17 +3,17 @@ using System.Linq;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Represents an object that can be used for interpreting game commands.
     /// </summary>
-    public class GameCommandInterpreter : IInterpreter
+    internal class GameCommandInterpreter : IInterpreter
     {
         #region Constants
 

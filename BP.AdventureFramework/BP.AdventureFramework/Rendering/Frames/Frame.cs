@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Rendering.Frames
     /// <summary>
     /// Represents a frame for displaying a command based interface.
     /// </summary>
-    public abstract class Frame : IDisposable
+    internal abstract class Frame : IDisposable
     {
         #region Properties
 

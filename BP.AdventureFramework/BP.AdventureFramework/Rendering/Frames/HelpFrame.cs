@@ -7,7 +7,7 @@ namespace BP.AdventureFramework.Rendering.Frames
     /// <summary>
     /// Represents a frame for displaying help.
     /// </summary>
-    public class HelpFrame : Frame
+    internal sealed class HelpFrame : Frame
     {
         #region Properties
 

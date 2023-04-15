@@ -8,7 +8,7 @@ namespace BP.AdventureFramework.Interpretation
     /// <summary>
     /// Represents an object that can be used for interpreting global commands.
     /// </summary>
-    public class GlobalCommandInterpreter : IInterpreter
+    internal class GlobalCommandInterpreter : IInterpreter
     {
         #region Constants
 

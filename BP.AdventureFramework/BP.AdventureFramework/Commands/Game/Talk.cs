@@ -1,13 +1,12 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game
 {
     /// <summary>
     /// Represents the Talk command.
     /// </summary>
-    public class Talk : ICommand
+    internal class Talk : ICommand
     {
         #region Properties
 

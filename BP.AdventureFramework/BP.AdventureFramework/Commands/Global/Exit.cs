@@ -1,12 +1,11 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Global
 {
     /// <summary>
     /// Represents the Exit command.
     /// </summary>
-    public class Exit : ICommand
+    internal class Exit : ICommand
     {
         #region Properties
 

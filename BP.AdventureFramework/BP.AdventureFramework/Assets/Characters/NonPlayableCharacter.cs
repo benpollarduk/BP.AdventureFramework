@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Assets.Characters
     /// <summary>
     /// Represents a non-playable character.
     /// </summary>
-    public class NonPlayableCharacter : Character, ITalkative
+    public sealed class NonPlayableCharacter : Character, ITalkative
     {
         #region Properties
 

@@ -1,13 +1,12 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game
 {
     /// <summary>
     /// Represents the Move command.
     /// </summary>
-    public class Move : ICommand
+    internal class Move : ICommand
     {
         #region Properties
 

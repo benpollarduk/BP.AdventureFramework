@@ -1,13 +1,12 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game
 {
     /// <summary>
     /// Represents the Examine command.
     /// </summary>
-    public class Examine : ICommand
+    internal class Examine : ICommand
     {
         #region Properties
 

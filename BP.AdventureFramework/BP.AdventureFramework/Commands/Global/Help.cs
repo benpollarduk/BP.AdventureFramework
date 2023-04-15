@@ -1,12 +1,11 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Global
 {
     /// <summary>
     /// Represents the Help command.
     /// </summary>
-    public class Help : ICommand
+    internal class Help : ICommand
     {
         #region Properties
 

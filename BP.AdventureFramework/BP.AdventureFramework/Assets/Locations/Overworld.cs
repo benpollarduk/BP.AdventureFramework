@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Assets.Locations
     /// <summary>
     /// Represents an entire overworld.
     /// </summary>
-    public class Overworld : GameLocation
+    public sealed class Overworld : GameLocation
     {
         #region Fields
 
@@ -27,7 +27,7 @@ namespace BP.AdventureFramework.Assets.Locations
         public Region CurrentRegion
         {
             get { return currentRegion ?? (Regions.Count > 0 ? Regions[0] : null); }
-            protected set { currentRegion = value; }
+            private set { currentRegion = value; }
         }
 
         #endregion

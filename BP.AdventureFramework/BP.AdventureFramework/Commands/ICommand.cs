@@ -1,11 +1,11 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
 
-namespace BP.AdventureFramework.Parsing.Commands
+namespace BP.AdventureFramework.Commands
 {
     /// <summary>
     /// Represents a command.
     /// </summary>
-    public interface ICommand
+    internal interface ICommand
     {
         /// <summary>
         /// Invoke the command.

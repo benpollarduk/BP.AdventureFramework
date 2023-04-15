@@ -3,32 +3,23 @@
     /// <summary>
     /// Represents a frame for when the game ends.
     /// </summary>
-    public class EndFrame : Frame
+    internal sealed class EndFrame : Frame
     {
         #region Properties
 
         /// <summary>
         /// Get the message.
         /// </summary>
-        public string Message { get; protected set; }
+        public string Message { get; }
 
         /// <summary>
         /// Get the reason.
         /// </summary>
-        public string Reason { get; protected set; }
+        public string Reason { get; }
 
         #endregion
 
         #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the EndFrame class.
-        /// </summary>
-        protected EndFrame()
-        {
-            ShowCursor = false;
-            AcceptsInput = false;
-        }
 
         /// <summary>
         /// Initializes a new instance of the EndFrame class.

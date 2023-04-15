@@ -1,12 +1,12 @@
-﻿using BP.AdventureFramework.Commands.Game;
-using BP.AdventureFramework.Parsing.Commands;
+﻿using BP.AdventureFramework.Commands;
+using BP.AdventureFramework.Commands.Game;
 
 namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Represents the result of an interpretation.
     /// </summary>
-    public class InterpretationResult
+    internal class InterpretationResult
     {
         #region StaticProperties
 

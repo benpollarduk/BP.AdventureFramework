@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Interpretation
     /// <summary>
     /// Represents an object that can be used for interpreting game input.
     /// </summary>
-    public class InputInterpreter : IInterpreter
+    internal class InputInterpreter : IInterpreter
     {
         #region Properties
 

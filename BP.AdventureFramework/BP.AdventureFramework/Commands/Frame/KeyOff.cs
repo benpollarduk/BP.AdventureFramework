@@ -1,5 +1,4 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 
 namespace BP.AdventureFramework.Commands.Frame
@@ -7,7 +6,7 @@ namespace BP.AdventureFramework.Commands.Frame
     /// <summary>
     /// Represents the KeyOff command.
     /// </summary>
-    public class KeyOff : ICommand
+    internal class KeyOff : ICommand
     {
         #region Properties
 

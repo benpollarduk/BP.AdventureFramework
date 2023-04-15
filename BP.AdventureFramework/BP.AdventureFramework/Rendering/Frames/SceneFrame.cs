@@ -11,7 +11,7 @@ namespace BP.AdventureFramework.Rendering.Frames
     /// <summary>
     /// Represents a frame that describes a scene.
     /// </summary>
-    public class SceneFrame : Frame
+    internal sealed class SceneFrame : Frame
     {
         #region Properties
 

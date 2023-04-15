@@ -1,4 +1,4 @@
-﻿namespace BP.AdventureFramework.Interaction
+﻿namespace BP.AdventureFramework.Assets.Interaction
 {
     /// <summary>
     /// Represents a result.

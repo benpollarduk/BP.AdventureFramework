@@ -8,7 +8,7 @@ namespace BP.AdventureFramework.Interpretation
     /// <summary>
     /// Represents an object that can be used for interpreting frame commands.
     /// </summary>
-    public class FrameCommandInterpreter : IInterpreter
+    internal class FrameCommandInterpreter : IInterpreter
     {
         #region Constants
 

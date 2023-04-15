@@ -2,14 +2,13 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Parsing.Commands;
 
 namespace BP.AdventureFramework.Commands.Game
 {
     /// <summary>
     /// Represents the Drop command.
     /// </summary>
-    public class Drop : ICommand
+    internal class Drop : ICommand
     {
         #region Properties
 

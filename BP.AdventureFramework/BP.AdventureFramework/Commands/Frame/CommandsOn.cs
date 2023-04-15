@@ -1,5 +1,4 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Parsing.Commands;
 using BP.AdventureFramework.Rendering;
 
 namespace BP.AdventureFramework.Commands.Frame
@@ -7,7 +6,7 @@ namespace BP.AdventureFramework.Commands.Frame
     /// <summary>
     /// Represents the CommandsOn command.
     /// </summary>
-    public class CommandsOn : ICommand
+    internal class CommandsOn : ICommand
     {
         #region Properties
 

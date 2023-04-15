@@ -6,19 +6,19 @@ namespace BP.AdventureFramework.Assets.Characters
     /// <summary>
     /// Represents an in-game conversation with a character.
     /// </summary>
-    public class Conversation
+    public sealed class Conversation
     {
         #region Properties
 
         /// <summary>
         /// Get the lines of this conversation.
         /// </summary>
-        public List<ConversationElement> Lines { get; protected set; } = new List<ConversationElement>();
+        public List<ConversationElement> Lines { get; } = new List<ConversationElement>();
 
         /// <summary>
         /// Get the current line of this conversation.
         /// </summary>
-        public int CurrentLine { get; protected set; }
+        public int CurrentLine { get; private set; }
 
         /// <summary>
         /// Get if this has some remaining lines.

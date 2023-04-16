@@ -208,7 +208,7 @@ namespace BP.AdventureFramework.Examples.Assets
                     }
 
                     if (Guitar.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "You strum the guitar frantically trying to impress Beth, she smiles but looks at you like you are a little mental. The guitar just isn't loud enough when it is not plugged in...");
+                        return new InteractionResult(InteractionEffect.NoEffect, i, "You strum the guitar frantically trying to impress Beth, she smiles but looks at you like you are a fool. The guitar just isn't loud enough when it is not plugged in...");
 
                     return new InteractionResult(InteractionEffect.NoEffect, i);
                 }

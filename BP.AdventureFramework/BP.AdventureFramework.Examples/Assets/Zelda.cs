@@ -111,7 +111,6 @@ namespace BP.AdventureFramework.Examples.Assets
                 {
                     blockOfWood.Morph(new Item(SplintersOfWood.ToIdentifier(), "Some splinters of wood left from your chopping frenzy on the stump".ToDescription(), false));
                     return new InteractionResult(InteractionEffect.ItemMorphed, item, "You chop the stump into tiny pieces in a mad rage. All that is left is some splinters of wood");
-
                 }
 
                 return new InteractionResult(InteractionEffect.NoEffect, item);

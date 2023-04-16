@@ -64,7 +64,7 @@ Maps are automatically generated for regions:
 # Getting Started
  * Clone the repo
  * Build all projects
- * Run the BP.AdventureFramework.Tutorial project
+ * Run the BP.AdventureFramework.Examples project
 
 # Contribute
 It´s Open Source (License >> MIT), please feel free to use or contribute. To raise a pull request visit https://github.com/ben-pollard-uk/adventure-framework/pulls.

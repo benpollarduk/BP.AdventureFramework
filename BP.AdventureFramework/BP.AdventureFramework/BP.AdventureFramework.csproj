@@ -10,9 +10,9 @@
     <PackageProjectUrl>https://github.com/ben-pollard-uk/adventure-framework</PackageProjectUrl>
     <Description>An open source library for creating text adventures. Provides game assets, parsers, and other classes to assist with logic. For examples see the project website at https://github.com/ben-pollard-uk/adventure-framework.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

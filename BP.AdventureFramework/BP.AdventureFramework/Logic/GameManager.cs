@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Frames;
@@ -70,9 +71,9 @@ namespace BP.AdventureFramework.Logic
         internal MapDrawer MapDrawer { get; } = new MapDrawer();
 
         /// <summary>
-        /// Get the input interpreter.
+        /// Get the interpreter.
         /// </summary>
-        internal InputInterpreter InputInterpreter { get; }
+        internal IInterpreter Interpreter { get; }
 
         /// <summary>
         /// Get or set the output stream.
@@ -120,7 +121,18 @@ namespace BP.AdventureFramework.Logic
         public GameManager(GameCreationCallback creator)
         {
             Creator = creator;
-            InputInterpreter = new InputInterpreter(FrameDrawer, MapDrawer);
+            Interpreter = new InputInterpreter(new FrameCommandInterpreter(MapDrawer, FrameDrawer), new GlobalCommandInterpreter(MapDrawer), new GameCommandInterpreter());
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the GameManager class.
+        /// </summary>
+        /// <param name="creator">A game creator.</param>
+        /// <param name="interpreter">The interpreter.</param>
+        public GameManager(GameCreationCallback creator, IInterpreter interpreter)
+        {
+            Creator = creator;
+            Interpreter = interpreter;
         }
 
         #endregion
@@ -192,7 +204,7 @@ namespace BP.AdventureFramework.Logic
                         if (newHasBeenLoaded)
                             newHasBeenLoaded = false;
 
-                        var interpretation = InputInterpreter.Interpret(input, Game);
+                        var interpretation = Interpreter?.Interpret(input, Game) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
 
                         if (interpretation.WasInterpretedSuccessfully)
                             reaction = Game.RunCommand(interpretation.Command);

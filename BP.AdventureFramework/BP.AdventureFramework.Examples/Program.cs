@@ -1,8 +1,8 @@
 ﻿using System;
+using BP.AdventureFramework.Examples.Assets;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Tutorial.Demos;
 
-namespace BP.AdventureFramework.Tutorial
+namespace BP.AdventureFramework.Examples
 {
     internal class Program
     {

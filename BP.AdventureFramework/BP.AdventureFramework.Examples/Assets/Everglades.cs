@@ -4,7 +4,7 @@ using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 
-namespace BP.AdventureFramework.Tutorial.Demos
+namespace BP.AdventureFramework.Examples.Assets
 {
     internal static class Everglades
     {

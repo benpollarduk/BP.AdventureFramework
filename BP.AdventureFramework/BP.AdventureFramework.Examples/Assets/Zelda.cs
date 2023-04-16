@@ -5,7 +5,7 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 
-namespace BP.AdventureFramework.Tutorial.Demos
+namespace BP.AdventureFramework.Examples.Assets
 {
     internal static class Zelda
     {

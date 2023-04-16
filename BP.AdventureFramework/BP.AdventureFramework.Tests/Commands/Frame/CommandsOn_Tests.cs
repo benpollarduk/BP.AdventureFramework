@@ -8,9 +8,20 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
     public class CommandsOn_Tests
     {
         [TestMethod]
-        public void GivenDefault_WhenInvoke_ThenReacted()
+        public void GivenNullGame_WhenInvoke_ThenNone()
         {
-            var command = new CommandsOn();
+            var command = new CommandsOn(null);
+
+            var result = command.Invoke();
+
+            Assert.AreEqual(ReactionResult.None, result.Result);
+        }
+
+        [TestMethod]
+        public void GivenValidGame_WhenInvoke_ThenReacted()
+        {
+            var game = Logic.Game.Create(string.Empty, string.Empty, null, null, null).Invoke();
+            var command = new CommandsOn(game);
 
             var result = command.Invoke();
 

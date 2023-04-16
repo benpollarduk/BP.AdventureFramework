@@ -5,7 +5,7 @@ using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Parsing
+namespace BP.AdventureFramework.Tests.Interpretation
 {
     [TestClass]
     public class GlobalCommandInterpreter_Tests

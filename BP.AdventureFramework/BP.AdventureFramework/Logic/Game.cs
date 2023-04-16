@@ -20,6 +20,24 @@ namespace BP.AdventureFramework.Logic
     /// </summary>
     public class Game : IDisposable
     {
+        #region Constants
+
+        /// <summary>
+        /// Get the default error prefix.
+        /// </summary>
+        public const string DefaultErrorPrefix = "Oops";
+
+        #endregion
+
+        #region StaticProperties
+
+        /// <summary>
+        /// Get the default interpreter.
+        /// </summary>
+        public static IInterpreter DefaultInterpreter => new InputInterpreter(new FrameCommandInterpreter(), new GlobalCommandInterpreter(), new GameCommandInterpreter());
+
+        #endregion
+
         #region Fields
 
         private PlayableCharacter player;
@@ -31,6 +49,28 @@ namespace BP.AdventureFramework.Logic
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Get or set if the command list is displayed in scene frames.
+        /// </summary>
+        public bool DisplayCommandListInSceneFrames
+        {
+            get { return SceneFrame.DisplayCommands; }
+            set { SceneFrame.DisplayCommands = value; }
+        }
+
+        /// <summary>
+        /// Get or set the type of key to use on the map.
+        /// </summary>
+        public KeyType MapKeyType
+        {
+            get { return MapDrawer?.Key ?? KeyType.None; }
+            set
+            {
+                if (MapDrawer != null)
+                    MapDrawer.Key = value;
+            }
+        }
 
         /// <summary>
         /// Get the player.
@@ -309,14 +349,6 @@ namespace BP.AdventureFramework.Logic
         }
 
         /// <summary>
-        /// End the Game.
-        /// </summary>
-        internal void End()
-        {
-            HasEnded = true;
-        }
-
-        /// <summary>
         /// Handle a reaction.
         /// </summary>
         /// <param name="command">The command to react to.</param>
@@ -343,6 +375,14 @@ namespace BP.AdventureFramework.Logic
             lastUsedHeight = height;
             lastUsedMapDrawer = drawer;
             Refresh(GetScene());
+        }
+
+        /// <summary>
+        /// End the Game.
+        /// </summary>
+        internal void End()
+        {
+            HasEnded = true;
         }
 
         /// <summary>
@@ -474,8 +514,6 @@ namespace BP.AdventureFramework.Logic
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
         public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
         {
-            var mapDrawer = new MapDrawer();
-
             return Create(
                 name,
                 description,
@@ -483,13 +521,13 @@ namespace BP.AdventureFramework.Logic
                 playerGenerator,
                 completionCondition,
                 new FrameDrawer(),
-                mapDrawer,
+                new MapDrawer(), 
                 new TitleFrame(name, description),
                 new TitleFrame("Finished", $"Congratulations, you finished {name}!"),
                 new HelpFrame(),
-                new InputInterpreter(new FrameCommandInterpreter(mapDrawer), new GlobalCommandInterpreter(), new GameCommandInterpreter()),
                 ExitMode.ReturnToTitleScreen,
-                "Oops");
+                DefaultErrorPrefix,
+                DefaultInterpreter);
         }
 
         /// <summary>
@@ -505,11 +543,11 @@ namespace BP.AdventureFramework.Logic
         /// <param name="titleFrame">The title frame.</param>
         /// <param name="completionFrame">The completion frame.</param>
         /// <param name="helpFrame">The help frame.</param>
-        /// <param name="interpreter">The interpreter.</param>
         /// <param name="exitMode">The exit mode.</param>
         /// <param name="errorPrefix">A prefix to use when displaying errors.</param>
+        /// <param name="interpreter">The interpreter.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, FrameDrawer frameDrawer, MapDrawer mapDrawer, Frame titleFrame, Frame completionFrame, Frame helpFrame, IInterpreter interpreter, ExitMode exitMode, string errorPrefix)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, FrameDrawer frameDrawer, MapDrawer mapDrawer, Frame titleFrame, Frame completionFrame, Frame helpFrame, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
         {
             return () =>
             {
@@ -522,9 +560,9 @@ namespace BP.AdventureFramework.Logic
                     FrameDrawer = frameDrawer,
                     MapDrawer = mapDrawer,
                     CompletionCondition = completionCondition,
-                    Interpreter = interpreter,
                     ExitMode = exitMode,
-                    ErrorPrefix = errorPrefix
+                    ErrorPrefix = errorPrefix,
+                    Interpreter = interpreter
                 };
 
                 return game;
@@ -549,15 +587,10 @@ namespace BP.AdventureFramework.Logic
                     switch (game.ExitMode)
                     {
                         case ExitMode.ExitApplication:
-
                             run = false;
-
                             break;
-
                         case ExitMode.ReturnToTitleScreen:
-
                             break;
-
                         default:
                             throw new NotImplementedException();
                     }
@@ -571,7 +604,7 @@ namespace BP.AdventureFramework.Logic
 
         private void player_Died(object sender, string e)
         {
-            Refresh(new EndFrame("YOU ARE DEAD!!!", e));
+            Refresh(new EndFrame("Game Over", e));
         }
 
         private void Frame_Invalidated(object sender, Frame e)

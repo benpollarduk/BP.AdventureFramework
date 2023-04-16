@@ -1,5 +1,4 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Commands.Frame
 {
@@ -8,6 +7,28 @@ namespace BP.AdventureFramework.Commands.Frame
     /// </summary>
     internal class CommandsOn : ICommand
     {
+        #region Properties
+
+        /// <summary>
+        /// Get the game.
+        /// </summary>
+        public Logic.Game Game { get; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the CommandsOn class.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        public CommandsOn(Logic.Game game)
+        {
+            Game = game;
+        }
+
+        #endregion
+
         #region Implementation of ICommand
 
         /// <summary>
@@ -16,7 +37,10 @@ namespace BP.AdventureFramework.Commands.Frame
         /// <returns>The reaction.</returns>
         public Reaction Invoke()
         {
-            SceneFrame.DisplayCommands = true;
+            if (Game == null)
+                return new Reaction(ReactionResult.None, "No game specified.");
+
+            Game.DisplayCommandListInSceneFrames = false;
             return new Reaction(ReactionResult.Reacted, "Commands have been turned on.");
         }
 

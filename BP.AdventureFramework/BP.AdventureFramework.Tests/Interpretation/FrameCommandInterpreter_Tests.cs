@@ -26,8 +26,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenEmptyString_WhenInterpret_ThenReturnFalse()
         {
-            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new FrameCommandInterpreter(new MapDrawer());
+            var game = Game.Create("", "", x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(string.Empty, game);
 
@@ -37,8 +37,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenKeyOff_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new FrameCommandInterpreter(new MapDrawer());
+            var game = Game.Create("", "", x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.KeyOff, game);
 
@@ -48,8 +48,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenKeyOn_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new FrameCommandInterpreter(new MapDrawer());
+            var game = Game.Create("", "", x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.KeyOn, game);
 
@@ -59,8 +59,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenCommandsOff_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new FrameCommandInterpreter(new MapDrawer());
+            var game = Game.Create("", "", x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.CommandsOff, game);
 
@@ -70,8 +70,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenCommandsOn_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new FrameCommandInterpreter(new MapDrawer(), new FrameDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new FrameCommandInterpreter(new MapDrawer());
+            var game = Game.Create("", "", x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.CommandsOn, game);
 

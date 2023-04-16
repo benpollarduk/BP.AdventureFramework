@@ -26,6 +26,10 @@
             dividerCharacter = dividingCharacter;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Construct a dividing horizontal line.
         /// </summary>

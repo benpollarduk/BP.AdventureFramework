@@ -27,7 +27,7 @@ namespace BP.AdventureFramework.Tutorial
                         case ConsoleKey.NumPad1:
                         case ConsoleKey.D1:
 
-                            creator = GameCreationHelper.Create("A Strange World",
+                            creator = Game.Create("A Strange World",
                                 "You wake up at the entrance to a small clearing...",
                                 Everglades.GenerateOverworld,
                                 Everglades.GeneratePC,
@@ -38,7 +38,7 @@ namespace BP.AdventureFramework.Tutorial
                         case ConsoleKey.NumPad2:
                         case ConsoleKey.D2:
 
-                            creator = GameCreationHelper.Create("Escape From Your Flat!",
+                            creator = Game.Create("Escape From Your Flat!",
                                 "You wake up in the bedroom of your flat. Your a little disorientated, but then again you are most mornings! You're itching for some punk rock!",
                                 Flat.GenerateOverworld,
                                 Flat.GeneratePC,
@@ -49,7 +49,7 @@ namespace BP.AdventureFramework.Tutorial
                         case ConsoleKey.NumPad3:
                         case ConsoleKey.D3:
 
-                            creator = GameCreationHelper.Create("The Legend Of Zelda: Links Texting!",
+                            creator = Game.Create("The Legend Of Zelda: Links Texting!",
                                 "It's a sunny day in Hyrule and Link is in his tree hut...",
                                 Zelda.GenerateOverworld,
                                 Zelda.GeneratePC,
@@ -59,10 +59,10 @@ namespace BP.AdventureFramework.Tutorial
                     }
                 }
 
-                using (var flow = new GameManager(creator))
+                using (var game = creator.Invoke())
                 {
-                    HostSetup.SetupWindowsConsole(flow, "BP.AdventureFramework Demo");
-                    flow.Begin();
+                    HostSetup.SetupWindowsConsole(game);
+                    game.Execute();
                 }
             }
             catch (Exception e)

@@ -71,17 +71,6 @@ namespace BP.AdventureFramework.Assets.Interaction
             Desciption = descriptionOfEffect;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the InteractionResult class.
-        /// </summary>
-        /// <param name="effect">The effect of this interaction.</param>
-        /// <param name="descriptionOfEffect">A description of the effect.</param>
-        public InteractionResult(InteractionEffect effect, string descriptionOfEffect)
-        {
-            Effect = effect;
-            Desciption = descriptionOfEffect;
-        }
-
         #endregion
     }
 }

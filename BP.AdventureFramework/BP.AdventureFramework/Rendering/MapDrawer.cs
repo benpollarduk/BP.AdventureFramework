@@ -8,7 +8,7 @@ namespace BP.AdventureFramework.Rendering
     /// <summary>
     /// A class for drawing maps.
     /// </summary>
-    internal sealed class MapDrawer : Drawer
+    public sealed class MapDrawer : Drawer
     {
         #region Properties
 

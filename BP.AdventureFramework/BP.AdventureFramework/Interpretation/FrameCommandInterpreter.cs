@@ -41,11 +41,6 @@ namespace BP.AdventureFramework.Interpretation
         /// </summary>
         public MapDrawer MapDrawer { get; }
 
-        /// <summary>
-        /// Get the frame drawer.
-        /// </summary>
-        public FrameDrawer FrameDrawer { get; }
-
         #endregion
 
         #region Constructors
@@ -54,11 +49,9 @@ namespace BP.AdventureFramework.Interpretation
         /// Initializes a new instance of the FrameCommandInterpreter class.
         /// </summary>
         /// <param name="mapDrawer">The map drawer.</param>
-        /// <param name="frameDrawer">The frame drawer.</param>
-        public FrameCommandInterpreter(MapDrawer mapDrawer, FrameDrawer frameDrawer)
+        public FrameCommandInterpreter(MapDrawer mapDrawer)
         {
             MapDrawer = mapDrawer;
-            FrameDrawer = frameDrawer;
         }
 
         #endregion
@@ -74,10 +67,10 @@ namespace BP.AdventureFramework.Interpretation
         public InterpretationResult Interpret(string input, Game game)
         {
             if (input.Equals(CommandsOff, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new CommandsOff(FrameDrawer));
+                return new InterpretationResult(true, new CommandsOff());
 
             if (input.Equals(CommandsOn, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new CommandsOn(FrameDrawer));
+                return new InterpretationResult(true, new CommandsOn());
 
             if (input.Equals(KeyOff, StringComparison.CurrentCultureIgnoreCase))
                 return new InterpretationResult(true, new KeyOff(MapDrawer));

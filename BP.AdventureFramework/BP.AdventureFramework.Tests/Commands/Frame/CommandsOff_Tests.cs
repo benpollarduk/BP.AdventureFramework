@@ -1,6 +1,5 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Commands.Frame;
-using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Frame
@@ -9,19 +8,9 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
     public class CommandsOff_Tests
     {
         [TestMethod]
-        public void GivenNullFrameDrawer_WhenInvoke_ThenNone()
+        public void GivenDefault_WhenInvoke_ThenReacted()
         {
-            var command = new CommandsOff(null);
-
-            var result = command.Invoke();
-
-            Assert.AreEqual(ReactionResult.None, result.Result);
-        }
-
-        [TestMethod]
-        public void GivenValidFrameDrawer_WhenInvoke_ThenReacted()
-        {
-            var command = new CommandsOff(new FrameDrawer());
+            var command = new CommandsOff();
 
             var result = command.Invoke();
 

@@ -13,6 +13,15 @@ namespace BP.AdventureFramework.Rendering.Frames
     /// </summary>
     internal sealed class SceneFrame : Frame
     {
+        #region StaticProperties
+
+        /// <summary>
+        /// Get or set if commands are displayed.
+        /// </summary>
+        public static bool DisplayCommands { get; set; } = true;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -124,7 +133,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                 scene.Append(drawer.ConstructDivider(width));
             }
 
-            if (drawer.DisplayCommands)
+            if (DisplayCommands)
             {
                 scene.Append(drawer.ConstructWrappedPaddedString("COMMANDS:", width));
                 scene.Append(drawer.ConstructWrappedPaddedString(string.Empty, width));

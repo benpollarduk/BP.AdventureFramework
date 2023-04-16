@@ -1,4 +1,6 @@
-﻿using BP.AdventureFramework.Rendering.Frames;
+﻿using BP.AdventureFramework.Commands.Global;
+using BP.AdventureFramework.Interpretation;
+using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Logic
 {
@@ -18,7 +20,7 @@ namespace BP.AdventureFramework.Logic
         /// <param name="playerGenerator">The function to generate the Player with.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Frame titleFrame, Frame completionFrame, Frame helpFrame, IInterpreter interpreter)
         {
             return () =>
             {

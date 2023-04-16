@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Rendering
     /// <summary>
     /// A class for drawing strings on a console window.
     /// </summary>
-    internal abstract class Drawer
+    public abstract class Drawer
     {
         #region Properties
 

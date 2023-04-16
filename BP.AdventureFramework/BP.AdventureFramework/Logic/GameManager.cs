@@ -121,7 +121,7 @@ namespace BP.AdventureFramework.Logic
         public GameManager(GameCreationCallback creator)
         {
             Creator = creator;
-            Interpreter = new InputInterpreter(new FrameCommandInterpreter(MapDrawer, FrameDrawer), new GlobalCommandInterpreter(MapDrawer), new GameCommandInterpreter());
+            Interpreter = new InputInterpreter(new FrameCommandInterpreter(MapDrawer), new GlobalCommandInterpreter(MapDrawer), new GameCommandInterpreter());
         }
 
         /// <summary>
@@ -153,93 +153,84 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         private void EnterGameLoop()
         {
-            try
+            var input = string.Empty;
+            var newHasBeenLoaded = true;
+
+            Game.Refresh(Game.TitleFrame);
+
+            do
             {
-                var input = string.Empty;
-                var newHasBeenLoaded = true;
+                var displayReactionToInput = true;
+                var reaction = new Reaction(ReactionResult.None, "Error.");
 
-                Game.Refresh(Game.TitleFrame);
-
-                FrameDrawer.DisplayedSpecialFrame += FrameDrawer_DisplayedSpecialFrame;
-
-                do
+                if (!Game.CurrentFrame.AcceptsInput)
                 {
-                    var displayReactionToInput = true;
-                    var reaction = new Reaction(ReactionResult.None, "Error.");
+                    var frame = Game.CurrentFrame;
 
-                    if (!Game.CurrentFrame.AcceptsInput)
-                    {
-                        var frame = Game.CurrentFrame;
+                    while (!WaitForKeyPressCallback(Convert.ToChar(13)) && Game.CurrentFrame == frame)
+                        DrawFrame(Game.CurrentFrame);
+                }
+                else
+                {
+                    input = Input.ReadLine();
+                }
 
-                        while (!WaitForKeyPressCallback(Convert.ToChar(13)) && Game.CurrentFrame == frame)
-                            DrawFrame(Game.CurrentFrame);
-                    }
-                    else
+                if (Game.CurrentFrame is TitleFrame)
+                {
+                    if (!newHasBeenLoaded)
                     {
-                        input = Input.ReadLine();
-                    }
-
-                    if (Game.CurrentFrame is TitleFrame)
-                    {
-                        if (!newHasBeenLoaded)
-                        {
-                            Game = Creator.Invoke();
-                        }
-
-                        Game.EnterGame(DisplaySize.Width, DisplaySize.Height, MapDrawer);
-                        displayReactionToInput = false;
-                    }
-                    else if (Game.CurrentFrame is EndFrame)
-                    {
-                        Game.Refresh(Game.TitleFrame);
-                        displayReactionToInput = false;
-                    }
-                    else if (!Game.CurrentFrame.AcceptsInput)
-                    {
-                        Game.Refresh();
-                        displayReactionToInput = false;
-                    }
-                    else
-                    {
-                        if (newHasBeenLoaded)
-                            newHasBeenLoaded = false;
-
-                        var interpretation = Interpreter?.Interpret(input, Game) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
-
-                        if (interpretation.WasInterpretedSuccessfully)
-                            reaction = Game.RunCommand(interpretation.Command);
+                        Game = Creator.Invoke();
                     }
 
-                    if (!displayReactionToInput) 
-                        continue;
-                    
-                    switch (reaction.Result)
-                    {
-                        case ReactionResult.None:
+                    Game.EnterGame(DisplaySize.Width, DisplaySize.Height, MapDrawer);
+                    displayReactionToInput = false;
+                }
+                else if (Game.CurrentFrame is EndFrame)
+                {
+                    Game.Refresh(Game.TitleFrame);
+                    displayReactionToInput = false;
+                }
+                else if (!Game.CurrentFrame.AcceptsInput)
+                {
+                    Game.Refresh();
+                    displayReactionToInput = false;
+                }
+                else
+                {
+                    if (newHasBeenLoaded)
+                        newHasBeenLoaded = false;
 
-                            var message = ErrorPrefix + ": " + reaction.Description;
-                            UpdateScreenWithCurrentFrame(message);
-                            break;
+                    var interpretation = Interpreter?.Interpret(input, Game) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
 
-                        case ReactionResult.Reacted:
-                            
-                            UpdateScreenWithCurrentFrame(reaction.Description);
-                            break;
+                    if (interpretation.WasInterpretedSuccessfully)
+                        reaction = Game.RunCommand(interpretation.Command);
+                }
 
-                        case ReactionResult.SelfContained:
+                if (!displayReactionToInput)
+                    continue;
 
-                            break;
+                switch (reaction.Result)
+                {
+                    case ReactionResult.None:
 
-                        default:
-                            throw new NotImplementedException();
-                    }
-                } 
-                while (!Game.HasEnded);
+                        var message = ErrorPrefix + ": " + reaction.Description;
+                        UpdateScreenWithCurrentFrame(message);
+                        break;
+
+                    case ReactionResult.Reacted:
+
+                        UpdateScreenWithCurrentFrame(reaction.Description);
+                        break;
+
+                    case ReactionResult.SelfContained:
+
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
             }
-            finally
-            {
-                FrameDrawer.DisplayedSpecialFrame -= FrameDrawer_DisplayedSpecialFrame;
-            }
+            while (!Game.HasEnded);
         }
 
         /// <summary>
@@ -315,11 +306,6 @@ namespace BP.AdventureFramework.Logic
         private void Game_Completed(object sender, ExitMode e)
         {
             DrawFrame(game.CompletionFrame);
-        }
-
-        private void FrameDrawer_DisplayedSpecialFrame(object sender, Frame e)
-        {
-            Game.Refresh(e);
         }
 
         private void Frame_Invalidated(object sender, Frame e)

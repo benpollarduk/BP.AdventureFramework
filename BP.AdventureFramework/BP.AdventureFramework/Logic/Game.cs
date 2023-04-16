@@ -81,7 +81,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set this Games help screen.
         /// </summary>
-        internal HelpFrame HelpFrame { get; set; } = new HelpFrame();
+        internal Frame HelpFrame { get; set; }
 
         /// <summary>
         /// Get the current Frame.

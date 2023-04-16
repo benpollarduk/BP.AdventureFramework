@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a frame that can be used as a title screen.
     /// </summary>
-    internal sealed class TitleFrame : Frame
+    public sealed class TitleFrame : Frame
     {
         #region Properties
 

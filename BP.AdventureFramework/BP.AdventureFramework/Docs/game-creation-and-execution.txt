@@ -1,0 +1,13 @@
+title Input Parsing
+
+participant Console
+participant Game
+participant Interpreter
+
+note over Interpreter: Provided by:\nInputInterpreter\nGlobalCommandInterpreter\nFrameCommandInterpreter \nGameCommandInterpreter
+
+Console->Game: Input
+Game->Interpreter: Interpret
+Interpreter->Game:IntrepretationResult
+Game->Game: RunCommand
+Game->Console: Output

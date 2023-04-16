@@ -93,22 +93,22 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the output stream.
         /// </summary>
-        public TextWriter Output { get; set; }
+        internal TextWriter Output { get; set; }
 
         /// <summary>
         /// Get or set input stream.
         /// </summary>
-        public TextReader Input { get; set; }
+        internal TextReader Input { get; set; }
 
         /// <summary>
         /// Get or set the error stream.
         /// </summary>
-        public TextWriter Error { get; set; }
+        internal TextWriter Error { get; set; }
 
         /// <summary>
         /// Get or set the standard size of the display area.
         /// </summary>
-        public Size DisplaySize { get; set; } = new Size(0, 0);
+        internal Size DisplaySize { get; set; } = new Size(0, 0);
 
         /// <summary>
         /// Get if this game has ended.
@@ -118,7 +118,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the exit mode for this game.
         /// </summary>
-        public ExitMode ExitMode { get; set; } = ExitMode.ReturnToTitleScreen;
+        internal ExitMode ExitMode { get; set; } = ExitMode.ReturnToTitleScreen;
 
         /// <summary>
         /// Get this Games frame to display for the title screen.
@@ -143,7 +143,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the completion condition.
         /// </summary>
-        public CompletionCheck CompletionCondition { get; set; }
+        internal CompletionCheck CompletionCondition { get; set; }
 
         /// <summary>
         /// Get or set the callback to invoke when waiting for key presses.
@@ -153,12 +153,12 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Occurs when the game begins drawing a frame.
         /// </summary>
-        public event EventHandler<Frame> StartingFrameDraw;
+        internal event EventHandler<Frame> StartingFrameDraw;
 
         /// <summary>
         /// Occurs when the game finishes drawing a frame.
         /// </summary>
-        public event EventHandler<Frame> FinishedFrameDraw;
+        internal event EventHandler<Frame> FinishedFrameDraw;
 
         #endregion
 
@@ -186,7 +186,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Execute the game.
         /// </summary>
-        public void Execute()
+        private void Execute()
         {
             if (IsExecuting)
                 return;
@@ -314,22 +314,6 @@ namespace BP.AdventureFramework.Logic
         internal void End()
         {
             HasEnded = true;
-
-            switch (ExitMode)
-            {
-                case ExitMode.ExitApplication:
-
-                    Environment.Exit(0);
-                    break;
-
-                case ExitMode.ReturnToTitleScreen:
-
-                    Refresh(TitleFrame);
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-            }
         }
 
         /// <summary>
@@ -427,7 +411,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Refresh the current frame.
         /// </summary>
-        internal void Refresh()
+        private void Refresh()
         {
             Refresh(string.Empty);
         }
@@ -436,7 +420,7 @@ namespace BP.AdventureFramework.Logic
         /// Refresh the current frame.
         /// </summary>
         /// <param name="message">Any message to display.</param>
-        internal void Refresh(string message)
+        private void Refresh(string message)
         {
             Refresh(new SceneFrame(Overworld.CurrentRegion.CurrentRoom, Player, message));
         }
@@ -445,10 +429,34 @@ namespace BP.AdventureFramework.Logic
         /// Refresh the display.
         /// </summary>
         /// <param name="frame">The frame to display.</param>
-        internal void Refresh(Frame frame)
+        private void Refresh(Frame frame)
         {
             CurrentFrame = frame;
             DrawFrame(frame);
+        }
+
+        /// <summary>
+        /// Display the help frame.
+        /// </summary>
+        public void DisplayHelp()
+        {
+            Refresh(HelpFrame);
+        }
+
+        /// <summary>
+        /// Display the map frame.
+        /// </summary>
+        public void DisplayMap()
+        {
+            Refresh(new RegionMapFrame(Overworld.CurrentRegion, MapDrawer));
+        }
+
+        /// <summary>
+        /// Display the about message.
+        /// </summary>
+        public void DisplayAbout()
+        {
+            Refresh(new TitleFrame("About", "BP.AdventureFramework by Ben Pollard 2011 - 2023"));
         }
 
         #endregion
@@ -479,7 +487,7 @@ namespace BP.AdventureFramework.Logic
                 new TitleFrame(name, description),
                 new TitleFrame("Finished", $"Congratulations, you finished {name}!"),
                 new HelpFrame(),
-                new InputInterpreter(new FrameCommandInterpreter(mapDrawer), new GlobalCommandInterpreter(mapDrawer), new GameCommandInterpreter()),
+                new InputInterpreter(new FrameCommandInterpreter(mapDrawer), new GlobalCommandInterpreter(), new GameCommandInterpreter()),
                 ExitMode.ReturnToTitleScreen,
                 "Oops");
         }
@@ -521,6 +529,40 @@ namespace BP.AdventureFramework.Logic
 
                 return game;
             };
+        }
+
+        /// <summary>
+        /// Execute a game.
+        /// </summary>
+        /// <param name="creator">The creator to use to create the game.</param>
+        public static void Execute(GameCreationCallback creator)
+        {
+            var run = true;
+
+            while (run)
+            {
+                using (var game = creator.Invoke())
+                {
+                    HostSetup.SetupWindowsConsole(game);
+                    game.Execute();
+
+                    switch (game.ExitMode)
+                    {
+                        case ExitMode.ExitApplication:
+
+                            run = false;
+
+                            break;
+
+                        case ExitMode.ReturnToTitleScreen:
+
+                            break;
+
+                        default:
+                            throw new NotImplementedException();
+                    }
+                }
+            }
         }
 
         #endregion

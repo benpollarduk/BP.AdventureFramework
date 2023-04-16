@@ -1,7 +1,6 @@
 ﻿using System;
 using BP.AdventureFramework.Commands.Global;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Rendering;
 
 namespace BP.AdventureFramework.Interpretation
 {
@@ -39,28 +38,6 @@ namespace BP.AdventureFramework.Interpretation
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Get the map drawer.
-        /// </summary>
-        public MapDrawer MapDrawer { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the GlobalCommandInterpreter class.
-        /// </summary>
-        /// <param name="mapDrawer">The map drawer.</param>
-        public GlobalCommandInterpreter(MapDrawer mapDrawer)
-        {
-            MapDrawer = mapDrawer;
-        }
-
-        #endregion
-
         #region Implementation of IInterpreter
 
         /// <summary>
@@ -81,7 +58,7 @@ namespace BP.AdventureFramework.Interpretation
                 return new InterpretationResult(true, new Help(game));
 
             if (input.Equals(Map, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new Map(game, MapDrawer));
+                return new InterpretationResult(true, new Map(game));
 
             if (input.Equals(New, StringComparison.CurrentCultureIgnoreCase))
                 return new InterpretationResult(true, new New(game));

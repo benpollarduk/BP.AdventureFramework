@@ -40,7 +40,7 @@ namespace BP.AdventureFramework.Commands.Global
             if (Game == null)
                 return new Reaction(ReactionResult.None, "No game specified.");
 
-            Game.Refresh(Game.TitleFrame);
+            Game.End();
             return new Reaction(ReactionResult.Reacted, "New game.");
         }
 

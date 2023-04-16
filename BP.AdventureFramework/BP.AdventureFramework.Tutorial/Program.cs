@@ -59,11 +59,7 @@ namespace BP.AdventureFramework.Tutorial
                     }
                 }
 
-                using (var game = creator.Invoke())
-                {
-                    HostSetup.SetupWindowsConsole(game);
-                    game.Execute();
-                }
+                Game.Execute(creator);
             }
             catch (Exception e)
             {

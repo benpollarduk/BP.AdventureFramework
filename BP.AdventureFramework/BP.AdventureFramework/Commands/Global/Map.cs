@@ -1,6 +1,4 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Rendering;
-using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Commands.Global
 {
@@ -16,11 +14,6 @@ namespace BP.AdventureFramework.Commands.Global
         /// </summary>
         public Logic.Game Game { get; }
 
-        /// <summary>
-        /// Get the map drawer.
-        /// </summary>
-        public MapDrawer MapDrawer { get; }
-
         #endregion
 
         #region Constructors
@@ -29,11 +22,9 @@ namespace BP.AdventureFramework.Commands.Global
         /// Initializes a new instance of the Map class.
         /// </summary>
         /// <param name="game">The game.</param>
-        /// <param name="mapDrawer">The map drawer.</param>
-        public Map(Logic.Game game, MapDrawer mapDrawer)
+        public Map(Logic.Game game)
         {
             Game = game;
-            MapDrawer = mapDrawer;
         }
 
         #endregion
@@ -49,10 +40,7 @@ namespace BP.AdventureFramework.Commands.Global
             if (Game == null)
                 return new Reaction(ReactionResult.None, "No game specified.");
 
-            if (MapDrawer == null)
-                return new Reaction(ReactionResult.None, "No map drawer specified.");
-
-            Game.Refresh(new RegionMapFrame(Game.Overworld.CurrentRegion, MapDrawer));
+            Game.DisplayMap();
             return new Reaction(ReactionResult.SelfContained, string.Empty);
         }
 

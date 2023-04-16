@@ -1,5 +1,5 @@
-﻿using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Rendering;
+﻿using BP.AdventureFramework.Commands.Game;
+using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Interpretation
 {
@@ -11,19 +11,9 @@ namespace BP.AdventureFramework.Interpretation
         #region Properties
 
         /// <summary>
-        /// Get the game command interpreter.
+        /// Get the interpreters.
         /// </summary>
-        protected IInterpreter GameCommandInterpreter { get; }
-
-        /// <summary>
-        /// Get the frame command interpreter.
-        /// </summary>
-        protected IInterpreter FrameCommandInterpreter { get; }
-
-        /// <summary>
-        /// Get the global command interpreter.
-        /// </summary>
-        protected IInterpreter GlobalCommandInterpreter { get; }
+        protected IInterpreter[] Interpreters { get; }
 
         #endregion
 
@@ -32,13 +22,10 @@ namespace BP.AdventureFramework.Interpretation
         /// <summary>
         /// Initializes a new instance of the InputInterpreter class.
         /// </summary>
-        /// <param name="frameDrawer">The frame drawer.</param>
-        /// <param name="mapDrawer">The map drawer.</param>
-        public InputInterpreter(FrameDrawer frameDrawer, MapDrawer mapDrawer)
+        /// <param name="interpreters">The interpreters.</param>
+        public InputInterpreter(params IInterpreter[] interpreters)
         {
-            GameCommandInterpreter = new GameCommandInterpreter();
-            FrameCommandInterpreter = new FrameCommandInterpreter(mapDrawer, frameDrawer);
-            GlobalCommandInterpreter = new GlobalCommandInterpreter(mapDrawer);
+            Interpreters = interpreters;
         }
 
         #endregion
@@ -53,14 +40,15 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>The result of the interpretation.</returns>
         public InterpretationResult Interpret(string input, Game game)
         {
-            var result = GlobalCommandInterpreter.Interpret(input, game);
+            foreach (var interpreter in Interpreters)
+            {
+                var result = interpreter.Interpret(input, game);
 
-            if (result.WasInterpretedSuccessfully)
-                return result;
+                if (result.WasInterpretedSuccessfully)
+                    return result;
+            }
 
-            result = FrameCommandInterpreter.Interpret(input, game);
-
-            return result.WasInterpretedSuccessfully ? result : GameCommandInterpreter.Interpret(input, game);
+            return new InterpretationResult(false, new Unactionable($"Could not interpret {input}"));
         }
 
         #endregion

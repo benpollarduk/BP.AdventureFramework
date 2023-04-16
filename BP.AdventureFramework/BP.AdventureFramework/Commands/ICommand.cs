@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Commands
     /// <summary>
     /// Represents a command.
     /// </summary>
-    internal interface ICommand
+    public interface ICommand
     {
         /// <summary>
         /// Invoke the command.

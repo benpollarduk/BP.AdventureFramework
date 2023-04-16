@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumeration of region display modes.
     /// </summary>
-    internal enum RegionDisplayMode
+    public enum RegionDisplayMode
     {
         /// <summary>
         /// Only show visited rooms.

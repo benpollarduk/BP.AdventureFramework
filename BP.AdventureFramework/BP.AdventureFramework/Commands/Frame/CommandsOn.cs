@@ -1,5 +1,4 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Rendering;
 
 namespace BP.AdventureFramework.Commands.Frame
 {
@@ -11,9 +10,9 @@ namespace BP.AdventureFramework.Commands.Frame
         #region Properties
 
         /// <summary>
-        /// Get the frame drawer.
+        /// Get the game.
         /// </summary>
-        public FrameDrawer FrameDrawer { get; }
+        public Logic.Game Game { get; }
 
         #endregion
 
@@ -22,10 +21,10 @@ namespace BP.AdventureFramework.Commands.Frame
         /// <summary>
         /// Initializes a new instance of the CommandsOn class.
         /// </summary>
-        /// <param name="frameDrawer">The frame drawer.</param>
-        public CommandsOn(FrameDrawer frameDrawer)
+        /// <param name="game">The game.</param>
+        public CommandsOn(Logic.Game game)
         {
-            FrameDrawer = frameDrawer;
+            Game = game;
         }
 
         #endregion
@@ -38,10 +37,10 @@ namespace BP.AdventureFramework.Commands.Frame
         /// <returns>The reaction.</returns>
         public Reaction Invoke()
         {
-            if (FrameDrawer == null)
-                return new Reaction(ReactionResult.None, "No frame drawer specified.");
+            if (Game == null)
+                return new Reaction(ReactionResult.None, "No game specified.");
 
-            FrameDrawer.DisplayCommands = true;
+            Game.DisplayCommandListInSceneFrames = false;
             return new Reaction(ReactionResult.Reacted, "Commands have been turned on.");
         }
 

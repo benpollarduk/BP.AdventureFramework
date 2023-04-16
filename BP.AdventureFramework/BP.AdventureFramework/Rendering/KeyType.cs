@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumeration of key types.
     /// </summary>
-    internal enum KeyType
+    public enum KeyType
     {
         /// <summary>
         /// No key.

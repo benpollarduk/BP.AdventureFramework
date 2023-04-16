@@ -3,7 +3,6 @@ using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands.Global;
-using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Global
@@ -14,17 +13,7 @@ namespace BP.AdventureFramework.Tests.Commands.Global
         [TestMethod]
         public void GivenNullGame_WhenInvoke_ThenNone()
         {
-            var command = new Map(null, null);
-
-            var result = command.Invoke();
-
-            Assert.AreEqual(ReactionResult.None, result.Result);
-        }
-
-        [TestMethod]
-        public void GivenNullMapDrawer_WhenInvoke_ThenNone()
-        {
-            var command = new Map(new Logic.Game(string.Empty, string.Empty, null, null), null);
+            var command = new Map(null);
 
             var result = command.Invoke();
 
@@ -39,7 +28,8 @@ namespace BP.AdventureFramework.Tests.Commands.Global
             region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Assets.Locations.Exit(CardinalDirection.North)), 0, 0);
             region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Assets.Locations.Exit(CardinalDirection.South)), 0, 1);
             overworld.Regions.Add(region);
-            var command = new Map(new Logic.Game(string.Empty, string.Empty, new PlayableCharacter(Identifier.Empty, Description.Empty), overworld), new MapDrawer());
+            var game = Logic.Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var command = new Map(game);
 
             var result = command.Invoke();
 

@@ -11,9 +11,9 @@ namespace BP.AdventureFramework.Commands.Frame
         #region Properties
 
         /// <summary>
-        /// Get the map drawer.
+        /// Get the game.
         /// </summary>
-        public MapDrawer MapDrawer { get; }
+        public Logic.Game Game { get; }
 
         #endregion
 
@@ -22,10 +22,10 @@ namespace BP.AdventureFramework.Commands.Frame
         /// <summary>
         /// Initializes a new instance of the KeyOn class.
         /// </summary>
-        /// <param name="mapDrawer">The map drawer.</param>
-        public KeyOn(MapDrawer mapDrawer)
+        /// <param name="game">The game.</param>
+        public KeyOn(Logic.Game game)
         {
-            MapDrawer = mapDrawer;
+            Game = game;
         }
 
         #endregion
@@ -38,10 +38,10 @@ namespace BP.AdventureFramework.Commands.Frame
         /// <returns>The reaction.</returns>
         public Reaction Invoke()
         {
-            if (MapDrawer == null)
-                return new Reaction(ReactionResult.None, "No map drawer specified.");
+            if (Game == null)
+                return new Reaction(ReactionResult.None, "No game specified.");
 
-            MapDrawer.Key = KeyType.Dynamic;
+            Game.MapKeyType = KeyType.Dynamic;
             return new Reaction(ReactionResult.Reacted, "Key has been turned on.");
         }
 

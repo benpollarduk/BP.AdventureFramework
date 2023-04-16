@@ -1,6 +1,5 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Commands.Frame;
-using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Frame
@@ -9,7 +8,7 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
     public class CommandsOn_Tests
     {
         [TestMethod]
-        public void GivenNullFrameDrawer_WhenInvoke_ThenNone()
+        public void GivenNullGame_WhenInvoke_ThenNone()
         {
             var command = new CommandsOn(null);
 
@@ -19,9 +18,10 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
         }
 
         [TestMethod]
-        public void GivenValidFrameDrawer_WhenInvoke_ThenReacted()
+        public void GivenValidGame_WhenInvoke_ThenReacted()
         {
-            var command = new CommandsOn(new FrameDrawer());
+            var game = Logic.Game.Create(string.Empty, string.Empty, null, null, null).Invoke();
+            var command = new CommandsOn(game);
 
             var result = command.Invoke();
 

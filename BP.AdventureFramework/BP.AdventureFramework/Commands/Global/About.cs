@@ -40,12 +40,7 @@ namespace BP.AdventureFramework.Commands.Global
             if (Game == null)
                 return new Reaction(ReactionResult.None, "No game specified.");
 
-            var defaultString = "BP.AdventureFramework by Ben Pollard 2011 - 2023";
-
-            if (!string.IsNullOrEmpty(Game.Description))
-                Game.Refresh(Game.Description + $"\n\n{defaultString}");
-            else
-                Game.Refresh(defaultString);
+            Game.DisplayAbout();
 
             return new Reaction(ReactionResult.SelfContained, string.Empty);
         }

@@ -3,10 +3,9 @@ using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Parsing
+namespace BP.AdventureFramework.Tests.Interpretation
 {
     [TestClass]
     public class GlobalCommandInterpreter_Tests
@@ -26,8 +25,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenEmptyString_WhenInterpret_ThenReturnFalse()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new GlobalCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(string.Empty, game);
 
@@ -37,8 +36,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenNew_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new GlobalCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.New, game);
 
@@ -48,8 +47,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenAbout_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new GlobalCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.About, game);
 
@@ -59,8 +58,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenExit_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new GlobalCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.Exit, game);
 
@@ -70,8 +69,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenHelp_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new GlobalCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.Help, game);
 
@@ -81,8 +80,8 @@ namespace BP.AdventureFramework.Tests.Parsing
         [TestMethod]
         public void GivenMap_WhenInterpret_ThenReturnTrue()
         {
-            var interpreter = new GlobalCommandInterpreter(new MapDrawer());
-            var game = new Game("", "", new PlayableCharacter(Identifier.Empty, Description.Empty), overworld);
+            var interpreter = new GlobalCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.Map, game);
 

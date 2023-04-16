@@ -1,30 +1,13 @@
-﻿using System;
-using BP.AdventureFramework.Rendering.Frames;
-
-namespace BP.AdventureFramework.Rendering
+﻿namespace BP.AdventureFramework.Rendering
 {
     /// <summary>
     /// A class for constructing and drawing Frames.
     /// </summary>
-    internal sealed class FrameDrawer : Drawer
+    public sealed class FrameDrawer : Drawer
     {
         #region Fields
 
         private readonly char dividerCharacter;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Get or set if commands are displayed.
-        /// </summary>
-        public bool DisplayCommands { get; set; } = true;
-
-        /// <summary>
-        /// Occurs when a special frame has been requested to be displayed.
-        /// </summary>
-        public static event EventHandler<Frame> DisplayedSpecialFrame;
 
         #endregion
 
@@ -43,6 +26,10 @@ namespace BP.AdventureFramework.Rendering
             dividerCharacter = dividingCharacter;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Construct a dividing horizontal line.
         /// </summary>
@@ -51,19 +38,6 @@ namespace BP.AdventureFramework.Rendering
         public string ConstructDivider(int width)
         {
             return ConstructDivider(width, LeftBoundaryCharacter, dividerCharacter, RightBoundaryCharacter);
-        }
-
-        #endregion
-
-        #region StaticMethods
-
-        /// <summary>
-        /// Request a custom Frame to be displayed to any context listening for the FrameDrawer.DisplaySpecialFrame event.
-        /// </summary>
-        /// <param name="frame">The frame to display.</param>
-        public static void DisplaySpecialFrame(Frame frame)
-        {
-            DisplayedSpecialFrame?.Invoke(null, frame);
         }
 
         #endregion

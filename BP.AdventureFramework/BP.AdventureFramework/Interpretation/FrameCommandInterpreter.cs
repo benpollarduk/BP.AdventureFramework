@@ -1,7 +1,6 @@
 ﻿using System;
 using BP.AdventureFramework.Commands.Frame;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Rendering;
 
 namespace BP.AdventureFramework.Interpretation
 {
@@ -34,35 +33,6 @@ namespace BP.AdventureFramework.Interpretation
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Get the map drawer.
-        /// </summary>
-        public MapDrawer MapDrawer { get; }
-
-        /// <summary>
-        /// Get the frame drawer.
-        /// </summary>
-        public FrameDrawer FrameDrawer { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the FrameCommandInterpreter class.
-        /// </summary>
-        /// <param name="mapDrawer">The map drawer.</param>
-        /// <param name="frameDrawer">The frame drawer.</param>
-        public FrameCommandInterpreter(MapDrawer mapDrawer, FrameDrawer frameDrawer)
-        {
-            MapDrawer = mapDrawer;
-            FrameDrawer = frameDrawer;
-        }
-
-        #endregion
-
         #region Implementation of IInterpreter
 
         /// <summary>
@@ -74,16 +44,16 @@ namespace BP.AdventureFramework.Interpretation
         public InterpretationResult Interpret(string input, Game game)
         {
             if (input.Equals(CommandsOff, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new CommandsOff(FrameDrawer));
+                return new InterpretationResult(true, new CommandsOff(game));
 
             if (input.Equals(CommandsOn, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new CommandsOn(FrameDrawer));
+                return new InterpretationResult(true, new CommandsOn(game));
 
             if (input.Equals(KeyOff, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new KeyOff(MapDrawer));
+                return new InterpretationResult(true, new KeyOff(game));
 
             if (input.Equals(KeyOn, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new KeyOn(MapDrawer));
+                return new InterpretationResult(true, new KeyOn(game));
 
             return InterpretationResult.Fail;
         }

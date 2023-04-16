@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework", "BP.AdventureFramework\BP.AdventureFramework.csproj", "{D0A9B7D8-4E26-49EF-93F6-648E5CC38C97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BP.AdventureFramework", "BP.AdventureFramework\BP.AdventureFramework.csproj", "{D0A9B7D8-4E26-49EF-93F6-648E5CC38C97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Tests", "BP.AdventureFramework.Tests\BP.AdventureFramework.Tests.csproj", "{94FE323D-B885-43DA-8411-593244D0A370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Tutorial", "BP.AdventureFramework.Tutorial\BP.AdventureFramework.Tutorial.csproj", "{BC0652A7-6EC4-480D-B98D-919D461FB518}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Examples", "BP.AdventureFramework.Examples\BP.AdventureFramework.Examples.csproj", "{BC0652A7-6EC4-480D-B98D-919D461FB518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

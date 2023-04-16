@@ -20,7 +20,8 @@ namespace BP.AdventureFramework.Tests.Commands.Global
         [TestMethod]
         public void GivenValidGame_WhenInvoke_ThenReacted()
         {
-            var command = new New(new Logic.Game(string.Empty, string.Empty, null, null));
+            var game = Logic.Game.Create(string.Empty, string.Empty, null, null, null).Invoke();
+            var command = new New(game);
 
             var result = command.Invoke();
 

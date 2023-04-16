@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Interpretation
     /// <summary>
     /// Represents the result of an interpretation.
     /// </summary>
-    internal class InterpretationResult
+    public class InterpretationResult
     {
         #region StaticProperties
 

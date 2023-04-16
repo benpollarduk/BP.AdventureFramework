@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Interpretation
     /// <summary>
     /// Represents any object that can act as an interpreter for input.
     /// </summary>
-    internal interface IInterpreter
+    public interface IInterpreter
     {
         /// <summary>
         /// Interpret a string.

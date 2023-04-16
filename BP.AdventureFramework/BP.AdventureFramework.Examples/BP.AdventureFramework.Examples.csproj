@@ -8,8 +8,8 @@
     <ProjectGuid>{BC0652A7-6EC4-480D-B98D-919D461FB518}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BP.AdventureFramework.Tutorial</RootNamespace>
-    <AssemblyName>BP.AdventureFramework.Tutorial</AssemblyName>
+    <RootNamespace>BP.AdventureFramework.Examples</RootNamespace>
+    <AssemblyName>BP.AdventureFramework.Examples</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -75,11 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Demos\Everglades.cs" />
-    <Compile Include="Demos\Flat.cs" />
+    <Compile Include="Assets\Everglades.cs" />
+    <Compile Include="Assets\Flat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Demos\Zelda.cs" />
+    <Compile Include="Assets\Zelda.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

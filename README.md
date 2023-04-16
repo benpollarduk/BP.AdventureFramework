@@ -64,7 +64,26 @@ Maps are automatically generated for regions:
 # Getting Started
  * Clone the repo
  * Build all projects
- * Run the BP.AdventureFramework.Tutorial project
+ * Run the BP.AdventureFramework.Examples project
+
+# Hello World
+
+```csharp
+var player = new PlayableCharacter(new Identifier("Link"), new Description("A young Kokiri boy on a quest to save Princess Zelda."));
+var overworld = new Overworld(new Identifier("Hyrule"), new Description("An ancient kingdom."));
+var region = new Region(new Identifier("Death Mountain"), new Description("An imposing volcano just East of Castle Town."));
+var room = new Room(new Identifier("Cavern"), new Description("A dark cavern set in to the base of the mountain."));
+region.AddRoom(room, 0, 0);
+overworld.Regions.Add(region);
+
+var creator = Game.Create("Zelda",
+    "A very low budget Zelda adventure.",
+    x => overworld,
+    () => player,
+    x => false);
+
+Game.Execute(creator);
+```
 
 # Contribute
 It´s Open Source (License >> MIT), please feel free to use or contribute. To raise a pull request visit https://github.com/ben-pollard-uk/adventure-framework/pulls.

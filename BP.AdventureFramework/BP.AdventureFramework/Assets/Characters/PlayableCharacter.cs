@@ -45,6 +45,16 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <param name="identifier">This PlayableCharacter's identifier.</param>
         /// <param name="description">The description of the player.</param>
         /// <param name="items">The players items.</param>
+        public PlayableCharacter(string identifier, string description, params Item[] items) : this(new Identifier(identifier), new Description(description), items)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the PlayableCharacter class.
+        /// </summary>
+        /// <param name="identifier">This PlayableCharacter's identifier.</param>
+        /// <param name="description">The description of the player.</param>
+        /// <param name="items">The players items.</param>
         public PlayableCharacter(Identifier identifier, Description description, params Item[] items) : this(identifier, description)
         {
             Items.AddRange(items);

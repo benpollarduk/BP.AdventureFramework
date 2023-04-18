@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
         internal static PlayableCharacter GeneratePC()
         {
-            var player = new PlayableCharacter("Ben".ToIdentifier(), "25 year old man".ToDescription(), new Item(Knife.ToIdentifier(), "A small pocket knife".ToDescription(), true))
+            var player = new PlayableCharacter("Ben", "25 year old man", new Item(Knife, "A small pocket knife", true))
             {
                 Interaction = (i, target) =>
                 {
@@ -38,9 +38,9 @@ namespace BP.AdventureFramework.Examples.Assets
 
         internal static Overworld GenerateOverworld(PlayableCharacter pC)
         {
-            var regionMaker = new RegionMaker(Region.ToIdentifier(), "The starting place".ToDescription());
+            var regionMaker = new RegionMaker(Region, "The starting place");
 
-            var conchShell = new Item(ConchShell.ToIdentifier(), "A pretty conch shell, it is about the size of a coconut".ToDescription(), true)
+            var conchShell = new Item(ConchShell, "A pretty conch shell, it is about the size of a coconut", true)
             {
                 Interaction = (item, target) =>
                 {
@@ -54,7 +54,7 @@ namespace BP.AdventureFramework.Examples.Assets
                 }
             };
 
-            var innerCave = new Room(InnerCave.ToIdentifier(), new Description(string.Empty), new Exit(CardinalDirection.West), new Exit(CardinalDirection.North, true));
+            var innerCave = new Room(InnerCave, string.Empty, new Exit(CardinalDirection.West), new Exit(CardinalDirection.North, true));
 
             InteractionCallback innerCaveInteraction = (i, target) =>
             {
@@ -73,15 +73,15 @@ namespace BP.AdventureFramework.Examples.Assets
             innerCave.Interaction = innerCaveInteraction;
             innerCave.SpecifyConditionalDescription(new ConditionalDescription("With the bats gone there is daylight to the north. To the west is the cave entrance", "As you enter the inner cave the screeching gets louder, and in the gloom you can make out what looks like a million sets of eyes looking back at you. Bats! You can just make out a few rays of light coming from the north, but the bats are blocking your way", () => !innerCave[CardinalDirection.North].IsLocked));
 
-            regionMaker[2, 0] = new Room(ForestEntrance.ToIdentifier(), new Description("You are standing on the edge of a beautiful forest. There is a parting in the trees to the north"), new Exit(CardinalDirection.North));
-            regionMaker[2, 1] = new Room(ForestFloor.ToIdentifier(), new Description("The forest is dense, with a few patches of light breaking the darkness. To the north is what looks like a small cave, to the south is the entrance to the forest"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South));
-            regionMaker[2, 2] = new Room(CaveMouth.ToIdentifier(), new Description("A cave mouth looms in front of you to the north. You can hear the sound of the ocean coming from the west"), new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.West));
-            regionMaker[1, 2] = new Room(GreatWesternOcean.ToIdentifier(), new Description("The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungrily. To the east is a small clearing"), new[] { new Exit(CardinalDirection.East) }, conchShell);
-            regionMaker[2, 3] = new Room(Cave.ToIdentifier(), new Description("The cave is so dark you struggling to see. A screeching noise is audible to the east"), new Exit(CardinalDirection.South), new Exit(CardinalDirection.East));
+            regionMaker[2, 0] = new Room(ForestEntrance, "You are standing on the edge of a beautiful forest. There is a parting in the trees to the north", new Exit(CardinalDirection.North));
+            regionMaker[2, 1] = new Room(ForestFloor, "The forest is dense, with a few patches of light breaking the darkness. To the north is what looks like a small cave, to the south is the entrance to the forest", new Exit(CardinalDirection.North), new Exit(CardinalDirection.South));
+            regionMaker[2, 2] = new Room(CaveMouth, "A cave mouth looms in front of you to the north. You can hear the sound of the ocean coming from the west", new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.West));
+            regionMaker[1, 2] = new Room(GreatWesternOcean, "The Great Western Ocean stretches to the horizon. The shore runs to the north and south. You can hear the lobstosities clicking hungrily. To the east is a small clearing", new[] { new Exit(CardinalDirection.East) }, conchShell);
+            regionMaker[2, 3] = new Room(Cave, "The cave is so dark you struggling to see. A screeching noise is audible to the east", new Exit(CardinalDirection.South), new Exit(CardinalDirection.East));
             regionMaker[3, 3] = innerCave;
-            regionMaker[3, 4] = new Room(Outskirts.ToIdentifier(), new Description("A vast chasm falls away before you"), new Exit(CardinalDirection.South));
+            regionMaker[3, 4] = new Room(Outskirts, "A vast chasm falls away before you", new Exit(CardinalDirection.South));
             
-            var o = new Overworld(Overworld.ToIdentifier(), "An unknown world".ToDescription());
+            var o = new Overworld(Overworld, "An unknown world");
             o.Regions.Add(regionMaker.Make());
             return o;
         }

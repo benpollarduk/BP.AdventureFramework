@@ -10,7 +10,6 @@ namespace BP.AdventureFramework.Examples
         {
             try
             {
-                SetupConsole();
                 GameCreationCallback creator = null;
 
                 while (creator == null)
@@ -66,27 +65,6 @@ namespace BP.AdventureFramework.Examples
                 Console.WriteLine($"Exception caught running demo: {e.Message}");
                 Console.ReadKey();
             }
-        }
-
-        /// <summary>
-        /// Setup the console
-        /// </summary>
-        private static void SetupConsole()
-        {
-            try
-            {
-                // try and set desired size
-
-                Console.SetWindowSize(80, 50);
-                Console.SetBufferSize(80, 50);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                // let console size itself
-            }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
         }
     }
 }

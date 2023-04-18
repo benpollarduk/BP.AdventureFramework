@@ -141,6 +141,9 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>A 2D matrix.</returns>
         public static Room[,] ConvertToRoomMatrix(IReadOnlyCollection<RoomPosition> roomPositions)
         {
+            if (roomPositions == null || roomPositions.Count == 0)
+                return null;
+
             var minX = roomPositions.Min(x => x.X);
             var minY = roomPositions.Min(x => x.Y);
             var maxX = roomPositions.Max(x => x.X);

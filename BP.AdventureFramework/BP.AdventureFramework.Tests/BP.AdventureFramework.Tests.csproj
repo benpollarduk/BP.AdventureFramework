@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Locations\RegionMaker_Tests.cs" />
     <Compile Include="Commands\Frame\KeyOn_Tests.cs" />
     <Compile Include="Commands\Frame\KeyOff_Tests.cs" />
     <Compile Include="Commands\Frame\CommandsOn_Tests.cs" />

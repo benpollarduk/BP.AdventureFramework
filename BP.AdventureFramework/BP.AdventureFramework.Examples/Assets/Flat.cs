@@ -66,14 +66,14 @@ namespace BP.AdventureFramework.Examples.Assets
             var bedroom = new Room(Bedroom,
                 "The bedroom is large, with one duck-egg blue wall. There is a double bed against the western wall, and a few other items of bedroom furniture are dotted around, but they all look pretty scruffy. To the north is a doorway leading to the hallway",
                 new[] { new Exit(CardinalDirection.North) },
-                new Item(Bed, "The bed is neatly made, Beth makes it every day. By your reckoning there are way too many cushions on it though...", false),
-                new Item(Picture, "The picture is of some flowers and a mountain", false),
-                new Item(TV, "The TV is small - the screen is only 14\"! Two DVD's are propped alongside it 'Miranda' and 'The Vicar Of Dibly'", false));
+                new Item(Bed, "The bed is neatly made, Beth makes it every day. By your reckoning there are way too many cushions on it though..."),
+                new Item(Picture, "The picture is of some flowers and a mountain"),
+                new Item(TV, "The TV is small - the screen is only 14\"! Two DVD's are propped alongside it 'Miranda' and 'The Vicar Of Dibly'"));
 
             var hallway1 = new Room(EasternHallway,
                 "The hallway is pretty narrow, and all the walls are bare except for a strange looking telephone. To the east is the front door, but it looks to heavy to open. To the south is the bedroom, to the west the hallway continues",
                 new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.East, true), new Exit(CardinalDirection.West) },
-                new Item(Telephone, "As soon as you pickup the telephone to examine it you hear hideous feedback. You replace it quickly!", false));
+                new Item(Telephone, "As soon as you pickup the telephone to examine it you hear hideous feedback. You replace it quickly!"));
 
             var hallway2 = new Room(WesternHallway,
                 "This hallway is a continuation of the Eastern Hallway, to the north is the Bathroom, to the west is the Kitchen, to the South is a neat looking Spare Room. The hallway continues to the East",
@@ -82,9 +82,9 @@ namespace BP.AdventureFramework.Examples.Assets
             var bathroom = new Room(Bathroom,
                 "The bathroom is fairly small. There are some clothes drying on a clothes horse. A bath lies along the eastern wall. There is a remarkably clean toilet and sink along the western wall, with a mirror above the sink. To the north is a large window, it is open and you can see out onto the roof of the flat below. The doorway to the south leads into the Western Hallway",
                 new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.North) },
-                new Item(Bath, "A long but narrow bath. You wan't to fill it but you can't because there is a wetsuit in it.", false),
-                new Item(Toilet, "A clean looking toilet. You lift the lid to take a look inside... ergh a floater! You flush the toilet but it just churns around! You close the lid and pretend it isn't there.", false),
-                new Item(Mirror, "Looking in the mirror you see yourself clearly, and make a mental note to grow back some sideburns", false));
+                new Item(Bath, "A long but narrow bath. You wan't to fill it but you can't because there is a wetsuit in it."),
+                new Item(Toilet, "A clean looking toilet. You lift the lid to take a look inside... ergh a floater! You flush the toilet but it just churns around! You close the lid and pretend it isn't there."),
+                new Item(Mirror, "Looking in the mirror you see yourself clearly, and make a mental note to grow back some sideburns"));
 
             var mug = new Item(EmptyCoffeeMug, "A coffee mug. It has an ugly hand painted picture of a man with green hair and enormous sideburns painted on the side of it. Underneath it says 'The Sideburn Monster Rides again'. Strange", true)
             {
@@ -104,7 +104,7 @@ namespace BP.AdventureFramework.Examples.Assets
             var roof = new Room(FaustosRoof,
                 string.Empty,
                 new[] { new Exit(CardinalDirection.South) },
-                new Item(Skylight, "You peer down into the skylight, only to see a naked Italian man... cooking! Yikes! Not liking the idea of the accidents one could get into by cooking naked you look away quickly", false),
+                new Item(Skylight, "You peer down into the skylight, only to see a naked Italian man... cooking! Yikes! Not liking the idea of the accidents one could get into by cooking naked you look away quickly"),
                 mug);
 
             roof.Description = new ConditionalDescription("The roof is small and gravely, and it hurts your shoe-less feet to stand on it. There is a large skylight in the center of the roof, and a empty coffee mug sits to the side, indicating someone has been here recently. The window behind you south leads back into the bathroom",
@@ -114,7 +114,7 @@ namespace BP.AdventureFramework.Examples.Assets
             var bedroom2 = new Room(SpareBedroom,
                 string.Empty,
                 new[] { new Exit(CardinalDirection.North) },
-                new Item(Gamecube, "A Nintendo Gamecube. You pop the disk cover, it looks like someone has been playing Killer7.", false),
+                new Item(Gamecube, "A Nintendo Gamecube. You pop the disk cover, it looks like someone has been playing Killer7."),
                 new Item(Guitar, "The guitar is blue, with birds inlaid on the fret board. On the headstock is someones name... 'Paul Reed Smith'. Who the hell is that. The guitar is literally begging to be played...", true));
 
             bedroom2.Description = new ConditionalDescription("You are in a very tidy room. The eastern wall is painted in a dark red colour. Against the south wall is a line of guitar amplifiers, all turned on. A very tidy blue guitar rests against the amps just begging to be played. There is a Gamecube against the northern wall. A doorway to the north leads back to the Western Hallway.",
@@ -143,7 +143,7 @@ namespace BP.AdventureFramework.Examples.Assets
             var kitchen = new Room(Kitchen,
                 "The kitchen is a small area with work tops along the northern and eastern walls. There is a kettle on the work top, it has steam rising out of it's spout. There is a also window along the northern wall. Underneath the window is a hamster cage. To the south is the living room, the Western Hallway is to the east.",
                 new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.East) },
-                new Item(HamsterCage, "There is a pretty large hamster cage on the floor. When you go up to it you hear a small, but irritated sniffing. Mable sounds annoyed, best leave her alone for now.", false),
+                new Item(HamsterCage, "There is a pretty large hamster cage on the floor. When you go up to it you hear a small, but irritated sniffing. Mable sounds annoyed, best leave her alone for now."),
                 kettle)
             {
                 Interaction = (i, target) =>
@@ -165,10 +165,10 @@ namespace BP.AdventureFramework.Examples.Assets
             var lounge = new Room(Lounge,
                 string.Empty,
                 new[] { new Exit(CardinalDirection.North) },
-                new Item(Map, "This things huge! Who would buy one of these? It looks pretty cheap, like it could have been bought from one of those massive Swedish outlets. The resolution of the map is too small to see your road on.", false),
-                new Item(Canvas, "Wow, cool canvas. It is brightly painted with aliens and planets. On one planet there is a rabbit playing a guitar and whistling, but you can't see his face because he has his back turned to you. Something looks wrong with the rabbit...", false),
-                new Item(Table, "The coffee table is one of those large oblong ones. It is made of reconstituted wood, made to look like birch", false),
-                new Item(TV, "The TV is large, and is playing some program with a Chinese looking man dressing a half naked middle aged woman", false),
+                new Item(Map, "This things huge! Who would buy one of these? It looks pretty cheap, like it could have been bought from one of those massive Swedish outlets. The resolution of the map is too small to see your road on."),
+                new Item(Canvas, "Wow, cool canvas. It is brightly painted with aliens and planets. On one planet there is a rabbit playing a guitar and whistling, but you can't see his face because he has his back turned to you. Something looks wrong with the rabbit..."),
+                new Item(Table, "The coffee table is one of those large oblong ones. It is made of reconstituted wood, made to look like birch"),
+                new Item(TV, "The TV is large, and is playing some program with a Chinese looking man dressing a half naked middle aged woman"),
                 new Item(Lead, "A 10m Venom instrument lead", true));
 
             lounge.AddCharacter(beth);

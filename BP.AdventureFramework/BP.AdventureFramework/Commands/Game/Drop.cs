@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Commands.Game
             if (Item == null)
                 return new Reaction(ReactionResult.None, "You must specify what to drop.");
 
-            if (!Character.HasItem(Item, false))
+            if (!Character.HasItem(Item))
                 return new Reaction(ReactionResult.None, "You don't have that item.");
 
             Room.AddItem(Item);

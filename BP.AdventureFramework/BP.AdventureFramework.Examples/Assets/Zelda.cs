@@ -43,13 +43,13 @@ namespace BP.AdventureFramework.Examples.Assets
             var region = new Region(KokiriForest, "The home of the Kokiri tree folk");
             var room = new Room(LinksHouse, "You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north", new Exit(CardinalDirection.North));
 
-            room.AddItem(new Item(Table, "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you", false));
+            room.AddItem(new Item(Table, "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you"));
 
             var sword = new Item(Sword, "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp", true);
 
             room.AddItem(sword);
 
-            var yoshiDoll = new Item(YoshiDoll, "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...", false);
+            var yoshiDoll = new Item(YoshiDoll, "A small mechanical doll in the shape of Yoshi. Apparently these are all the rage on Koholint...");
 
             room.AddItem(yoshiDoll);
 
@@ -98,7 +98,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             outsideLinksHouse.AddCharacter(saria);
 
-            var blockOfWood = new Item(Stump, "A small stump of wood", false);
+            var blockOfWood = new Item(Stump, "A small stump of wood");
 
             blockOfWood.Interaction = (item, target) =>
             {
@@ -109,7 +109,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
                 if (Sword.EqualsExaminable(item))
                 {
-                    blockOfWood.Morph(new Item(SplintersOfWood, "Some splinters of wood left from your chopping frenzy on the stump", false));
+                    blockOfWood.Morph(new Item(SplintersOfWood, "Some splinters of wood left from your chopping frenzy on the stump"));
                     return new InteractionResult(InteractionEffect.ItemMorphed, item, "You chop the stump into tiny pieces in a mad rage. All that is left is some splinters of wood");
                 }
 
@@ -118,7 +118,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             outsideLinksHouse.AddItem(blockOfWood);
 
-            var tailDoor = new Item(TailDoor, "The doorway to the tail cave", false);
+            var tailDoor = new Item(TailDoor, "The doorway to the tail cave");
 
             outsideLinksHouse.AddItem(tailDoor);
 
@@ -143,14 +143,14 @@ namespace BP.AdventureFramework.Examples.Assets
             var stream = new Room(Stream, string.Empty, new Exit(CardinalDirection.South));
             stream.Description = new ConditionalDescription("A small stream flows east to west in front of you. The water is clear, and looks good enough to drink. On the bank is a small bush. To the south is the Kokiri forest", "A small stream flows east to west infront of you. The water is clear, and looks good enough to drink. On the bank is a stump where the bush was. To the south is the Kokiri forest", () => stream.ContainsItem("Bush"));
 
-            var bush = new Item(Bush, "The bush is small, but very dense. Something is gleaming inside, but you cant reach it because the bush is so thick", false);
+            var bush = new Item(Bush, "The bush is small, but very dense. Something is gleaming inside, but you cant reach it because the bush is so thick");
             var rupee = new Item(Rupee, "A red rupee! Wow this thing is worth 10 normal rupees", true) { IsPlayerVisible = false };
 
             bush.Interaction = (item, target) =>
             {
                 if (Sword.EqualsExaminable(item))
                 {
-                    bush.Morph(new Item(Stump, "A small, hacked up stump from where the bush once was, until you decimated it", false));
+                    bush.Morph(new Item(Stump, "A small, hacked up stump from where the bush once was, until you decimated it"));
                     rupee.IsPlayerVisible = true;
                     return new InteractionResult(InteractionEffect.ItemMorphed, item, "You slash wildly at the bush and reduce it to a stump. This exposes a red rupee, that must have been what was glinting from within the bush...");
                 }

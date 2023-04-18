@@ -193,7 +193,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         {
             var interpreter = new GameCommandInterpreter();
             var game= Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
-            overworld.CurrentRegion.CurrentRoom.AddItem(new Item(Identifier.Empty, Description.Empty, false));
+            overworld.CurrentRegion.CurrentRoom.AddItem(new Item(Identifier.Empty, Description.Empty));
 
             var result = interpreter.Interpret(GameCommandInterpreter.Take, game);
 

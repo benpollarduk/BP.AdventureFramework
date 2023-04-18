@@ -252,10 +252,7 @@ namespace BP.AdventureFramework.Examples.Assets
             regionMaker[0, 0] = lounge;
             regionMaker[3, 1] = stairway;
 
-            var o = new Overworld(Smalltown, "A sleepy town");
-            o.Regions.Add(regionMaker.Make());
-
-            return o;
+            return new OverworldMaker(Smalltown, "A sleepy town", regionMaker).Make();
         }
     }
 }

@@ -66,7 +66,8 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
-        public Room(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        /// <param name="exits">The exits from this room.</param>
+        public Room(string identifier, string description, params Exit[] exits) : this(new Identifier(identifier), new Description(description), exits, null)
         {
         }
 
@@ -75,54 +76,29 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
-        public Room(Identifier identifier, Description description)
+        /// <param name="exits">The exits from this room.</param>
+        /// <param name="items">The items in this room.</param>
+        public Room(string identifier, string description, Exit[] exits = null, params Item[] items) : this(new Identifier(identifier), new Description(description), exits, items)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Room class.
+        /// </summary>
+        /// <param name="identifier">This rooms identifier.</param>
+        /// <param name="description">This rooms description.</param>
+        /// <param name="exits">The exits from this room.</param>
+        /// <param name="items">The items in this room.</param>
+        public Room(Identifier identifier, Description description, Exit[] exits = null, params Item[] items)
         {
             Identifier = identifier;
             Description = description;
-        }
 
-        /// <summary>
-        /// Initializes a new instance of the Room class.
-        /// </summary>
-        /// <param name="identifier">This rooms identifier.</param>
-        /// <param name="description">This rooms description.</param>
-        /// <param name="exits">The exits from this room.</param>
-        public Room(string identifier, string description, params Exit[] exits) : this(new Identifier(identifier), new Description(description), exits)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Room class.
-        /// </summary>
-        /// <param name="identifier">This rooms identifier.</param>
-        /// <param name="description">This rooms description.</param>
-        /// <param name="exits">The exits from this room.</param>
-        public Room(Identifier identifier, Description description, params Exit[] exits) : this(identifier, description)
-        {
-            Exits.AddRange(exits);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Room class.
-        /// </summary>
-        /// <param name="identifier">This rooms identifier.</param>
-        /// <param name="description">This rooms description.</param>
-        /// <param name="exits">The exits from this room.</param>
-        /// <param name="items">The items in this room.</param>
-        public Room(string identifier, string description, Exit[] exits, params Item[] items) : this(new Identifier(identifier), new Description(description), exits, items)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Room class.
-        /// </summary>
-        /// <param name="identifier">This rooms identifier.</param>
-        /// <param name="description">This rooms description.</param>
-        /// <param name="exits">The exits from this room.</param>
-        /// <param name="items">The items in this room.</param>
-        public Room(Identifier identifier, Description description, Exit[] exits, params Item[] items) : this(identifier, description, exits)
-        {
-            Items.AddRange(items);
+            if (exits?.Any() ?? false)
+                Exits.AddRange(exits);
+            
+            if (items?.Any() ?? false)
+                Items.AddRange(items);
         }
 
         #endregion

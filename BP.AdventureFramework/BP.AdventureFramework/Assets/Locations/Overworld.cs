@@ -55,6 +55,24 @@ namespace BP.AdventureFramework.Assets.Locations
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// Move to a region.
+        /// </summary>
+        /// <param name="region">The region to move to.</param>
+        /// <returns>True if the region could be moved to, else false.</returns>
+        public bool Move(Region region)
+        {
+            if (!Regions.Contains(region))
+                return false;
+
+            CurrentRegion = region;
+            return true;
+        }
+    
+        #endregion
+
         #region Overrides of ExaminableObject
 
         /// <summary>

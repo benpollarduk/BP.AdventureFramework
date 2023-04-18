@@ -170,7 +170,6 @@ namespace BP.AdventureFramework.Examples.Assets
             // add region to overworld
             overworld.Regions.Add(region);
 
-
             return overworld;
         }
 

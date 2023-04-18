@@ -81,9 +81,7 @@ namespace BP.AdventureFramework.Examples.Assets
             regionMaker[3, 3] = innerCave;
             regionMaker[3, 4] = new Room(Outskirts, "A vast chasm falls away before you", new Exit(CardinalDirection.South));
             
-            var o = new Overworld(Overworld, "An unknown world");
-            o.Regions.Add(regionMaker.Make());
-            return o;
+            return new OverworldMaker(Overworld, "An unknown world", regionMaker).Make();
         }
     }
 }

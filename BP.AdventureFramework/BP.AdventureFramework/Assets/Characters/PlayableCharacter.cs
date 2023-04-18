@@ -24,26 +24,6 @@ namespace BP.AdventureFramework.Assets.Characters
         /// </summary>
         /// <param name="identifier">This PlayableCharacter's identifier.</param>
         /// <param name="description">The description of the player.</param>
-        public PlayableCharacter(string identifier, string description) : this(new Identifier(identifier), new Description(description))
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the PlayableCharacter class.
-        /// </summary>
-        /// <param name="identifier">This PlayableCharacter's identifier.</param>
-        /// <param name="description">The description of the player.</param>
-        public PlayableCharacter(Identifier identifier, Description description)
-        {
-            Identifier = identifier;
-            Description = description;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the PlayableCharacter class.
-        /// </summary>
-        /// <param name="identifier">This PlayableCharacter's identifier.</param>
-        /// <param name="description">The description of the player.</param>
         /// <param name="items">The players items.</param>
         public PlayableCharacter(string identifier, string description, params Item[] items) : this(new Identifier(identifier), new Description(description), items)
         {
@@ -55,8 +35,10 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <param name="identifier">This PlayableCharacter's identifier.</param>
         /// <param name="description">The description of the player.</param>
         /// <param name="items">The players items.</param>
-        public PlayableCharacter(Identifier identifier, Description description, params Item[] items) : this(identifier, description)
+        public PlayableCharacter(Identifier identifier, Description description, params Item[] items)
         {
+            Identifier = identifier;
+            Description = description;
             Items.AddRange(items);
         }
 

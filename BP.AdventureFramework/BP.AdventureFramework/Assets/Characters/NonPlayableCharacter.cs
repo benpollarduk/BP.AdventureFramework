@@ -24,7 +24,8 @@ namespace BP.AdventureFramework.Assets.Characters
         /// </summary>
         /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
-        public NonPlayableCharacter(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        /// <param name="conversation">The conversation.</param>
+        public NonPlayableCharacter(string identifier, string description, Conversation conversation = null) : this(new Identifier(identifier), new Description(description), conversation)
         {
         }
 
@@ -33,30 +34,11 @@ namespace BP.AdventureFramework.Assets.Characters
         /// </summary>
         /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
-        public NonPlayableCharacter(Identifier identifier, Description description)
+        /// <param name="conversation">The conversation.</param>
+        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation) 
         {
             Identifier = identifier;
             Description = description;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the NonPlayableCharacter class.
-        /// </summary>
-        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
-        /// <param name="description">The description of this NonPlayableCharacter.</param>
-        /// <param name="conversation">The conversation.</param>
-        public NonPlayableCharacter(string identifier, string description, Conversation conversation) : this(new Identifier(identifier), new Description(description), conversation)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the NonPlayableCharacter class.
-        /// </summary>
-        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
-        /// <param name="description">The description of this NonPlayableCharacter.</param>
-        /// <param name="conversation">The conversation.</param>
-        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation) : this(identifier, description)   
-        {
             Conversation = conversation;
         }
 

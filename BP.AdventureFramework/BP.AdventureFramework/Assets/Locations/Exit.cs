@@ -1,4 +1,6 @@
-﻿namespace BP.AdventureFramework.Assets.Locations
+﻿using System.Security.Cryptography;
+
+namespace BP.AdventureFramework.Assets.Locations
 {
     /// <summary>
     /// Represents an exit from a GameLocation.
@@ -25,26 +27,9 @@
         /// Initializes a new instance of the Exit class.
         /// </summary>
         /// <param name="direction">The direction of the exit.</param>
-        public Exit(CardinalDirection direction) : this(direction, null, false)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Exit class.
-        /// </summary>
-        /// <param name="direction">The direction of the exit.</param>
         /// <param name="isLocked">If this exit is locked.</param>
-        public Exit(CardinalDirection direction, bool isLocked) : this(direction, null, isLocked)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Exit class.
-        /// </summary>
-        /// <param name="direction">The direction of the exit.</param>
         /// <param name="description">A description of the exit.</param>
-        /// <param name="isLocked">If this exit is locked.</param>
-        public Exit(CardinalDirection direction, Description description, bool isLocked)
+        public Exit(CardinalDirection direction, bool isLocked = false, Description description = null)
         {
             Direction = direction;
             Description = description ?? GenerateDescription();

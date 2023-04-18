@@ -171,7 +171,8 @@ namespace BP.AdventureFramework.Examples.Assets
             region.SetStartRoom(0);
 
             // add region to overworld
-            overworld.CreateRegion(region, 0, 0);
+            overworld.Regions.Add(region);
+
 
             return overworld;
         }

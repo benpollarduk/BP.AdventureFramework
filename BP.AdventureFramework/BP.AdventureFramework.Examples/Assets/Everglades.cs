@@ -83,7 +83,7 @@ namespace BP.AdventureFramework.Examples.Assets
             r.SetStartRoom(0);
 
             var o = new Overworld(Overworld.ToIdentifier(), "An unknown world".ToDescription());
-            o.CreateRegion(r, 0, 0);
+            o.Regions.Add(r);
             return o;
         }
     }

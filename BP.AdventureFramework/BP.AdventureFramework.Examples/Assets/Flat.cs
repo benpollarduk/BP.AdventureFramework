@@ -260,7 +260,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             flat.SetStartRoom(bedroom);
             var flatWorld = new Overworld(Smalltown.ToIdentifier(), "A sleepy town".ToDescription());
-            flatWorld.CreateRegion(flat, 0, 0);
+            flatWorld.Regions.Add(flat);
 
             return flatWorld;
         }

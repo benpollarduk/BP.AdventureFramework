@@ -11,9 +11,14 @@ namespace BP.AdventureFramework.Assets.Locations
     /// <summary>
     /// Represents a room
     /// </summary>
-    public sealed class Room : GameLocation, IInteractWithItem
+    public sealed class Room : ExaminableObject, IInteractWithItem
     {
         #region Properties
+
+        /// <summary>
+        /// Get if this location has been visited.
+        /// </summary>
+        public bool HasBeenVisited { get; private set; }
 
         /// <summary>
         /// Get the exits.
@@ -101,6 +106,15 @@ namespace BP.AdventureFramework.Assets.Locations
         public void AddCharacter(NonPlayableCharacter character)
         {
            Characters.Add(character);
+        }
+
+        /// <summary>
+        /// Add an exit to this room.
+        /// </summary>
+        /// <param name="exit">The exit to add.</param>
+        public void AddExit(Exit exit)
+        {
+            Exits.Add(exit);
         }
 
         /// <summary>
@@ -441,13 +455,13 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Handle movement into this Room.
+        /// Handle movement into this GameLocation.
         /// </summary>
-        /// <param name="fromDirection">The direction movement into this Room is from. Use null if there should be no direction.</param>
-        public override void MovedInto(CardinalDirection? fromDirection)
+        /// <param name="fromDirection">The direction movement into this Room is from. Use null if there is no direction.</param>
+        public void MovedInto(CardinalDirection? fromDirection)
         {
             EnteredFrom = fromDirection;
-            base.MovedInto(fromDirection);
+            HasBeenVisited = true;
         }
 
         #endregion

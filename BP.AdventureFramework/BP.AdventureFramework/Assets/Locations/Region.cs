@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Assets.Locations
 {
     /// <summary>
     /// Represents a region.
     /// </summary>
-    public sealed class Region : GameLocation
+    public sealed class Region : ExaminableObject
     {
         #region Fields
 
         private Room currentRoom;
+        private readonly List<RoomPosition> roomPositions = new List<RoomPosition>();
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Get the Rooms in this Region.
-        /// </summary>
-        public List<Room> Rooms { get; } = new List<Room>();
 
         /// <summary>
         /// Get the current Room.
@@ -32,7 +29,7 @@ namespace BP.AdventureFramework.Assets.Locations
                 if (currentRoom != null) 
                     return currentRoom;
 
-                if (Rooms.Any())
+                if (roomPositions.Count > 0)
                     SetStartRoom(0);
 
                 return currentRoom;
@@ -41,19 +38,12 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Get the first Room found at a specified location.
+        /// Get a Room at a specified location.
         /// </summary>
-        /// <param name="column">The column of the Room.</param>
-        /// <param name="row">The row of the Room.</param>
-        /// <returns>The adjoining room.</returns>
-        public Room this[int column, int row]
-        {
-            get
-            {
-                var roomsInLocation = Rooms.Where(r => r.Column == column && r.Row == row).ToArray();
-                return roomsInLocation.Length > 0 ? roomsInLocation[0] : null;
-            }
-        }
+        /// <param name="column">The column.</param>
+        /// <param name="row">The row.</param>
+        /// <returns>The room.</returns>
+        public Room this[int column, int row] => roomPositions.FirstOrDefault(r => r.IsAtPosition(column, row))?.Room;
 
         #endregion
 
@@ -78,17 +68,14 @@ namespace BP.AdventureFramework.Assets.Locations
         /// Add a Room to this Region.
         /// </summary>
         /// <param name="room">The Room to add.</param>
-        /// <param name="columnInRegion">The column of the Room with this Region.</param>
-        /// <param name="rowInRegion">The row of the Room within this Region.</param>
-        public bool AddRoom(Room room, int columnInRegion, int rowInRegion)
+        /// <param name="column">The column of the Room.</param>
+        /// <param name="row">The row of the Room.</param>
+        public bool AddRoom(Room room, int column, int row)
         {
-            room.Column = columnInRegion;
-            room.Row = rowInRegion;
-
-            var addable = Rooms.All(r => r.Column != room.Column || r.Row != room.Row);
+            var addable = !roomPositions.Any(r => r.IsAtPosition(column, row));
 
             if (addable)
-                Rooms.Add(room);
+                roomPositions.Add(new RoomPosition(room, column, row));
 
             return addable;
         }
@@ -107,12 +94,17 @@ namespace BP.AdventureFramework.Assets.Locations
         /// Get an adjoining Room to a Room.
         /// </summary>
         /// <param name="direction">The direction of the adjoining Room.</param>
-        /// <param name="startRoom">The Room to start the check in.</param>
+        /// <param name="room">The Room to start the check in.</param>
         /// <returns>The adjoining Room, if there is one.</returns>
-        public Room GetAdjoiningRoom(CardinalDirection direction, Room startRoom)
+        public Room GetAdjoiningRoom(CardinalDirection direction, Room room)
         {
-            if (!startRoom.CanMove(direction)) 
+            if (!room.CanMove(direction)) 
                 return null;
+
+            var roomPosition = roomPositions.FirstOrDefault(x => x.Room == room);
+
+            if (roomPosition == null)
+                throw new Exception("There was no room.");
 
             int column;
             int row;
@@ -120,20 +112,20 @@ namespace BP.AdventureFramework.Assets.Locations
             switch (direction)
             {
                 case CardinalDirection.East:
-                    column = startRoom.Column + 1;
-                    row = startRoom.Row;
+                    column = roomPosition.X + 1;
+                    row = roomPosition.Y;
                     break;
                 case CardinalDirection.North:
-                    column = startRoom.Column;
-                    row = startRoom.Row + 1;
+                    column = roomPosition.X;
+                    row = roomPosition.Y + 1;
                     break;
                 case CardinalDirection.South:
-                    column = startRoom.Column;
-                    row = startRoom.Row - 1;
+                    column = roomPosition.X;
+                    row = roomPosition.Y - 1;
                     break;
                 case CardinalDirection.West:
-                    column = startRoom.Column - 1;
-                    row = startRoom.Row;
+                    column = roomPosition.X- 1;
+                    row = roomPosition.Y;
                     break;
                 default:
                     throw new NotImplementedException();
@@ -153,28 +145,7 @@ namespace BP.AdventureFramework.Assets.Locations
                 return false;
 
             CurrentRoom = GetAdjoiningRoom(direction);
-
-            CardinalDirection enteredFrom;
-
-            switch (direction)
-            {
-                case CardinalDirection.North:
-                    enteredFrom = CardinalDirection.South;
-                    break;
-                case CardinalDirection.East:
-                    enteredFrom = CardinalDirection.West;
-                    break;
-                case CardinalDirection.South:
-                    enteredFrom = CardinalDirection.North;
-                    break;
-                case CardinalDirection.West:
-                    enteredFrom = CardinalDirection.East;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-            }
-
-            CurrentRoom.MovedInto(enteredFrom);
+            CurrentRoom.MovedInto(direction.Inverse());
 
             return true;
         }
@@ -195,7 +166,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="index">The index of Room to start in.</param>
         public void SetStartRoom(int index)
         {
-            SetStartRoom(Rooms[index]);
+            SetStartRoom(roomPositions.ElementAt(index).Room);
         }
 
         /// <summary>
@@ -206,6 +177,11 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             var exitInThisRoom = CurrentRoom[direction];
 
+            var roomPosition = roomPositions.FirstOrDefault(x => x.Room == CurrentRoom);
+
+            if (roomPosition == null)
+                throw new Exception("There was no room.");
+
             if (exitInThisRoom != null)
             {
                 Exit exitInOpposingRoom;
@@ -213,16 +189,16 @@ namespace BP.AdventureFramework.Assets.Locations
                 switch (direction)
                 {
                     case CardinalDirection.East:
-                        exitInOpposingRoom = this[CurrentRoom.Column + 1, CurrentRoom.Row][(CardinalDirection)(-(int)direction)];
+                        exitInOpposingRoom = this[roomPosition.X + 1, roomPosition.Y][(CardinalDirection)(-(int)direction)];
                         break;
                     case CardinalDirection.North:
-                        exitInOpposingRoom = this[CurrentRoom.Column, CurrentRoom.Row + 1][(CardinalDirection)(-(int)direction)];
+                        exitInOpposingRoom = this[roomPosition.X, roomPosition.Y + 1][(CardinalDirection)(-(int)direction)];
                         break;
                     case CardinalDirection.South:
-                        exitInOpposingRoom = this[CurrentRoom.Column, CurrentRoom.Row - 1][(CardinalDirection)(-(int)direction)];
+                        exitInOpposingRoom = this[roomPosition.X, roomPosition.Y - 1][(CardinalDirection)(-(int)direction)];
                         break;
                     case CardinalDirection.West:
-                        exitInOpposingRoom = this[CurrentRoom.Column - 1, CurrentRoom.Row][(CardinalDirection)(-(int)direction)];
+                        exitInOpposingRoom = this[roomPosition.X - 1, roomPosition.Y][(CardinalDirection)(-(int)direction)];
                         break;
                     default:
                         throw new NotImplementedException();
@@ -235,13 +211,38 @@ namespace BP.AdventureFramework.Assets.Locations
                 }
                 else
                 {
-                    throw new Exception("There was no opposing exit");
+                    throw new Exception("There was no opposing exit.");
                 }
             }
             else
             {
-                throw new Exception("There exit in the current room in the specified direction");
+                throw new Exception("There exit in the current room in the specified direction.");
             }
+        }
+
+        /// <summary>
+        /// Get this region as a 2D matrix of rooms.
+        /// </summary>
+        /// <returns>This region, as a 2D matrix.</returns>
+        public Room[,] ToMatrix()
+        {
+            var minX = roomPositions.Min(x => x.X);
+            var minY = roomPositions.Min(x => x.Y);
+            var maxX = roomPositions.Max(x => x.X);
+            var maxY = roomPositions.Max(x => x.Y);
+
+            var lengthX = (maxX - minX) + 1;
+            var lengthY = (maxY - minY) + 1;
+
+            var xNormalisationOffset = 0 - minX;
+            var yNormalisationOffset = 0 - minY;
+
+            var matrix = new Room[lengthX, lengthY];
+
+            foreach (var room in roomPositions)
+                matrix[room.X + xNormalisationOffset, room.Y + yNormalisationOffset] = room.Room;
+
+            return matrix;
         }
 
         #endregion

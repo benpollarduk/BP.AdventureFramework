@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace BP.AdventureFramework.Assets.Locations
 {
     /// <summary>
     /// Represents an entire overworld.
     /// </summary>
-    public sealed class Overworld : GameLocation
+    public sealed class Overworld : ExaminableObject
     {
         #region Fields
 
@@ -43,29 +42,6 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             Identifier = identifier;
             Description = description;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Create a Region in this Overworld.
-        /// </summary>
-        /// <param name="region">The Region to create.</param>
-        /// <param name="columnInOverworld">The column of the Region with this Overworld.</param>
-        /// <param name="rowInOverworld">The row of the Region within this Overworld.</param>
-        public bool CreateRegion(Region region, int columnInOverworld, int rowInOverworld)
-        {
-            region.Column = columnInOverworld;
-            region.Row = rowInOverworld;
-
-            var addable = Regions.All(r => r.Column != region.Column || r.Row != region.Row);
-
-            if (addable)
-                Regions.Add(region);
-
-            return addable;
         }
 
         #endregion

@@ -77,5 +77,43 @@ namespace BP.AdventureFramework.Tests.Utils
 
             Assert.IsFalse(region.CurrentRoom.ContainsExit(true));
         }
+
+        [TestMethod]
+        public void GivenFirstRoomContainsExit_WhenLinkExits_Then2Exits()
+        {
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty);
+            var regionMaker = new RegionMaker(string.Empty, string.Empty)
+            {
+                [0, 0] = room1,
+                [1, 0] = room2
+            };
+            var region = regionMaker.Make();
+
+            RegionMaker.LinkExits(region);
+
+            Assert.IsTrue(region.CurrentRoom.ContainsExit(true));
+            region.Move(CardinalDirection.East);
+            Assert.IsTrue(region.CurrentRoom.ContainsExit(true));
+        }
+
+        [TestMethod]
+        public void Given4Rooms_WhenMake_Then4Rooms()
+        {
+            var room1 = new Room(Identifier.Empty, Description.Empty);
+            var room2 = new Room(Identifier.Empty, Description.Empty);
+            var room3 = new Room(Identifier.Empty, Description.Empty);
+            var room4 = new Room(Identifier.Empty, Description.Empty);
+            var regionMaker = new RegionMaker(string.Empty, string.Empty)
+            {
+                [0, 0] = room1,
+                [1, 0] = room2,
+                [2, 0] = room3,
+                [3, 0] = room4
+            };
+            var region = regionMaker.Make();
+
+            Assert.AreEqual(4, region.Rooms);
+        }
     }
 }

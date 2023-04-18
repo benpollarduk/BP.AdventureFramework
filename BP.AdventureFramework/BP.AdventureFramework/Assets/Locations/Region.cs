@@ -21,6 +21,11 @@ namespace BP.AdventureFramework.Assets.Locations
         #region Properties
 
         /// <summary>
+        /// Get the number of Rooms region contains.
+        /// </summary>
+        public int Rooms => roomPositions.Count;
+
+        /// <summary>
         /// Get the current Room.
         /// </summary>
         public Room CurrentRoom
@@ -108,9 +113,6 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The adjoining Room, if there is one.</returns>
         public Room GetAdjoiningRoom(CardinalDirection direction, Room room)
         {
-            if (!room.CanMove(direction)) 
-                return null;
-
             var roomPosition = roomPositions.FirstOrDefault(x => x.Room == room);
 
             if (roomPosition == null)

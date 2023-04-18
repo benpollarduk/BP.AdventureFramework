@@ -134,13 +134,13 @@ namespace BP.AdventureFramework.Utils
 
                 foreach (var direction in new[] { CardinalDirection.North, CardinalDirection.East, CardinalDirection.South, CardinalDirection.West })
                 {
-                    if (!room.FindExit(direction, true, out _)) 
+                    if (!room.FindExit(direction, true, out var exit)) 
                         continue;
 
                     var adjoining = region.GetAdjoiningRoom(direction);
                     var inverse = direction.Inverse();
 
-                    if (adjoining != null && !adjoining.FindExit(inverse, true, out var exit))
+                    if (adjoining != null && !adjoining.FindExit(inverse, true, out _))
                         adjoining.AddExit(new Exit(inverse, exit.IsLocked));
                 }
             }
@@ -150,7 +150,7 @@ namespace BP.AdventureFramework.Utils
         /// Convert region to a 2D matrix of rooms.
         /// </summary>
         /// <returns>A 2D matrix.</returns>
-        public static Room[,] ConvertToRoomMatrix(IReadOnlyCollection<RoomPosition> roomPositions)
+        internal static Room[,] ConvertToRoomMatrix(IReadOnlyCollection<RoomPosition> roomPositions)
         {
             if (roomPositions == null || roomPositions.Count == 0)
                 return null;

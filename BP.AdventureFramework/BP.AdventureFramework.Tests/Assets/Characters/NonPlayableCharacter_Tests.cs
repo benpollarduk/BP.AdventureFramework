@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BP.AdventureFramework.Assets.Characters;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Assets.Characters
 {
-    class NonPlayableCharacter_Tests
+    [TestClass]
+    public class NonPlayableCharacter_Tests
     {
+        [TestMethod]
+        public void GivenNewCharacter_WhenGetIsAlive_ThenReturnTrue()
+        {
+            var npc = new NonPlayableCharacter(string.Empty, string.Empty);
+
+            Assert.IsTrue(npc.IsAlive);
+        }
+
+        [TestMethod]
+        public void GivenNewCharacter_WhenKill_ThenIsAliveIsFalse()
+        {
+            var npc = new NonPlayableCharacter(string.Empty, string.Empty);
+
+            npc.Kill(string.Empty);
+
+            Assert.IsFalse(npc.IsAlive);
+        }
     }
 }

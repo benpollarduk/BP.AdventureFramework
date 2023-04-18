@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace BP.AdventureFramework.Assets.Locations
+﻿namespace BP.AdventureFramework.Assets.Locations
 {
     /// <summary>
     /// Represents an exit from a GameLocation.

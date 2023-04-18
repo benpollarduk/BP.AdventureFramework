@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Assets.Characters
 {

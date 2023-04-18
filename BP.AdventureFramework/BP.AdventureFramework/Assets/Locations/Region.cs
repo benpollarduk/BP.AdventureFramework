@@ -54,6 +54,15 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>s
         /// <param name="identifier">This Regions identifier.</param>
         /// <param name="description">The description of this Region.</param>
+        public Region(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Region class.
+        /// </summary>s
+        /// <param name="identifier">This Regions identifier.</param>
+        /// <param name="description">The description of this Region.</param>
         public Region(Identifier identifier, Description description)
         {
             Identifier = identifier;

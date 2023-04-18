@@ -29,6 +29,16 @@ namespace BP.AdventureFramework.Assets
         /// <param name="identifier">This Items identifier.</param>
         /// <param name="description">A description of this Item.</param>
         /// <param name="isTakeable">Specify if this item is takeable.</param>
+        public Item(string identifier, string description, bool isTakeable) : this(new Identifier(identifier), new Description(description), isTakeable)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Item class.
+        /// </summary>
+        /// <param name="identifier">This Items identifier.</param>
+        /// <param name="description">A description of this Item.</param>
+        /// <param name="isTakeable">Specify if this item is takeable.</param>
         public Item(Identifier identifier, Description description, bool isTakeable)
         {
             Identifier = identifier;

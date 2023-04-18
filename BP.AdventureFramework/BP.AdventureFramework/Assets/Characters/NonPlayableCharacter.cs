@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Assets.Interaction;
+﻿using System.Runtime.CompilerServices;
+using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Assets.Characters
 {
@@ -17,6 +18,15 @@ namespace BP.AdventureFramework.Assets.Characters
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the NonPlayableCharacter class.
+        /// </summary>
+        /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
+        /// <param name="description">The description of this NonPlayableCharacter.</param>
+        public NonPlayableCharacter(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the NonPlayableCharacter class.

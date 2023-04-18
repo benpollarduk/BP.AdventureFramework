@@ -66,6 +66,15 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
+        public Room(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Room class.
+        /// </summary>
+        /// <param name="identifier">This rooms identifier.</param>
+        /// <param name="description">This rooms description.</param>
         public Room(Identifier identifier, Description description)
         {
             Identifier = identifier;

@@ -38,6 +38,15 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="identifier">The identifier for this Overworld.</param>
         /// <param name="description">A description of this Overworld.</param>
+        public Overworld(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Overworld class.
+        /// </summary>
+        /// <param name="identifier">The identifier for this Overworld.</param>
+        /// <param name="description">A description of this Overworld.</param>
         public Overworld(Identifier identifier, Description description)
         {
             Identifier = identifier;

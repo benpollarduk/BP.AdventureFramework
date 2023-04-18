@@ -65,6 +65,7 @@
     <Compile Include="Commands\Global\Help_Tests.cs" />
     <Compile Include="Commands\Global\Exit_Tests.cs" />
     <Compile Include="Commands\Global\About_Tests.cs" />
+    <Compile Include="Extensions\CardinalDirectionExtensions_Tests.cs" />
     <Compile Include="Extensions\StringExtensions_Tests.cs" />
     <Compile Include="Interpretation\GameCommandInterpreter_Tests.cs" />
     <Compile Include="Interpretation\GlobalCommandInterpreter_Tests.cs" />

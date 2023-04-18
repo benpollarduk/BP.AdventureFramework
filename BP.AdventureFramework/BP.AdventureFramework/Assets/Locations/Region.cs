@@ -68,8 +68,8 @@ namespace BP.AdventureFramework.Assets.Locations
         /// Add a Room to this Region.
         /// </summary>
         /// <param name="room">The Room to add.</param>
-        /// <param name="column">The column of the Room.</param>
-        /// <param name="row">The row of the Room.</param>
+        /// <param name="column">The column within the region.</param>
+        /// <param name="row">The row within the region.</param>
         public bool AddRoom(Room room, int column, int row)
         {
             var addable = !roomPositions.Any(r => r.IsAtPosition(column, row));
@@ -226,23 +226,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>This region, as a 2D matrix.</returns>
         public Room[,] ToMatrix()
         {
-            var minX = roomPositions.Min(x => x.X);
-            var minY = roomPositions.Min(x => x.Y);
-            var maxX = roomPositions.Max(x => x.X);
-            var maxY = roomPositions.Max(x => x.Y);
-
-            var lengthX = (maxX - minX) + 1;
-            var lengthY = (maxY - minY) + 1;
-
-            var xNormalisationOffset = 0 - minX;
-            var yNormalisationOffset = 0 - minY;
-
-            var matrix = new Room[lengthX, lengthY];
-
-            foreach (var room in roomPositions)
-                matrix[room.X + xNormalisationOffset, room.Y + yNormalisationOffset] = room.Room;
-
-            return matrix;
+            return RegionMaker.ConvertToRoomMatrix(roomPositions);
         }
 
         #endregion

@@ -74,7 +74,7 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             var region = new Region(Identifier, Description);
 
-            var matrix = ToMatrix(rooms);
+            var matrix = ConvertToRoomMatrix(rooms);
 
             for (var y = matrix.GetLowerBound(1); y < matrix.GetUpperBound(1); y++)
             {
@@ -124,7 +124,11 @@ namespace BP.AdventureFramework.Assets.Locations
             return region;
         }
 
-        private static Room[,] ToMatrix(IReadOnlyCollection<RoomPosition> roomPositions)
+        /// <summary>
+        /// Convert region to a 2D matrix of rooms.
+        /// </summary>
+        /// <returns>A 2D matrix.</returns>
+        public static Room[,] ConvertToRoomMatrix(IReadOnlyCollection<RoomPosition> roomPositions)
         {
             var minX = roomPositions.Min(x => x.X);
             var minY = roomPositions.Min(x => x.Y);

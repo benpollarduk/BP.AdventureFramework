@@ -1,4 +1,7 @@
-﻿namespace BP.AdventureFramework.Assets.Locations
+﻿using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Locations;
+
+namespace BP.AdventureFramework.Utils
 {
     /// <summary>
     /// Provides a class for helping to make Regions.

@@ -1,8 +1,9 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Assets.Locations
+namespace BP.AdventureFramework.Tests.Utils
 {
     [TestClass]
     public class RegionMaker_Tests
@@ -32,8 +33,8 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
 
             var matrix = RegionMaker.ConvertToRoomMatrix(new[] { room });
 
-            Assert.AreEqual(1, matrix.GetUpperBound(0));
-            Assert.AreEqual(1, matrix.GetUpperBound(1));
+            Assert.AreEqual(1, matrix.GetLength(0));
+            Assert.AreEqual(1, matrix.GetLength(1));
         }
 
         [TestMethod]
@@ -44,8 +45,8 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
 
             var matrix = RegionMaker.ConvertToRoomMatrix(new[] { room1, room2 });
 
-            Assert.AreEqual(1, matrix.GetUpperBound(0));
-            Assert.AreEqual(2, matrix.GetUpperBound(1));
+            Assert.AreEqual(1, matrix.GetLength(0));
+            Assert.AreEqual(2, matrix.GetLength(1));
         }
 
         [TestMethod]
@@ -56,8 +57,25 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
 
             var matrix = RegionMaker.ConvertToRoomMatrix(new[] { room1, room2 });
 
-            Assert.AreEqual(2, matrix.GetUpperBound(1));
-            Assert.AreEqual(1, matrix.GetUpperBound(1));
+            Assert.AreEqual(2, matrix.GetLength(0));
+            Assert.AreEqual(1, matrix.GetLength(1));
+        }
+
+        [TestMethod]
+        public void GivenNoExits_WhenLinkExits_ThenNoExits()
+        {
+            var room1 = new Room(Identifier.Empty, Description.Empty);
+            var room2 = new Room(Identifier.Empty, Description.Empty);
+            var regionMaker = new RegionMaker(string.Empty, string.Empty)
+            {
+                [0, 0] = room1, 
+                [1, 0] = room2
+            };
+            var region = regionMaker.Make();
+
+            RegionMaker.LinkExits(region);
+
+            Assert.IsFalse(region.CurrentRoom.ContainsExit(true));
         }
     }
 }

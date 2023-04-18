@@ -88,6 +88,16 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
         /// <param name="exits">The exits from this room.</param>
+        public Room(Identifier identifier, Description description, params Exit[] exits): this(identifier, description, exits, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Room class.
+        /// </summary>
+        /// <param name="identifier">This rooms identifier.</param>
+        /// <param name="description">This rooms description.</param>
+        /// <param name="exits">The exits from this room.</param>
         /// <param name="items">The items in this room.</param>
         public Room(Identifier identifier, Description description, Exit[] exits = null, params Item[] items)
         {
@@ -288,6 +298,16 @@ namespace BP.AdventureFramework.Assets.Locations
         public bool HasUnlockedExitInDirection(CardinalDirection direction, bool includeInvisibleExits = false)
         {
             return Exits.Any(x => x.Direction == direction && !x.IsLocked && (includeInvisibleExits || x.IsPlayerVisible));
+        }
+
+        /// <summary>
+        /// Get if this Room contains an exit.
+        /// </summary>
+        /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
+        /// <returns>True if the exit exists, else false.</returns>
+        public bool ContainsExit(bool includeInvisibleExits = false)
+        {
+            return Exits.Any(exit => includeInvisibleExits || exit.IsPlayerVisible);
         }
 
         /// <summary>

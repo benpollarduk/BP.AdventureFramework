@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 
-namespace BP.AdventureFramework.Assets.Locations
+namespace BP.AdventureFramework.Utils
 {
     /// <summary>
     /// Provides a class for helping to make Regions.
@@ -97,9 +99,9 @@ namespace BP.AdventureFramework.Assets.Locations
 
             var matrix = ConvertToRoomMatrix(rooms);
 
-            for (var y = matrix.GetLowerBound(1); y <= matrix.GetUpperBound(1); y++)
+            for (var y = matrix.GetLowerBound(1); y < matrix.GetLength(1); y++)
             {
-                for (var x = matrix.GetLowerBound(0); x <= matrix.GetUpperBound(0); x++)
+                for (var x = matrix.GetLowerBound(0); x < matrix.GetLength(0); x++)
                 {
                     var room = matrix[x, y];
 

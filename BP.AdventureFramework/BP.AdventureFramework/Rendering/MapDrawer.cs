@@ -243,13 +243,13 @@ namespace BP.AdventureFramework.Rendering
             var blankRoomRow = ConstructWhitespaceString(roomRenderWidth);
             var rooms = region.ToMatrix();
 
-            for (var row = height; row >= y; row--)
+            for (var row = height - 1; row >= y; row--)
             {
                 for (var rowPass = 0; rowPass < 3; rowPass++)
                 {
                     var line = string.Empty;
 
-                    for (var column = x; column <= width; column++)
+                    for (var column = x; column < width; column++)
                     {
                         var room = rooms[column, row];
 
@@ -310,10 +310,10 @@ namespace BP.AdventureFramework.Rendering
             {
                 var matrix = region.ToMatrix();
 
-                x = matrix.GetLowerBound(0);
-                width = matrix.GetUpperBound(0);
-                y = matrix.GetLowerBound(1);
-                height = matrix.GetUpperBound(1);
+                x = 0;
+                width = matrix.GetLength(0);
+                y = 0;
+                height = matrix.GetLength(1);
                 return true;
             }
 

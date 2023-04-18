@@ -70,7 +70,7 @@ namespace BP.AdventureFramework.Rendering
         public string ConstructRoomMap(Room room, int width)
         {
             if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0");
+                throw new ArgumentException("The width parameter must be greater than 0.");
 
             var map = string.Empty;
             var keyLines = new Queue<string>();

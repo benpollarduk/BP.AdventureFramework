@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Assets.Locations
                     return currentRoom;
 
                 if (roomPositions.Count > 0)
-                    SetStartRoom(0);
+                    SetStartRoom(roomPositions.First().Room);
 
                 return currentRoom;
             }
@@ -104,7 +104,7 @@ namespace BP.AdventureFramework.Assets.Locations
             var roomPosition = roomPositions.FirstOrDefault(x => x.Room == room);
 
             if (roomPosition == null)
-                throw new Exception("There was no room.");
+                return null;
 
             int column;
             int row;
@@ -144,8 +144,13 @@ namespace BP.AdventureFramework.Assets.Locations
             if (!CurrentRoom.CanMove(direction)) 
                 return false;
 
-            CurrentRoom = GetAdjoiningRoom(direction);
-            CurrentRoom.MovedInto(direction.Inverse());
+            var adjoiningRoom = GetAdjoiningRoom(direction);
+
+            if (adjoiningRoom == null)
+                return false;
+
+            adjoiningRoom.MovedInto(direction.Inverse());
+            CurrentRoom = adjoiningRoom;
 
             return true;
         }
@@ -163,61 +168,44 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Set the Room to start in.
         /// </summary>
-        /// <param name="index">The index of Room to start in.</param>
-        public void SetStartRoom(int index)
+        /// <param name="column">The column.</param>
+        /// <param name="row">The row.</param>
+        public void SetStartRoom(int column, int row)
         {
-            SetStartRoom(roomPositions.ElementAt(index).Room);
+            var room = roomPositions.FirstOrDefault(x => x.IsAtPosition(column, row))?.Room;
+            SetStartRoom(room ?? roomPositions.ElementAt(0).Room);
         }
 
         /// <summary>
         /// Unlock a pair of doors in a specified direction in the CurrentRoom.
         /// </summary>
         /// <param name="direction">The direction to unlock in.</param>
-        public void UnlockDoorPair(CardinalDirection direction)
+        /// <returns>True if the door pair could be unlocked, else false.</returns>
+        public bool UnlockDoorPair(CardinalDirection direction)
         {
             var exitInThisRoom = CurrentRoom[direction];
-
             var roomPosition = roomPositions.FirstOrDefault(x => x.Room == CurrentRoom);
 
             if (roomPosition == null)
-                throw new Exception("There was no room.");
+                return false;
 
-            if (exitInThisRoom != null)
-            {
-                Exit exitInOpposingRoom;
+            if (exitInThisRoom == null)
+                return false;
 
-                switch (direction)
-                {
-                    case CardinalDirection.East:
-                        exitInOpposingRoom = this[roomPosition.X + 1, roomPosition.Y][(CardinalDirection)(-(int)direction)];
-                        break;
-                    case CardinalDirection.North:
-                        exitInOpposingRoom = this[roomPosition.X, roomPosition.Y + 1][(CardinalDirection)(-(int)direction)];
-                        break;
-                    case CardinalDirection.South:
-                        exitInOpposingRoom = this[roomPosition.X, roomPosition.Y - 1][(CardinalDirection)(-(int)direction)];
-                        break;
-                    case CardinalDirection.West:
-                        exitInOpposingRoom = this[roomPosition.X - 1, roomPosition.Y][(CardinalDirection)(-(int)direction)];
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
+            var adjoiningRoom = GetAdjoiningRoom(direction);
 
-                if (exitInOpposingRoom != null)
-                {
-                    exitInOpposingRoom.Unlock();
-                    exitInThisRoom.Unlock();
-                }
-                else
-                {
-                    throw new Exception("There was no opposing exit.");
-                }
-            }
-            else
-            {
-                throw new Exception("There exit in the current room in the specified direction.");
-            }
+            if (adjoiningRoom == null)
+                return false;
+
+            if (!adjoiningRoom.FindExit(direction.Inverse(), true, out var exit))
+                return false;
+
+            if (exit == null)
+                return false;
+
+            exit.Unlock();
+            exitInThisRoom.Unlock();
+            return true;
         }
 
         /// <summary>

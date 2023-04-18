@@ -167,9 +167,6 @@ namespace BP.AdventureFramework.Examples.Assets
             region.AddRoom(tailCave, 1, 1);
             region.AddRoom(stream, 0, 2);
 
-            // set start room to first room
-            region.SetStartRoom(0);
-
             // add region to overworld
             overworld.Regions.Add(region);
 

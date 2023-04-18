@@ -1,5 +1,4 @@
-﻿using System;
-using BP.AdventureFramework.Assets;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
@@ -62,7 +61,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
         internal static Overworld GenerateOverworld(PlayableCharacter pC)
         {
-            var flat = new Region(Flat3.ToIdentifier(), "Ben and Beth's Flat".ToDescription());
+            var regionMaker = new RegionMaker(Flat3.ToIdentifier(), "Ben and Beth's Flat".ToDescription());
 
             var bedroom = new Room(Bedroom.ToIdentifier(),
                 new Description("The bedroom is large, with one duck-egg blue wall. There is a double bed aginst the western wall, and a few other items of bedroom furniture are dotted around, but they all look pretty scruffy. To the north is a doorway leading to the hallway"),
@@ -91,9 +90,6 @@ namespace BP.AdventureFramework.Examples.Assets
             {
                 Interaction = (i, target) =>
                 {
-                    if (i == null)
-                        throw new ArgumentException();
-
                     if (Kettle.EqualsIdentifier(i.Identifier))
                     {
                         var item = target as Item;
@@ -138,11 +134,9 @@ namespace BP.AdventureFramework.Examples.Assets
                             i.Morph(new Item(MugOfCoffee.ToIdentifier(), "Hmm smells good, nice and bitter!".ToDescription(), true));
                             return new InteractionResult(InteractionEffect.ItemMorphed, i, "You put some instant coffee granuals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
                         }
-
-                        return new InteractionResult(InteractionEffect.NoEffect, i);
                     }
 
-                    throw new ArgumentException();
+                    return new InteractionResult(InteractionEffect.NoEffect, i);
                 }
             };
 
@@ -160,11 +154,9 @@ namespace BP.AdventureFramework.Examples.Assets
                     {
                         if (Guitar.EqualsIdentifier(i.Identifier))
                             return new InteractionResult(InteractionEffect.NoEffect, i, "Playing guitar in the kitchen is pretty stupid don't you think?");
-                        
-                        return new InteractionResult(InteractionEffect.NoEffect, i);
                     }
 
-                    throw new ArgumentException();
+                    return new InteractionResult(InteractionEffect.NoEffect, i);
                 }
             };
 
@@ -247,22 +239,23 @@ namespace BP.AdventureFramework.Examples.Assets
                 return new InteractionResult(InteractionEffect.NoEffect, i);
             };
 
+            var stairway = new Room(Stairway.ToIdentifier(), new Description("You are in the Stairway. It is dimly lit because the bulbs have blown again, to the north is a staircase leading down to the other flats. Fausto, your next door neighbour is standing naked at the bottom of the stairs. He looks pretty pissed off about all the noise, and doesn't look like he is going to let you past. To the west is the front door of the flat."), new Exit(CardinalDirection.West));
+
             // create all rooms
-            flat.AddRoom(bedroom, 2, 0);
-            flat.AddRoom(hallway1, 2, 1);
-            flat.AddRoom(hallway2, 1, 1);
-            flat.AddRoom(bathroom, 1, 2);
-            flat.AddRoom(roof, 1, 3);
-            flat.AddRoom(bedroom2, 1, 0);
-            flat.AddRoom(kitchen, 0, 1);
-            flat.AddRoom(lounge, 0, 0);
-            flat.AddRoom(new Room(Stairway.ToIdentifier(), new Description("You are in the Stairway. It is dimly lit because the bulbs have blown again, to the north is a staircase leading down to the other flats. Fausto, your next door neighbour is standing naked at the bottom of the stairs. He looks pretty pissed off about all the noise, and doesn't look like he is going to let you past. To the west is the front door of the flat."), new Exit(CardinalDirection.West)), 3, 1);
+            regionMaker[2, 0] = bedroom;
+            regionMaker[2, 1] = hallway1;
+            regionMaker[1, 1] = hallway2;
+            regionMaker[1, 2] = bathroom;
+            regionMaker[1, 3] = roof;
+            regionMaker[1, 0] = bedroom2;
+            regionMaker[0, 1] = kitchen;
+            regionMaker[0, 0] = lounge;
+            regionMaker[3, 1] = stairway;
 
-            flat.SetStartRoom(bedroom);
-            var flatWorld = new Overworld(Smalltown.ToIdentifier(), "A sleepy town".ToDescription());
-            flatWorld.Regions.Add(flat);
+            var o = new Overworld(Smalltown.ToIdentifier(), "A sleepy town".ToDescription());
+            o.Regions.Add(regionMaker.Make());
 
-            return flatWorld;
+            return o;
         }
     }
 }

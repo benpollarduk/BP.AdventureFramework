@@ -72,13 +72,25 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The created region.</returns>
         public Region Make()
         {
+            var firstRoom = rooms.First();
+            return Make(firstRoom.X, firstRoom.Y);
+        }
+
+        /// <summary>
+        /// Make a region.
+        /// </summary>
+        /// <param name="column">The start column.</param>
+        /// <param name="row">The start row.</param>
+        /// <returns>The created region.</returns>
+        public Region Make(int column, int row)
+        {
             var region = new Region(Identifier, Description);
 
             var matrix = ConvertToRoomMatrix(rooms);
 
-            for (var y = matrix.GetLowerBound(1); y < matrix.GetUpperBound(1); y++)
+            for (var y = matrix.GetLowerBound(1); y <= matrix.GetUpperBound(1); y++)
             {
-                for (var x = matrix.GetLowerBound(0); x < matrix.GetUpperBound(0); x++)
+                for (var x = matrix.GetLowerBound(0); x <= matrix.GetUpperBound(0); x++)
                 {
                     var room = matrix[x, y];
 
@@ -87,27 +99,28 @@ namespace BP.AdventureFramework.Assets.Locations
                 }
             }
 
-            ResolveExits(region);
+            LinkExits(region);
+
+            region.SetStartRoom(column, row);
 
             return region;
-        }
-
-        /// <summary>
-        /// Clear all rooms.
-        /// </summary>
-        public void Clear()
-        {
-            rooms.Clear();
         }
 
         #endregion
 
         #region StaticMethods
 
-        private static Region ResolveExits(Region region)
+        /// <summary>
+        /// Ensure all rooms within a region have exits that are linked to adjacent rooms.
+        /// </summary>
+        /// <param name="region">The region.</param>
+        internal static void LinkExits(Region region)
         {
             foreach (var room in region.ToMatrix())
             {
+                if (room == null)
+                    continue;
+
                 foreach (var direction in new[] { CardinalDirection.North, CardinalDirection.East, CardinalDirection.South, CardinalDirection.West })
                 {
                     if (!room.FindExit(direction, true, out _)) 
@@ -120,8 +133,6 @@ namespace BP.AdventureFramework.Assets.Locations
                         adjoining.AddExit(new Exit(inverse, exit.IsLocked));
                 }
             }
-
-            return region;
         }
 
         /// <summary>
@@ -135,8 +146,8 @@ namespace BP.AdventureFramework.Assets.Locations
             var maxX = roomPositions.Max(x => x.X);
             var maxY = roomPositions.Max(x => x.Y);
 
-            var lengthX = maxX - minX;
-            var lengthY = maxY - minY;
+            var lengthX = (maxX - minX) + 1;
+            var lengthY = (maxY - minY) + 1;
 
             var xNormalisationOffset = 0 - minX;
             var yNormalisationOffset = 0 - minY;

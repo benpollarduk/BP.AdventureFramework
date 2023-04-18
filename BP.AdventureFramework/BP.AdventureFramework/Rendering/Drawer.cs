@@ -63,7 +63,7 @@ namespace BP.AdventureFramework.Rendering
         public virtual string ConstructDivider(int width, char leftBoundary, char dividerString, char rightBoundary)
         {
             if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0");
+                throw new ArgumentException("The width parameter must be greater than 0.");
 
             var divider = leftBoundary.ToString();
 
@@ -130,10 +130,10 @@ namespace BP.AdventureFramework.Rendering
         public string ConstructUnboarderedCentralisedString(string displayString, int width)
         {
             if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0");
+                throw new ArgumentException("The width parameter must be greater than 0.");
 
             if (displayString.Length > width)
-                throw new ArgumentException("The length of the displayString parameter is greater than the width paramater");
+                throw new ArgumentException("The length of the displayString parameter is greater than the width parameter.");
 
             var constructedString = string.Empty;
             var startPosition = width / 2 - displayString.Length / 2;
@@ -156,7 +156,7 @@ namespace BP.AdventureFramework.Rendering
         public virtual string ConstructCentralisedString(string displayString, int width, char leftBoundary, char rightBoundary)
         {
             if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0");
+                throw new ArgumentException("The width parameter must be greater than 0.");
 
             if (displayString.Length + 2 >= width) 
                 return ConstructWrappedPaddedString(displayString, width, leftBoundary, rightBoundary, true);
@@ -207,7 +207,7 @@ namespace BP.AdventureFramework.Rendering
         public virtual string ConstructWrappedPaddedString(string displayString, int width, char leftBoundary, char rightBoundary, bool centralise)
         {
             if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0");
+                throw new ArgumentException("The width parameter must be greater than 0.");
 
             var wrappedString = string.Empty;
             var availableTextSpace = width - 4;

@@ -55,7 +55,7 @@ All game management is provided by the framework, including:
   
 Maps are automatically generated for regions:
 
-![image](https://user-images.githubusercontent.com/129943363/230676860-4bb57929-61a3-43d4-9c24-9b824b45bafc.png)
+![image](https://user-images.githubusercontent.com/129943363/232739597-cece8804-095b-4ee8-a945-dc66d1888e7f.png)
 
 # Prerequisites
  * Windows

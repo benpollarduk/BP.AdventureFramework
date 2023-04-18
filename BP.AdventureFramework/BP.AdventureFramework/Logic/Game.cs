@@ -36,6 +36,11 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public static IInterpreter DefaultInterpreter => new InputInterpreter(new FrameCommandInterpreter(), new GlobalCommandInterpreter(), new GameCommandInterpreter());
 
+        /// <summary>
+        /// Get the default size.
+        /// </summary>
+        public static Size DefaultSize { get; } = new Size(80, 50);
+
         #endregion
 
         #region Fields
@@ -146,9 +151,9 @@ namespace BP.AdventureFramework.Logic
         internal TextWriter Error { get; set; }
 
         /// <summary>
-        /// Get or set the standard size of the display area.
+        /// Get the size of the display area.
         /// </summary>
-        internal Size DisplaySize { get; set; } = new Size(0, 0);
+        public Size DisplaySize { get; }
 
         /// <summary>
         /// Get if this game has ended.
@@ -210,13 +215,15 @@ namespace BP.AdventureFramework.Logic
         /// <param name="name">The name of this Game.</param>
         /// <param name="description">A description of this Game.</param>
         /// <param name="player">The Player to use for this Game.</param>
-        /// <param name="overworld">A Overworld to use for this Game.</param>
-        private Game(string name, string description, PlayableCharacter player, Overworld overworld)
+        /// <param name="overworld">An Overworld to use for this Game.</param>
+        /// <param name="displaySize">The display size.</param>
+        private Game(string name, string description, PlayableCharacter player, Overworld overworld, Size displaySize)
         {
             Name = name;
             Description = description;
             Player = player;
             Overworld = overworld;
+            DisplaySize = displaySize;
         }
 
         #endregion
@@ -283,20 +290,14 @@ namespace BP.AdventureFramework.Logic
                 switch (reaction.Result)
                 {
                     case ReactionResult.None:
-
                         var message = ErrorPrefix + ": " + reaction.Description;
                         UpdateScreenWithCurrentFrame(message);
                         break;
-
                     case ReactionResult.Reacted:
-
                         UpdateScreenWithCurrentFrame(reaction.Description);
                         break;
-
                     case ReactionResult.SelfContained:
-
                         break;
-
                     default:
                         throw new NotImplementedException();
                 }
@@ -338,7 +339,7 @@ namespace BP.AdventureFramework.Logic
                 lastFrame = frame;
                 lastFrame.Invalidated += Frame_Invalidated;
 
-                Output.WriteLine(frame.BuildFrame(DisplaySize.Width, DisplaySize.Height, FrameDrawer));
+                Output.Write(frame.BuildFrame(DisplaySize.Width, DisplaySize.Height, FrameDrawer));
 
                 FinishedFrameDraw?.Invoke(this, frame);
             }
@@ -520,6 +521,7 @@ namespace BP.AdventureFramework.Logic
                 overworldGenerator,
                 playerGenerator,
                 completionCondition,
+                DefaultSize,
                 new FrameDrawer(),
                 new MapDrawer(), 
                 new TitleFrame(name, description),
@@ -537,6 +539,7 @@ namespace BP.AdventureFramework.Logic
         /// <param name="description">A description of the game.</param>
         /// <param name="overworldGenerator">A function to generate the Overworld with.</param>
         /// <param name="playerGenerator">The function to generate the Player with.</param>
+        /// <param name="displaySize">The display size.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
         /// <param name="frameDrawer">The drawer to use for rendering frames.</param>
         /// <param name="mapDrawer">The drawer to use for rendering maps.</param>
@@ -547,12 +550,12 @@ namespace BP.AdventureFramework.Logic
         /// <param name="errorPrefix">A prefix to use when displaying errors.</param>
         /// <param name="interpreter">The interpreter.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, FrameDrawer frameDrawer, MapDrawer mapDrawer, Frame titleFrame, Frame completionFrame, Frame helpFrame, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Size displaySize, FrameDrawer frameDrawer, MapDrawer mapDrawer, Frame titleFrame, Frame completionFrame, Frame helpFrame, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
         {
             return () =>
             {
                 var pC = playerGenerator.Invoke();
-                var game = new Game(name, description, pC, overworldGenerator.Invoke(pC))
+                var game = new Game(name, description, pC, overworldGenerator.Invoke(pC), displaySize)
                 {
                     TitleFrame = titleFrame,
                     CompletionFrame = completionFrame,
@@ -581,7 +584,8 @@ namespace BP.AdventureFramework.Logic
             {
                 using (var game = creator.Invoke())
                 {
-                    HostSetup.SetupWindowsConsole(game);
+                    SetupConsole(game);
+                    AttachToConsole(game);
                     game.Execute();
 
                     switch (game.ExitMode)
@@ -596,6 +600,35 @@ namespace BP.AdventureFramework.Logic
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Attach a game to the Console.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        private static void AttachToConsole(Game game)
+        {
+            game.Input = Console.In;
+            game.Output = Console.Out;
+            game.Error = Console.Error;
+            game.WaitForKeyPressCallback = key => Console.ReadKey().KeyChar == key;
+            game.StartingFrameDraw += (s, e) => Console.Clear();
+            game.FinishedFrameDraw += (s, e) =>
+            {
+                Console.CursorVisible = e.ShowCursor;
+                Console.SetCursorPosition(e.CursorLeft, e.CursorTop);
+            };
+        }
+
+        /// <summary>
+        /// Setup the console for a game.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        private static void SetupConsole(Game game)
+        {
+            Console.Title = game.Name;
+            Console.SetWindowSize(game.DisplaySize.Width, game.DisplaySize.Height);
+            Console.SetBufferSize(game.DisplaySize.Width, game.DisplaySize.Height);
         }
 
         #endregion

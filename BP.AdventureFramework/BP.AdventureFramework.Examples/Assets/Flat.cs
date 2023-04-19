@@ -227,8 +227,14 @@ namespace BP.AdventureFramework.Examples.Assets
                         if (obj.ContainsItem(Lead))
                         {
                             hallway1[CardinalDirection.East].Unlock();
-                            lounge.RemoveCharacter(Beth);
-                            return new InteractionResult(InteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings. Beth's had enough! She bolts for the front door leaving it wide open! You are free to leave the flat! You unplug the guitar");
+
+                            if (lounge.FindCharacter(Beth, out var b))
+                            {
+                                lounge.RemoveCharacter(b);
+                                return new InteractionResult(InteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings. Beth's had enough! She bolts for the front door leaving it wide open! You are free to leave the flat! You unplug the guitar");
+                            }
+
+                            return new InteractionResult(InteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings");
                         }
 
                         return new InteractionResult(InteractionEffect.NoEffect, i, "You have no lead so you can't use the guitar with the amp...");

@@ -350,7 +350,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains an item.
         /// </summary>
-        /// <param name="itemName">The item name to check for. This is case insensitive.</param>
+        /// <param name="itemName">The item name to check for.</param>
         /// <param name="includeInvisibleItems">Specify if invisible items should be included.</param>
         /// <returns>True if the item is in this room, else false.</returns>
         public bool ContainsItem(string itemName, bool includeInvisibleItems = false)
@@ -361,7 +361,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains an interaction target.
         /// </summary>
-        /// <param name="targetName">The name of the target to check for. This is case insensitive.</param>
+        /// <param name="targetName">The name of the target to check for.</param>
         /// <returns>True if the target is in this room, else false.</returns>
         public bool ContainsInteractionTarget(string targetName)
         {
@@ -382,7 +382,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find an item.
         /// </summary>
-        /// <param name="itemName">The items name. This is case insensitive.</param>
+        /// <param name="itemName">The items name.</param>
         /// <param name="item">The item.</param>
         /// <param name="includeInvisibleItems">Specify is invisible items should be included.</param>
         /// <returns>True if the item was found.</returns>
@@ -403,7 +403,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find an interaction target.
         /// </summary>
-        /// <param name="targetName">The targets name. This is case insensitive.</param>
+        /// <param name="targetName">The targets name.</param>
         /// <param name="target">The target.</param>
         /// <returns>True if the target was found.</returns>
         public bool FindInteractionTarget(string targetName, out IInteractWithItem target)
@@ -426,7 +426,18 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains a character.
         /// </summary>
-        /// <param name="characterName">The character name to check for. This is case insensitive.</param>
+        /// <param name="character">The character.</param>
+        /// <param name="includeInvisibleCharacters">Specify if invisible characters should be included.</param>
+        /// <returns>True if the item is in this room, else false.</returns>
+        public bool ContainsCharacter(NonPlayableCharacter character, bool includeInvisibleCharacters = false)
+        {
+            return Characters.Contains(character) && (includeInvisibleCharacters || character.IsPlayerVisible);
+        }
+
+        /// <summary>
+        /// Get if this Room contains a character.
+        /// </summary>
+        /// <param name="characterName">The character name to check for.</param>
         /// <param name="includeInvisibleCharacters">Specify if invisible characters should be included.</param>
         /// <returns>True if the item is in this room, else false.</returns>
         public bool ContainsCharacter(string characterName, bool includeInvisibleCharacters = false)
@@ -437,7 +448,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find a character. This will not include characters whose ExaminableObject.IsPlayerVisible property is set to false.
         /// </summary>
-        /// <param name="character">The character name. This is case insensitive.</param>
+        /// <param name="character">The character name.</param>
         /// <param name="characterName">The character.</param>
         /// <returns>True if the character was found.</returns>
         public bool FindCharacter(string characterName, out NonPlayableCharacter character)
@@ -448,7 +459,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find a character.
         /// </summary>
-        /// <param name="characterName">The character name. This is case insensitive.</param>
+        /// <param name="characterName">The character name.</param>
         /// <param name="character">The character.</param>
         /// <param name="includeInvisibleCharacters">Specify if invisible characters should be included.</param>
         /// <returns>True if the character was found.</returns>

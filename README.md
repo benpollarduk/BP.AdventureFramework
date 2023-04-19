@@ -69,18 +69,26 @@ Maps are automatically generated for regions:
 # Hello World
 
 ```csharp
+// create player
 var player = new PlayableCharacter(new Identifier("Link"), new Description("A young Kokiri boy on a quest to save Princess Zelda."));
+
+// create region maker and add room
 var regionMaker = new RegionMaker(new Identifier("Death Mountain"), new Description("An imposing volcano just East of Castle Town."))
 {
     [0, 0] = new Room(new Identifier("Cavern"), new Description("A dark cavern set in to the base of the mountain."))
 };
+
+// create overworld maker
 var overworldMaker = new OverworldMaker(new Identifier("Hyrule"), new Description("An ancient kingdom."), regionMaker);
+
+// create callback for generating games
 var gameCreator = Game.Create("Zelda",
     "A very low budget Zelda adventure.",
     x => overworldMaker.Make(),
     () => player,
     x => false);
 
+// execute game
 Game.Execute(gameCreator);
 ```
 

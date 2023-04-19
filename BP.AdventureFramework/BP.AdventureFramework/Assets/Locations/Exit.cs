@@ -25,20 +25,12 @@
         /// Initializes a new instance of the Exit class.
         /// </summary>
         /// <param name="direction">The direction of the exit.</param>
-        public Exit(CardinalDirection direction)
+        /// <param name="isLocked">If this exit is locked.</param>
+        /// <param name="description">A description of the exit.</param>
+        public Exit(CardinalDirection direction, bool isLocked = false, Description description = null)
         {
             Direction = direction;
-            IsLocked = false;
-            Description = GenerateDescription();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Exit class.
-        /// </summary>
-        /// <param name="direction">The direction of the exit.</param>
-        /// <param name="isLocked">If this exit is locked.</param>
-        public Exit(CardinalDirection direction, bool isLocked) : this(direction)
-        {
+            Description = description ?? GenerateDescription();
             IsLocked = isLocked;
         }
 

@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace BP.AdventureFramework.Assets.Locations
 {
     /// <summary>
     /// Represents an entire overworld.
     /// </summary>
-    public sealed class Overworld : GameLocation
+    public sealed class Overworld : ExaminableObject
     {
         #region Fields
 
@@ -39,6 +38,15 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="identifier">The identifier for this Overworld.</param>
         /// <param name="description">A description of this Overworld.</param>
+        public Overworld(string identifier, string description) : this(new Identifier(identifier), new Description(description))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Overworld class.
+        /// </summary>
+        /// <param name="identifier">The identifier for this Overworld.</param>
+        /// <param name="description">A description of this Overworld.</param>
         public Overworld(Identifier identifier, Description description)
         {
             Identifier = identifier;
@@ -50,24 +58,19 @@ namespace BP.AdventureFramework.Assets.Locations
         #region Methods
 
         /// <summary>
-        /// Create a Region in this Overworld.
+        /// Move to a region.
         /// </summary>
-        /// <param name="region">The Region to create.</param>
-        /// <param name="columnInOverworld">The column of the Region with this Overworld.</param>
-        /// <param name="rowInOverworld">The row of the Region within this Overworld.</param>
-        public bool CreateRegion(Region region, int columnInOverworld, int rowInOverworld)
+        /// <param name="region">The region to move to.</param>
+        /// <returns>True if the region could be moved to, else false.</returns>
+        public bool Move(Region region)
         {
-            region.Column = columnInOverworld;
-            region.Row = rowInOverworld;
+            if (!Regions.Contains(region))
+                return false;
 
-            var addable = Regions.All(r => r.Column != region.Column || r.Row != region.Row);
-
-            if (addable)
-                Regions.Add(region);
-
-            return addable;
+            CurrentRegion = region;
+            return true;
         }
-
+    
         #endregion
 
         #region Overrides of ExaminableObject

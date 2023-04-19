@@ -81,7 +81,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <summary>
         /// Find an item.
         /// </summary>
-        /// <param name="itemName">The items name. This is case insensitive.</param>
+        /// <param name="itemName">The items name.</param>
         /// <param name="item">The item.</param>
         /// <param name="includeInvisibleItems">Specify if invisible items should be included.</param>
         /// <returns>True if the item was found.</returns>

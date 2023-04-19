@@ -23,10 +23,9 @@ namespace BP.AdventureFramework.Assets.Characters
         /// </summary>
         /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
-        public NonPlayableCharacter(Identifier identifier, Description description)
+        /// <param name="conversation">The conversation.</param>
+        public NonPlayableCharacter(string identifier, string description, Conversation conversation = null) : this(new Identifier(identifier), new Description(description), conversation)
         {
-            Identifier = identifier;
-            Description = description;
         }
 
         /// <summary>
@@ -35,8 +34,10 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <param name="identifier">This NonPlayableCharacter's identifier.</param>
         /// <param name="description">The description of this NonPlayableCharacter.</param>
         /// <param name="conversation">The conversation.</param>
-        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation) : this(identifier, description)   
+        public NonPlayableCharacter(Identifier identifier, Description description, Conversation conversation = null) 
         {
+            Identifier = identifier;
+            Description = description;
             Conversation = conversation;
         }
 

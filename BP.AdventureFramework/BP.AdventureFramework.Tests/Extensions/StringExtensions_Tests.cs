@@ -194,7 +194,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void GivenStringIsEqualToExaminable_WhenEqualsExaminable_ThenTrue()
         {
-            var result = "A".EqualsExaminable(new Item("A".ToIdentifier(), Description.Empty, false));
+            var result = "A".EqualsExaminable(new Item("A".ToIdentifier(), Description.Empty));
 
             Assert.IsTrue(result);
         }
@@ -202,7 +202,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void GivenStringIsNotEqualToDescription_WhenEqualsDescription_ThenFalse()
         {
-            var result = "A".EqualsExaminable(new Item("B".ToIdentifier(), Description.Empty, false));
+            var result = "A".EqualsExaminable(new Item("B".ToIdentifier(), Description.Empty));
 
             Assert.IsFalse(result);
         }

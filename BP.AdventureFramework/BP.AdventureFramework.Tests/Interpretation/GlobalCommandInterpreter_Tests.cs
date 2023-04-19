@@ -15,8 +15,8 @@ namespace BP.AdventureFramework.Tests.Interpretation
         {
             overworld = new Overworld(Identifier.Empty, Description.Empty);
             var region = new Region(Identifier.Empty, Description.Empty);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Assets.Locations.Exit(CardinalDirection.North)), 0, 0);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Assets.Locations.Exit(CardinalDirection.South)), 0, 1);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.North)), 0, 0);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.South)), 0, 1);
             overworld.Regions.Add(region);
         }
 

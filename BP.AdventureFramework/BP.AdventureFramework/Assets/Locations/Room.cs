@@ -11,9 +11,14 @@ namespace BP.AdventureFramework.Assets.Locations
     /// <summary>
     /// Represents a room
     /// </summary>
-    public sealed class Room : GameLocation, IInteractWithItem
+    public sealed class Room : ExaminableObject, IInteractWithItem
     {
         #region Properties
+
+        /// <summary>
+        /// Get if this location has been visited.
+        /// </summary>
+        public bool HasBeenVisited { get; private set; }
 
         /// <summary>
         /// Get the exits.
@@ -61,21 +66,9 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="identifier">This rooms identifier.</param>
         /// <param name="description">This rooms description.</param>
-        public Room(Identifier identifier, Description description)
-        {
-            Identifier = identifier;
-            Description = description;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the Room class.
-        /// </summary>
-        /// <param name="identifier">This rooms identifier.</param>
-        /// <param name="description">This rooms description.</param>
         /// <param name="exits">The exits from this room.</param>
-        public Room(Identifier identifier, Description description, params Exit[] exits) : this(identifier, description)
+        public Room(string identifier, string description, params Exit[] exits) : this(new Identifier(identifier), new Description(description), exits, null)
         {
-            Exits.AddRange(exits);
         }
 
         /// <summary>
@@ -85,9 +78,37 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="description">This rooms description.</param>
         /// <param name="exits">The exits from this room.</param>
         /// <param name="items">The items in this room.</param>
-        public Room(Identifier identifier, Description description, Exit[] exits, params Item[] items) : this(identifier, description, exits)
+        public Room(string identifier, string description, Exit[] exits = null, params Item[] items) : this(new Identifier(identifier), new Description(description), exits, items)
         {
-            Items.AddRange(items);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Room class.
+        /// </summary>
+        /// <param name="identifier">This rooms identifier.</param>
+        /// <param name="description">This rooms description.</param>
+        /// <param name="exits">The exits from this room.</param>
+        public Room(Identifier identifier, Description description, params Exit[] exits): this(identifier, description, exits, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Room class.
+        /// </summary>
+        /// <param name="identifier">This rooms identifier.</param>
+        /// <param name="description">This rooms description.</param>
+        /// <param name="exits">The exits from this room.</param>
+        /// <param name="items">The items in this room.</param>
+        public Room(Identifier identifier, Description description, Exit[] exits = null, params Item[] items)
+        {
+            Identifier = identifier;
+            Description = description;
+
+            if (exits?.Any() ?? false)
+                Exits.AddRange(exits);
+            
+            if (items?.Any() ?? false)
+                Items.AddRange(items);
         }
 
         #endregion
@@ -104,6 +125,15 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
+        /// Add an exit to this room.
+        /// </summary>
+        /// <param name="exit">The exit to add.</param>
+        public void AddExit(Exit exit)
+        {
+            Exits.Add(exit);
+        }
+
+        /// <summary>
         /// Add an item to this room.
         /// </summary>
         /// <param name="item">The item to add.</param>
@@ -117,7 +147,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="item">The item to remove.</param>
         /// <returns>The item removed from this room.</returns>
-        public void RemoveItemFromRoom(Item item)
+        public void RemoveItem(Item item)
         {
             Items.Remove(item);
         }
@@ -125,16 +155,11 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Remove a character from the room.
         /// </summary>
-        /// <param name="characterName">The name of the character to remove.</param>
-        public void RemoveCharacterFromRoom(string characterName)
+        /// <param name="character">The character to remove.</param>
+        public void RemoveCharacter(NonPlayableCharacter character)
         {
-            var matchingCharacters = Characters.Where(characterName.EqualsExaminable).ToArray();
-
-            if (matchingCharacters.Length <= 0)
-                return;
-            
-            var removedCharacter = matchingCharacters[0];
-            Characters.Remove(removedCharacter);
+            if (Characters.Contains(character))
+                Characters.Remove(character);
         }
 
         /// <summary>
@@ -142,7 +167,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="target">The target to remove.</param>
         /// <returns>The target removed from this room.</returns>
-        public IInteractWithItem RemoveInteractionTargetFromRoom(IInteractWithItem target)
+        public IInteractWithItem RemoveInteractionTarget(IInteractWithItem target)
         {
             if (Items.Contains(target))
             {
@@ -273,6 +298,16 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains an exit.
         /// </summary>
+        /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
+        /// <returns>True if the exit exists, else false.</returns>
+        public bool ContainsExit(bool includeInvisibleExits = false)
+        {
+            return Exits.Any(exit => includeInvisibleExits || exit.IsPlayerVisible);
+        }
+
+        /// <summary>
+        /// Get if this Room contains an exit.
+        /// </summary>
         /// <param name="direction">The direction of the exit to check for.</param>
         /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
         /// <returns>True if the exit exists, else false.</returns>
@@ -315,7 +350,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains an item.
         /// </summary>
-        /// <param name="itemName">The item name to check for. This is case insensitive.</param>
+        /// <param name="itemName">The item name to check for.</param>
         /// <param name="includeInvisibleItems">Specify if invisible items should be included.</param>
         /// <returns>True if the item is in this room, else false.</returns>
         public bool ContainsItem(string itemName, bool includeInvisibleItems = false)
@@ -326,7 +361,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains an interaction target.
         /// </summary>
-        /// <param name="targetName">The name of the target to check for. This is case insensitive.</param>
+        /// <param name="targetName">The name of the target to check for.</param>
         /// <returns>True if the target is in this room, else false.</returns>
         public bool ContainsInteractionTarget(string targetName)
         {
@@ -347,7 +382,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find an item.
         /// </summary>
-        /// <param name="itemName">The items name. This is case insensitive.</param>
+        /// <param name="itemName">The items name.</param>
         /// <param name="item">The item.</param>
         /// <param name="includeInvisibleItems">Specify is invisible items should be included.</param>
         /// <returns>True if the item was found.</returns>
@@ -368,7 +403,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find an interaction target.
         /// </summary>
-        /// <param name="targetName">The targets name. This is case insensitive.</param>
+        /// <param name="targetName">The targets name.</param>
         /// <param name="target">The target.</param>
         /// <returns>True if the target was found.</returns>
         public bool FindInteractionTarget(string targetName, out IInteractWithItem target)
@@ -391,7 +426,18 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if this Room contains a character.
         /// </summary>
-        /// <param name="characterName">The character name to check for. This is case insensitive.</param>
+        /// <param name="character">The character.</param>
+        /// <param name="includeInvisibleCharacters">Specify if invisible characters should be included.</param>
+        /// <returns>True if the item is in this room, else false.</returns>
+        public bool ContainsCharacter(NonPlayableCharacter character, bool includeInvisibleCharacters = false)
+        {
+            return Characters.Contains(character) && (includeInvisibleCharacters || character.IsPlayerVisible);
+        }
+
+        /// <summary>
+        /// Get if this Room contains a character.
+        /// </summary>
+        /// <param name="characterName">The character name to check for.</param>
         /// <param name="includeInvisibleCharacters">Specify if invisible characters should be included.</param>
         /// <returns>True if the item is in this room, else false.</returns>
         public bool ContainsCharacter(string characterName, bool includeInvisibleCharacters = false)
@@ -402,7 +448,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find a character. This will not include characters whose ExaminableObject.IsPlayerVisible property is set to false.
         /// </summary>
-        /// <param name="character">The character name. This is case insensitive.</param>
+        /// <param name="character">The character name.</param>
         /// <param name="characterName">The character.</param>
         /// <returns>True if the character was found.</returns>
         public bool FindCharacter(string characterName, out NonPlayableCharacter character)
@@ -413,7 +459,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Find a character.
         /// </summary>
-        /// <param name="characterName">The character name. This is case insensitive.</param>
+        /// <param name="characterName">The character name.</param>
         /// <param name="character">The character.</param>
         /// <param name="includeInvisibleCharacters">Specify if invisible characters should be included.</param>
         /// <returns>True if the character was found.</returns>
@@ -441,13 +487,13 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Handle movement into this Room.
+        /// Handle movement into this GameLocation.
         /// </summary>
-        /// <param name="fromDirection">The direction movement into this Room is from. Use null if there should be no direction.</param>
-        public override void MovedInto(CardinalDirection? fromDirection)
+        /// <param name="fromDirection">The direction movement into this Room is from. Use null if there is no direction.</param>
+        public void MovedInto(CardinalDirection? fromDirection)
         {
             EnteredFrom = fromDirection;
-            base.MovedInto(fromDirection);
+            HasBeenVisited = true;
         }
 
         #endregion

@@ -52,7 +52,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         {
             var room = new Room(Identifier.Empty, Description.Empty);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
-            var item = new Item(new Identifier("A"), Description.Empty, false);
+            var item = new Item(new Identifier("A"), Description.Empty);
             room.AddItem(item);
             var command = new Take(character, item, room);
 

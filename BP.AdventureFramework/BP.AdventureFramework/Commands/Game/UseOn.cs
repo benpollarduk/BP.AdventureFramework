@@ -83,7 +83,7 @@ namespace BP.AdventureFramework.Commands.Game
                 case InteractionEffect.ItemUsedUp:
 
                     if (Room.ContainsItem(Item))
-                        Room.RemoveItemFromRoom(Item);
+                        Room.RemoveItem(Item);
                     else if (Character.HasItem(Item))
                         Character.DequireItem(Item);
 
@@ -96,7 +96,7 @@ namespace BP.AdventureFramework.Commands.Game
                     if (examinable != null)
                     {
                         if (Room.ContainsInteractionTarget(examinable.Identifier.Name))
-                            Room.RemoveInteractionTargetFromRoom(Target);
+                            Room.RemoveInteractionTarget(Target);
                     }
 
                     break;

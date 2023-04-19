@@ -15,48 +15,47 @@ namespace BP.AdventureFramework.Rendering
         /// <summary>
         /// Get or set the string used for representing a locked exit.
         /// </summary>
-        public string LockedExitString { get; set; }
+        public string LockedExitString { get; set; } = "x";
 
         /// <summary>
         /// Get or set the string used for representing there is an item in the room.
         /// </summary>
-        public string ItemInRoomString { get; set; }
+        public string ItemInRoomString { get; set; } = "?";
+
+        /// <summary>
+        /// Get or set the string to use for vertical boundaries.
+        /// </summary>
+        public string VerticalBoundaryString { get; set; } = "|";
+
+        /// <summary>
+        /// Get or set the string to use for horizontal boundaries.
+        /// </summary>
+        public string HorizontalBoundaryString { get; set; } = "-";
+
+        /// <summary>
+        /// Get or set the string to use for horizontal boundaries.
+        /// </summary>
+        public string CurrentRoomString { get; set; } = "O";
+
+        /// <summary>
+        /// Get or set the string to use for horizontal boundaries.
+        /// </summary>
+        public string EmptyRoomString { get; set; } = "+";
 
         /// <summary>
         /// Get or set the type of key to use.
         /// </summary>
-        public KeyType Key { get; set; }
+        public KeyType Key { get; set; } = KeyType.Dynamic;
 
         /// <summary>
-        /// Get the visibility mode to use for Rooms.
+        /// Get or set the visibility mode to use for Rooms.
         /// </summary>
-        public RegionDisplayMode RoomVisibilityMode { get; }
+        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.VistitedRoomsOnly;
 
         /// <summary>
-        /// Get the detail to use for a Region map.
+        /// Get or set the detail to use for a Region map.
         /// </summary>
-        public RegionMapMode RegionMapDetail { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the MapDrawer class.
-        /// </summary>
-        /// <param name="key">Specify the type of key to use</param>
-        /// <param name="lockedExitString">Specify a string used for representing a locked exit.</param>
-        /// <param name="itemInRoomString">Specify a string used for representing there is an item in the room.</param>
-        /// <param name="roomVisibilityMode">Specify a visibility mode to be used for Rooms.</param>
-        /// <param name="regionMapDetail">Specify a Region map detail mode.</param>
-        public MapDrawer(KeyType key = KeyType.Dynamic, string lockedExitString = "x", string itemInRoomString = "?", RegionDisplayMode roomVisibilityMode = RegionDisplayMode.VistitedRoomsOnly, RegionMapMode regionMapDetail = RegionMapMode.Dynamic)
-        {
-            Key = key;
-            LockedExitString = lockedExitString;
-            ItemInRoomString = itemInRoomString;
-            RoomVisibilityMode = roomVisibilityMode;
-            RegionMapDetail = regionMapDetail;
-        }
+        public RegionMapMode RegionMapDetail { get; } = RegionMapMode.Dynamic;
 
         #endregion
 
@@ -71,7 +70,7 @@ namespace BP.AdventureFramework.Rendering
         public string ConstructRoomMap(Room room, int width)
         {
             if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0");
+                throw new ArgumentException("The width parameter must be greater than 0.");
 
             var map = string.Empty;
             var keyLines = new Queue<string>();
@@ -135,11 +134,11 @@ namespace BP.AdventureFramework.Rendering
                         {
                             case CardinalDirection.East:
                             case CardinalDirection.West:
-                                exitRepresentations.Add(direction, "|");
+                                exitRepresentations.Add(direction, VerticalBoundaryString);
                                 break;
                             case CardinalDirection.North:
                             case CardinalDirection.South:
-                                exitRepresentations.Add(direction, "-");
+                                exitRepresentations.Add(direction, HorizontalBoundaryString);
                                 break;
                             default:
                                 throw new NotImplementedException();
@@ -161,11 +160,11 @@ namespace BP.AdventureFramework.Rendering
                     {
                         case CardinalDirection.East:
                         case CardinalDirection.West:
-                            exitRepresentations.Add(direction, "|");
+                            exitRepresentations.Add(direction, VerticalBoundaryString);
                             break;
                         case CardinalDirection.North:
                         case CardinalDirection.South:
-                            exitRepresentations.Add(direction, "-");
+                            exitRepresentations.Add(direction, HorizontalBoundaryString);
                             break;
                         default:
                             throw new NotImplementedException();
@@ -173,11 +172,11 @@ namespace BP.AdventureFramework.Rendering
                 }
             }
 
-            map += ConstructWrappedPaddedString("|--" + exitRepresentations[CardinalDirection.North] + "--|" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
-            map += ConstructWrappedPaddedString("|     |" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
-            map += ConstructWrappedPaddedString(exitRepresentations[CardinalDirection.West] + "  " + (room.Items.Any() ? "?" : " ") + "  " + exitRepresentations[CardinalDirection.East] + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
-            map += ConstructWrappedPaddedString("|     |" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
-            map += ConstructWrappedPaddedString("|--" + exitRepresentations[CardinalDirection.South] + "--|" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
+            map += ConstructWrappedPaddedString($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[CardinalDirection.North] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
+            map += ConstructWrappedPaddedString($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
+            map += ConstructWrappedPaddedString(exitRepresentations[CardinalDirection.West] + "  " + (room.Items.Any() ? ItemInRoomString : " ") + "  " + exitRepresentations[CardinalDirection.East] + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
+            map += ConstructWrappedPaddedString($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
+            map += ConstructWrappedPaddedString($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[CardinalDirection.South] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), width);
 
             return map;
         }
@@ -186,33 +185,32 @@ namespace BP.AdventureFramework.Rendering
         /// Construct a undetailed Region map.
         /// </summary>
         /// <param name="region">The Region to construct the map for.</param>
-        /// <param name="width">The width of the map.</param>
-        /// <param name="minColumn">The minimum column any Room within the Region.</param>
-        /// <param name="maxColumn">The maximum column any Room within the Region.</param>
-        /// <param name="minRow">The minimum row any Room within the Region.</param>
-        /// <param name="maxRow">The maximum row any Room within the Region.</param>
+        /// <param name="renderWidth">The render width of the map.</param>
+        /// <param name="x">The region X.</param>
+        /// <param name="y">The region Y.</param>
+        /// <param name="width">The region width.</param>
+        /// <param name="height">The region height.</param>
         /// <returns>A representation of the Region as a string.</returns>
-        private string constructUndetailedRegionMap(Region region, int width, int minColumn, int maxColumn, int minRow, int maxRow)
+        private string ConstructUndetailedRegionMap(Region region, int renderWidth, int x, int y, int width, int height)
         {
             // small scale map, just dots...
 
             var map = string.Empty;
-            var blankRoomRow = " ";
+            const string blankRoomRow = " ";
+            var rooms = region.ToMatrix();
 
-            for (var rowIndex = maxRow; rowIndex >= minRow; rowIndex--)
+            for (var row = height; row >= y; row--)
             {
                 var line = string.Empty;
 
-                for (var columnIndex = minColumn; columnIndex <= maxColumn; columnIndex++)
+                for (var column = x; column <= width; column++)
                 {
-                    var roomsWithMatchingColumnAndRow = region.Rooms.Where(r => r.Column == columnIndex && r.Row == rowIndex).ToArray();
+                    var room = rooms[column, row];
 
-                    if (roomsWithMatchingColumnAndRow.Any())
+                    if (room != null)
                     {
-                        var room = roomsWithMatchingColumnAndRow.ElementAt(0);
-
                         if (room.HasBeenVisited || RoomVisibilityMode == RegionDisplayMode.AllRegion)
-                            line += region.CurrentRoom == room ? "O" : "+";
+                            line += region.CurrentRoom == room ? CurrentRoomString : EmptyRoomString;
                         else
                             line += blankRoomRow;
                     }
@@ -222,7 +220,7 @@ namespace BP.AdventureFramework.Rendering
                     }
                 }
 
-                map += ConstructWrappedPaddedString(line, width, true);
+                map += ConstructWrappedPaddedString(line, renderWidth, true);
             }
 
             return map;
@@ -232,32 +230,31 @@ namespace BP.AdventureFramework.Rendering
         /// Construct a detailed Region map.
         /// </summary>
         /// <param name="region">The Region to construct the map for.</param>
-        /// <param name="width">The width of the map.</param>
-        /// <param name="roomWidth">The width of each room.</param>
-        /// <param name="minColumn">The minimum column any Room within the Region.</param>
-        /// <param name="maxColumn">The maximum column any Room within the Region.</param>
-        /// <param name="minRow">The minimum row any Room within the Region.</param>
-        /// <param name="maxRow">The maximum row any Room within the Region.</param>
+        /// <param name="renderWidth">The render width of the map.</param>
+        /// <param name="roomRenderWidth">The render width of the map.</param>
+        /// <param name="x">The region X.</param>
+        /// <param name="y">The region Y.</param>
+        /// <param name="width">The region width.</param>
+        /// <param name="height">The region height.</param>
         /// <returns>A representation of the Region as a string.</returns>
-        private string ConstructDetailedRegionMap(Region region, int width, int roomWidth, int minColumn, int maxColumn, int minRow, int maxRow)
+        private string ConstructDetailedRegionMap(Region region, int renderWidth, int roomRenderWidth, int x, int y, int width, int height)
         {
             var map = string.Empty;
-            var blankRoomRow = ConstructWhitespaceString(roomWidth);
+            var blankRoomRow = ConstructWhitespaceString(roomRenderWidth);
+            var rooms = region.ToMatrix();
 
-            for (var rowIndex = maxRow; rowIndex >= minRow; rowIndex--)
+            for (var row = height - 1; row >= y; row--)
             {
                 for (var rowPass = 0; rowPass < 3; rowPass++)
                 {
                     var line = string.Empty;
 
-                    for (var columnIndex = minColumn; columnIndex <= maxColumn; columnIndex++)
+                    for (var column = x; column < width; column++)
                     {
-                        var roomsWithMatchingColumnAndRow = region.Rooms.Where(r => r.Column == columnIndex && r.Row == rowIndex).ToArray();
+                        var room = rooms[column, row];
 
-                        if (roomsWithMatchingColumnAndRow.Any())
+                        if (room != null)
                         {
-                            var room = roomsWithMatchingColumnAndRow.ElementAt(0);
-
                             if (room.HasBeenVisited || RoomVisibilityMode == RegionDisplayMode.AllRegion)
                                 line += ConstructRoomRowString(room, region.CurrentRoom == room, rowPass);
                             else
@@ -269,7 +266,7 @@ namespace BP.AdventureFramework.Rendering
                         }
                     }
 
-                    map += ConstructWrappedPaddedString(line, width, true);
+                    map += ConstructWrappedPaddedString(line, renderWidth, true);
                 }
             }   
             
@@ -288,49 +285,42 @@ namespace BP.AdventureFramework.Rendering
             switch (row)
             {
                 case 0:
-                    return string.Format("|{0}{0}{0}|", room.HasLockedExitInDirection(CardinalDirection.North) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.North) ? " " : "-");
+                    return string.Format("{0}{1}{1}{1}{0}", VerticalBoundaryString, room.HasLockedExitInDirection(CardinalDirection.North) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.North) ? " " : HorizontalBoundaryString);
                 case 1:
-                    return $"{(room.HasLockedExitInDirection(CardinalDirection.West) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.West) ? " " : "|")} {(isPlayerInRoom ? "O" : " ")} {(room.HasLockedExitInDirection(CardinalDirection.East) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.East) ? " " : "|")}";
+                    return $"{(room.HasLockedExitInDirection(CardinalDirection.West) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.West) ? " " : VerticalBoundaryString)} {(isPlayerInRoom ? CurrentRoomString : " ")} {(room.HasLockedExitInDirection(CardinalDirection.East) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.East) ? " " : VerticalBoundaryString)}";
                 case 2:
-                    return string.Format("|{0}{0}{0}|", room.HasLockedExitInDirection(CardinalDirection.South) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.South) ? " " : "-");
+                    return string.Format("{0}{1}{1}{1}{0}", VerticalBoundaryString, room.HasLockedExitInDirection(CardinalDirection.South) ? LockedExitString : room.HasUnlockedExitInDirection(CardinalDirection.South) ? " " : HorizontalBoundaryString);
                 default:
                     throw new NotImplementedException();
             }
         }
 
         /// <summary>
-        /// Try and get the extremities of a Region.
+        /// Try and get the bounds of a Region.
         /// </summary>
         /// <param name="region">The Region to check.</param>
-        /// <param name="minColumn">The lowest valued column.</param>
-        /// <param name="maxColumn">The highest valued column.</param>
-        /// <param name="minRow">The lowest valued row.</param>
-        /// <param name="maxRow">The highest valued row.</param>
-        /// <returns>True if the check was successful, else false.</returns>
-        private bool TryGetRegionExtremities(Region region, out int minColumn, out int maxColumn, out int minRow, out int maxRow)
+        /// <param name="x">The x of the region.</param>
+        /// <param name="y">The y of the region.</param>
+        /// <param name="width">The width of the region.</param>
+        /// <param name="height">The height of the region.</param>
+        /// <returns>True if the bounds could be got, else false.</returns>
+        private bool TryGetRegionBounds(Region region, out int x, out int y, out int width, out int height)
         {
-            if (region != null && region.Rooms.Any())
+            if (region != null)
             {
-                minColumn = region.Rooms[0].Column;
-                maxColumn = region.Rooms[0].Column;
-                minRow = region.Rooms[0].Row;
-                maxRow = region.Rooms[0].Row;
+                var matrix = region.ToMatrix();
 
-                foreach (var gL in region.Rooms)
-                {
-                    minColumn = Math.Min(minColumn, gL.Column);
-                    maxColumn = Math.Max(maxColumn, gL.Column);
-                    minRow = Math.Min(minRow, gL.Row);
-                    maxRow = Math.Max(maxRow, gL.Row);
-                }
-
+                x = 0;
+                width = matrix.GetLength(0);
+                y = 0;
+                height = matrix.GetLength(1);
                 return true;
             }
 
-            minColumn = 0;
-            maxColumn = 0;
-            minRow = 0;
-            maxRow = 0;
+            x = 0;
+            width = 0;
+            y = 0;
+            height = 0;
             return false;
         }
 
@@ -338,44 +328,44 @@ namespace BP.AdventureFramework.Rendering
         /// Construct a map of a Region.
         /// </summary>
         /// <param name="region">The Region to draw.</param>
-        /// <param name="width">The allocated width to draw within.</param>
-        /// <param name="height">The allocated height to draw within.</param>
+        /// <param name="renderWidth">The render width.</param>
+        /// <param name="renderHeight">The render height.</param>
         /// <returns>A map of the Region in a string.</returns>
-        public string ConstructRegionMap(Region region, int width, int height)
+        public string ConstructRegionMap(Region region, int renderWidth, int renderHeight)
         {
-            if (!TryGetRegionExtremities(region, out var minColumn, out var maxColumn, out var minRow, out var maxRow)) 
+            if (!TryGetRegionBounds(region, out var x, out var y, out var width, out var height)) 
                 return string.Empty;
 
-            var roomWidthTotal = "|- -|".Length;
+            var roomWidthTotal = $"{VerticalBoundaryString}{HorizontalBoundaryString} {HorizontalBoundaryString}{VerticalBoundaryString}".Length;
             var roomHeightTotal = roomWidthTotal;
-            var detailedWouldFit = (maxColumn - minColumn) * roomWidthTotal < width - 2 && (maxRow - minRow) * roomHeightTotal < height;
-            var undetailedWouldFit = maxColumn - minColumn < width - 2 && maxRow - minRow < height;
+            var detailedWouldFit = (width - x) * roomWidthTotal < renderWidth - 2 && (height - y) * roomHeightTotal < renderHeight;
+            var undetailedWouldFit = width - x < renderWidth - 2 && height - y < renderHeight;
 
             switch (RegionMapDetail)
             {
                 case RegionMapMode.Detailed:
                    
                     if (detailedWouldFit)
-                        return ConstructDetailedRegionMap(region, width, roomWidthTotal, minColumn, maxColumn, minRow, maxRow);
+                        return ConstructDetailedRegionMap(region, renderWidth, roomWidthTotal, x, y, width, height);
 
-                    return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area", width);
+                    return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", renderWidth);
 
                 case RegionMapMode.Dynamic:
                     
                     if (detailedWouldFit)
-                        return ConstructDetailedRegionMap(region, width, roomWidthTotal, minColumn, maxColumn, minRow, maxRow);
+                        return ConstructDetailedRegionMap(region, renderWidth, roomWidthTotal, x, y, width, height);
 
                     if (undetailedWouldFit)
-                        return constructUndetailedRegionMap(region, width, minColumn, maxColumn, minRow, maxRow);
+                        return ConstructUndetailedRegionMap(region, renderWidth, x, width, y, height);
 
-                    return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area", width);
+                    return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", renderWidth);
 
                 case RegionMapMode.Undetailed:
                     
                     if (undetailedWouldFit)
-                        return constructUndetailedRegionMap(region, width, minColumn, maxColumn, minRow, maxRow);
+                        return ConstructUndetailedRegionMap(region, renderWidth, x, y, width, height);
 
-                    return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area", width);
+                    return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", renderWidth);
 
                 default:
                     throw new NotImplementedException();

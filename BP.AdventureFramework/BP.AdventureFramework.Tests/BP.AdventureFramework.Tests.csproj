@@ -49,6 +49,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Characters\NonPlayableCharacter_Tests.cs" />
+    <Compile Include="Assets\Characters\PlayableCharacter_Tests.cs" />
+    <Compile Include="Assets\Item_Tests.cs" />
+    <Compile Include="Assets\Locations\Region_Tests.cs" />
+    <Compile Include="Assets\Locations\Room_Tests.cs" />
+    <Compile Include="Utils\OverworldMaker_Tests.cs" />
+    <Compile Include="Utils\RegionMaker_Tests.cs" />
     <Compile Include="Commands\Frame\KeyOn_Tests.cs" />
     <Compile Include="Commands\Frame\KeyOff_Tests.cs" />
     <Compile Include="Commands\Frame\CommandsOn_Tests.cs" />
@@ -65,6 +72,7 @@
     <Compile Include="Commands\Global\Help_Tests.cs" />
     <Compile Include="Commands\Global\Exit_Tests.cs" />
     <Compile Include="Commands\Global\About_Tests.cs" />
+    <Compile Include="Extensions\CardinalDirectionExtensions_Tests.cs" />
     <Compile Include="Extensions\StringExtensions_Tests.cs" />
     <Compile Include="Interpretation\GameCommandInterpreter_Tests.cs" />
     <Compile Include="Interpretation\GlobalCommandInterpreter_Tests.cs" />

@@ -17,5 +17,27 @@ namespace BP.AdventureFramework.Tests.Assets
 
             Assert.AreEqual(InteractionEffect.NoEffect, result.Effect);
         }
+
+        [TestMethod]
+        public void Given2Items_WhenMorph_ThenItemHasMorphedItemIdentifier()
+        {
+            var item = new Item("Test1", string.Empty);
+            var item2 = new Item("Test2", string.Empty);
+
+            item.Morph(item2);
+
+            Assert.AreEqual(item.Identifier.IdentifiableName, item2.Identifier.IdentifiableName);
+        }
+
+        [TestMethod]
+        public void Given2Items_WhenMorph_ThenItemHasMorphedItemDescription()
+        {
+            var item = new Item(string.Empty, "Description1");
+            var item2 = new Item(string.Empty, "Description2");
+
+            item.Morph(item2);
+
+            Assert.AreEqual(item.Description.GetDescription(), item2.Description.GetDescription());
+        }
     }
 }

@@ -158,7 +158,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var character = new NonPlayableCharacter("A", string.Empty);
             room.AddCharacter(character);
 
-            var result = room.ContainsItem("A");
+            var result = room.ContainsCharacter("A");
 
             Assert.IsTrue(result);
         }

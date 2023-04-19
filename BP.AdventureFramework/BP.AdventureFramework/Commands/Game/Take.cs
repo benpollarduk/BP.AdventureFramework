@@ -66,7 +66,7 @@ namespace BP.AdventureFramework.Commands.Game
             if (!Item.IsTakeable)
                 return new Reaction(ReactionResult.None, $"{Item.Identifier.Name} cannot be taken.");
 
-            Room.RemoveItemFromRoom(Item);
+            Room.RemoveItem(Item);
             Character.AquireItem(Item);
 
             return new Reaction(ReactionResult.Reacted, $"Took {Item.Identifier.Name}");

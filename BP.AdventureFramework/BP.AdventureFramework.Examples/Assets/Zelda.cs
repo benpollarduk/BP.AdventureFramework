@@ -127,7 +127,7 @@ namespace BP.AdventureFramework.Examples.Assets
                 if (TailKey.EqualsExaminable(item))
                 {
                     region.UnlockDoorPair(CardinalDirection.East);
-                    outsideLinksHouse.RemoveItemFromRoom(tailDoor);
+                    outsideLinksHouse.RemoveItem(tailDoor);
                     return new InteractionResult(InteractionEffect.ItemUsedUp, item, "The Tail Key fits perfectly in the lock, you turn it and the door swings open, revealing a gaping cave mouth...");
                 }
 

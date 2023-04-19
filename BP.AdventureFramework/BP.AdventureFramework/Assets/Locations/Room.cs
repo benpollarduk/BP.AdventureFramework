@@ -147,7 +147,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="item">The item to remove.</param>
         /// <returns>The item removed from this room.</returns>
-        public void RemoveItemFromRoom(Item item)
+        public void RemoveItem(Item item)
         {
             Items.Remove(item);
         }
@@ -155,16 +155,11 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Remove a character from the room.
         /// </summary>
-        /// <param name="characterName">The name of the character to remove.</param>
-        public void RemoveCharacterFromRoom(string characterName)
+        /// <param name="character">The character to remove.</param>
+        public void RemoveCharacter(NonPlayableCharacter character)
         {
-            var matchingCharacters = Characters.Where(characterName.EqualsExaminable).ToArray();
-
-            if (matchingCharacters.Length <= 0)
-                return;
-            
-            var removedCharacter = matchingCharacters[0];
-            Characters.Remove(removedCharacter);
+            if (Characters.Contains(character))
+                Characters.Remove(character);
         }
 
         /// <summary>
@@ -172,7 +167,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="target">The target to remove.</param>
         /// <returns>The target removed from this room.</returns>
-        public IInteractWithItem RemoveInteractionTargetFromRoom(IInteractWithItem target)
+        public IInteractWithItem RemoveInteractionTarget(IInteractWithItem target)
         {
             if (Items.Contains(target))
             {

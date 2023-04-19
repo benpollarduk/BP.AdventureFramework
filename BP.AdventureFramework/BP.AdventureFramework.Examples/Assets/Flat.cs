@@ -227,7 +227,7 @@ namespace BP.AdventureFramework.Examples.Assets
                         if (obj.ContainsItem(Lead))
                         {
                             hallway1[CardinalDirection.East].Unlock();
-                            lounge.RemoveCharacterFromRoom(Beth);
+                            lounge.RemoveCharacter(Beth);
                             return new InteractionResult(InteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings. Beth's had enough! She bolts for the front door leaving it wide open! You are free to leave the flat! You unplug the guitar");
                         }
 

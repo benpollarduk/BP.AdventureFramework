@@ -38,7 +38,27 @@ namespace BP.AdventureFramework.Interpretation
 
         #endregion
 
+        #region StaticProperties
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public static CommandHelp[] DefaultSupportedCommands { get; } =
+        {
+            new CommandHelp(About, "View information about the games creator"),
+            new CommandHelp(Map, "View a map of the current region"),
+            new CommandHelp(Exit, "Exit the game"),
+            new CommandHelp(New, "Start a new game")
+        };
+
+        #endregion
+
         #region Implementation of IInterpreter
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public CommandHelp[] SupportedCommands { get; } = DefaultSupportedCommands;
 
         /// <summary>
         /// Interpret a string.

@@ -7,12 +7,12 @@ using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.Drawers;
 
-namespace BP.AdventureFramework.Rendering.FrameBuilders
+namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
     /// <summary>
-    /// Provides a builder of scene frames.
+    /// Provides a builder of legacy scene frames.
     /// </summary>
-    public class SceneFrameBuilder : ISceneFrameBuilder
+    public class LegacySceneFrameBuilder : ISceneFrameBuilder
     {
         #region Properties
 
@@ -31,11 +31,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the SceneFrameBuilder class.
+        /// Initializes a new instance of the LegacySceneFrameBuilder class.
         /// </summary>
         /// <param name="frameDrawer">A drawer to use for the frame.</param>
         /// <param name="mapDrawer">A drawer to use for the map.</param>
-        public SceneFrameBuilder(FrameDrawer frameDrawer, MapDrawer mapDrawer)
+        public LegacySceneFrameBuilder(FrameDrawer frameDrawer, MapDrawer mapDrawer)
         {
             FrameDrawer = frameDrawer;
             MapDrawer = mapDrawer;
@@ -115,21 +115,49 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
                 {
                     scene.Append(FrameDrawer.ConstructWrappedPaddedString("INTERACTION:", width));
 
-                    if (player.Items.Any())
-                        scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Drop} __: Drop an item", width));
+                    // TODO: this legacy scene builder depends on the GameCommandInterpreter and is not backwards compatible with command lists from other interpreters...
+                    CommandHelp help;
 
-                    scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Examine} __: Examine a character, item, room, region, overworld or me", width));
+                    if (player.Items.Any())
+                    {
+                        help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Drop));
+                        
+                        if (help != null)
+                            scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                    }
+
+                    help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Drop));
+
+                    if (help != null)
+                        scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
 
                     if (room.Items.Any())
-                        scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Take} __: Take an item", width));
+                    {
+                        help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Take));
+
+                        if (help != null)
+                            scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                    }
 
                     if (room.Characters.Any())
-                        scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Talk} {GameCommandInterpreter.To.ToLower()} __: Talk to a character", width));
+                    {
+                        help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Talk));
+
+                        if (help != null)
+                            scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                    }
 
                     if (room.Items.Any() || player.Items.Any())
                     {
-                        scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Use} __: Use an item on the this Room", width));
-                        scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.Use} __ {GameCommandInterpreter.On.ToLower()} __: Use an item on another item or character", width));
+                        help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Use));
+
+                        if (help != null)
+                            scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+
+                        help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Use) && x.Command.Contains(GameCommandInterpreter.On.ToLower()));
+
+                        if (help != null)
+                            scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
                     }
 
                     scene.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));

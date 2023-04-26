@@ -1,4 +1,6 @@
-﻿namespace BP.AdventureFramework.Rendering.FrameBuilders
+﻿using BP.AdventureFramework.Interpretation;
+
+namespace BP.AdventureFramework.Rendering.FrameBuilders
 {
     /// <summary>
     /// Represents any objects that can build help frames.

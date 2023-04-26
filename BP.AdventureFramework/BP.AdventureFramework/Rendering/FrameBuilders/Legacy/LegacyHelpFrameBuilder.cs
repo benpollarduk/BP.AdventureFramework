@@ -1,12 +1,13 @@
 ﻿using System.Text;
+using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.Drawers;
 
-namespace BP.AdventureFramework.Rendering.FrameBuilders
+namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
     /// <summary>
-    /// Provides a builder of help frames.
+    /// Provides a builder of legacy help frames.
     /// </summary>
-    public class HelpFrameBuilder : IHelpFrameBuilder
+    public class LegacyHelpFrameBuilder : IHelpFrameBuilder
     {
         #region Properties
 
@@ -20,10 +21,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the HelpFrameBuilder class.
+        /// Initializes a new instance of the LegacyHelpFrameBuilder class.
         /// </summary>
         /// <param name="frameDrawer">A drawer to use for the frame.</param>
-        public HelpFrameBuilder(FrameDrawer frameDrawer)
+        public LegacyHelpFrameBuilder(FrameDrawer frameDrawer)
         {
             FrameDrawer = frameDrawer;
         }
@@ -48,7 +49,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
             builder.Append(FrameDrawer.ConstructDivider(width));
             builder.Append(FrameDrawer.ConstructCentralisedString(description, width));
             builder.Append(FrameDrawer.ConstructDivider(width));
-            builder.Append(FrameDrawer.ConstructWrappedPaddedString("GENERAL COMMANDS", width, false));
+            builder.Append(FrameDrawer.ConstructWrappedPaddedString("COMMANDS", width, false));
             builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width, false));
 
             foreach (var command in commandHelp)

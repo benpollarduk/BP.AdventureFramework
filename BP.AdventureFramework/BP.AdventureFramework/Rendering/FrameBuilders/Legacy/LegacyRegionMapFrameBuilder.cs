@@ -3,12 +3,12 @@ using System.Text;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Rendering.Drawers;
 
-namespace BP.AdventureFramework.Rendering.FrameBuilders
+namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
     /// <summary>
-    /// Provides a builder of region map frames.
+    /// Provides a builder of legacy region map frames.
     /// </summary>
-    public class RegionMapFrameBuilder : IRegionMapFrameBuilder
+    public class LegacyRegionMapFrameBuilder : IRegionMapFrameBuilder
     {
         #region Properties
 
@@ -27,11 +27,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the RegionMapFrameBuilder class.
+        /// Initializes a new instance of the LegacyRegionMapFrameBuilder class.
         /// </summary>
         /// <param name="frameDrawer">A drawer to use for the frame.</param>
         /// <param name="mapDrawer">A drawer to use for the map.</param>
-        public RegionMapFrameBuilder(FrameDrawer frameDrawer, MapDrawer mapDrawer)
+        public LegacyRegionMapFrameBuilder(FrameDrawer frameDrawer, MapDrawer mapDrawer)
         {
             FrameDrawer = frameDrawer;
             MapDrawer = mapDrawer;

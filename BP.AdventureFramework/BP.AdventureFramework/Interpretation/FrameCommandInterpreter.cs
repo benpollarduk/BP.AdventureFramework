@@ -33,7 +33,25 @@ namespace BP.AdventureFramework.Interpretation
 
         #endregion
 
+        #region StaticProperties
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public static CommandHelp[] DefaultSupportedCommands { get; } =
+        {
+            new CommandHelp($"{CommandsOn} / {CommandsOff}", "Turn commands on/off"),
+            new CommandHelp($"{KeyOn} / {KeyOff} ", "Turn the key on/off")
+        };
+
+        #endregion
+
         #region Implementation of IInterpreter
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public CommandHelp[] SupportedCommands { get; } = DefaultSupportedCommands;
 
         /// <summary>
         /// Interpret a string.

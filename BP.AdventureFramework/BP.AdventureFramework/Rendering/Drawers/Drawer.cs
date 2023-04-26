@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BP.AdventureFramework.Rendering
+namespace BP.AdventureFramework.Rendering.Drawers
 {
     /// <summary>
     /// A class for drawing strings on a console window.

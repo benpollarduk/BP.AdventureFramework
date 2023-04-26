@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Commands.Game;
+﻿using System.Collections.Generic;
+using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Interpretation
@@ -31,6 +32,22 @@ namespace BP.AdventureFramework.Interpretation
         #endregion
 
         #region Implementation of IInterpreter
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public CommandHelp[] SupportedCommands
+        {
+            get
+            {
+                var l = new List<CommandHelp>();
+
+                foreach (var interpreter in Interpreters)
+                    l.AddRange(interpreter.SupportedCommands);
+
+                return l.ToArray();
+            }
+        }
 
         /// <summary>
         /// Interpret a string.

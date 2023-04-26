@@ -1,6 +1,6 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Utils.Generation;
-using BP.AdventureFramework.Utils.Generation.Simple.Themes;
+using BP.AdventureFramework.Utils.Generation.Themes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Utils.Generation

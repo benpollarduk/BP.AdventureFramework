@@ -10,9 +10,8 @@
         /// </summary>
         /// <param name="message">The message to display to the user.</param>
         /// <param name="reason">The reason the game ended.</param>
-        /// <param name="frameDrawer">Specify the frame drawer.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        Frame Build(string message, string reason, FrameDrawer frameDrawer, int width, int height);
+        Frame Build(string message, string reason, int width, int height);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Assets.Locations;
 
-namespace BP.AdventureFramework.Rendering
+namespace BP.AdventureFramework.Rendering.Drawers
 {
     /// <summary>
     /// A class for drawing maps.

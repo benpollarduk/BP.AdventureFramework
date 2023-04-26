@@ -1,4 +1,6 @@
-﻿namespace BP.AdventureFramework.Utils.Generation.Simple.Themes
+﻿using BP.AdventureFramework.Utils.Generation.Simple;
+
+namespace BP.AdventureFramework.Utils.Generation.Themes
 {
     /// <summary>
     /// Provides the dungeon theme.

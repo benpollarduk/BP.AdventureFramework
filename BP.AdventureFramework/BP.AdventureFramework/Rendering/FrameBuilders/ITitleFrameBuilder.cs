@@ -10,9 +10,8 @@
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="description">The description.</param>
-        /// <param name="frameDrawer">Specify the frame drawer.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        Frame Build(string title, string description, FrameDrawer frameDrawer, int width, int height);
+        Frame Build(string title, string description, int width, int height);
     }
 }

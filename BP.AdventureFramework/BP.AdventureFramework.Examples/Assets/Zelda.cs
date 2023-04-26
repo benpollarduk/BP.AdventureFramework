@@ -177,10 +177,15 @@ namespace BP.AdventureFramework.Examples.Assets
         /// Determine if the game has completed.
         /// </summary>
         /// <param name="game">The Game to check for completion.</param>
-        /// <returns>True if the Game is complete, else false.</returns>
-        public static bool DetermineIfGameHasCompleted(Game game)
+        /// <returns>The result of the completion check.</returns>
+        public static CompletionCheckResult DetermineIfGameHasCompleted(Game game)
         {
-            return TailCave.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom);
+            var atDestination = TailCave.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom);
+
+            if (!atDestination)
+                return CompletionCheckResult.NotComplete;
+
+            return new CompletionCheckResult(true, "Game Over", "You have reached the end of the game, thanks for playing!");
         }
     }
 }

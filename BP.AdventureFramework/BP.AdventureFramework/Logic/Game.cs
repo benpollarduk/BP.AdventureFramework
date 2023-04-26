@@ -11,7 +11,8 @@ using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering;
-using BP.AdventureFramework.Rendering.Frames;
+using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.FrameBuilders;
 
 namespace BP.AdventureFramework.Logic
 {
@@ -46,10 +47,6 @@ namespace BP.AdventureFramework.Logic
         #region Fields
 
         private PlayableCharacter player;
-        private int lastUsedWidth;
-        private int lastUsedHeight;
-        private Frame lastFrame;
-        private MapDrawer lastUsedMapDrawer;
 
         #endregion
 
@@ -121,16 +118,6 @@ namespace BP.AdventureFramework.Logic
         public bool IsExecuting { get; private set; }
 
         /// <summary>
-        /// Get the drawer for drawing all frames.
-        /// </summary>
-        protected FrameDrawer FrameDrawer { get; private set; }
-
-        /// <summary>
-        /// Get the drawer used for constructing room maps.
-        /// </summary>
-        protected MapDrawer MapDrawer { get; private set; }
-
-        /// <summary>
         /// Get the interpreter.
         /// </summary>
         protected IInterpreter Interpreter { get; private set; }
@@ -166,19 +153,29 @@ namespace BP.AdventureFramework.Logic
         internal ExitMode ExitMode { get; set; } = ExitMode.ReturnToTitleScreen;
 
         /// <summary>
-        /// Get this Games frame to display for the title screen.
+        /// Get the builder to use for title frames.
         /// </summary>
-        internal Frame TitleFrame { get; private set; }
+        internal ITitleFrameBuilder TitleFrameBuilder { get; private set; }
 
         /// <summary>
-        /// Get this Games frame to display upon completion.
+        /// Get the builder to use for completion frames.
         /// </summary>
-        internal Frame CompletionFrame { get; private set; }
+        internal IEndFrameBuilder CompletionFrameBuilder { get; private set; }
 
         /// <summary>
-        /// Get this Games help screen.
+        /// Get the builder to use for help frames.
         /// </summary>
-        internal Frame HelpFrame { get; private set; }
+        internal IHelpFrameBuilder HelpFrameBuilder { get; private set; }
+
+        /// <summary>
+        /// Get the builder to use for scene frames.
+        /// </summary>
+        internal ISceneFrameBuilder SceneFrameBuilder { get; private set; }
+
+        /// <summary>
+        /// Get the builder to use for region map frames.
+        /// </summary>
+        internal IRegionMapFrameBuilder RegionMapFrameBuilder { get; private set; }
 
         /// <summary>
         /// Get the current Frame.
@@ -242,7 +239,7 @@ namespace BP.AdventureFramework.Logic
 
             var input = string.Empty;
 
-            Refresh(TitleFrame);
+            Refresh(TitleFrameBuilder.Build(Name, Description, DisplaySize.Width, DisplaySize.Height));
 
             do
             {
@@ -261,14 +258,14 @@ namespace BP.AdventureFramework.Logic
                     input = Input.ReadLine();
                 }
 
-                if (CurrentFrame is TitleFrame)
+                if (CurrentFrame is this.TitleFrameBuilder)
                 {
                     EnterGame(DisplaySize.Width, DisplaySize.Height, MapDrawer);
                     displayReactionToInput = false;
                 }
                 else if (CurrentFrame is EndFrame)
                 {
-                    Refresh(TitleFrame);
+                    Refresh(TitleFrameBuilder.Build(Name, Description, DisplaySize.Width, DisplaySize.Height));
                     displayReactionToInput = false;
                 }
                 else if (!CurrentFrame.AcceptsInput)
@@ -313,8 +310,7 @@ namespace BP.AdventureFramework.Logic
         /// <param name="message">An additional message to display to the user.</param>
         private void UpdateScreenWithCurrentFrame(string message)
         {
-            var scene = GetScene(MapDrawer, DisplaySize.Width, DisplaySize.Height, message);
-            DrawFrame(scene);
+            DrawFrame(GetScene(message));
         }
 
         /// <summary>
@@ -327,19 +323,7 @@ namespace BP.AdventureFramework.Logic
             {
                 StartingFrameDraw?.Invoke(this, frame);
 
-                if (lastFrame != null)
-                    lastFrame.Invalidated -= Frame_Invalidated;
-
-                if (lastFrame != frame && lastFrame != null)
-                {
-                    lastFrame.Dispose();
-                    lastFrame = null;
-                }
-
-                lastFrame = frame;
-                lastFrame.Invalidated += Frame_Invalidated;
-
-                Output.Write(frame.BuildFrame(DisplaySize.Width, DisplaySize.Height, FrameDrawer));
+                Output.Write(frame);
 
                 FinishedFrameDraw?.Invoke(this, frame);
             }
@@ -358,8 +342,10 @@ namespace BP.AdventureFramework.Logic
         {
             var reaction = command.Invoke();
 
-            if (CompletionCondition(this))
-                Refresh(CompletionFrame);
+            var result = CompletionCondition(this);
+
+            if (result.IsCompleted)
+                Refresh(CompletionFrameBuilder.Build(result.Title, result.Description, DisplaySize.Width, DisplaySize.Height));
 
             return reaction;
         }
@@ -367,15 +353,9 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Enter the game.
         /// </summary>
-        /// <param name="width">The width of the game.</param>
-        /// <param name="height">The height of the game.</param>
-        /// <param name="drawer">A drawer to use for constructing the map.</param>
-        private void EnterGame(int width, int height, MapDrawer drawer)
+        private void EnterGame()
         {
-            lastUsedWidth = width;
-            lastUsedHeight = height;
-            lastUsedMapDrawer = drawer;
-            Refresh(GetScene());
+            Refresh(GetScene(string.Empty));
         }
 
         /// <summary>
@@ -387,40 +367,13 @@ namespace BP.AdventureFramework.Logic
         }
 
         /// <summary>
-        /// Get a scene based on the current game.
+        /// Get a scene based on the current games room.
         /// </summary>
-        /// <returns>A constructed frame of the scene.</returns>
-        private SceneFrame GetScene()
-        {
-            return GetScene(lastUsedMapDrawer, lastUsedWidth, lastUsedHeight);
-        }
-
-        /// <summary>
-        /// Get a scene based on the current game.
-        /// </summary>
-        /// <param name="drawer">A drawer to use for constructing the map.</param>
-        /// <param name="width">The width of the scene.</param>
-        /// <param name="height">The height of the scene.</param>
-        /// <returns>A constructed frame of the scene.</returns>
-        private SceneFrame GetScene(MapDrawer drawer, int width, int height)
-        {
-            return GetScene(drawer, width, height, string.Empty);
-        }
-
-        /// <summary>
-        /// Get a scene based on the current game.
-        /// </summary>
-        /// <param name="drawer">A drawer to use for constructing the map.</param>
-        /// <param name="width">The width of the scene.</param>
-        /// <param name="height">The height of the scene.</param>
         /// <param name="messageToUser">A message to the user.</param>
         /// <returns>A constructed frame of the scene.</returns>
-        private SceneFrame GetScene(MapDrawer drawer, int width, int height, string messageToUser)
+        private Frame GetScene(string messageToUser)
         {
-            lastUsedWidth = width;
-            lastUsedHeight = height;
-            lastUsedMapDrawer = drawer;
-            return new SceneFrame(Overworld.CurrentRegion.CurrentRoom, Player, messageToUser, drawer);
+            return SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, messageToUser, DisplaySize.Width, DisplaySize.Height);
         }
 
         /// <summary>
@@ -463,7 +416,7 @@ namespace BP.AdventureFramework.Logic
         /// <param name="message">Any message to display.</param>
         private void Refresh(string message)
         {
-            Refresh(new SceneFrame(Overworld.CurrentRegion.CurrentRoom, Player, message));
+            Refresh(SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, message, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
@@ -481,7 +434,7 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void DisplayHelp()
         {
-            Refresh(HelpFrame);
+            Refresh(HelpFrameBuilder.Build());
         }
 
         /// <summary>
@@ -489,7 +442,7 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void DisplayMap()
         {
-            Refresh(new RegionMapFrame(Overworld.CurrentRegion, MapDrawer));
+            Refresh(RegionMapFrameBuilder.Build(Overworld.CurrentRegion, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
@@ -497,7 +450,7 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void DisplayAbout()
         {
-            Refresh(new TitleFrame("About", "BP.AdventureFramework by Ben Pollard 2011 - 2023"));
+            Refresh(TitleFrameBuilder.Build("About", "BP.AdventureFramework by Ben Pollard 2011 - 2023", DisplaySize.Width, DisplaySize.Height));
         }
 
         #endregion
@@ -515,6 +468,9 @@ namespace BP.AdventureFramework.Logic
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
         public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
         {
+            var frameDrawer = new FrameDrawer();
+            var mapDrawer = new MapDrawer();
+
             return Create(
                 name,
                 description,
@@ -522,11 +478,11 @@ namespace BP.AdventureFramework.Logic
                 playerGenerator,
                 completionCondition,
                 DefaultSize,
-                new FrameDrawer(),
-                new MapDrawer(), 
-                new TitleFrame(name, description),
-                new TitleFrame("Finished", $"Congratulations, you finished {name}!"),
-                new HelpFrame(),
+                new TitleFrameBuilder(frameDrawer),
+                new EndFrameBuilder(frameDrawer), 
+                new HelpFrameBuilder(frameDrawer),
+                new SceneFrameBuilder(frameDrawer, mapDrawer),
+                new RegionMapFrameBuilder(frameDrawer, mapDrawer), 
                 ExitMode.ReturnToTitleScreen,
                 DefaultErrorPrefix,
                 DefaultInterpreter);
@@ -541,27 +497,27 @@ namespace BP.AdventureFramework.Logic
         /// <param name="playerGenerator">The function to generate the Player with.</param>
         /// <param name="displaySize">The display size.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
-        /// <param name="frameDrawer">The drawer to use for rendering frames.</param>
-        /// <param name="mapDrawer">The drawer to use for rendering maps.</param>
-        /// <param name="titleFrame">The title frame.</param>
-        /// <param name="completionFrame">The completion frame.</param>
-        /// <param name="helpFrame">The help frame.</param>
+        /// <param name="titleFrameBuilder">The title frame builder.</param>
+        /// <param name="completionFrameBuilder">The completion frame builder.</param>
+        /// <param name="helpFrameBuilder">The help frame builder.</param>
+        /// <param name="sceneFrameBuilder">The scene frame builder.</param>
+        /// <param name="regionMapFrameBuilder">The region map frame builder.</param>
         /// <param name="exitMode">The exit mode.</param>
         /// <param name="errorPrefix">A prefix to use when displaying errors.</param>
         /// <param name="interpreter">The interpreter.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Size displaySize, FrameDrawer frameDrawer, MapDrawer mapDrawer, Frame titleFrame, Frame completionFrame, Frame helpFrame, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
+        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Size displaySize, ITitleFrameBuilder titleFrameBuilder, IEndFrameBuilder completionFrameBuilder, IHelpFrameBuilder helpFrameBuilder, ISceneFrameBuilder sceneFrameBuilder, IRegionMapFrameBuilder regionMapFrameBuilder, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
         {
             return () =>
             {
                 var pC = playerGenerator?.Invoke();
                 var game = new Game(name, description, pC, overworldGenerator?.Invoke(pC), displaySize)
                 {
-                    TitleFrame = titleFrame,
-                    CompletionFrame = completionFrame,
-                    HelpFrame = helpFrame,
-                    FrameDrawer = frameDrawer,
-                    MapDrawer = mapDrawer,
+                    TitleFrameBuilder = titleFrameBuilder,
+                    CompletionFrameBuilder = completionFrameBuilder,
+                    HelpFrameBuilder = helpFrameBuilder,
+                    SceneFrameBuilder = sceneFrameBuilder,
+                    RegionMapFrameBuilder = regionMapFrameBuilder,
                     CompletionCondition = completionCondition,
                     ExitMode = exitMode,
                     ErrorPrefix = errorPrefix,
@@ -637,12 +593,7 @@ namespace BP.AdventureFramework.Logic
 
         private void player_Died(object sender, string e)
         {
-            Refresh(new EndFrame("Game Over", e));
-        }
-
-        private void Frame_Invalidated(object sender, Frame e)
-        {
-            Refresh(e);
+            Refresh(CompletionFrameBuilder.Build("Game Over", e, DisplaySize.Width, DisplaySize.Height));
         }
 
         #endregion
@@ -654,7 +605,6 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void Dispose()
         {
-            lastFrame?.Dispose();
             Output?.Dispose();
             Input?.Dispose();
             Error?.Dispose();

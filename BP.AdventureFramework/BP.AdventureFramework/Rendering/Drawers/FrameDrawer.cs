@@ -1,4 +1,4 @@
-﻿namespace BP.AdventureFramework.Rendering
+﻿namespace BP.AdventureFramework.Rendering.Drawers
 {
     /// <summary>
     /// A class for constructing and drawing Frames.

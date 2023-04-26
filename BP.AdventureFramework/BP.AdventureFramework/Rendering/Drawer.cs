@@ -71,7 +71,7 @@ namespace BP.AdventureFramework.Rendering
                 divider += dividerString;
 
             divider += rightBoundary;
-            divider += "\n";
+            divider += Environment.NewLine;
             return divider;
         }
 
@@ -101,7 +101,7 @@ namespace BP.AdventureFramework.Rendering
                 divider += " ";
 
             divider += rightBoundary;
-            divider += "\n";
+            divider += Environment.NewLine;
 
             return divider;
         }
@@ -140,7 +140,7 @@ namespace BP.AdventureFramework.Rendering
             constructedString += ConstructWhitespaceString(startPosition - 1);
             constructedString += displayString;
             constructedString += ConstructWhitespaceString(width - constructedString.Length);
-            constructedString += "\n";
+            constructedString += Environment.NewLine;
 
             return constructedString;
         }
@@ -167,7 +167,7 @@ namespace BP.AdventureFramework.Rendering
             constructedString += displayString;
             constructedString += ConstructWhitespaceString(width - 1 - constructedString.Length - 1);
             constructedString += rightBoundary;
-            constructedString += "\n";
+            constructedString += Environment.NewLine;
 
             return constructedString;
         }
@@ -237,7 +237,7 @@ namespace BP.AdventureFramework.Rendering
                         }
                     }
 
-                    wrappedString += leftBoundary + " " + chunk + ConstructWhitespaceString(availableTextSpace - chunk.Length) + rightBoundary + "\n";
+                    wrappedString += leftBoundary + " " + chunk + ConstructWhitespaceString(availableTextSpace - chunk.Length) + rightBoundary + Environment.NewLine;
                     chunk = string.Empty;
                 }
 
@@ -247,14 +247,14 @@ namespace BP.AdventureFramework.Rendering
                 if (centralise)
                     wrappedString += ConstructCentralisedString(word, width, leftBoundary, rightBoundary);
                 else
-                    wrappedString += leftBoundary + " " + word + ConstructWhitespaceString(availableTextSpace - word.Length) + rightBoundary + "\n";
+                    wrappedString += leftBoundary + " " + word + ConstructWhitespaceString(availableTextSpace - word.Length) + rightBoundary + Environment.NewLine;
             }
             else
             {
                 if (centralise)
                     wrappedString += ConstructCentralisedString(displayString, width, leftBoundary, rightBoundary);
                 else
-                    wrappedString = leftBoundary + " " + displayString + ConstructWhitespaceString(availableTextSpace - displayString.Length) + rightBoundary + "\n";
+                    wrappedString = leftBoundary + " " + displayString + ConstructWhitespaceString(availableTextSpace - displayString.Length) + rightBoundary + Environment.NewLine;
             }
 
             return wrappedString;
@@ -271,7 +271,7 @@ namespace BP.AdventureFramework.Rendering
 
             for (var index = 0; index < input.Length - 1; index++)
             {
-                if (input.Substring(index, 1) == "\n")
+                if (input.Substring(index, 1) == Environment.NewLine)
                     occurences++;
             }
 

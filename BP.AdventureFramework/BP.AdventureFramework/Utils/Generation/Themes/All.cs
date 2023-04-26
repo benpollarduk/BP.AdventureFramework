@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Utils.Generation.Simple;
 
-namespace BP.AdventureFramework.Utils.Generation.Simple.Themes
+namespace BP.AdventureFramework.Utils.Generation.Themes
 {
     /// <summary>
     /// Provides the all theme.

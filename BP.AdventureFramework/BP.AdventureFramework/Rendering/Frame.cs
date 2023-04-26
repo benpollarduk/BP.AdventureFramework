@@ -1,4 +1,4 @@
-﻿namespace BP.AdventureFramework.Rendering.FrameBuilders
+﻿namespace BP.AdventureFramework.Rendering
 {
     /// <summary>
     /// Represents a frame for displaying a command based interface.

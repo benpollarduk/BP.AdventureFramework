@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Utils
     /// <summary>
     /// Provides a class for helping to make Regions.
     /// </summary>
-    public class OverworldMaker
+    public sealed class OverworldMaker
     {
         #region Properties
 

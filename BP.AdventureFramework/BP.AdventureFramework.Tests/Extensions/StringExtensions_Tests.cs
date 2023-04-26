@@ -176,6 +176,14 @@ namespace BP.AdventureFramework.Tests.Extensions
         }
 
         [TestMethod]
+        public void GivenRedOlives_WhenGetObjectifier_ThenSome()
+        {
+            var result = "Red Olives".GetObjectifier();
+
+            Assert.AreEqual("some", result);
+        }
+
+        [TestMethod]
         public void GivenStringIsEqualToIdentifier_WhenEqualsIdentifier_ThenTrue()
         {
             var result = "A".EqualsIdentifier("A".ToIdentifier());
@@ -221,6 +229,47 @@ namespace BP.AdventureFramework.Tests.Extensions
             var result = "A".ToDescription();
 
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GivenNull_WhenToSentenceCase_ThenNull()
+        {
+            string s = null;
+            var result = s.ToSentenceCase();
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GivenEmpty_WhenToSentenceCase_ThenEmpty()
+        {
+            var result = string.Empty.ToSentenceCase();
+
+            Assert.AreEqual("", result);
+        }
+
+        [TestMethod]
+        public void GivenLowerCaseA_WhenToSentenceCase_ThenA()
+        {
+            var result = "a".ToSentenceCase();
+
+            Assert.AreEqual("A", result);
+        }
+
+        [TestMethod]
+        public void GivenAn_WhenToSentenceCase_ThenAn()
+        {
+            var result = "An".ToSentenceCase();
+
+            Assert.AreEqual("An", result);
+        }
+
+        [TestMethod]
+        public void GivenAN_WhenToSentenceCase_ThenAN()
+        {
+            var result = "AN".ToSentenceCase();
+
+            Assert.AreEqual("AN", result);
         }
     }
 }

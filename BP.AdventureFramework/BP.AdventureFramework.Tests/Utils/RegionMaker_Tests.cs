@@ -115,5 +115,47 @@ namespace BP.AdventureFramework.Tests.Utils
 
             Assert.AreEqual(4, region.Rooms);
         }
+
+        [TestMethod]
+        public void GivenCantPlaceRoom_WhenCanPlaceRoom_ThenFalse()
+        {
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var regionMaker = new RegionMaker(string.Empty, string.Empty)
+            {
+                [0, 0] = room
+            };
+
+            var result = regionMaker.CanPlaceRoom(0, 0);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GivenCanPlaceRoom_WhenCanPlaceRoom_ThenTrue()
+        {
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var regionMaker = new RegionMaker(string.Empty, string.Empty)
+            {
+                [0, 0] = room
+            };
+
+            var result = regionMaker.CanPlaceRoom(1, 0);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenOneRoom_WhenGetRoomPositions_ThenReturn1Room()
+        {
+            var room = new Room(Identifier.Empty, Description.Empty);
+            var regionMaker = new RegionMaker(string.Empty, string.Empty)
+            {
+                [0, 0] = room
+            };
+
+            var result = regionMaker.GetRoomPositions();
+
+            Assert.AreEqual(1, result.Length);
+        }
     }
 }

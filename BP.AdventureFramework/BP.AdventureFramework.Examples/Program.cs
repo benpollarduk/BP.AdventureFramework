@@ -1,6 +1,11 @@
 ﻿using System;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Examples.Assets;
 using BP.AdventureFramework.Logic;
+using BP.AdventureFramework.Utils;
+using BP.AdventureFramework.Utils.Generation;
+using BP.AdventureFramework.Utils.Generation.Simple.Themes;
 
 namespace BP.AdventureFramework.Examples
 {
@@ -20,6 +25,14 @@ namespace BP.AdventureFramework.Examples
                     Console.WriteLine("1. Everglades");
                     Console.WriteLine("2. Flat");
                     Console.WriteLine("3. Zelda");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("4. Generate (Dungeon - Experimental)");
+                    Console.WriteLine("5. Generate (Forest - Experimental)");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    GameGenerationOptions options;
+                    GameGenerator generator;
+                    OverworldMaker overworld;
 
                     switch (Console.ReadKey().Key)
                     {
@@ -53,6 +66,36 @@ namespace BP.AdventureFramework.Examples
                                 Zelda.GenerateOverworld,
                                 Zelda.GeneratePC,
                                 Zelda.DetermineIfGameHasCompleted);
+
+                            break;
+
+                        case ConsoleKey.NumPad4:
+                        case ConsoleKey.D4:
+
+                            options = new GameGenerationOptions();
+                            generator = new GameGenerator(Identifier.Empty, Description.Empty);
+                            overworld = generator.Generate(options, new Dungeon(), out var dungeonDeed);
+
+                            creator = Game.Create($"Dungeon generated with {dungeonDeed}",
+                                "",
+                                p => overworld.Make(),
+                                () => new PlayableCharacter("You", "Just you."),
+                                g => false);
+
+                            break;
+
+                        case ConsoleKey.NumPad5:
+                        case ConsoleKey.D5:
+
+                            options = new GameGenerationOptions();
+                            generator = new GameGenerator(Identifier.Empty, Description.Empty);
+                            overworld = generator.Generate(options, new Forest(), out var forestSeed);
+
+                            creator = Game.Create($"Forest generated with {forestSeed}",
+                                "",
+                                p => overworld.Make(),
+                                () => new PlayableCharacter("You", "Just you."),
+                                g => false);
 
                             break;
                     }

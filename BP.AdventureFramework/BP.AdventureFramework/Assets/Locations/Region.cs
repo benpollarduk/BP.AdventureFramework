@@ -118,31 +118,7 @@ namespace BP.AdventureFramework.Assets.Locations
             if (roomPosition == null)
                 return null;
 
-            int column;
-            int row;
-
-            switch (direction)
-            {
-                case CardinalDirection.East:
-                    column = roomPosition.X + 1;
-                    row = roomPosition.Y;
-                    break;
-                case CardinalDirection.North:
-                    column = roomPosition.X;
-                    row = roomPosition.Y + 1;
-                    break;
-                case CardinalDirection.South:
-                    column = roomPosition.X;
-                    row = roomPosition.Y - 1;
-                    break;
-                case CardinalDirection.West:
-                    column = roomPosition.X- 1;
-                    row = roomPosition.Y;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-
+            NextPosition(roomPosition.X, roomPosition.Y, direction, out var column, out var row);
             return this[column, row];
         }
 
@@ -227,6 +203,43 @@ namespace BP.AdventureFramework.Assets.Locations
         public Room[,] ToMatrix()
         {
             return RegionMaker.ConvertToRoomMatrix(roomPositions);
+        }
+
+        #endregion
+
+        #region StaticMethods
+
+        /// <summary>
+        /// Get the next position given a current position.
+        /// </summary>
+        /// <param name="x">The current X.</param>
+        /// <param name="y">The current Y.</param>
+        /// <param name="direction">The direction.</param>
+        /// <param name="nextX">The next X.</param>
+        /// <param name="nextY">The next Y.</param>
+        internal static void NextPosition(int x, int y, CardinalDirection direction, out int nextX, out int nextY)
+        {
+            switch (direction)
+            {
+                case CardinalDirection.North:
+                    nextX = x;
+                    nextY = y + 1;
+                    break;
+                case CardinalDirection.East:
+                    nextX = x + 1;
+                    nextY = y;
+                    break;
+                case CardinalDirection.South:
+                    nextX = x;
+                    nextY = y - 1;
+                    break;
+                case CardinalDirection.West:
+                    nextX = x - 1;
+                    nextY = y;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         #endregion

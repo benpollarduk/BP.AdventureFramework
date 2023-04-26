@@ -7,9 +7,9 @@ using BP.AdventureFramework.Assets.Locations;
 namespace BP.AdventureFramework.Utils.Generation.Simple
 {
     /// <summary>
-    /// Provides a simple region generator.
+    /// Provides a region generator.
     /// </summary>
-    internal sealed class SimpleRegionGenerator : IRegionGenerator
+    internal sealed class RegionGenerator : IRegionGenerator
     {
         #region StaticMethods
 

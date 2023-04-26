@@ -4,9 +4,9 @@ using BP.AdventureFramework.Extensions;
 namespace BP.AdventureFramework.Utils.Generation.Simple
 {
     /// <summary>
-    /// Provides a simple description generator.
+    /// Provides a description generator.
     /// </summary>
-    internal sealed class SimpleDescriptionGenerator : IDescriptionGenerator
+    internal sealed class DescriptionGenerator : IDescriptionGenerator
     {
         #region Implementation of IDescriptionGenerator
 

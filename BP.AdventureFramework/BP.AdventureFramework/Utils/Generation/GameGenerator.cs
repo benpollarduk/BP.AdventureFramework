@@ -73,10 +73,10 @@ namespace BP.AdventureFramework.Utils.Generation
         public OverworldMaker Generate(int seed, GameGenerationOptions options, ITheme theme)
         {
             return Generate(new Random(seed),
-                new SimpleRegionGenerator(), 
-                new SimpleRoomGenerator(new SimpleExaminableGenerator(theme.RoomNouns, theme.RoomAdjectives, new SimpleDescriptionGenerator(), false)),
-                new SimpleItemGenerator(new SimpleExaminableGenerator(theme.TakeableItemNouns, theme.TakeableItemAdjectives, new SimpleDescriptionGenerator(), false), true),
-                new SimpleItemGenerator(new SimpleExaminableGenerator(theme.NonTakeableItemNouns, theme.NonTakeableItemAdjectives, new SimpleDescriptionGenerator(), false), false),
+                new RegionGenerator(), 
+                new RoomGenerator(new ExaminableGenerator(theme.RoomNouns, theme.RoomAdjectives, new DescriptionGenerator(), false)),
+                new ItemGenerator(new ExaminableGenerator(theme.TakeableItemNouns, theme.TakeableItemAdjectives, new DescriptionGenerator(), false), true),
+                new ItemGenerator(new ExaminableGenerator(theme.NonTakeableItemNouns, theme.NonTakeableItemAdjectives, new DescriptionGenerator(), false), false),
                 options);
         }
 

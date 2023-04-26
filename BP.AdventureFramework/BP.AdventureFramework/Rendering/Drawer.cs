@@ -267,21 +267,7 @@ namespace BP.AdventureFramework.Rendering
         /// <returns>The amount of lines in the string.</returns>
         public int DetermineLinesInString(string input)
         {
-            var occurences = 0;
-
-            for (var index = 0; index < input.Length - 1; index++)
-            {
-                if (input.Substring(index, 1) == Environment.NewLine)
-                    occurences++;
-            }
-
-            if (string.IsNullOrEmpty(input))
-                return occurences;
-
-            if (input[input.Length - 1] != (char)13)
-                occurences++;
-
-            return occurences;
+            return input?.Split(new [] { Environment.NewLine }, StringSplitOptions.None).Length ?? 0;
         }
 
         #endregion

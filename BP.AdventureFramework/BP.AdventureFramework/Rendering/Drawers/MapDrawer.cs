@@ -43,11 +43,6 @@ namespace BP.AdventureFramework.Rendering.Drawers
         public string EmptyRoomString { get; set; } = "+";
 
         /// <summary>
-        /// Get or set the type of key to use.
-        /// </summary>
-        public KeyType Key { get; set; } = KeyType.Dynamic;
-
-        /// <summary>
         /// Get or set the visibility mode to use for Rooms.
         /// </summary>
         public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.AllRegion;
@@ -65,9 +60,10 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// Construct a map for a Room.
         /// </summary>
         /// <param name="room">The Room to draw.</param>
+        /// <param name="key">The key type.</param>
         /// <param name="width">The allocated with to draw within.</param>
         /// <returns>A map of the Room in a String.</returns>
-        public string ConstructRoomMap(Room room, int width)
+        public string ConstructRoomMap(Room room, KeyType key, int width)
         {
             if (width <= 0)
                 throw new ArgumentException("The width parameter must be greater than 0.");
@@ -79,7 +75,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
             var entranceString = "n/e/s/w = Entrance";
             var itemsString = $"{ItemInRoomString}=Item(s) In Room";
 
-            switch (Key)
+            switch (key)
             {
                 case KeyType.Dynamic:
 

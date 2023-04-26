@@ -40,7 +40,7 @@ namespace BP.AdventureFramework.Commands.Frame
             if (Game == null)
                 return new Reaction(ReactionResult.None, "No game specified.");
 
-            Game.DisplayCommandListInSceneFrames = false;
+            Game.DisplayCommandListInSceneFrames = true;
             return new Reaction(ReactionResult.Reacted, "Commands have been turned on.");
         }
 

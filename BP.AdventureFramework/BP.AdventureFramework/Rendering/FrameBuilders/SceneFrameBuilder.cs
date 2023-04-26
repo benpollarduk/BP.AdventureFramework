@@ -14,15 +14,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
     /// </summary>
     public class SceneFrameBuilder : ISceneFrameBuilder
     {
-        #region StaticProperties
-
-        /// <summary>
-        /// Get or set if commands are displayed.
-        /// </summary>
-        public static bool DisplayCommands { get; set; } = true;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -60,9 +51,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         /// <param name="room">Specify the Room.</param>
         /// <param name="player">Specify the player.</param>
         /// <param name="message">Any additional message.</param>
+        /// <param name="displayCommands">Specify if commands should be displayed as part of the scene.</param>
+        /// <param name="keyType">The type of key to use.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        public Frame Build(Room room, PlayableCharacter player, string message, int width, int height)
+        public Frame Build(Room room, PlayableCharacter player, string message, bool displayCommands, KeyType keyType, int width, int height)
         {
             var scene = new StringBuilder();
             scene.Append(FrameDrawer.ConstructDivider(width));
@@ -104,11 +97,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
             {
                 scene.Append(FrameDrawer.ConstructWrappedPaddedString("AREA:", width));
                 scene.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
-                scene.Append(MapDrawer.ConstructRoomMap(room, width));
+                scene.Append(MapDrawer.ConstructRoomMap(room, keyType, width));
                 scene.Append(FrameDrawer.ConstructDivider(width));
             }
 
-            if (DisplayCommands)
+            if (displayCommands)
             {
                 scene.Append(FrameDrawer.ConstructWrappedPaddedString("COMMANDS:", width));
                 scene.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
@@ -151,14 +144,14 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
             scene.Append(FrameDrawer.ConstructDivider(width));
             scene.Append(FrameDrawer.ConstructWrappedPaddedString("INVENTORY: " + player.GetItemsAsList(), width));
             scene.Append(FrameDrawer.ConstructDivider(width));
-            var yPositionOfCursor = FrameDrawer.DetermineLinesInString(scene.ToString());
+            var yPositionOfCursor = FrameDrawer.DetermineLinesInString(scene.ToString()) - 1;
             scene.Append(FrameDrawer.ConstructWrappedPaddedString("WHAT DO YOU DO? ", width));
             scene.Append(FrameDrawer.ConstructDivider(width));
             scene.Append(wrappedMessage);
             var bottomdivider = FrameDrawer.ConstructDivider(width);
             scene.Append(bottomdivider.Remove(bottomdivider.Length - 1));
 
-            return new Frame(scene.ToString(), 12, yPositionOfCursor);
+            return new Frame(scene.ToString(), 18, yPositionOfCursor);
         }
 
         #endregion

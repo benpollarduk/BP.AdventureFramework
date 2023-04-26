@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using BP.AdventureFramework.Rendering.Drawers;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders
@@ -38,10 +37,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="description">The description.</param>
-        /// <param name="commands">The command dictionary.</param>
+        /// <param name="commandHelp">The command help.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        public Frame Build(string title, string description, Dictionary<string, string> commands, int width, int height)
+        public Frame Build(string title, string description, CommandHelp[] commandHelp, int width, int height)
         {
             var builder = new StringBuilder();
             builder.Append(FrameDrawer.ConstructDivider(width));
@@ -52,11 +51,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
             builder.Append(FrameDrawer.ConstructWrappedPaddedString("GENERAL COMMANDS", width, false));
             builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width, false));
 
-            foreach (var key in commands.Keys)
+            foreach (var command in commandHelp)
             {
-                if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(commands[key]))
-                    builder.Append(FrameDrawer.ConstructWrappedPaddedString($"{key}{FrameDrawer.ConstructWhitespaceString(30 - key.Length)}- {commands[key]}", width, false));
-                else if (!string.IsNullOrEmpty(key) && string.IsNullOrEmpty(commands[key]))
+                if (!string.IsNullOrEmpty(command.Command) && !string.IsNullOrEmpty(command.Command))
+                    builder.Append(FrameDrawer.ConstructWrappedPaddedString($"{command.Command}{FrameDrawer.ConstructWhitespaceString(30 - command.Command.Length)}- {command.Description}", width, false));
+                else if (!string.IsNullOrEmpty(command.Command) && string.IsNullOrEmpty(command.Description))
                     builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
                 else
                     builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));

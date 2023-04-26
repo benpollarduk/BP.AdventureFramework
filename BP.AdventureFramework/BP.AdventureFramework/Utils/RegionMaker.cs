@@ -9,7 +9,7 @@ namespace BP.AdventureFramework.Utils
     /// <summary>
     /// Provides a class for helping to make Regions.
     /// </summary>
-    public class RegionMaker
+    public sealed class RegionMaker
     {
         #region Fields
 
@@ -116,6 +116,27 @@ namespace BP.AdventureFramework.Utils
 
             return region;
         }
+
+        /// <summary>
+        /// Determine if a room can be placed at a location
+        /// </summary>
+        /// <param name="column">The column.</param>
+        /// <param name="row">The row.</param>
+        /// <returns>True if the room can be placed, else false.</returns>
+        public bool CanPlaceRoom(int column, int row)
+        {
+            return rooms.All(x => !x.IsAtPosition(column, row));
+        }
+
+        /// <summary>
+        /// Get all current room positions.
+        /// </summary>
+        /// <returns>The room positions.</returns>
+        public RoomPosition[] GetRoomPositions()
+        {
+            return rooms.ToArray();
+        }
+
 
         #endregion
 

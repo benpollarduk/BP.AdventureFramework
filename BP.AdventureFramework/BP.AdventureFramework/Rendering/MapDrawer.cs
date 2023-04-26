@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Rendering
         /// <summary>
         /// Get or set the visibility mode to use for Rooms.
         /// </summary>
-        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.VistitedRoomsOnly;
+        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.AllRegion;
 
         /// <summary>
         /// Get or set the detail to use for a Region map.
@@ -199,11 +199,11 @@ namespace BP.AdventureFramework.Rendering
             const string blankRoomRow = " ";
             var rooms = region.ToMatrix();
 
-            for (var row = height; row >= y; row--)
+            for (var row = height - 1; row >= y; row--)
             {
                 var line = string.Empty;
 
-                for (var column = x; column <= width; column++)
+                for (var column = x; column < width; column++)
                 {
                     var room = rooms[column, row];
 
@@ -356,7 +356,7 @@ namespace BP.AdventureFramework.Rendering
                         return ConstructDetailedRegionMap(region, renderWidth, roomWidthTotal, x, y, width, height);
 
                     if (undetailedWouldFit)
-                        return ConstructUndetailedRegionMap(region, renderWidth, x, width, y, height);
+                        return ConstructUndetailedRegionMap(region, renderWidth, x, y, width, height);
 
                     return ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", renderWidth);
 

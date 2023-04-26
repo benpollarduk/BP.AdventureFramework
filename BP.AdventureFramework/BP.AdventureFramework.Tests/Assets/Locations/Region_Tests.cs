@@ -225,5 +225,41 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             Assert.IsFalse(room1Exit.IsLocked);
             Assert.IsFalse(room2Exit.IsLocked);
         }
+
+        [TestMethod]
+        public void GivenNorth_WhenNextPosition_ThenXTheSameYIncrements()
+        {
+            Region.NextPosition(0, 0, CardinalDirection.North, out var x, out var y);
+
+            Assert.AreEqual(0, x);
+            Assert.AreEqual(1, y);
+        }
+
+        [TestMethod]
+        public void GivenSouth_WhenNextPosition_ThenXTheSameYDecrements()
+        {
+            Region.NextPosition(0, 0, CardinalDirection.South, out var x, out var y);
+
+            Assert.AreEqual(0, x);
+            Assert.AreEqual(-1, y);
+        }
+
+        [TestMethod]
+        public void GivenWest_WhenNextPosition_ThenXDecrementsYTheSame()
+        {
+            Region.NextPosition(0, 0, CardinalDirection.West, out var x, out var y);
+
+            Assert.AreEqual(-1, x);
+            Assert.AreEqual(0, y);
+        }
+
+        [TestMethod]
+        public void GivenEast_WhenNextPosition_ThenXIncrementsYTheSame()
+        {
+            Region.NextPosition(0, 0, CardinalDirection.East, out var x, out var y);
+
+            Assert.AreEqual(1, x);
+            Assert.AreEqual(0, y);
+        }
     }
 }

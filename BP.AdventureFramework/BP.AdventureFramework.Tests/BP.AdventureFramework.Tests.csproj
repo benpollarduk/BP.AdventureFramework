@@ -54,6 +54,12 @@
     <Compile Include="Assets\Item_Tests.cs" />
     <Compile Include="Assets\Locations\Region_Tests.cs" />
     <Compile Include="Assets\Locations\Room_Tests.cs" />
+    <Compile Include="Utils\Generation\Simple\DescriptionGenerator_Tests.cs" />
+    <Compile Include="Utils\Generation\Simple\ExaminableGenerator_Tests.cs" />
+    <Compile Include="Utils\Generation\Simple\ItemGenerator_Tests.cs" />
+    <Compile Include="Utils\Generation\Simple\RegionGenerator_Tests.cs" />
+    <Compile Include="Utils\Generation\Simple\RoomGenerator_Tests.cs" />
+    <Compile Include="Utils\Generation\GameGenerator_Tests.cs" />
     <Compile Include="Utils\OverworldMaker_Tests.cs" />
     <Compile Include="Utils\RegionMaker_Tests.cs" />
     <Compile Include="Commands\Frame\KeyOn_Tests.cs" />

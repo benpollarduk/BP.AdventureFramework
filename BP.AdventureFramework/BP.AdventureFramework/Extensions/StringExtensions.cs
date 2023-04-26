@@ -63,12 +63,9 @@ namespace BP.AdventureFramework.Extensions
             if (string.IsNullOrEmpty(word))
                 return false;
 
-            word = word.Trim(Convert.ToChar(" "));
-
-            if (word.Contains(" "))
-                word = word.Substring(0, word.IndexOf(" ", StringComparison.Ordinal));
-
-            return word.Substring(word.Length - 1).ToUpper() == "S";
+            var space = Convert.ToChar(" ");
+            var lastWord = word.TrimEnd(space).Split(space).Last();
+            return lastWord.EndsWith("S", StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <summary>
@@ -81,9 +78,13 @@ namespace BP.AdventureFramework.Extensions
             if (string.IsNullOrEmpty(word))
                 return string.Empty;
 
-            if (IsPlural(word))
+            var space = Convert.ToChar(" ");
+            var firstWord = word.TrimStart(space).Split(space).First();
+            var lastWord = word.TrimEnd(space).Split(space).Last();
+
+            if (IsPlural(lastWord))
                 return "some";
-            if (IsVowel(word[0].ToString()) && word[0].ToString().ToUpper() != "U")
+            if (IsVowel(firstWord[0].ToString()) && !firstWord.StartsWith("U", StringComparison.CurrentCultureIgnoreCase))
                 return "an";
 
             return "a";
@@ -120,6 +121,25 @@ namespace BP.AdventureFramework.Extensions
                 return value.Substring(0, value.Length - 1) + ".";
 
             return value + ".";
+        }
+
+        /// <summary>
+        /// Convert a string to sentence case.
+        /// </summary>
+        /// <param name="word">The word.</param>
+        /// <returns>The word in sentence case.</returns>
+        public static string ToSentenceCase(this string word)
+        {
+            if (string.IsNullOrEmpty(word))
+                return word;
+
+            if (word.Length == 1)
+                return word.ToUpper();
+
+            var first = word.Substring(0, 1).ToUpper();
+            var rest = word.Substring(1, word.Length - 1);
+
+            return $"{first}{rest}";
         }
 
         #endregion

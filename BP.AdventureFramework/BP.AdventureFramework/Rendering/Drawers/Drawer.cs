@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
     /// <summary>
     /// A class for drawing strings on a console window.
     /// </summary>
-    public abstract class Drawer
+    public class Drawer
     {
         #region Properties
 
@@ -19,9 +19,41 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// </summary>
         public char RightBoundaryCharacter { get; set; } = Convert.ToChar("|");
 
+        /// <summary>
+        /// Get or set the character used for dividers.
+        /// </summary>
+        public char DividerCharacter { get; set; } = Convert.ToChar("-");
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the Drawer class.
+        /// </summary>
+        /// <param name="leftBoundaryCharacter">The character to use for left boundaries.</param>
+        /// <param name="rightBoundaryCharacter">The character to use for right boundaries.</param>
+        /// <param name="dividingCharacter">The character to use for dividers.</param>
+        public Drawer(char leftBoundaryCharacter = (char)124, char rightBoundaryCharacter = (char)124, char dividingCharacter = (char)45)
+        {
+            LeftBoundaryCharacter = leftBoundaryCharacter;
+            RightBoundaryCharacter = rightBoundaryCharacter;
+            DividerCharacter = dividingCharacter;
+        }
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Construct a dividing horizontal line.
+        /// </summary>
+        /// <param name="width">The width of the divider.</param>
+        /// <returns>A constructed divider.</returns>
+        public string ConstructDivider(int width)
+        {
+            return ConstructDivider(width, LeftBoundaryCharacter, DividerCharacter, RightBoundaryCharacter);
+        }
 
         /// <summary>
         /// Construct a padded area.

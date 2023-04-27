@@ -13,9 +13,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the frame drawer.
+        /// Get the drawer.
         /// </summary>
-        public FrameDrawer FrameDrawer { get; }
+        public Drawer Drawer { get; }
 
         #endregion
 
@@ -24,10 +24,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacyHelpFrameBuilder class.
         /// </summary>
-        /// <param name="frameDrawer">A drawer to use for the frame.</param>
-        public LegacyHelpFrameBuilder(FrameDrawer frameDrawer)
+        /// <param name="drawer">A drawer to use for the frame.</param>
+        public LegacyHelpFrameBuilder(Drawer drawer)
         {
-            FrameDrawer = frameDrawer;
+            Drawer = drawer;
         }
 
         #endregion
@@ -45,28 +45,28 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         public Frame Build(string title, string description, CommandHelp[] commandHelp, int width, int height)
         {
             var builder = new StringBuilder();
-            builder.Append(FrameDrawer.ConstructDivider(width));
-            builder.Append(FrameDrawer.ConstructCentralisedString(title, width));
-            builder.Append(FrameDrawer.ConstructDivider(width));
-            builder.Append(FrameDrawer.ConstructCentralisedString(description, width));
-            builder.Append(FrameDrawer.ConstructDivider(width));
-            builder.Append(FrameDrawer.ConstructWrappedPaddedString("COMMANDS", width, false));
-            builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width, false));
+            builder.Append(Drawer.ConstructDivider(width));
+            builder.Append(Drawer.ConstructCentralisedString(title, width));
+            builder.Append(Drawer.ConstructDivider(width));
+            builder.Append(Drawer.ConstructCentralisedString(description, width));
+            builder.Append(Drawer.ConstructDivider(width));
+            builder.Append(Drawer.ConstructWrappedPaddedString("COMMANDS", width, false));
+            builder.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width, false));
 
             foreach (var command in commandHelp)
             {
                 if (!string.IsNullOrEmpty(command.Command) && !string.IsNullOrEmpty(command.Command))
-                    builder.Append(FrameDrawer.ConstructWrappedPaddedString($"{command.Command}{FrameDrawer.ConstructWhitespaceString(30 - command.Command.Length)}- {command.Description}", width, false));
+                    builder.Append(Drawer.ConstructWrappedPaddedString($"{command.Command}{Drawer.ConstructWhitespaceString(30 - command.Command.Length)}- {command.Description}", width, false));
                 else if (!string.IsNullOrEmpty(command.Command) && string.IsNullOrEmpty(command.Description))
-                    builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
+                    builder.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
                 else
-                    builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
+                    builder.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
             }
 
-            builder.Append(FrameDrawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() + 7));
-            builder.Append(FrameDrawer.ConstructWrappedPaddedString("Press Enter to return to the game", width, true));
-            builder.Append(FrameDrawer.ConstructPaddedArea(width, 4));
-            var divider = FrameDrawer.ConstructDivider(width);
+            builder.Append(Drawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() + 7));
+            builder.Append(Drawer.ConstructWrappedPaddedString("Press Enter to return to the game", width, true));
+            builder.Append(Drawer.ConstructPaddedArea(width, 4));
+            var divider = Drawer.ConstructDivider(width);
             builder.Append(divider.Remove(divider.Length - 1));
 
             return new Frame(builder.ToString(), 0, 0) { AcceptsInput = false, ShowCursor = false };

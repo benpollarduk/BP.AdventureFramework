@@ -3,6 +3,7 @@ using System.Text;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.MapBuilders;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
@@ -14,14 +15,14 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the frame drawer.
+        /// Get the drawer.
         /// </summary>
-        public FrameDrawer FrameDrawer { get; }
+        public Drawer Drawer { get; }
 
         /// <summary>
-        /// Get the map drawer.
+        /// Get the region map builder.
         /// </summary>
-        public MapDrawer MapDrawer { get; }
+        public IRegionMapBuilder RegionMapBuilder { get; }
 
         #endregion
 
@@ -30,12 +31,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacyRegionMapFrameBuilder class.
         /// </summary>
-        /// <param name="frameDrawer">A drawer to use for the frame.</param>
-        /// <param name="mapDrawer">A drawer to use for the map.</param>
-        public LegacyRegionMapFrameBuilder(FrameDrawer frameDrawer, MapDrawer mapDrawer)
+        /// <param name="drawer">A drawer to use for the frame.</param>
+        /// <param name="regionMapBuilder">A builder for region maps.</param>
+        public LegacyRegionMapFrameBuilder(Drawer drawer, IRegionMapBuilder regionMapBuilder)
         {
-            FrameDrawer = frameDrawer;
-            MapDrawer = mapDrawer;
+            Drawer = drawer;
+            RegionMapBuilder = regionMapBuilder;
         }
 
         #endregion
@@ -52,19 +53,19 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         {
             var builder = new StringBuilder();
 
-            builder.Append(FrameDrawer.ConstructDivider(width));
-            builder.Append(FrameDrawer.ConstructWrappedPaddedString(region.Identifier.Name, width, true));
-            builder.Append(FrameDrawer.ConstructDivider(width));
+            builder.Append(Drawer.ConstructDivider(width));
+            builder.Append(Drawer.ConstructWrappedPaddedString(region.Identifier.Name, width, true));
+            builder.Append(Drawer.ConstructDivider(width));
 
-            if (MapDrawer != null)
+            if (RegionMapBuilder != null)
             {
-                var map = MapDrawer.ConstructRegionMap(region, width, height - (builder.ToString().LineCount() + 5));
-                builder.Append(FrameDrawer.ConstructPaddedArea(width, (height - builder.ToString().LineCount() - map.LineCount()) / 2));
+                var map = RegionMapBuilder.BuildRegionMap(region, width, height - (builder.ToString().LineCount() + 5));
+                builder.Append(Drawer.ConstructPaddedArea(width, (height - builder.ToString().LineCount() - map.LineCount()) / 2));
                 builder.Append(map);
-                builder.Append(FrameDrawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() - 2));
+                builder.Append(Drawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() - 2));
             }
 
-            builder.Append(FrameDrawer.ConstructDivider(width).Replace(Environment.NewLine, ""));
+            builder.Append(Drawer.ConstructDivider(width).Replace(Environment.NewLine, ""));
 
             return new Frame(builder.ToString(), 0, 0) { AcceptsInput = false, ShowCursor = false };
         }

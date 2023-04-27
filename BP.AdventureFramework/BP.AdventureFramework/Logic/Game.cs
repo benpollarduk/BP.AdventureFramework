@@ -14,6 +14,7 @@ using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.Drawers;
 using BP.AdventureFramework.Rendering.FrameBuilders;
 using BP.AdventureFramework.Rendering.FrameBuilders.Legacy;
+using BP.AdventureFramework.Rendering.MapBuilders;
 
 namespace BP.AdventureFramework.Logic
 {
@@ -474,15 +475,14 @@ namespace BP.AdventureFramework.Logic
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
         public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
         {
-            var frameDrawer = new FrameDrawer();
-            var mapDrawer = new MapDrawer();
+            var drawer = new Drawer();
 
             var frameBuilderCollection = new FrameBuilderCollection(
-                new LegacyTitleFrameBuilder(frameDrawer),
-                new LegacySceneFrameBuilder(frameDrawer, mapDrawer),
-                new LegacyRegionMapFrameBuilder(frameDrawer, mapDrawer),
-                new LegacyHelpFrameBuilder(frameDrawer),
-                new LegacyEndFrameBuilder(frameDrawer));
+                new LegacyTitleFrameBuilder(drawer),
+                new LegacySceneFrameBuilder(drawer, new LegacyRoomMapBuilder(drawer)),
+                new LegacyRegionMapFrameBuilder(drawer, new LegacyRegionMapBuilder(drawer)),
+                new LegacyHelpFrameBuilder(drawer),
+                new LegacyEndFrameBuilder(drawer));
 
             return Create(
                 name,

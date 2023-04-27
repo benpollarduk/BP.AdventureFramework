@@ -11,9 +11,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the frame drawer.
+        /// Get the drawer.
         /// </summary>
-        public FrameDrawer FrameDrawer { get; }
+        public Drawer Drawer { get; }
 
         #endregion
 
@@ -22,10 +22,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacyEndFrameBuilder class.
         /// </summary>
-        /// <param name="frameDrawer">A drawer to use for the frame.</param>
-        public LegacyEndFrameBuilder(FrameDrawer frameDrawer)
+        /// <param name="drawer">A drawer to use for the frame.</param>
+        public LegacyEndFrameBuilder(Drawer drawer)
         {
-            FrameDrawer = frameDrawer;
+            Drawer = drawer;
         }
 
         #endregion
@@ -41,16 +41,16 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <param name="height">The height of the frame.</param>
         public Frame Build(string message, string reason, int width, int height)
         {
-            var divider = FrameDrawer.ConstructDivider(width);
+            var divider = Drawer.ConstructDivider(width);
             var constructedScene = divider;
 
-            constructedScene += FrameDrawer.ConstructWrappedPaddedString(message, width, true);
+            constructedScene += Drawer.ConstructWrappedPaddedString(message, width, true);
             constructedScene += divider;
-            constructedScene += FrameDrawer.ConstructWrappedPaddedString(reason, width, true);
+            constructedScene += Drawer.ConstructWrappedPaddedString(reason, width, true);
             constructedScene += divider;
-            constructedScene += FrameDrawer.ConstructPaddedArea(width, height / 2 - constructedScene.LineCount());
-            constructedScene += FrameDrawer.ConstructWrappedPaddedString("Press Enter to return to title screen", width, true);
-            constructedScene += FrameDrawer.ConstructPaddedArea(width, height - constructedScene.LineCount() - 2);
+            constructedScene += Drawer.ConstructPaddedArea(width, height / 2 - constructedScene.LineCount());
+            constructedScene += Drawer.ConstructWrappedPaddedString("Press Enter to return to title screen", width, true);
+            constructedScene += Drawer.ConstructPaddedArea(width, height - constructedScene.LineCount() - 2);
             constructedScene += divider.Remove(divider.Length - 1);
 
             return new Frame(constructedScene, 0, 0) { AcceptsInput = false, ShowCursor = false };

@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Rendering.Drawers;
+﻿using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Rendering.Drawers;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
@@ -46,9 +47,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
             constructedScene += divider;
             constructedScene += FrameDrawer.ConstructWrappedPaddedString(description, width, true);
             constructedScene += divider;
-            constructedScene += FrameDrawer.ConstructPaddedArea(width, height / 2 - FrameDrawer.DetermineLinesInString(constructedScene));
+            constructedScene += FrameDrawer.ConstructPaddedArea(width, height / 2 - constructedScene.LineCount());
             constructedScene += FrameDrawer.ConstructWrappedPaddedString("Press Enter to start", width, true);
-            constructedScene += FrameDrawer.ConstructPaddedArea(width, height - FrameDrawer.DetermineLinesInString(constructedScene) - 2);
+            constructedScene += FrameDrawer.ConstructPaddedArea(width, height - constructedScene.LineCount() - 2);
             constructedScene += divider.Remove(divider.Length - 1);
 
             return new Frame(constructedScene, 0, 0) { AcceptsInput = false, ShowCursor = false };

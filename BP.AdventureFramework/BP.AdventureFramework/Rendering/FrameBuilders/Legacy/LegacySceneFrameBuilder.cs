@@ -109,7 +109,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                 scene.Append(FrameDrawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.NorthShort}: {GameCommandInterpreter.North}, {GameCommandInterpreter.SouthShort}: {GameCommandInterpreter.South}, {GameCommandInterpreter.EastShort}: {GameCommandInterpreter.East}, {GameCommandInterpreter.WestShort}: {GameCommandInterpreter.West}", width));
                 scene.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
 
-                var usedLinesSoFar = FrameDrawer.DetermineLinesInString(scene.ToString()) + 14 + FrameDrawer.DetermineLinesInString(FrameDrawer.ConstructWrappedPaddedString(message, width));
+                var usedLinesSoFar = scene.ToString().LineCount() + 14 + FrameDrawer.ConstructWrappedPaddedString(message, width).LineCount();
 
                 if (height - usedLinesSoFar >= 0)
                 {
@@ -165,14 +165,14 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
             }
 
             var wrappedMessage = FrameDrawer.ConstructWrappedPaddedString(message.EnsureFinishedSentence(), width);
-            var linesAfterWhitespace = 7 + FrameDrawer.DetermineLinesInString(wrappedMessage);
-            var linesInString = FrameDrawer.DetermineLinesInString(scene.ToString());
+            var linesAfterWhitespace = 7 + wrappedMessage.LineCount();
+            var linesInString = scene.ToString().LineCount();
 
             scene.Append(FrameDrawer.ConstructPaddedArea(FrameDrawer.LeftBoundaryCharacter, FrameDrawer.RightBoundaryCharacter, width, height - linesInString - linesAfterWhitespace));
             scene.Append(FrameDrawer.ConstructDivider(width));
             scene.Append(FrameDrawer.ConstructWrappedPaddedString("INVENTORY: " + player.GetItemsAsList(), width));
             scene.Append(FrameDrawer.ConstructDivider(width));
-            var yPositionOfCursor = FrameDrawer.DetermineLinesInString(scene.ToString()) - 1;
+            var yPositionOfCursor = scene.ToString().LineCount() - 1;
             scene.Append(FrameDrawer.ConstructWrappedPaddedString("WHAT DO YOU DO? ", width));
             scene.Append(FrameDrawer.ConstructDivider(width));
             scene.Append(wrappedMessage);

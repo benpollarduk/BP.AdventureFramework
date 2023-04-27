@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Rendering.Drawers;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
@@ -57,10 +58,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 
             if (MapDrawer != null)
             {
-                var map = MapDrawer.ConstructRegionMap(region, width, height - (FrameDrawer.DetermineLinesInString(builder.ToString()) + 5));
-                builder.Append(FrameDrawer.ConstructPaddedArea(width, (height - FrameDrawer.DetermineLinesInString(builder.ToString()) - FrameDrawer.DetermineLinesInString(map)) / 2));
+                var map = MapDrawer.ConstructRegionMap(region, width, height - (builder.ToString().LineCount() + 5));
+                builder.Append(FrameDrawer.ConstructPaddedArea(width, (height - builder.ToString().LineCount() - map.LineCount()) / 2));
                 builder.Append(map);
-                builder.Append(FrameDrawer.ConstructPaddedArea(width, height - FrameDrawer.DetermineLinesInString(builder.ToString()) - 2));
+                builder.Append(FrameDrawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() - 2));
             }
 
             builder.Append(FrameDrawer.ConstructDivider(width).Replace(Environment.NewLine, ""));

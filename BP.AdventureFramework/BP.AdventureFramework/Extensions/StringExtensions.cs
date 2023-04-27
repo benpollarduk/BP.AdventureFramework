@@ -142,6 +142,16 @@ namespace BP.AdventureFramework.Extensions
             return $"{first}{rest}";
         }
 
+        /// <summary>
+        /// Determine the number of lines in this string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The number of lines in the string.</returns>
+        public static int LineCount(this string value)
+        {
+            return value?.Split(new[] { Environment.NewLine }, StringSplitOptions.None).Length ?? 0;
+        }
+
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.Drawers;
 
@@ -62,7 +63,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                     builder.Append(FrameDrawer.ConstructWrappedPaddedString(string.Empty, width));
             }
 
-            builder.Append(FrameDrawer.ConstructPaddedArea(width, height - (FrameDrawer.DetermineLinesInString(builder.ToString()) + 7)));
+            builder.Append(FrameDrawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() + 7));
             builder.Append(FrameDrawer.ConstructWrappedPaddedString("Press Enter to return to the game", width, true));
             builder.Append(FrameDrawer.ConstructPaddedArea(width, 4));
             var divider = FrameDrawer.ConstructDivider(width);

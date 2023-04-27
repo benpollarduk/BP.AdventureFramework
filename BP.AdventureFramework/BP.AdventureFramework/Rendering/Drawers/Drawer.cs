@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="width">The width of the padded area.</param>
         /// <param name="height">The height of the padded area.</param>
         /// <returns>A constructed padded area.</returns>
-        public virtual string ConstructPaddedArea(int width, int height)
+        public string ConstructPaddedArea(int width, int height)
         {
             return ConstructPaddedArea(LeftBoundaryCharacter, RightBoundaryCharacter, width, height);
         }
@@ -42,7 +42,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="width">The width of the padded area.</param>
         /// <param name="height">The height of the padded area.</param>
         /// <returns>A constructed padded area.</returns>
-        public virtual string ConstructPaddedArea(char leftBoundary, char rightBoundary, int width, int height)
+        public string ConstructPaddedArea(char leftBoundary, char rightBoundary, int width, int height)
         {
             var paddedArea = string.Empty;
 
@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="dividerString">The dividing character.</param>
         /// <param name="rightBoundary">The right boundary character.</param>
         /// <returns>A constructed divider.</returns>
-        public virtual string ConstructDivider(int width, char leftBoundary, char dividerString, char rightBoundary)
+        public string ConstructDivider(int width, char leftBoundary, char dividerString, char rightBoundary)
         {
             if (width <= 0)
                 throw new ArgumentException("The width parameter must be greater than 0.");
@@ -81,7 +81,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="displayString">The string to pad.</param>
         /// <param name="width">The desired overall width of the padded string.</param>
         /// <returns>A padded string.</returns>
-        public virtual string ConstructWrappedPaddedString(string displayString, int width)
+        public string ConstructWrappedPaddedString(string displayString, int width)
         {
             return ConstructWrappedPaddedString(displayString, width, LeftBoundaryCharacter, RightBoundaryCharacter, false);
         }
@@ -111,7 +111,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// </summary>
         /// <param name="width">The width of the whitespace.</param>
         /// <returns>A string constructed of whitespace.</returns>
-        public virtual string ConstructWhitespaceString(int width)
+        public string ConstructWhitespaceString(int width)
         {
             var whiteSpace = string.Empty;
 
@@ -122,30 +122,6 @@ namespace BP.AdventureFramework.Rendering.Drawers
         }
 
         /// <summary>
-        /// Construct a un-bordered, centralised string.
-        /// </summary>
-        /// <param name="displayString">The string to pad.</param>
-        /// <param name="width">The desired overall width of the padded string.</param>
-        /// <returns>A padded string.</returns>
-        public string ConstructUnboarderedCentralisedString(string displayString, int width)
-        {
-            if (width <= 0)
-                throw new ArgumentException("The width parameter must be greater than 0.");
-
-            if (displayString.Length > width)
-                throw new ArgumentException("The length of the displayString parameter is greater than the width parameter.");
-
-            var constructedString = string.Empty;
-            var startPosition = width / 2 - displayString.Length / 2;
-            constructedString += ConstructWhitespaceString(startPosition - 1);
-            constructedString += displayString;
-            constructedString += ConstructWhitespaceString(width - constructedString.Length);
-            constructedString += Environment.NewLine;
-
-            return constructedString;
-        }
-
-        /// <summary>
         /// Construct a centralised string, ready for display.
         /// </summary>
         /// <param name="displayString">The string to pad.</param>
@@ -153,7 +129,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="leftBoundary">The left boundary character.</param>
         /// <param name="rightBoundary">The right boundary character.</param>
         /// <returns>A padded string.</returns>
-        public virtual string ConstructCentralisedString(string displayString, int width, char leftBoundary, char rightBoundary)
+        public string ConstructCentralisedString(string displayString, int width, char leftBoundary, char rightBoundary)
         {
             if (width <= 0)
                 throw new ArgumentException("The width parameter must be greater than 0.");
@@ -178,7 +154,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="displayString">The string to pad.</param>
         /// <param name="width">The desired overall width of the padded string.</param>
         /// <returns>A padded string.</returns>
-        public virtual string ConstructCentralisedString(string displayString, int width)
+        public string ConstructCentralisedString(string displayString, int width)
         {
             return ConstructCentralisedString(displayString, width, LeftBoundaryCharacter, RightBoundaryCharacter);
         }
@@ -204,7 +180,7 @@ namespace BP.AdventureFramework.Rendering.Drawers
         /// <param name="rightBoundary">The right boundary character.</param>
         /// <param name="centralise">set if the string should be centralised.</param>
         /// <returns>A padded string</returns>
-        public virtual string ConstructWrappedPaddedString(string displayString, int width, char leftBoundary, char rightBoundary, bool centralise)
+        public string ConstructWrappedPaddedString(string displayString, int width, char leftBoundary, char rightBoundary, bool centralise)
         {
             if (width <= 0)
                 throw new ArgumentException("The width parameter must be greater than 0.");
@@ -258,16 +234,6 @@ namespace BP.AdventureFramework.Rendering.Drawers
             }
 
             return wrappedString;
-        }
-
-        /// <summary>
-        /// Determine the amount of lines in a string.
-        /// </summary>
-        /// <param name="input">The input to determine the amount of lines from.</param>
-        /// <returns>The amount of lines in the string.</returns>
-        public int DetermineLinesInString(string input)
-        {
-            return input?.Split(new [] { Environment.NewLine }, StringSplitOptions.None).Length ?? 0;
         }
 
         #endregion

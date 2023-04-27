@@ -5,7 +5,7 @@ using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
-using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.LayoutBuilders;
 using BP.AdventureFramework.Rendering.MapBuilders;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
@@ -18,9 +18,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the drawer.
+        /// Get the string layout builder.
         /// </summary>
-        public Drawer Drawer { get; }
+        public IStringLayoutBuilder StringLayoutBuilder { get; }
 
         /// <summary>
         /// Get the room map builder.
@@ -34,11 +34,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacySceneFrameBuilder class.
         /// </summary>
-        /// <param name="drawer">A drawer to use for the frame.</param>
+        /// <param name="stringLayoutBuilder">A builder to use for the string layout.</param>
         /// <param name="roomMapBuilder">A builder to use for room maps.</param>
-        public LegacySceneFrameBuilder(Drawer drawer, IRoomMapBuilder roomMapBuilder)
+        public LegacySceneFrameBuilder(IStringLayoutBuilder stringLayoutBuilder, IRoomMapBuilder roomMapBuilder)
         {
-            Drawer = drawer;
+            StringLayoutBuilder = stringLayoutBuilder;
             RoomMapBuilder = roomMapBuilder;
         }
 
@@ -59,17 +59,17 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         public Frame Build(Room room, PlayableCharacter player, string message, bool displayCommands, KeyType keyType, int width, int height)
         {
             var scene = new StringBuilder();
-            scene.Append(Drawer.ConstructDivider(width));
-            scene.Append(Drawer.ConstructWrappedPaddedString($"LOCATION: {room.Identifier}", width));
-            scene.Append(Drawer.ConstructDivider(width));
-            scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
-            scene.Append(Drawer.ConstructWrappedPaddedString(room.Description.GetDescription().EnsureFinishedSentence(), width));
-            scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
+            scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded($"LOCATION: {room.Identifier}", width, false));
+            scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded(room.Description.GetDescription().EnsureFinishedSentence(), width, false));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
 
             if (room.Items.Any())
-                scene.Append(Drawer.ConstructWrappedPaddedString(room.Examime().Desciption.EnsureFinishedSentence(), width));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded(room.Examime().Desciption.EnsureFinishedSentence(), width, false));
             else
-                scene.Append(Drawer.ConstructWrappedPaddedString("There are no items in this area.", width));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded("There are no items in this area.", width, false));
 
             var visibleCharacters = room.Characters.Where(c => c.IsPlayerVisible && c.IsAlive).ToArray<Character>();
 
@@ -77,7 +77,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
             {
                 if (visibleCharacters.Length == 1)
                 {
-                    scene.Append(Drawer.ConstructWrappedPaddedString(visibleCharacters[0].Identifier + " is in this area.", width));
+                    scene.Append(StringLayoutBuilder.BuildWrappedPadded(visibleCharacters[0].Identifier + " is in this area.", width, false));
                 }
                 else
                 {
@@ -87,34 +87,34 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                         characters += character.Identifier + ", ";
 
                     characters = characters.Remove(characters.Length - 2);
-                    scene.Append(Drawer.ConstructWrappedPaddedString(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + room.Identifier + ".", width));
+                    scene.Append(StringLayoutBuilder.BuildWrappedPadded(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + room.Identifier + ".", width, false));
                 }
             }
 
-            scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
-            scene.Append(Drawer.ConstructDivider(width));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
+            scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
 
             if (RoomMapBuilder != null)
             {
-                scene.Append(Drawer.ConstructWrappedPaddedString("AREA:", width));
-                scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded("AREA:", width, false));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
                 scene.Append(RoomMapBuilder.BuildRoomMap(room, keyType, width));
-                scene.Append(Drawer.ConstructDivider(width));
+                scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
             }
 
             if (displayCommands)
             {
-                scene.Append(Drawer.ConstructWrappedPaddedString("COMMANDS:", width));
-                scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
-                scene.Append(Drawer.ConstructWrappedPaddedString("MOVEMENT:", width));
-                scene.Append(Drawer.ConstructWrappedPaddedString($"{GameCommandInterpreter.NorthShort}: {GameCommandInterpreter.North}, {GameCommandInterpreter.SouthShort}: {GameCommandInterpreter.South}, {GameCommandInterpreter.EastShort}: {GameCommandInterpreter.East}, {GameCommandInterpreter.WestShort}: {GameCommandInterpreter.West}", width));
-                scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded("COMMANDS:", width, false));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded("MOVEMENT:", width, false));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{GameCommandInterpreter.NorthShort}: {GameCommandInterpreter.North}, {GameCommandInterpreter.SouthShort}: {GameCommandInterpreter.South}, {GameCommandInterpreter.EastShort}: {GameCommandInterpreter.East}, {GameCommandInterpreter.WestShort}: {GameCommandInterpreter.West}", width, false));
+                scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
 
-                var usedLinesSoFar = scene.ToString().LineCount() + 14 + Drawer.ConstructWrappedPaddedString(message, width).LineCount();
+                var usedLinesSoFar = scene.ToString().LineCount() + 14 + StringLayoutBuilder.BuildWrappedPadded(message, width, false).LineCount();
 
                 if (height - usedLinesSoFar >= 0)
                 {
-                    scene.Append(Drawer.ConstructWrappedPaddedString("INTERACTION:", width));
+                    scene.Append(StringLayoutBuilder.BuildWrappedPadded("INTERACTION:", width, false));
 
                     // TODO: this legacy scene builder depends on the GameCommandInterpreter and is not backwards compatible with command lists from other interpreters...
                     CommandHelp help;
@@ -124,20 +124,20 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                         help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Drop));
                         
                         if (help != null)
-                            scene.Append(Drawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                            scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{help.Command}: {help.Description}", width, false));
                     }
 
                     help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Drop));
 
                     if (help != null)
-                        scene.Append(Drawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                        scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{help.Command}: {help.Description}", width, false));
 
                     if (room.Items.Any())
                     {
                         help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Take));
 
                         if (help != null)
-                            scene.Append(Drawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                            scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{help.Command}: {help.Description}", width, false));
                     }
 
                     if (room.Characters.Any())
@@ -145,7 +145,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                         help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Talk));
 
                         if (help != null)
-                            scene.Append(Drawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                            scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{help.Command}: {help.Description}", width, false));
                     }
 
                     if (room.Items.Any() || player.Items.Any())
@@ -153,31 +153,31 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                         help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Use));
 
                         if (help != null)
-                            scene.Append(Drawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                            scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{help.Command}: {help.Description}", width, false));
 
                         help = GameCommandInterpreter.DefaultSupportedCommands.FirstOrDefault(x => x.Command.Contains(GameCommandInterpreter.Use) && x.Command.Contains(GameCommandInterpreter.On.ToLower()));
 
                         if (help != null)
-                            scene.Append(Drawer.ConstructWrappedPaddedString($"{help.Command}: {help.Description}", width));
+                            scene.Append(StringLayoutBuilder.BuildWrappedPadded($"{help.Command}: {help.Description}", width, false));
                     }
 
-                    scene.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
+                    scene.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
                 }
             }
 
-            var wrappedMessage = Drawer.ConstructWrappedPaddedString(message.EnsureFinishedSentence(), width);
+            var wrappedMessage = StringLayoutBuilder.BuildWrappedPadded(message.EnsureFinishedSentence(), width, false);
             var linesAfterWhitespace = 7 + wrappedMessage.LineCount();
             var linesInString = scene.ToString().LineCount();
 
-            scene.Append(Drawer.ConstructPaddedArea(Drawer.LeftBoundaryCharacter, Drawer.RightBoundaryCharacter, width, height - linesInString - linesAfterWhitespace));
-            scene.Append(Drawer.ConstructDivider(width));
-            scene.Append(Drawer.ConstructWrappedPaddedString("INVENTORY: " + player.GetItemsAsList(), width));
-            scene.Append(Drawer.ConstructDivider(width));
+            scene.Append(StringLayoutBuilder.BuildPaddedArea(width, height - linesInString - linesAfterWhitespace));
+            scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded("INVENTORY: " + player.GetItemsAsList(), width, false));
+            scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
             var yPositionOfCursor = scene.ToString().LineCount() - 1;
-            scene.Append(Drawer.ConstructWrappedPaddedString("WHAT DO YOU DO? ", width));
-            scene.Append(Drawer.ConstructDivider(width));
+            scene.Append(StringLayoutBuilder.BuildWrappedPadded("WHAT DO YOU DO? ", width, false));
+            scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
             scene.Append(wrappedMessage);
-            var bottomdivider = Drawer.ConstructDivider(width);
+            var bottomdivider = StringLayoutBuilder.BuildHorizontalDivider(width);
             scene.Append(bottomdivider.Remove(bottomdivider.Length - 1));
 
             return new Frame(scene.ToString(), 18, yPositionOfCursor);

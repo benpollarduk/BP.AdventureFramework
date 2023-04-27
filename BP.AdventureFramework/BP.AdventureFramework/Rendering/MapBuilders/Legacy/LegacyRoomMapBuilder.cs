@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.LayoutBuilders;
 
 namespace BP.AdventureFramework.Rendering.MapBuilders.Legacy
 {
@@ -14,9 +14,9 @@ namespace BP.AdventureFramework.Rendering.MapBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the drawer.
+        /// Get the string layout builder.
         /// </summary>
-        protected Drawer Drawer { get; }
+        protected IStringLayoutBuilder StringLayoutBuilder { get; }
 
         /// <summary>
         /// Get or set the string used for representing a locked exit.
@@ -45,10 +45,10 @@ namespace BP.AdventureFramework.Rendering.MapBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacyRoomMapBuilder class.
         /// </summary>
-        /// <param name="drawer">The drawer.</param>
-        public LegacyRoomMapBuilder(Drawer drawer)
+        /// <param name="stringLayoutBuilder">The string layout builder.</param>
+        public LegacyRoomMapBuilder(IStringLayoutBuilder stringLayoutBuilder)
         {
-            Drawer = drawer;
+            StringLayoutBuilder = stringLayoutBuilder;
         }
 
         #endregion
@@ -167,11 +167,11 @@ namespace BP.AdventureFramework.Rendering.MapBuilders.Legacy
                 }
             }
 
-            map += Drawer.ConstructWrappedPaddedString($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[CardinalDirection.North] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns);
-            map += Drawer.ConstructWrappedPaddedString($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns);
-            map += Drawer.ConstructWrappedPaddedString(exitRepresentations[CardinalDirection.West] + "  " + (room.Items.Any() ? ItemInRoomString : " ") + "  " + exitRepresentations[CardinalDirection.East] + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns);
-            map += Drawer.ConstructWrappedPaddedString($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns);
-            map += Drawer.ConstructWrappedPaddedString($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[CardinalDirection.South] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns);
+            map += StringLayoutBuilder.BuildWrappedPadded($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[CardinalDirection.North] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
+            map += StringLayoutBuilder.BuildWrappedPadded($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
+            map += StringLayoutBuilder.BuildWrappedPadded(exitRepresentations[CardinalDirection.West] + "  " + (room.Items.Any() ? ItemInRoomString : " ") + "  " + exitRepresentations[CardinalDirection.East] + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
+            map += StringLayoutBuilder.BuildWrappedPadded($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
+            map += StringLayoutBuilder.BuildWrappedPadded($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[CardinalDirection.South] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
 
             return map;
         }

@@ -1,5 +1,5 @@
 ﻿using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.LayoutBuilders;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
@@ -11,9 +11,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the drawer.
+        /// Get the string layout builder.
         /// </summary>
-        public Drawer Drawer { get; }
+        public IStringLayoutBuilder StringLayoutBuilder { get; }
 
         #endregion
 
@@ -22,10 +22,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacyTitleFrameBuilder class.
         /// </summary>
-        /// <param name="drawer">A drawer to use for the frame.</param>
-        public LegacyTitleFrameBuilder(Drawer drawer)
+        /// <param name="stringLayoutBuilder">A builder to use for the string layout.</param>
+        public LegacyTitleFrameBuilder(IStringLayoutBuilder stringLayoutBuilder)
         {
-            Drawer = drawer;
+            StringLayoutBuilder = stringLayoutBuilder;
         }
 
         #endregion
@@ -41,15 +41,15 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <param name="height">The height of the frame.</param>
         public Frame Build(string title, string description, int width, int height)
         {
-            var divider = Drawer.ConstructDivider(width);
+            var divider = StringLayoutBuilder.BuildHorizontalDivider(width);
             var constructedScene = divider;
-            constructedScene += Drawer.ConstructWrappedPaddedString(title, width, true);
+            constructedScene += StringLayoutBuilder.BuildWrappedPadded(title, width, true);
             constructedScene += divider;
-            constructedScene += Drawer.ConstructWrappedPaddedString(description, width, true);
+            constructedScene += StringLayoutBuilder.BuildWrappedPadded(description, width, true);
             constructedScene += divider;
-            constructedScene += Drawer.ConstructPaddedArea(width, height / 2 - constructedScene.LineCount());
-            constructedScene += Drawer.ConstructWrappedPaddedString("Press Enter to start", width, true);
-            constructedScene += Drawer.ConstructPaddedArea(width, height - constructedScene.LineCount() - 2);
+            constructedScene += StringLayoutBuilder.BuildPaddedArea(width, height / 2 - constructedScene.LineCount());
+            constructedScene += StringLayoutBuilder.BuildWrappedPadded("Press Enter to start", width, true);
+            constructedScene += StringLayoutBuilder.BuildPaddedArea(width, height - constructedScene.LineCount() - 2);
             constructedScene += divider.Remove(divider.Length - 1);
 
             return new Frame(constructedScene, 0, 0) { AcceptsInput = false, ShowCursor = false };

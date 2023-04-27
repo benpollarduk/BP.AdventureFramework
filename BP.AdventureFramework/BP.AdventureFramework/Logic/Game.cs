@@ -11,10 +11,10 @@ using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering;
-using BP.AdventureFramework.Rendering.Drawers;
 using BP.AdventureFramework.Rendering.FrameBuilders;
 using BP.AdventureFramework.Rendering.FrameBuilders.Legacy;
-using BP.AdventureFramework.Rendering.MapBuilders;
+using BP.AdventureFramework.Rendering.LayoutBuilders;
+using BP.AdventureFramework.Rendering.MapBuilders.Legacy;
 
 namespace BP.AdventureFramework.Logic
 {
@@ -100,12 +100,12 @@ namespace BP.AdventureFramework.Logic
             private set
             {
                 if (player != null)
-                    player.Died -= player_Died;
+                    player.Died -= Player_Died;
 
                 player = value;
 
                 if (player != null)
-                    player.Died += player_Died;
+                    player.Died += Player_Died;
             }
         }
 
@@ -475,14 +475,14 @@ namespace BP.AdventureFramework.Logic
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
         public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
         {
-            var drawer = new Drawer();
+            var stringLayoutBuilder = new StringLayoutBuilder();
 
             var frameBuilderCollection = new FrameBuilderCollection(
-                new LegacyTitleFrameBuilder(drawer),
-                new LegacySceneFrameBuilder(drawer, new LegacyRoomMapBuilder(drawer)),
-                new LegacyRegionMapFrameBuilder(drawer, new LegacyRegionMapBuilder(drawer)),
-                new LegacyHelpFrameBuilder(drawer),
-                new LegacyEndFrameBuilder(drawer));
+                new LegacyTitleFrameBuilder(stringLayoutBuilder),
+                new LegacySceneFrameBuilder(stringLayoutBuilder, new LegacyRoomMapBuilder(stringLayoutBuilder)),
+                new LegacyRegionMapFrameBuilder(stringLayoutBuilder, new LegacyRegionMapBuilder(stringLayoutBuilder)),
+                new LegacyHelpFrameBuilder(stringLayoutBuilder),
+                new LegacyEndFrameBuilder(stringLayoutBuilder));
 
             return Create(
                 name,
@@ -593,7 +593,7 @@ namespace BP.AdventureFramework.Logic
 
         #region EventHandlers
 
-        private void player_Died(object sender, string e)
+        private void Player_Died(object sender, string e)
         {
             Refresh(FrameBuilders.CompletionFrameBuilder.Build("Game Over", e, DisplaySize.Width, DisplaySize.Height));
         }

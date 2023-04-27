@@ -1,8 +1,8 @@
 ﻿using System;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.LayoutBuilders;
 
-namespace BP.AdventureFramework.Rendering.MapBuilders
+namespace BP.AdventureFramework.Rendering.MapBuilders.Legacy
 {
     /// <summary>
     /// Provides a legacy builder for region maps.
@@ -12,9 +12,9 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
         #region Properties
 
         /// <summary>
-        /// Get the drawer.
+        /// Get the string layout builder.
         /// </summary>
-        protected Drawer Drawer { get; }
+        protected IStringLayoutBuilder StringLayoutBuilder { get; }
 
         /// <summary>
         /// Get or set the string used for representing a locked exit.
@@ -58,10 +58,10 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
         /// <summary>
         /// Initializes a new instance of the LegacyRegionMapBuilder class.
         /// </summary>
-        /// <param name="drawer">The drawer.</param>
-        public LegacyRegionMapBuilder(Drawer drawer)
+        /// <param name="stringLayoutBuilder">The string layout builder.</param>
+        public LegacyRegionMapBuilder(IStringLayoutBuilder stringLayoutBuilder)
         {
-            Drawer = drawer;
+            StringLayoutBuilder = stringLayoutBuilder;
         }
 
         #endregion
@@ -107,7 +107,7 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
                     }
                 }
 
-                map += Drawer.ConstructWrappedPaddedString(line, availableColumns, true);
+                map += StringLayoutBuilder.BuildWrappedPadded(line, availableColumns, true);
             }
 
             return map;
@@ -127,7 +127,7 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
         private string BuildDetailedRegionMap(Region region, int availableColumns, int roomColumns, int firstRoomX, int firstRoomY, int roomsToBuildX, int roomsToBuildY)
         {
             var map = string.Empty;
-            var blankRoomRow = Drawer.ConstructWhitespaceString(roomColumns);
+            var blankRoomRow = StringLayoutBuilder.BuildWhitespace(roomColumns);
             var rooms = region.ToMatrix();
 
             for (var row = roomsToBuildY - 1; row >= firstRoomY; row--)
@@ -153,7 +153,7 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
                         }
                     }
 
-                    map += Drawer.ConstructWrappedPaddedString(line, availableColumns, true);
+                    map += StringLayoutBuilder.BuildWrappedPadded(line, availableColumns, true);
                 }
             }
 
@@ -243,7 +243,7 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
                     if (detailedWouldFit)
                         return BuildDetailedRegionMap(region, availableColumns, roomWidthTotal, x, y, width, height);
 
-                    return Drawer.ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", availableColumns);
+                    return StringLayoutBuilder.BuildWrappedPadded("Region map cannot be displayed as it exceeds the viewable area.", availableColumns, false);
 
                 case RegionMapMode.Dynamic:
 
@@ -253,14 +253,14 @@ namespace BP.AdventureFramework.Rendering.MapBuilders
                     if (undetailedWouldFit)
                         return BuildUndetailedRegionMap(region, availableColumns, x, y, width, height);
 
-                    return Drawer.ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", availableColumns);
+                    return StringLayoutBuilder.BuildWrappedPadded("Region map cannot be displayed as it exceeds the viewable area.", availableColumns, false);
 
                 case RegionMapMode.Undetailed:
 
                     if (undetailedWouldFit)
                         return BuildUndetailedRegionMap(region, availableColumns, x, y, width, height);
 
-                    return Drawer.ConstructWrappedPaddedString("Region map cannot be displayed as it exceeds the viewable area.", availableColumns);
+                    return StringLayoutBuilder.BuildWrappedPadded("Region map cannot be displayed as it exceeds the viewable area.", availableColumns, false);
 
                 default:
                     throw new NotImplementedException();

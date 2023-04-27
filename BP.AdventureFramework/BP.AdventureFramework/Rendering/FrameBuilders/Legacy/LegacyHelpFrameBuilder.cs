@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
-using BP.AdventureFramework.Rendering.Drawers;
+using BP.AdventureFramework.Rendering.LayoutBuilders;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
 {
@@ -13,9 +13,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         #region Properties
 
         /// <summary>
-        /// Get the drawer.
+        /// Get the string layout builder.
         /// </summary>
-        public Drawer Drawer { get; }
+        public IStringLayoutBuilder StringLayoutBuilder { get; }
 
         #endregion
 
@@ -24,10 +24,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         /// <summary>
         /// Initializes a new instance of the LegacyHelpFrameBuilder class.
         /// </summary>
-        /// <param name="drawer">A drawer to use for the frame.</param>
-        public LegacyHelpFrameBuilder(Drawer drawer)
+        /// <param name="stringLayoutBuilder">A builder to use for the string layout.</param>
+        public LegacyHelpFrameBuilder(IStringLayoutBuilder stringLayoutBuilder)
         {
-            Drawer = drawer;
+            StringLayoutBuilder = stringLayoutBuilder;
         }
 
         #endregion
@@ -45,28 +45,28 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
         public Frame Build(string title, string description, CommandHelp[] commandHelp, int width, int height)
         {
             var builder = new StringBuilder();
-            builder.Append(Drawer.ConstructDivider(width));
-            builder.Append(Drawer.ConstructCentralisedString(title, width));
-            builder.Append(Drawer.ConstructDivider(width));
-            builder.Append(Drawer.ConstructCentralisedString(description, width));
-            builder.Append(Drawer.ConstructDivider(width));
-            builder.Append(Drawer.ConstructWrappedPaddedString("COMMANDS", width, false));
-            builder.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width, false));
+            builder.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
+            builder.Append(StringLayoutBuilder.BuildCentralised(title, width));
+            builder.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
+            builder.Append(StringLayoutBuilder.BuildCentralised(description, width));
+            builder.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
+            builder.Append(StringLayoutBuilder.BuildWrappedPadded("COMMANDS", width, false));
+            builder.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
 
             foreach (var command in commandHelp)
             {
                 if (!string.IsNullOrEmpty(command.Command) && !string.IsNullOrEmpty(command.Command))
-                    builder.Append(Drawer.ConstructWrappedPaddedString($"{command.Command}{Drawer.ConstructWhitespaceString(30 - command.Command.Length)}- {command.Description}", width, false));
+                    builder.Append(StringLayoutBuilder.BuildWrappedPadded($"{command.Command}{StringLayoutBuilder.BuildWhitespace(30 - command.Command.Length)}- {command.Description}", width, false));
                 else if (!string.IsNullOrEmpty(command.Command) && string.IsNullOrEmpty(command.Description))
-                    builder.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
+                    builder.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
                 else
-                    builder.Append(Drawer.ConstructWrappedPaddedString(string.Empty, width));
+                    builder.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
             }
 
-            builder.Append(Drawer.ConstructPaddedArea(width, height - builder.ToString().LineCount() + 7));
-            builder.Append(Drawer.ConstructWrappedPaddedString("Press Enter to return to the game", width, true));
-            builder.Append(Drawer.ConstructPaddedArea(width, 4));
-            var divider = Drawer.ConstructDivider(width);
+            builder.Append(StringLayoutBuilder.BuildPaddedArea(width, height - builder.ToString().LineCount() + 7));
+            builder.Append(StringLayoutBuilder.BuildWrappedPadded("Press Enter to return to the game", width, true));
+            builder.Append(StringLayoutBuilder.BuildPaddedArea(width, 4));
+            var divider = StringLayoutBuilder.BuildHorizontalDivider(width);
             builder.Append(divider.Remove(divider.Length - 1));
 
             return new Frame(builder.ToString(), 0, 0) { AcceptsInput = false, ShowCursor = false };

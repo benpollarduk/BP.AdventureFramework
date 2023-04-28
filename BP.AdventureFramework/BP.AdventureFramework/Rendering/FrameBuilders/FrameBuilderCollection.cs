@@ -32,6 +32,11 @@
         /// </summary>
         public IEndFrameBuilder CompletionFrameBuilder { get; }
 
+        /// <summary>
+        /// Get the builder to use for about frames.
+        /// </summary>
+        public IAboutFrameBuilder AboutFrameBuilder { get; }
+
         #endregion
 
         #region Constructors
@@ -44,13 +49,15 @@
         /// <param name="regionMapFrameBuilder">The builder to use for building region map frames.</param>
         /// <param name="helpFrameBuilder">The builder to use for building help frames.</param>
         /// <param name="completionFrameBuilder">The builder to use for building completion frames.</param>
-        public FrameBuilderCollection(ITitleFrameBuilder titleFrameBuilder, ISceneFrameBuilder sceneFrameBuilder, IRegionMapFrameBuilder regionMapFrameBuilder, IHelpFrameBuilder helpFrameBuilder, IEndFrameBuilder completionFrameBuilder)
+        /// <param name="aboutFrameBuilder">The builder to use for building about frames.</param>
+        public FrameBuilderCollection(ITitleFrameBuilder titleFrameBuilder, ISceneFrameBuilder sceneFrameBuilder, IRegionMapFrameBuilder regionMapFrameBuilder, IHelpFrameBuilder helpFrameBuilder, IEndFrameBuilder completionFrameBuilder, IAboutFrameBuilder aboutFrameBuilder)
         {
             TitleFrameBuilder = titleFrameBuilder;
             SceneFrameBuilder = sceneFrameBuilder;
             RegionMapFrameBuilder = regionMapFrameBuilder;
             HelpFrameBuilder = helpFrameBuilder;
             CompletionFrameBuilder = completionFrameBuilder;
+            AboutFrameBuilder = aboutFrameBuilder;
         }
 
         #endregion

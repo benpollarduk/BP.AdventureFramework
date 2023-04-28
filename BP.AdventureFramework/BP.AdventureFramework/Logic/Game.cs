@@ -125,6 +125,11 @@ namespace BP.AdventureFramework.Logic
         public string Description { get; }
 
         /// <summary>
+        /// Get or set the name of the author.
+        /// </summary>
+        public string Author { get; set; }
+
+        /// <summary>
         /// Get or set the error prefix.
         /// </summary>
         public string ErrorPrefix { get; set; }
@@ -457,7 +462,7 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void DisplayAbout()
         {
-            Refresh(FrameBuilders.TitleFrameBuilder.Build("About", "BP.AdventureFramework by Ben Pollard 2011 - 2023", DisplaySize.Width, DisplaySize.Height));
+            Refresh(FrameBuilders.AboutFrameBuilder.Build("About", this, DisplaySize.Width, DisplaySize.Height));
         }
 
         #endregion
@@ -482,7 +487,8 @@ namespace BP.AdventureFramework.Logic
                 new LegacySceneFrameBuilder(stringLayoutBuilder, new LegacyRoomMapBuilder(stringLayoutBuilder)),
                 new LegacyRegionMapFrameBuilder(stringLayoutBuilder, new LegacyRegionMapBuilder(stringLayoutBuilder)),
                 new LegacyHelpFrameBuilder(stringLayoutBuilder),
-                new LegacyEndFrameBuilder(stringLayoutBuilder));
+                new LegacyEndFrameBuilder(stringLayoutBuilder),
+                new LegacyAboutFrameBuilder(stringLayoutBuilder));
 
             return Create(
                 name,

@@ -8,6 +8,10 @@ namespace BP.AdventureFramework.Interpretation
     public interface IInterpreter
     {
         /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        CommandHelp[] SupportedCommands { get; }
+        /// <summary>
         /// Interpret a string.
         /// </summary>
         /// <param name="input">The string to interpret.</param>

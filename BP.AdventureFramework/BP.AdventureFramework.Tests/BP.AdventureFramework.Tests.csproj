@@ -54,6 +54,13 @@
     <Compile Include="Assets\Item_Tests.cs" />
     <Compile Include="Assets\Locations\Region_Tests.cs" />
     <Compile Include="Assets\Locations\Room_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Legacy\LegacyAboutFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Legacy\LegacyTitleFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Legacy\LegacyRegionSceneFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Legacy\LegacyRegionMapFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Legacy\LegacyHelpFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Legacy\LegacyEndFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\LayoutBuilders\StringLayoutBuilder_Tests.cs" />
     <Compile Include="Utils\Generation\Simple\DescriptionGenerator_Tests.cs" />
     <Compile Include="Utils\Generation\Simple\ExaminableGenerator_Tests.cs" />
     <Compile Include="Utils\Generation\Simple\ItemGenerator_Tests.cs" />

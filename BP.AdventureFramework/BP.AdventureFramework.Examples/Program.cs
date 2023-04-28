@@ -5,7 +5,7 @@ using BP.AdventureFramework.Examples.Assets;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Utils;
 using BP.AdventureFramework.Utils.Generation;
-using BP.AdventureFramework.Utils.Generation.Simple.Themes;
+using BP.AdventureFramework.Utils.Generation.Themes;
 
 namespace BP.AdventureFramework.Examples
 {
@@ -43,7 +43,7 @@ namespace BP.AdventureFramework.Examples
                                 "You wake up at the entrance to a small clearing...",
                                 Everglades.GenerateOverworld,
                                 Everglades.GeneratePC,
-                                g => false);
+                                g => CompletionCheckResult.NotComplete);
 
                             break;
 
@@ -54,7 +54,7 @@ namespace BP.AdventureFramework.Examples
                                 "You wake up in the bedroom of your flat. You're a little disorientated, but then again you are most mornings! You're itching for some punk rock!",
                                 Flat.GenerateOverworld,
                                 Flat.GeneratePC,
-                                g => false);
+                                g => CompletionCheckResult.NotComplete);
 
                             break;
 
@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Examples
                                 "",
                                 p => overworld.Make(),
                                 () => new PlayableCharacter("You", "Just you."),
-                                g => false);
+                                g => CompletionCheckResult.NotComplete);
 
                             break;
 
@@ -95,7 +95,7 @@ namespace BP.AdventureFramework.Examples
                                 "",
                                 p => overworld.Make(),
                                 () => new PlayableCharacter("You", "Just you."),
-                                g => false);
+                                g => CompletionCheckResult.NotComplete);
 
                             break;
                     }

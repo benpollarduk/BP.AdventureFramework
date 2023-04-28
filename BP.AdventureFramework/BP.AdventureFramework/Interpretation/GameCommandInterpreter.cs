@@ -114,6 +114,23 @@ namespace BP.AdventureFramework.Interpretation
 
         #endregion
 
+        #region StaticProperties
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public static CommandHelp[] DefaultSupportedCommands { get; } =
+        {
+            new CommandHelp($"{Drop} __", "Drop an item"),
+            new CommandHelp($"{Examine} __", "Examine anything in the game"),
+            new CommandHelp($"{Take} __", "Take an item"),
+            new CommandHelp($"{Talk} {To.ToLower()} __", "Talk to a character"),
+            new CommandHelp($"{Use} __", "Use an item on the this Room"),
+            new CommandHelp($"{Use} __ {On.ToLower()}", "Use an item on another item or character")
+        };
+
+        #endregion
+
         #region StaticMethods
 
         private static void SplitTextToNounAndObject(string text, out string noun, out string obj)
@@ -425,6 +442,11 @@ namespace BP.AdventureFramework.Interpretation
         #endregion
 
         #region Implementation of IInterpreter
+
+        /// <summary>
+        /// Get an array of all supported commands.
+        /// </summary>
+        public CommandHelp[] SupportedCommands { get; } = DefaultSupportedCommands;
 
         /// <summary>
         /// Interpret a string.

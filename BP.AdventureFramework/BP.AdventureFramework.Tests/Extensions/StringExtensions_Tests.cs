@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Assets;
+﻿using System;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -270,6 +271,30 @@ namespace BP.AdventureFramework.Tests.Extensions
             var result = "AN".ToSentenceCase();
 
             Assert.AreEqual("AN", result);
+        }
+
+        [TestMethod]
+        public void GivenNoNewline_WhenLineCount_Then1()
+        {
+            var result = "AN".LineCount();
+
+            Assert.AreEqual(1, result);
+        }
+
+        [TestMethod]
+        public void GivenOneNewline_WhenLineCount_Then2()
+        {
+            var result = $"AN{Environment.NewLine}AN".LineCount();
+
+            Assert.AreEqual(2, result);
+        }
+
+        [TestMethod]
+        public void Given2Newline_WhenLineCount_Then3()
+        {
+            var result = $"AN{Environment.NewLine}AN{Environment.NewLine}AN".LineCount();
+
+            Assert.AreEqual(3, result);
         }
     }
 }

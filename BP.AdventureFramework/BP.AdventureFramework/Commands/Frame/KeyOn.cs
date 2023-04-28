@@ -41,7 +41,7 @@ namespace BP.AdventureFramework.Commands.Frame
             if (Game == null)
                 return new Reaction(ReactionResult.None, "No game specified.");
 
-            Game.MapKeyType = KeyType.Dynamic;
+            Game.SceneMapKeyType = KeyType.Dynamic;
             return new Reaction(ReactionResult.Reacted, "Key has been turned on.");
         }
 

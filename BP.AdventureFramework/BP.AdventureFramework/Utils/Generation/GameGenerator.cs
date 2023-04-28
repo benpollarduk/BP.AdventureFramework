@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Utils.Generation
         /// </summary>
         /// <param name="identifier">An identifier for the region.</param>
         /// <param name="description">A description for the region.</param>
-        public GameGenerator(string identifier, string description)
+        public GameGenerator(string identifier, string description) : this(new Identifier(identifier), new Description(description))
         {
         }
 

@@ -149,7 +149,7 @@ namespace BP.AdventureFramework.Extensions
         /// <returns>The number of lines in the string.</returns>
         public static int LineCount(this string value)
         {
-            return value?.Split(new[] { Environment.NewLine }, StringSplitOptions.None).Length ?? 0;
+            return value?.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length ?? 0;
         }
 
         #endregion

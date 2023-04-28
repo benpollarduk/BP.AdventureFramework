@@ -13,19 +13,19 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
     /// <summary>
     /// Provides a builder of legacy scene frames.
     /// </summary>
-    public class LegacySceneFrameBuilder : ISceneFrameBuilder
+    public sealed class LegacySceneFrameBuilder : ISceneFrameBuilder
     {
         #region Properties
 
         /// <summary>
         /// Get the string layout builder.
         /// </summary>
-        public IStringLayoutBuilder StringLayoutBuilder { get; }
+        private IStringLayoutBuilder StringLayoutBuilder { get; }
 
         /// <summary>
         /// Get the room map builder.
         /// </summary>
-        public IRoomMapBuilder RoomMapBuilder { get; }
+        private IRoomMapBuilder RoomMapBuilder { get; }
 
         #endregion
 
@@ -166,19 +166,19 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
             }
 
             var wrappedMessage = StringLayoutBuilder.BuildWrappedPadded(message.EnsureFinishedSentence(), width, false);
-            var linesAfterWhitespace = 7 + wrappedMessage.LineCount();
+            var linesAfterWhitespace = 6 + wrappedMessage.LineCount();
             var linesInString = scene.ToString().LineCount();
 
             scene.Append(StringLayoutBuilder.BuildPaddedArea(width, height - linesInString - linesAfterWhitespace));
             scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
             scene.Append(StringLayoutBuilder.BuildWrappedPadded("INVENTORY: " + player.GetItemsAsList(), width, false));
             scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
-            var yPositionOfCursor = scene.ToString().LineCount() - 1;
+            var yPositionOfCursor = scene.ToString().LineCount();
             scene.Append(StringLayoutBuilder.BuildWrappedPadded("WHAT DO YOU DO? ", width, false));
             scene.Append(StringLayoutBuilder.BuildHorizontalDivider(width));
             scene.Append(wrappedMessage);
             var bottomdivider = StringLayoutBuilder.BuildHorizontalDivider(width);
-            scene.Append(bottomdivider.Remove(bottomdivider.Length - 1));
+            scene.Append(bottomdivider.Replace(StringLayoutBuilder.LineTerminator, string.Empty));
 
             return new Frame(scene.ToString(), 18, yPositionOfCursor);
         }

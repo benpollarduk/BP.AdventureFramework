@@ -8,14 +8,14 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
     /// <summary>
     /// Provides a builder of legacy help frames.
     /// </summary>
-    public class LegacyHelpFrameBuilder : IHelpFrameBuilder
+    public sealed class LegacyHelpFrameBuilder : IHelpFrameBuilder
     {
         #region Properties
 
         /// <summary>
         /// Get the string layout builder.
         /// </summary>
-        public IStringLayoutBuilder StringLayoutBuilder { get; }
+        private IStringLayoutBuilder StringLayoutBuilder { get; }
 
         #endregion
 
@@ -63,11 +63,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                     builder.Append(StringLayoutBuilder.BuildWrappedPadded(string.Empty, width, false));
             }
 
-            builder.Append(StringLayoutBuilder.BuildPaddedArea(width, height - builder.ToString().LineCount() + 7));
+            builder.Append(StringLayoutBuilder.BuildPaddedArea(width, height - builder.ToString().LineCount() - 6));
             builder.Append(StringLayoutBuilder.BuildWrappedPadded("Press Enter to return to the game", width, true));
             builder.Append(StringLayoutBuilder.BuildPaddedArea(width, 4));
             var divider = StringLayoutBuilder.BuildHorizontalDivider(width);
-            builder.Append(divider.Remove(divider.Length - 1));
+            builder.Append(divider.Replace(StringLayoutBuilder.LineTerminator, string.Empty));
 
             return new Frame(builder.ToString(), 0, 0) { AcceptsInput = false, ShowCursor = false };
         }

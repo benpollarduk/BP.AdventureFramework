@@ -6,14 +6,14 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
     /// <summary>
     /// Provides a builder for legacy end frames.
     /// </summary>
-    public class LegacyEndFrameBuilder : IEndFrameBuilder
+    public sealed class LegacyEndFrameBuilder : IEndFrameBuilder
     {
         #region Properties
 
         /// <summary>
         /// Get the string layout builder.
         /// </summary>
-        public IStringLayoutBuilder StringLayoutBuilder { get; }
+        private IStringLayoutBuilder StringLayoutBuilder { get; }
 
         #endregion
 
@@ -50,8 +50,8 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
             constructedScene += divider;
             constructedScene += StringLayoutBuilder.BuildPaddedArea(width, height / 2 - constructedScene.LineCount());
             constructedScene += StringLayoutBuilder.BuildWrappedPadded("Press Enter to return to title screen", width, true);
-            constructedScene += StringLayoutBuilder.BuildPaddedArea(width, height - constructedScene.LineCount() - 2);
-            constructedScene += divider.Remove(divider.Length - 1);
+            constructedScene += StringLayoutBuilder.BuildPaddedArea(width, height - constructedScene.LineCount() - 1);
+            constructedScene += divider.Replace(StringLayoutBuilder.LineTerminator, string.Empty);
 
             return new Frame(constructedScene, 0, 0) { AcceptsInput = false, ShowCursor = false };
         } 

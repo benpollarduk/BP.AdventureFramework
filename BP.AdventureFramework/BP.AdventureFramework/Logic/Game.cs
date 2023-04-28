@@ -585,8 +585,9 @@ namespace BP.AdventureFramework.Logic
         private static void SetupConsole(Game game)
         {
             Console.Title = game.Name;
-            Console.SetWindowSize(game.DisplaySize.Width, game.DisplaySize.Height);
-            Console.SetBufferSize(game.DisplaySize.Width, game.DisplaySize.Height);
+            var actualDisplaySize = new Size(game.DisplaySize.Width + 1, game.DisplaySize.Height);
+            Console.SetWindowSize(actualDisplaySize.Width, actualDisplaySize.Height);
+            Console.SetBufferSize(actualDisplaySize.Width, actualDisplaySize.Height);
         }
 
         #endregion

@@ -10,19 +10,19 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
     /// <summary>
     /// Provides a builder of legacy region map frames.
     /// </summary>
-    public class LegacyRegionMapFrameBuilder : IRegionMapFrameBuilder
+    public sealed class LegacyRegionMapFrameBuilder : IRegionMapFrameBuilder
     {
         #region Properties
 
         /// <summary>
         /// Get the string layout builder.
         /// </summary>
-        public IStringLayoutBuilder StringLayoutBuilder { get; }
+        private IStringLayoutBuilder StringLayoutBuilder { get; }
 
         /// <summary>
         /// Get the region map builder.
         /// </summary>
-        public IRegionMapBuilder RegionMapBuilder { get; }
+        private IRegionMapBuilder RegionMapBuilder { get; }
 
         #endregion
 
@@ -62,10 +62,10 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Legacy
                 var map = RegionMapBuilder.BuildRegionMap(region, width, height - (builder.ToString().LineCount() + 5));
                 builder.Append(StringLayoutBuilder.BuildPaddedArea(width, (height - builder.ToString().LineCount() - map.LineCount()) / 2));
                 builder.Append(map);
-                builder.Append(StringLayoutBuilder.BuildPaddedArea(width, height - builder.ToString().LineCount() - 2));
+                builder.Append(StringLayoutBuilder.BuildPaddedArea(width, height - builder.ToString().LineCount() - 1));
             }
 
-            builder.Append(StringLayoutBuilder.BuildHorizontalDivider(width).Replace(Environment.NewLine, ""));
+            builder.Append(StringLayoutBuilder.BuildHorizontalDivider(width).Replace(StringLayoutBuilder.LineTerminator, string.Empty));
 
             return new Frame(builder.ToString(), 0, 0) { AcceptsInput = false, ShowCursor = false };
         }

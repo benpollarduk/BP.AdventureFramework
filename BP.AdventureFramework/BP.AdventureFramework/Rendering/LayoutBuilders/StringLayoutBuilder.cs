@@ -56,16 +56,17 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
         /// <param name="width">The width of the divider.</param>
         /// <param name="leftBoundary">The left boundary character.</param>
         /// <param name="rightBoundary">The right boundary character.</param>
+        /// <param name="lineTerminator">The string to use for line termination.</param>
         /// <returns>The divider.</returns>
-        private static string BuildWhiteSpaceWithBoundaryDivider(int width, char leftBoundary, char rightBoundary)
+        private static string BuildWhiteSpaceWithBoundaryDivider(int width, char leftBoundary, char rightBoundary, string lineTerminator)
         {
             var divider = leftBoundary.ToString();
 
-            for (var index = 0; index < width - 3; index++)
+            for (var index = 0; index < width - 2; index++)
                 divider += " ";
 
             divider += rightBoundary;
-            divider += Environment.NewLine;
+            divider += lineTerminator;
 
             return divider;
         }
@@ -90,6 +91,11 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
         public char HorizontalDividerCharacter { get; set; }
 
         /// <summary>
+        /// Get or set the line terminator.
+        /// </summary>
+        public string LineTerminator { get; set; } = Environment.NewLine;
+
+        /// <summary>
         /// Build a horizontal divider.
         /// </summary>
         /// <param name="width">The width of the divider.</param>
@@ -101,11 +107,11 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
 
             var divider = LeftBoundaryCharacter.ToString();
 
-            for (var index = 0; index < width - 3; index++)
+            for (var index = 0; index < width - 2; index++)
                 divider += HorizontalDividerCharacter;
 
             divider += RightBoundaryCharacter;
-            divider += Environment.NewLine;
+            divider += LineTerminator;
             return divider;
         }
 
@@ -120,7 +126,7 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
             var paddedArea = string.Empty;
 
             for (var index = 0; index < height; index++)
-                paddedArea += BuildWhiteSpaceWithBoundaryDivider(width, LeftBoundaryCharacter, RightBoundaryCharacter);
+                paddedArea += BuildWhiteSpaceWithBoundaryDivider(width, LeftBoundaryCharacter, RightBoundaryCharacter, LineTerminator);
 
             return paddedArea;
         }
@@ -138,7 +144,7 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
                 throw new ArgumentException("The width parameter must be greater than 0.");
 
             var wrappedString = string.Empty;
-            var availableTextSpace = width - 4;
+            var availableTextSpace = width - 3;
 
             if (value.Length > availableTextSpace)
             {
@@ -165,7 +171,7 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
                         }
                     }
 
-                    wrappedString += LeftBoundaryCharacter + " " + chunk + BuildWhitespace(availableTextSpace - chunk.Length) + RightBoundaryCharacter + Environment.NewLine;
+                    wrappedString += LeftBoundaryCharacter + " " + chunk + BuildWhitespace(availableTextSpace - chunk.Length) + RightBoundaryCharacter + LineTerminator;
                     chunk = string.Empty;
                 }
 
@@ -175,14 +181,14 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
                 if (centralise)
                     wrappedString += BuildCentralised(word, width);
                 else
-                    wrappedString += LeftBoundaryCharacter + " " + word + BuildWhitespace(availableTextSpace - word.Length) + RightBoundaryCharacter + Environment.NewLine;
+                    wrappedString += LeftBoundaryCharacter + " " + word + BuildWhitespace(availableTextSpace - word.Length) + RightBoundaryCharacter + LineTerminator;
             }
             else
             {
                 if (centralise)
                     wrappedString += BuildCentralised(value, width);
                 else
-                    wrappedString = LeftBoundaryCharacter + " " + value + BuildWhitespace(availableTextSpace - value.Length) + RightBoundaryCharacter + Environment.NewLine;
+                    wrappedString = LeftBoundaryCharacter + " " + value + BuildWhitespace(availableTextSpace - value.Length) + RightBoundaryCharacter + LineTerminator;
             }
 
             return wrappedString;
@@ -221,9 +227,9 @@ namespace BP.AdventureFramework.Rendering.LayoutBuilders
             var startPosition = width / 2 - value.Length / 2;
             constructedString += BuildWhitespace(startPosition - 1);
             constructedString += value;
-            constructedString += BuildWhitespace(width - 1 - constructedString.Length - 1);
+            constructedString += BuildWhitespace(width - 1 - constructedString.Length);
             constructedString += RightBoundaryCharacter;
-            constructedString += Environment.NewLine;
+            constructedString += LineTerminator;
 
             return constructedString;
         }

@@ -18,6 +18,10 @@
         /// </summary>
         char HorizontalDividerCharacter { get; set; }
         /// <summary>
+        /// Get or set the line terminator.
+        /// </summary>
+        string LineTerminator { get; set; }
+        /// <summary>
         /// Build a horizontal divider.
         /// </summary>
         /// <param name="width">The width of the divider.</param>

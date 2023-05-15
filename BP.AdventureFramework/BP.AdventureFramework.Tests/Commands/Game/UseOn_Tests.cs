@@ -3,6 +3,7 @@ using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands.Game;
+using BP.AdventureFramework.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Commands.Game
@@ -11,73 +12,94 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class UseOn_Tests
     {
         [TestMethod]
-        public void GivenNoItem_WhenInvoke_ThenNone()
+        public void GivenNoItem_WhenInvoke_ThenError()
         {
-            var command = new UseOn(null, null, null, null);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var command = new UseOn(null, null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenNoTarget_WhenInvoke_ThenNone()
+        public void GivenNoTarget_WhenInvoke_ThenError()
         {
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var item = new Item(Identifier.Empty, Description.Empty, true);
-            var command = new UseOn(item, null, null, null);
+            var command = new UseOn(item, null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenNoPlayer_WhenInvoke_ThenNone()
+        public void GivenNoPlayer_WhenInvoke_ThenError()
         {
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var item = new Item(Identifier.Empty, Description.Empty, true);
-            var command = new UseOn(item, null, null, null);
+            var command = new UseOn(item, null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenTargetIsNpc_WhenInvoke_ThenReacted()
+        public void GivenTargetIsNpc_WhenInvoke_ThenOK()
         {
             var item = new Item(Identifier.Empty, Description.Empty, true);
             var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty);
-            var pc = new PlayableCharacter(Identifier.Empty, Description.Empty);
-            var command = new UseOn(item, npc, pc, null);
+            var player = new PlayableCharacter(Identifier.Empty, Description.Empty);
+            var room = new Room(string.Empty, string.Empty);
+            room.Characters.Add(npc);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => player, null).Invoke();
+            var command = new UseOn(item, npc);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
 
         [TestMethod]
-        public void GivenTargetIsPlayer_WhenInvoke_ThenReacted()
+        public void GivenTargetIsPlayer_WhenInvoke_ThenOK()
         {
             var item = new Item(Identifier.Empty, Description.Empty, true);
             var pc = new PlayableCharacter(Identifier.Empty, Description.Empty);
-            var command = new UseOn(item, pc, pc, null);
+            var room = new Room(string.Empty, string.Empty);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => pc, null).Invoke();
+            var command = new UseOn(item, pc);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
 
         [TestMethod]
-        public void GivenTargetIsRoom_WhenInvoke_ThenReacted()
+        public void GivenTargetIsRoom_WhenInvoke_ThenOK()
         {
             var item = new Item(Identifier.Empty, Description.Empty, true);
-            var pc = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var room = new Room(Identifier.Empty, Description.Empty);
-            var command = new UseOn(item, room, pc, room);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var player = new PlayableCharacter(Identifier.Empty, Description.Empty);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => player, null).Invoke();
+            var command = new UseOn(item, room);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
     }
 }

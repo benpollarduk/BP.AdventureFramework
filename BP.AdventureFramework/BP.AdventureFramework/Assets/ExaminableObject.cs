@@ -1,4 +1,6 @@
-﻿namespace BP.AdventureFramework.Assets
+﻿using BP.AdventureFramework.Commands;
+
+namespace BP.AdventureFramework.Assets
 {
     /// <summary>
     /// Represents an object that can be examined.
@@ -30,6 +32,11 @@
         /// Get or set if this is player visible.
         /// </summary>
         public bool IsPlayerVisible { get; set; } = true;
+
+        /// <summary>
+        /// Get or set this objects commands.
+        /// </summary>
+        public CustomCommand[] Commands { get; set; }
 
         /// <summary>
         /// Examine this object.

@@ -5,7 +5,7 @@ using BP.AdventureFramework.Logic;
 namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
-    /// Represents an object that can be used for interpreting global commands.
+    /// Provides an object that can be used for interpreting global commands.
     /// </summary>
     internal class GlobalCommandInterpreter : IInterpreter
     {
@@ -69,21 +69,31 @@ namespace BP.AdventureFramework.Interpretation
         public InterpretationResult Interpret(string input, Game game)
         {
             if (input.Equals(About, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new About(game));
+                return new InterpretationResult(true, new About());
 
             if (input.Equals(Exit, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new Exit(game));
+                return new InterpretationResult(true, new Exit());
 
             if (input.Equals(Help, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new Help(game));
+                return new InterpretationResult(true, new Help());
 
             if (input.Equals(Map, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new Map(game));
+                return new InterpretationResult(true, new Map());
 
             if (input.Equals(New, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new New(game));
+                return new InterpretationResult(true, new New());
 
             return InterpretationResult.Fail;
+        }
+
+        /// <summary>
+        /// Get contextual command help for a game, based on its current state.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>The contextual help.</returns>
+        public CommandHelp[] GetContextualCommandHelp(Game game)
+        {
+            return new CommandHelp[0];
         }
 
         #endregion

@@ -8,41 +8,20 @@ namespace BP.AdventureFramework.Commands.Frame
     /// </summary>
     internal class KeyOff : ICommand
     {
-        #region Properties
-
-        /// <summary>
-        /// Get the game.
-        /// </summary>
-        public Logic.Game Game { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the KeyOff class.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        public KeyOff(Logic.Game game)
-        {
-            Game = game;
-        }
-
-        #endregion
-
         #region Implementation of ICommand
 
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Game == null)
-                return new Reaction(ReactionResult.None, "No game specified.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
 
-            Game.SceneMapKeyType = KeyType.None;
-            return new Reaction(ReactionResult.Reacted, "Key has been turned off.");
+            game.SceneMapKeyType = KeyType.None;
+            return new Reaction(ReactionResult.OK, "Key has been turned off.");
         }
 
         #endregion

@@ -1,7 +1,5 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Commands.Game
 {
@@ -13,19 +11,9 @@ namespace BP.AdventureFramework.Commands.Game
         #region Properties
 
         /// <summary>
-        /// Get the character will acquire the item.
-        /// </summary>
-        public PlayableCharacter Character { get; }
-
-        /// <summary>
         /// Get the item.
         /// </summary>
         public Item Item { get; }
-
-        /// <summary>
-        /// Get the room to take the item from.
-        /// </summary>
-        public Room Room { get; }
 
         #endregion
 
@@ -34,14 +22,10 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Initializes a new instance of the Take command.
         /// </summary>
-        /// <param name="character">The character who will acquire the item.</param>
         /// <param name="item">The item to take.</param>
-        /// <param name="room">The room to take the item from.</param>
-        public Take(PlayableCharacter character, Item item, Room room)
+        public Take(Item item)
         {
-            Character = character;
             Item = item;
-            Room = room;
         }
 
         #endregion
@@ -51,25 +35,29 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Character == null)
-                return new Reaction(ReactionResult.None, "You must specify a character.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
+
+            if (game.Player == null)
+                return new Reaction(ReactionResult.Error, "You must specify a character.");
 
             if (Item == null)
-                return new Reaction(ReactionResult.None, "You must specify what to take.");
+                return new Reaction(ReactionResult.Error, "You must specify what to take.");
 
-            if (!Room.ContainsItem(Item))
-                return new Reaction(ReactionResult.None, "The room does not contain that item.");
+            if (!game.Overworld.CurrentRegion.CurrentRoom.ContainsItem(Item))
+                return new Reaction(ReactionResult.Error, "The room does not contain that item.");
 
             if (!Item.IsTakeable)
-                return new Reaction(ReactionResult.None, $"{Item.Identifier.Name} cannot be taken.");
+                return new Reaction(ReactionResult.Error, $"{Item.Identifier.Name} cannot be taken.");
 
-            Room.RemoveItem(Item);
-            Character.AquireItem(Item);
+            game.Overworld.CurrentRegion.CurrentRoom.RemoveItem(Item);
+            game.Player.AquireItem(Item);
 
-            return new Reaction(ReactionResult.Reacted, $"Took {Item.Identifier.Name}");
+            return new Reaction(ReactionResult.OK, $"Took {Item.Identifier.Name}");
         }
 
         #endregion

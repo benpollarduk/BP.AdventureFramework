@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.FrameBuilders;
-using BP.AdventureFramework.Rendering.FrameBuilders.Legacy;
-using BP.AdventureFramework.Rendering.LayoutBuilders;
-using BP.AdventureFramework.Rendering.MapBuilders.Legacy;
+using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Logic
 {
@@ -37,7 +36,12 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get the default interpreter.
         /// </summary>
-        public static IInterpreter DefaultInterpreter => new InputInterpreter(new FrameCommandInterpreter(), new GlobalCommandInterpreter(), new GameCommandInterpreter());
+        public static IInterpreter DefaultInterpreter => new InputInterpreter(
+            new FrameCommandInterpreter(),
+            new GlobalCommandInterpreter(),
+            new GameCommandInterpreter(), 
+            new CustomCommandInterpreter(),
+            new ConversationCommandInterpreter());
 
         /// <summary>
         /// Get the default size.
@@ -48,9 +52,9 @@ namespace BP.AdventureFramework.Logic
 
         #region Fields
 
-        private PlayableCharacter player;
         private bool displayCommandListInSceneFrames = true;
-        private KeyType sceneMapKeyType;
+        private KeyType sceneMapKeyType = KeyType.Dynamic;
+        private FrameBuilderCollection frameBuilders;
 
         #endregion
 
@@ -60,6 +64,11 @@ namespace BP.AdventureFramework.Logic
         /// Get or set the current state.
         /// </summary>
         private GameState State { get; set; }
+
+        /// <summary>
+        /// Get the active converser.
+        /// </summary>
+        public IConverser ActiveConverser { get; private set; }
 
         /// <summary>
         /// Get or set if the command list is displayed in scene frames.
@@ -72,7 +81,7 @@ namespace BP.AdventureFramework.Logic
                 displayCommandListInSceneFrames = value;
 
                 if (State == GameState.Active)
-                    DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, string.Empty, value, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
+                    DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, string.Empty, value ? Interpreter.GetContextualCommandHelp(this) : null, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
             }
         }
 
@@ -87,30 +96,17 @@ namespace BP.AdventureFramework.Logic
                 sceneMapKeyType = value;
 
                 if (State == GameState.Active)
-                    DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, string.Empty, DisplayCommandListInSceneFrames, value, DisplaySize.Width, DisplaySize.Height));
+                    DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, string.Empty, DisplayCommandListInSceneFrames ? Interpreter.GetContextualCommandHelp(this) : null, value, DisplaySize.Width, DisplaySize.Height));
             }
         }
 
         /// <summary>
         /// Get the player.
         /// </summary>
-        public PlayableCharacter Player
-        {
-            get { return player; }
-            private set
-            {
-                if (player != null)
-                    player.Died -= Player_Died;
-
-                player = value;
-
-                if (player != null)
-                    player.Died += Player_Died;
-            }
-        }
+        public PlayableCharacter Player { get; }
 
         /// <summary>
-        /// Get the Overworld.
+        /// Get the overworld.
         /// </summary>
         public Overworld Overworld { get; }
 
@@ -118,6 +114,11 @@ namespace BP.AdventureFramework.Logic
         /// Get the name.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Get the introduction.
+        /// </summary>
+        public string Introduction { get; }
 
         /// <summary>
         /// Get the description.
@@ -165,11 +166,6 @@ namespace BP.AdventureFramework.Logic
         public Size DisplaySize { get; }
 
         /// <summary>
-        /// Get if this game has ended.
-        /// </summary>
-        public bool HasEnded { get; private set; }
-
-        /// <summary>
         /// Get or set the exit mode for this game.
         /// </summary>
         internal ExitMode ExitMode { get; set; } = ExitMode.ReturnToTitleScreen;
@@ -177,12 +173,22 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the collection of frame builders used to render this game.
         /// </summary>
-        private FrameBuilderCollection FrameBuilders { get; set; }
+        public FrameBuilderCollection FrameBuilders
+        {
+            get { return frameBuilders; }
+            set
+            {
+                frameBuilders = value;
+
+                if (State == GameState.Active)
+                    Refresh(CurrentFrame);
+            }
+        }
 
         /// <summary>
         /// Get or set the current Frame.
         /// </summary>
-        private Frame CurrentFrame { get; set; }
+        private IFrame CurrentFrame { get; set; }
 
         /// <summary>
         /// Get or set the completion condition.
@@ -197,12 +203,12 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Occurs when the game begins drawing a frame.
         /// </summary>
-        internal event EventHandler<Frame> StartingFrameDraw;
+        internal event EventHandler<IFrame> StartingFrameDraw;
 
         /// <summary>
         /// Occurs when the game finishes drawing a frame.
         /// </summary>
-        internal event EventHandler<Frame> FinishedFrameDraw;
+        internal event EventHandler<IFrame> FinishedFrameDraw;
 
         #endregion
 
@@ -211,14 +217,16 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Initializes a new instance of the Game class.
         /// </summary>
-        /// <param name="name">The name of this Game.</param>
-        /// <param name="description">A description of this Game.</param>
-        /// <param name="player">The Player to use for this Game.</param>
-        /// <param name="overworld">An Overworld to use for this Game.</param>
+        /// <param name="name">The name of this game.</param>
+        /// <param name="introduction">An to the game.</param>
+        /// <param name="description">A description of this game.</param>
+        /// <param name="player">The Player to use for this game.</param>
+        /// <param name="overworld">An Overworld to use for this game.</param>
         /// <param name="displaySize">The display size.</param>
-        private Game(string name, string description, PlayableCharacter player, Overworld overworld, Size displaySize)
+        private Game(string name, string introduction, string description, PlayableCharacter player, Overworld overworld, Size displaySize)
         {
             Name = name;
+            Introduction = introduction;
             Description = description;
             Player = player;
             Overworld = overworld;
@@ -239,14 +247,31 @@ namespace BP.AdventureFramework.Logic
 
             IsExecuting = true;
 
-            var input = string.Empty;
+            Refresh(FrameBuilders.TitleFrameBuilder.Build(Name, Introduction, DisplaySize.Width, DisplaySize.Height));
 
-            Refresh(FrameBuilders.TitleFrameBuilder.Build(Name, Description, DisplaySize.Width, DisplaySize.Height));
+            var input = string.Empty;
+            var reaction = new Reaction(ReactionResult.Error, "Error.");
 
             do
             {
                 var displayReactionToInput = true;
-                var reaction = new Reaction(ReactionResult.None, "Error.");
+
+                var result = CompletionCondition(this);
+
+                if (result.IsCompleted)
+                {
+                    Refresh(FrameBuilders.CompletionFrameBuilder.Build(result.Title, result.Description, DisplaySize.Width, DisplaySize.Height));
+                    End();
+                } 
+                else if (!Player.IsAlive)
+                {
+                    Refresh(FrameBuilders.GameOverFrameBuilder.Build("Game Over", reaction.Description, DisplaySize.Width, DisplaySize.Height));
+                    End();
+                }
+                else if (ActiveConverser != null)
+                {
+                    Refresh(FrameBuilders.ConversationFrameBuilder.Build($"Conversation with {ActiveConverser.Identifier.Name}", ActiveConverser, Interpreter?.GetContextualCommandHelp(this), DisplaySize.Width, DisplaySize.Height));
+                }
 
                 if (!CurrentFrame.AcceptsInput)
                 {
@@ -263,11 +288,10 @@ namespace BP.AdventureFramework.Logic
                 switch (State)
                 {
                     case GameState.NotStarted:
-                        EnterGame();
+                        Enter();
                         displayReactionToInput = false;
                         break;
                     case GameState.Finished:
-                        ResetGame();
                         displayReactionToInput = false;
                         break;
                     default:
@@ -280,9 +304,13 @@ namespace BP.AdventureFramework.Logic
                             else
                             {
                                 var interpretation = Interpreter?.Interpret(input, this) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
-
+                                
                                 if (interpretation.WasInterpretedSuccessfully)
-                                    reaction = RunCommand(interpretation.Command);
+                                    reaction = interpretation.Command.Invoke(this);
+                                else if (!string.IsNullOrEmpty(input))
+                                    reaction = new Reaction(ReactionResult.Error, $"{input} was not valid input.");
+                                else
+                                    reaction = new Reaction(ReactionResult.OK, string.Empty);
                             }
 
                             break;
@@ -294,22 +322,41 @@ namespace BP.AdventureFramework.Logic
 
                 switch (reaction.Result)
                 {
-                    case ReactionResult.None:
+                    case ReactionResult.Error:
                         var message = ErrorPrefix + ": " + reaction.Description;
                         UpdateScreenWithCurrentFrame(message);
                         break;
-                    case ReactionResult.Reacted:
+                    case ReactionResult.OK:
                         UpdateScreenWithCurrentFrame(reaction.Description);
                         break;
-                    case ReactionResult.SelfContained:
+                    case ReactionResult.Internal:
+                    case ReactionResult.Fatal:
                         break;
                     default:
                         throw new NotImplementedException();
                 }
             }
-            while (!HasEnded);
+            while (State != GameState.Finished);
 
             IsExecuting = false;
+        }
+
+        /// <summary>
+        /// Start a conversation with a converser.
+        /// </summary>
+        /// <param name="converser">The element to engage conversation with.</param>
+        internal void StartConversation(IConverser converser)
+        {
+            ActiveConverser = converser;
+            ActiveConverser?.Conversation?.Next(this);
+        }
+
+        /// <summary>
+        /// End a conversation with a converser.
+        /// </summary>
+        internal void EndConversation()
+        {
+            ActiveConverser = null;
         }
 
         /// <summary>
@@ -318,20 +365,20 @@ namespace BP.AdventureFramework.Logic
         /// <param name="message">An additional message to display to the user.</param>
         private void UpdateScreenWithCurrentFrame(string message)
         {
-            DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, message, DisplayCommandListInSceneFrames, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
+            DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, message, DisplayCommandListInSceneFrames ? Interpreter.GetContextualCommandHelp(this) : null, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
         /// Draw a Frame onto the output stream.
         /// </summary>
         /// <param name="frame">The frame to draw.</param>
-        private void DrawFrame(Frame frame)
+        private void DrawFrame(IFrame frame)
         {
             try
             {
                 StartingFrameDraw?.Invoke(this, frame);
 
-                Output.Write(frame);
+                frame.Render(Output);
 
                 FinishedFrameDraw?.Invoke(this, frame);
             }
@@ -342,50 +389,20 @@ namespace BP.AdventureFramework.Logic
         }
 
         /// <summary>
-        /// Handle a reaction.
-        /// </summary>
-        /// <param name="command">The command to react to.</param>
-        /// <returns>The reaction to the command.</returns>
-        private Reaction RunCommand(ICommand command)
-        {
-            var reaction = command.Invoke();
-
-            var result = CompletionCondition(this);
-
-            if (!result.IsCompleted) 
-                return reaction;
-
-            Refresh(FrameBuilders.CompletionFrameBuilder.Build(result.Title, result.Description, DisplaySize.Width, DisplaySize.Height));
-            End();
-
-            return reaction;
-        }
-
-        /// <summary>
         /// Enter the game.
         /// </summary>
-        private void EnterGame()
+        private void Enter()
         {
             State = GameState.Active;
-            Refresh(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, string.Empty, DisplayCommandListInSceneFrames, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
+            Refresh(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, string.Empty, DisplayCommandListInSceneFrames ? Interpreter.GetContextualCommandHelp(this) : null, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
-        /// Reset the game.
-        /// </summary>
-        private void ResetGame()
-        {
-            State = GameState.NotStarted;
-            Refresh(FrameBuilders.TitleFrameBuilder.Build(Name, Description, DisplaySize.Width, DisplaySize.Height));
-        }
-
-        /// <summary>
-        /// End the Game.
+        /// End the game.
         /// </summary>
         internal void End()
         {
             State = GameState.Finished;
-            HasEnded = true;
         }
 
         /// <summary>
@@ -395,7 +412,7 @@ namespace BP.AdventureFramework.Logic
         /// <returns>The first IInteractWithItem object which has a name that matches the name parameter.</returns>
         public IInteractWithItem FindInteractionTarget(string name)
         {
-            if (name.EqualsExaminable(player))
+            if (name.EqualsExaminable(Player))
                 return Player;
 
             if (Player.Items.Any(name.EqualsExaminable))
@@ -415,6 +432,20 @@ namespace BP.AdventureFramework.Logic
         }
 
         /// <summary>
+        /// Get all examinables that are currently visible to the player.
+        /// </summary>
+        /// <returns>An array of all examinables that are currently visible to the player.</returns>
+        public IExaminable[] GetAllPlayerVisibleExaminables()
+        {
+            var examinables = new List<IExaminable> { Player, Overworld, Overworld.CurrentRegion, Overworld.CurrentRegion.CurrentRoom };
+            examinables.AddRange(Player.Items.Where(x => x.IsPlayerVisible));
+            examinables.AddRange(Overworld.CurrentRegion.CurrentRoom.Items.Where(x => x.IsPlayerVisible));
+            examinables.AddRange(Overworld.CurrentRegion.CurrentRoom.Characters.Where(x => x.IsPlayerVisible));
+            examinables.AddRange(Overworld.CurrentRegion.CurrentRoom.Exits.Where(x => x.IsPlayerVisible));
+            return examinables.ToArray();
+        }
+
+        /// <summary>
         /// Refresh the current frame.
         /// </summary>
         private void Refresh()
@@ -428,14 +459,14 @@ namespace BP.AdventureFramework.Logic
         /// <param name="message">Any message to display.</param>
         private void Refresh(string message)
         {
-            Refresh(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, Player, message, DisplayCommandListInSceneFrames, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
+            Refresh(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, message, DisplayCommandListInSceneFrames ? Interpreter.GetContextualCommandHelp(this) : null, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
         /// Refresh the display.
         /// </summary>
         /// <param name="frame">The frame to display.</param>
-        private void Refresh(Frame frame)
+        private void Refresh(IFrame frame)
         {
             CurrentFrame = frame;
             DrawFrame(frame);
@@ -446,7 +477,7 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void DisplayHelp()
         {
-            Refresh(FrameBuilders.HelpFrameBuilder.Build("Help", "Provides help for in game commands", Interpreter.SupportedCommands, DisplaySize.Width, DisplaySize.Height));
+            Refresh(FrameBuilders.HelpFrameBuilder.Build("Help", string.Empty, Interpreter.SupportedCommands, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
@@ -458,11 +489,21 @@ namespace BP.AdventureFramework.Logic
         }
 
         /// <summary>
-        /// Display the about message.
+        /// Display the about frame.
         /// </summary>
         public void DisplayAbout()
         {
             Refresh(FrameBuilders.AboutFrameBuilder.Build("About", this, DisplaySize.Width, DisplaySize.Height));
+        }
+
+        /// <summary>
+        /// Display a transition frame.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="message">The message.</param>
+        public void DisplayTransition(string title, string message)
+        {
+            Refresh(FrameBuilders.TransitionFrameBuilder.Build(title, message, DisplaySize.Width, DisplaySize.Height));
         }
 
         #endregion
@@ -473,31 +514,23 @@ namespace BP.AdventureFramework.Logic
         /// Create a new callback for generating instances of a game.
         /// </summary>
         /// <param name="name">The name of the game.</param>
+        /// <param name="introduction">An introduction to the game.</param>
         /// <param name="description">A description of the game.</param>
-        /// <param name="overworldGenerator">A function to generate the Overworld with.</param>
-        /// <param name="playerGenerator">The function to generate the Player with.</param>
+        /// <param name="overworldGenerator">A function to generate the overworld with.</param>
+        /// <param name="playerGenerator">The function to generate the player with.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
+        public static GameCreationCallback Create(string name, string introduction, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
         {
-            var stringLayoutBuilder = new StringLayoutBuilder();
-
-            var frameBuilderCollection = new FrameBuilderCollection(
-                new LegacyTitleFrameBuilder(stringLayoutBuilder),
-                new LegacySceneFrameBuilder(stringLayoutBuilder, new LegacyRoomMapBuilder(stringLayoutBuilder)),
-                new LegacyRegionMapFrameBuilder(stringLayoutBuilder, new LegacyRegionMapBuilder(stringLayoutBuilder)),
-                new LegacyHelpFrameBuilder(stringLayoutBuilder),
-                new LegacyEndFrameBuilder(stringLayoutBuilder),
-                new LegacyAboutFrameBuilder(stringLayoutBuilder));
-
             return Create(
                 name,
+                introduction,
                 description,
                 overworldGenerator,
                 playerGenerator,
                 completionCondition,
                 DefaultSize,
-                frameBuilderCollection,
+                FrameBuilderCollections.Color,
                 ExitMode.ReturnToTitleScreen,
                 DefaultErrorPrefix,
                 DefaultInterpreter);
@@ -507,9 +540,10 @@ namespace BP.AdventureFramework.Logic
         ///  Create a new callback for generating instances of a game.
         /// </summary>
         /// <param name="name">The name of the game.</param>
+        /// <param name="introduction">An introduction to the game.</param>
         /// <param name="description">A description of the game.</param>
-        /// <param name="overworldGenerator">A function to generate the Overworld with.</param>
-        /// <param name="playerGenerator">The function to generate the Player with.</param>
+        /// <param name="overworldGenerator">A function to generate the overworld with.</param>
+        /// <param name="playerGenerator">The function to generate the player with.</param>
         /// <param name="displaySize">The display size.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
         /// <param name="frameBuilders">The collection of frame builders to use to render the game.</param>
@@ -517,13 +551,13 @@ namespace BP.AdventureFramework.Logic
         /// <param name="errorPrefix">A prefix to use when displaying errors.</param>
         /// <param name="interpreter">The interpreter.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Size displaySize, FrameBuilderCollection frameBuilders, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
+        public static GameCreationCallback Create(string name, string introduction, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Size displaySize, FrameBuilderCollection frameBuilders, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
         {
             return () =>
             {
                 var pC = playerGenerator?.Invoke();
 
-                var game = new Game(name, description, pC, overworldGenerator?.Invoke(pC), displaySize)
+                var game = new Game(name, introduction, description, pC, overworldGenerator?.Invoke(pC), displaySize)
                 {
                     FrameBuilders = frameBuilders,
                     CompletionCondition = completionCondition,
@@ -594,15 +628,6 @@ namespace BP.AdventureFramework.Logic
             var actualDisplaySize = new Size(game.DisplaySize.Width + 1, game.DisplaySize.Height);
             Console.SetWindowSize(actualDisplaySize.Width, actualDisplaySize.Height);
             Console.SetBufferSize(actualDisplaySize.Width, actualDisplaySize.Height);
-        }
-
-        #endregion
-
-        #region EventHandlers
-
-        private void Player_Died(object sender, string e)
-        {
-            Refresh(FrameBuilders.CompletionFrameBuilder.Build("Game Over", e, DisplaySize.Width, DisplaySize.Height));
         }
 
         #endregion

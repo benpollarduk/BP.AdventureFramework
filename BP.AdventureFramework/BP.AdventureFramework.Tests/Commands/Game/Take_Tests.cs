@@ -11,68 +11,93 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Take_Tests
     {
         [TestMethod]
-        public void GivenNoCharacter_WhenInvoke_ThenNone()
+        public void GivenNoCharacter_WhenInvoke_ThenError()
         {
             var room = new Room(Identifier.Empty, Description.Empty);
-            var command = new Take(null, null, room);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, null, null).Invoke();
+            var command = new Take(null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenNoItem_WhenInvoke_ThenNone()
+        public void GivenNoItem_WhenInvoke_ThenError()
         {
             var room = new Room(Identifier.Empty, Description.Empty);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
-            var command = new Take(character, null, room);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
+            var command = new Take(null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenRoomDoesNotContainThatItem_WhenInvoke_ThenNone()
+        public void GivenRoomDoesNotContainThatItem_WhenInvoke_ThenError()
         {
             var room = new Room(Identifier.Empty, Description.Empty);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
-            var command = new Take(character, item, room);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
+            var command = new Take(item);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
 
         [TestMethod]
-        public void GivenItemIsNotTakeable_WhenInvoke_ThenNone()
+        public void GivenItemIsNotTakeable_WhenInvoke_ThenError()
         {
             var room = new Room(Identifier.Empty, Description.Empty);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty);
             room.AddItem(item);
-            var command = new Take(character, item, room);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
+            var command = new Take(item);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenItemIsDroppable_WhenInvoke_ThenReacted()
+        public void GivenItemIsDroppable_WhenInvoke_ThenOK()
         {
             var room = new Room(Identifier.Empty, Description.Empty);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
             room.AddItem(item);
-            var command = new Take(character, item, room);
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room, 0, 0, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
+            var command = new Take(item);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
     }
 }

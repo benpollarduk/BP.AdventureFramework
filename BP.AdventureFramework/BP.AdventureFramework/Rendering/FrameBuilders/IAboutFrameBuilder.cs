@@ -1,9 +1,10 @@
 ﻿using BP.AdventureFramework.Logic;
+using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders
 {
     /// <summary>
-    /// Represents any objects that can build about frames.
+    /// Represents any object that can build about frames.
     /// </summary>
     public interface IAboutFrameBuilder
     {
@@ -14,6 +15,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         /// <param name="game">The game.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        Frame Build(string title, Game game, int width, int height);
+        IFrame Build(string title, Game game, int width, int height);
     }
 }

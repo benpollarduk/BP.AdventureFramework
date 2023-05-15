@@ -10,7 +10,7 @@
         /// <summary>
         /// Get the description.
         /// </summary>
-        public string Desciption { get; protected set; }
+        public string Description { get; protected set; }
 
         #endregion
 
@@ -21,7 +21,7 @@
         /// </summary>
         protected Result()
         {
-            Desciption = "There was no effect.";
+            Description = "There was no effect.";
         }
 
         #endregion

@@ -1,7 +1,9 @@
-﻿namespace BP.AdventureFramework.Rendering.FrameBuilders
+﻿using BP.AdventureFramework.Rendering.Frames;
+
+namespace BP.AdventureFramework.Rendering.FrameBuilders
 {
     /// <summary>
-    /// Represents any objects that can build title frames.
+    /// Represents any object that can build title frames.
     /// </summary>
     public interface ITitleFrameBuilder
     {
@@ -12,6 +14,6 @@
         /// <param name="description">The description.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        Frame Build(string title, string description, int width, int height);
+        IFrame Build(string title, string description, int width, int height);
     }
 }

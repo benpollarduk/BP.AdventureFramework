@@ -1,11 +1,11 @@
 ﻿using System;
-using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
+using System.Collections.Generic;
+using System.Linq;
+using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Utils;
-using BP.AdventureFramework.Utils.Generation;
-using BP.AdventureFramework.Utils.Generation.Themes;
+using BP.AdventureFramework.Utilities.Generation;
+using BP.AdventureFramework.Utilities.Generation.Themes;
 
 namespace BP.AdventureFramework.Examples
 {
@@ -15,91 +15,40 @@ namespace BP.AdventureFramework.Examples
         {
             try
             {
-                GameCreationCallback creator = null;
-
-                while (creator == null)
+                OverworldCreationCallback overworldCreator = x =>
                 {
-                    Console.Clear();
+                    var options = new GameGenerationOptions { MaximumRegions = 1, MinimumRegions = 1 };
+                    var generator = new GameGenerator(string.Empty, string.Empty);
+                    var castle = generator.Generate(options, new Castle(), out _).Make();
+                    var evergaldes = Everglades.GenerateRegion(x);
+                    var flat = Flat.GenerateRegion(x);
+                    var zelda = Zelda.GenerateRegion(x);
 
-                    Console.WriteLine("Select Demo Game:");
-                    Console.WriteLine("1. Everglades");
-                    Console.WriteLine("2. Flat");
-                    Console.WriteLine("3. Zelda");
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine("4. Generate (Dungeon - Experimental)");
-                    Console.WriteLine("5. Generate (Forest - Experimental)");
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                    GameGenerationOptions options;
-                    GameGenerator generator;
-                    OverworldMaker overworld;
-
-                    switch (Console.ReadKey().Key)
+                    var regions = new List<Region>
                     {
-                        case ConsoleKey.NumPad1:
-                        case ConsoleKey.D1:
+                        evergaldes,
+                        flat,
+                        zelda,
+                        castle.Regions.First()
+                    };
+                    
+                    var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");
+                    overworld.AddRegion(Hub.GenerateHub(regions.ToArray(), overworld));
 
-                            creator = Game.Create("A Strange World",
-                                "You wake up at the entrance to a small clearing...",
-                                Everglades.GenerateOverworld,
-                                Everglades.GeneratePC,
-                                g => CompletionCheckResult.NotComplete);
+                    foreach (var region in regions)
+                        overworld.AddRegion(region);
 
-                            break;
+                    return overworld;
+                };
 
-                        case ConsoleKey.NumPad2:
-                        case ConsoleKey.D2:
+                var about = "This is a short demo of the BP.AdventureFramework made up from test chunks of games that were build to test different features during development.";
 
-                            creator = Game.Create("Escape From Your Flat!",
-                                "You wake up in the bedroom of your flat. You're a little disorientated, but then again you are most mornings! You're itching for some punk rock!",
-                                Flat.GenerateOverworld,
-                                Flat.GeneratePC,
-                                g => CompletionCheckResult.NotComplete);
-
-                            break;
-
-                        case ConsoleKey.NumPad3:
-                        case ConsoleKey.D3:
-
-                            creator = Game.Create("The Legend Of Zelda: Links Texting!",
-                                "It's a sunny day in Hyrule and Link is in his tree hut...",
-                                Zelda.GenerateOverworld,
-                                Zelda.GeneratePC,
-                                Zelda.DetermineIfGameHasCompleted);
-
-                            break;
-
-                        case ConsoleKey.NumPad4:
-                        case ConsoleKey.D4:
-
-                            options = new GameGenerationOptions();
-                            generator = new GameGenerator(Identifier.Empty, Description.Empty);
-                            overworld = generator.Generate(options, new Dungeon(), out var dungeonDeed);
-
-                            creator = Game.Create($"Dungeon generated with {dungeonDeed}",
-                                "",
-                                p => overworld.Make(),
-                                () => new PlayableCharacter("You", "Just you."),
-                                g => CompletionCheckResult.NotComplete);
-
-                            break;
-
-                        case ConsoleKey.NumPad5:
-                        case ConsoleKey.D5:
-
-                            options = new GameGenerationOptions();
-                            generator = new GameGenerator(Identifier.Empty, Description.Empty);
-                            overworld = generator.Generate(options, new Forest(), out var forestSeed);
-
-                            creator = Game.Create($"Forest generated with {forestSeed}",
-                                "",
-                                p => overworld.Make(),
-                                () => new PlayableCharacter("You", "Just you."),
-                                g => CompletionCheckResult.NotComplete);
-
-                            break;
-                    }
-                }
+                var creator = Game.Create("BP.AdventureFramework Demo",
+                    about,
+                    about,
+                    x => overworldCreator(x), 
+                    Hub.GeneratePC,
+                    g => CompletionCheckResult.NotComplete);
 
                 Game.Execute(creator);
             }

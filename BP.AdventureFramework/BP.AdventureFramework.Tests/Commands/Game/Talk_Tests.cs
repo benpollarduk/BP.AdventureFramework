@@ -10,35 +10,37 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Talk_Tests
     {
         [TestMethod]
-        public void GivenNoTarget_WhenInvoke_ThenNone()
+        public void GivenNoTarget_WhenInvoke_ThenError()
         {
             var command = new Talk(null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(null);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenTargetIsDead_WhenInvoke_ThenNone()
+        public void GivenTargetIsDead_WhenInvoke_ThenError()
         {
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty, null, false, null);
             var command = new Talk(npc);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenTarget_WhenInvoke_ThenReacted()
+        public void GivenTarget_WhenInvoke_ThenInternal()
         {
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty);
             var command = new Talk(npc);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.Internal, result.Result);
         }
     }
 }

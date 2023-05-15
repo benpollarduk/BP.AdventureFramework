@@ -23,7 +23,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get the exits.
         /// </summary>
-        public List<Exit> Exits { get; } = new List<Exit>();
+        public Exit[] Exits { get; private set; }
 
         /// <summary>
         /// Get all unlocked exits.
@@ -33,12 +33,12 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get the characters of this Room
         /// </summary>
-        public List<NonPlayableCharacter> Characters { get; } = new List<NonPlayableCharacter>();
+        public NonPlayableCharacter[] Characters { get; private set; } = new NonPlayableCharacter[0];
 
         /// <summary>
         /// Get the items in this Room.
         /// </summary>
-        public List<Item> Items { get; } = new List<Item>();
+        public Item[] Items { get; private set; }
 
         /// <summary>
         /// Get or set the interaction.
@@ -50,12 +50,12 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="direction">The direction of an exit.</param>
         /// <returns>The exit.</returns>
-        public Exit this[CardinalDirection direction] => Exits.FirstOrDefault(e => e.Direction == direction);
+        public Exit this[Direction direction] => Exits.FirstOrDefault(e => e.Direction == direction);
 
         /// <summary>
         /// Get which direction this Room was entered from.
         /// </summary>
-        public CardinalDirection? EnteredFrom { get; private set; }
+        public Direction? EnteredFrom { get; private set; }
 
         #endregion
 
@@ -103,12 +103,8 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             Identifier = identifier;
             Description = description;
-
-            if (exits?.Any() ?? false)
-                Exits.AddRange(exits);
-            
-            if (items?.Any() ?? false)
-                Items.AddRange(items);
+            Exits = exits ?? new Exit[0];
+            Items = items ?? new Item[0];
         }
 
         #endregion
@@ -121,7 +117,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="character">The character to add.</param>
         public void AddCharacter(NonPlayableCharacter character)
         {
-           Characters.Add(character);
+            Characters = Characters.Add(character);
         }
 
         /// <summary>
@@ -130,7 +126,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="exit">The exit to add.</param>
         public void AddExit(Exit exit)
         {
-            Exits.Add(exit);
+            Exits = Exits.Add(exit);
         }
 
         /// <summary>
@@ -139,7 +135,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="item">The item to add.</param>
         public void AddItem(Item item)
         {
-            Items.Add(item);
+            Items = Items.Add(item);
         }
 
         /// <summary>
@@ -149,7 +145,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The item removed from this room.</returns>
         public void RemoveItem(Item item)
         {
-            Items.Remove(item);
+            Items = Items.Remove(item);
         }
 
         /// <summary>
@@ -158,8 +154,16 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="character">The character to remove.</param>
         public void RemoveCharacter(NonPlayableCharacter character)
         {
-            if (Characters.Contains(character))
-                Characters.Remove(character);
+            Characters = Characters.Remove(character);
+        }
+
+        /// <summary>
+        /// Remove an exit from the room.
+        /// </summary>
+        /// <param name="exit">The exit to remove.</param>
+        public void RemoveExit(Exit exit)
+        {
+            Exits = Exits.Remove(exit);
         }
 
         /// <summary>
@@ -171,14 +175,14 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             if (Items.Contains(target))
             {
-                Items.Remove(target as Item);
+                RemoveItem(target as Item);
                 return target;
             }
 
             if (!Characters.Contains(target))
                 return null;
 
-            Characters.Remove(target as NonPlayableCharacter);
+            RemoveCharacter(target as NonPlayableCharacter);
             return target;
         }
 
@@ -187,7 +191,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="direction">The direction to test.</param>
         /// <returns>If a move in the specified direction is possible.</returns>
-        public bool CanMove(CardinalDirection direction)
+        public bool CanMove(Direction direction)
         {
             return UnlockedExits.Any(x => x.Direction == direction);
         }
@@ -279,7 +283,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="direction">The direction to check.</param>
         /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
         /// <returns>If there is a locked exit in the specified direction.</returns>
-        public bool HasLockedExitInDirection(CardinalDirection direction, bool includeInvisibleExits = false)
+        public bool HasLockedExitInDirection(Direction direction, bool includeInvisibleExits = false)
         {
             return Exits.Any(x => x.Direction == direction && x.IsLocked && (includeInvisibleExits || x.IsPlayerVisible));
         }
@@ -290,7 +294,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="direction">The direction to check.</param>
         /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
         /// <returns>If there is a unlocked exit in the specified direction.</returns>
-        public bool HasUnlockedExitInDirection(CardinalDirection direction, bool includeInvisibleExits = false)
+        public bool HasUnlockedExitInDirection(Direction direction, bool includeInvisibleExits = false)
         {
             return Exits.Any(x => x.Direction == direction && !x.IsLocked && (includeInvisibleExits || x.IsPlayerVisible));
         }
@@ -311,7 +315,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="direction">The direction of the exit to check for.</param>
         /// <param name="includeInvisibleExits">Specify if invisible exits should be included.</param>
         /// <returns>True if the exit exists, else false.</returns>
-        public bool ContainsExit(CardinalDirection direction, bool includeInvisibleExits = false)
+        public bool ContainsExit(Direction direction, bool includeInvisibleExits = false)
         {
             return Exits.Any(exit => exit.Direction == direction && (includeInvisibleExits || exit.IsPlayerVisible));
         }
@@ -323,7 +327,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="includeInvisibleExits">Specify if invisible exists should be included.</param>
         /// <param name="exit">The exit.</param>
         /// <returns>True if the exit was found.</returns>
-        public bool FindExit(CardinalDirection direction, bool includeInvisibleExits, out Exit exit)
+        public bool FindExit(Direction direction, bool includeInvisibleExits, out Exit exit)
         {
             var exits = Exits.Where(x => x.Direction == direction && (includeInvisibleExits || x.IsPlayerVisible)).ToArray();
 
@@ -490,7 +494,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// Handle movement into this GameLocation.
         /// </summary>
         /// <param name="fromDirection">The direction movement into this Room is from. Use null if there is no direction.</param>
-        public void MovedInto(CardinalDirection? fromDirection)
+        public void MovedInto(Direction? fromDirection)
         {
             EnteredFrom = fromDirection;
             HasBeenVisited = true;

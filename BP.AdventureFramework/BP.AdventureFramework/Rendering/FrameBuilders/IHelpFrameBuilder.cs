@@ -1,9 +1,10 @@
 ﻿using BP.AdventureFramework.Interpretation;
+using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders
 {
     /// <summary>
-    /// Represents any objects that can build help frames.
+    /// Represents any object that can build help frames.
     /// </summary>
     public interface IHelpFrameBuilder
     {
@@ -15,6 +16,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         /// <param name="commandHelp">The command help.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        Frame Build(string title, string description, CommandHelp[] commandHelp, int width, int height);
+        IFrame Build(string title, string description, CommandHelp[] commandHelp, int width, int height);
     }
 }

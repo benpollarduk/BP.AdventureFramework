@@ -1,9 +1,10 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Rendering.Frames;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders
 {
     /// <summary>
-    /// Represents any objects that can build region map frames.
+    /// Represents any object that can build region map frames.
     /// </summary>
     public interface IRegionMapFrameBuilder
     {
@@ -13,6 +14,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         /// <param name="region">The region.</param>
         /// <param name="width">The width of the frame.</param>
         /// <param name="height">The height of the frame.</param>
-        Frame Build(Region region, int width, int height);
+        IFrame Build(Region region, int width, int height);
     }
 }

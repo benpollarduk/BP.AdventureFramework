@@ -10,29 +10,35 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Move_Tests
     {
         [TestMethod]
-        public void GivenCantMove_WhenInvoke_ThenNone()
+        public void GivenCantMove_WhenInvoke_ThenError()
         {
             var region = new Region(Identifier.Empty, Description.Empty);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.North)), 0, 0);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.South)), 0, 1);
-            var command = new Move(region, CardinalDirection.East);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.North)), 0, 0, 0);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.South)), 0, 1, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, null, null).Invoke();
+            var command = new Move(Direction.East);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenCanMove_WhenInvoke_ThenReacted()
+        public void GivenCanMove_WhenInvoke_ThenOK()
         {
             var region = new Region(Identifier.Empty, Description.Empty);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.North)), 0, 0);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.South)), 0, 1);
-            var command = new Move(region, CardinalDirection.North);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.North)), 0, 0, 0);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.South)), 0, 1, 0);
+            var overworld = new Overworld(string.Empty, string.Empty);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, null, null).Invoke();
+            var command = new Move(Direction.North);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
     }
 }

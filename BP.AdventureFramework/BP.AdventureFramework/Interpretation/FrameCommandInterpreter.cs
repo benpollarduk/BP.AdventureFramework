@@ -5,7 +5,7 @@ using BP.AdventureFramework.Logic;
 namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
-    /// Represents an object that can be used for interpreting frame commands.
+    /// Provides an object that can be used for interpreting frame commands.
     /// </summary>
     internal class FrameCommandInterpreter : IInterpreter
     {
@@ -62,18 +62,28 @@ namespace BP.AdventureFramework.Interpretation
         public InterpretationResult Interpret(string input, Game game)
         {
             if (input.Equals(CommandsOff, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new CommandsOff(game));
+                return new InterpretationResult(true, new CommandsOff());
 
             if (input.Equals(CommandsOn, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new CommandsOn(game));
+                return new InterpretationResult(true, new CommandsOn());
 
             if (input.Equals(KeyOff, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new KeyOff(game));
+                return new InterpretationResult(true, new KeyOff());
 
             if (input.Equals(KeyOn, StringComparison.CurrentCultureIgnoreCase))
-                return new InterpretationResult(true, new KeyOn(game));
+                return new InterpretationResult(true, new KeyOn());
 
             return InterpretationResult.Fail;
+        }
+
+        /// <summary>
+        /// Get contextual command help for a game, based on its current state.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>The contextual help.</returns>
+        public CommandHelp[] GetContextualCommandHelp(Game game)
+        {
+            return new CommandHelp[0];
         }
 
         #endregion

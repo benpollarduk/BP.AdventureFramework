@@ -12,29 +12,29 @@ namespace BP.AdventureFramework.Tests.Commands.Global
     public class About_Tests
     {
         [TestMethod]
-        public void GivenNullGame_WhenInvoke_ThenNone()
+        public void GivenNullGame_WhenInvoke_ThenError()
         {
-            var command = new About(null);
+            var command = new About();
 
-            var result = command.Invoke();
+            var result = command.Invoke(null);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenValidGame_WhenInvoke_ThenSelfContained()
+        public void GivenValidGame_WhenInvoke_ThenInternal()
         {
             var overworld = new Overworld(Identifier.Empty, Description.Empty);
             var region = new Region(Identifier.Empty, Description.Empty);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.North)), 0, 0);
-            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.South)), 0, 1);
-            overworld.Regions.Add(region);
-            var game = Logic.Game.Create(string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
-            var command = new About(game);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.North)), 0, 0, 0);
+            region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.South)), 0, 1, 0);
+            overworld.AddRegion(region);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var command = new About();
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.SelfContained, result.Result);
+            Assert.AreEqual(ReactionResult.Internal, result.Result);
         }
     }
 }

@@ -296,5 +296,25 @@ namespace BP.AdventureFramework.Tests.Extensions
 
             Assert.AreEqual(3, result);
         }
+
+        [TestMethod]
+        public void GivenEmptyString_WhenToSpeech_ThenReturn2SpeechMarks()
+        {
+            var value = string.Empty;
+
+            var result = value.ToSpeech();
+
+            Assert.AreEqual("\"\"", result);
+        }
+
+        [TestMethod]
+        public void GivenABC_WhenToSpeech_ThenReturnSpeechMarkABCSpeechMark()
+        {
+            var value = "ABC";
+
+            var result = value.ToSpeech();
+
+            Assert.AreEqual("\"ABC\"", result);
+        }
     }
 }

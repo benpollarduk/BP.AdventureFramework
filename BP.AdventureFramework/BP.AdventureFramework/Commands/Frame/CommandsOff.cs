@@ -7,41 +7,20 @@ namespace BP.AdventureFramework.Commands.Frame
     /// </summary>
     internal class CommandsOff : ICommand
     {
-        #region Properties
-
-        /// <summary>
-        /// Get the game.
-        /// </summary>
-        public Logic.Game Game { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the CommandsOff class.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        public CommandsOff(Logic.Game game)
-        {
-            Game = game;
-        }
-
-        #endregion
-
         #region Implementation of ICommand
 
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Game == null)
-                return new Reaction(ReactionResult.None, "No game specified.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
 
-            Game.DisplayCommandListInSceneFrames = false;
-            return new Reaction(ReactionResult.Reacted, "Commands have been turned off.");
+            game.DisplayCommandListInSceneFrames = false;
+            return new Reaction(ReactionResult.OK, "Commands have been turned off.");
         }
 
         #endregion

@@ -1,12 +1,13 @@
 # Introduction 
 .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
 
-![image](https://user-images.githubusercontent.com/129943363/232739390-228b490d-fda2-4d1c-abef-b968980616c0.png)
+![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/57a5ce48-b35a-402b-bfbc-f4840e249211)
 
 Provides simple classes for developing game elements:
   * Interface and base class for examinable objects:
     * Examination returns a description of the object.
-    * Descriptions can be conditional, with different results generated from the game state
+    * Descriptions can be conditional, with different results generated from the game state.
+    * All items can contain custom commands.
   * Hierarchical environments:
     * Overworld
       * Acts as a container of regions.
@@ -15,7 +16,7 @@ Provides simple classes for developing game elements:
     * Room
       * The player traverses through the rooms.
       * Provides a description of itself.
-      * Supports up to 4 exits. Each exit can be locked until a condition is met.
+      * Supports up to 6 exits. Each exit can be locked until a condition is met.
       * Can contain multiple items.
   * NPC's:
     * Support provided for conversations with the player.
@@ -31,7 +32,7 @@ The framework provides keywords for interacting with game elements:
   * Take - take an item.
   * Talk to - talk to a NPC.
   * Use on - use an item. Items can be used on a variety of targets.
-  * N, S, E, W - traverse through the rooms in a region.
+  * N, S, E, W, U, D - traverse through the rooms in a region.
   
 The framework also provides global commands to help with game flow:
   * About - display version information.
@@ -49,13 +50,16 @@ All game management is provided by the framework, including:
     * Map frame.
     * Title frame.
     * Completion frame.
+    * Game over frame.
+    * Transition frame.
+    * Conversation frame.
   * Input parsing.
   * State management.
   * Game creation.
   
 Maps are automatically generated for regions:
 
-![image](https://user-images.githubusercontent.com/129943363/232739597-cece8804-095b-4ee8-a945-dc66d1888e7f.png)
+![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/e6855776-b729-4500-9bad-7b4d3e1caaba)
 
 # Prerequisites
  * Windows
@@ -70,20 +74,20 @@ Maps are automatically generated for regions:
 
 ```csharp
 // create player
-var player = new PlayableCharacter(new Identifier("Link"), new Description("A young Kokiri boy on a quest to save Princess Zelda."));
+var player = new PlayableCharacter(new Identifier("Dave"), new Description("A young boy on a quest to find the meaning of life."));
 
 // create region maker and add room
-var regionMaker = new RegionMaker(new Identifier("Death Mountain"), new Description("An imposing volcano just East of Castle Town."))
+var regionMaker = new RegionMaker(new Identifier("Mountain"), new Description("An imposing volcano just East of town."))
 {
     [0, 0] = new Room(new Identifier("Cavern"), new Description("A dark cavern set in to the base of the mountain."))
 };
 
 // create overworld maker
-var overworldMaker = new OverworldMaker(new Identifier("Hyrule"), new Description("An ancient kingdom."), regionMaker);
+var overworldMaker = new OverworldMaker(new Identifier("Daves World"), new Description("An ancient kingdom."), regionMaker);
 
 // create callback for generating games
-var gameCreator = Game.Create("Zelda",
-    "A very low budget Zelda adventure.",
+var gameCreator = Game.Create("The Life Of Dave",
+    "A very low budget adventure.",
     x => overworldMaker.Make(),
     () => player,
     x => false);

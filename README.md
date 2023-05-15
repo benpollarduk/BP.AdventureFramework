@@ -34,7 +34,7 @@ The framework provides keywords for interacting with game elements:
   * Use on - use an item. Items can be used on a variety of targets.
   * N, S, E, W, U, D - traverse through the rooms in a region.
 
-Conversations with NPCs can be entered in to with an easy to use interface to display dialogue and provide responses:
+Conversations with NPC's can be entered in to with an easy to use interface to display dialogue and provide responses:
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/5ed1afc0-1ab8-4d35-9c90-dd848f18bfda)
   

@@ -63,7 +63,7 @@ All game management is provided by the framework, including:
   
 Maps are automatically generated for regions:
 
-![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/e6855776-b729-4500-9bad-7b4d3e1caaba)
+![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/b6c05233-6856-4103-be44-be1c73a85874)
 
 # Prerequisites
  * Windows

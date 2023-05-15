@@ -15,7 +15,7 @@ namespace BP.AdventureFramework.Tests.Utilities.Generation.Simple
         public void GivenDefaults_WhenGenerateRegion_ThenNotNull()
         {
             var generator = new RegionGenerator();
-            var theme = new All();
+            var theme = new Castle();
 
             var result = generator.GenerateRegion(Identifier.Empty,
                 Description.Empty, 
@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Tests.Utilities.Generation.Simple
         [TestMethod]
         public void GivenDefaults_WhenGenerateItems_ThenNotNull()
         {
-            var theme = new All();
+            var theme = new Castle();
             var result = RegionGenerator.GenerateItems(new Random(1234),
                 new ItemGenerator(new ExaminableGenerator(theme.TakeableItemNouns, theme.TakeableItemAdjectives, new DescriptionGenerator(), true), true),
                 new GameGenerationOptions(),

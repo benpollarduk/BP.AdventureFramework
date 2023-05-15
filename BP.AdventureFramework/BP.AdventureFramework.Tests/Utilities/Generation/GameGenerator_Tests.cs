@@ -14,7 +14,7 @@ namespace BP.AdventureFramework.Tests.Utilities.Generation
             var options = new GameGenerationOptions();
             var maker = new GameGenerator(Identifier.Empty, Description.Empty); 
 
-            var result = maker.Generate(1234, options, new All());
+            var result = maker.Generate(1234, options, new Castle());
 
             Assert.IsNotNull(result);
         }

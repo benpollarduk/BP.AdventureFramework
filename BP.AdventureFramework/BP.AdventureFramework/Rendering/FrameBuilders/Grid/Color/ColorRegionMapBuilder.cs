@@ -149,7 +149,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             if (isCurrentRoom)
                 gridStringBuilder.SetCell(left + 2, top + 1, Player, PlayerColor);
             else
-                gridStringBuilder.SetCell(left + 3, top + 1, EmptySpace, color);
+                gridStringBuilder.SetCell(left + 2, top + 1, EmptySpace, color);
 
             if (room.HasLockedExitInDirection(Direction.Down))
                 gridStringBuilder.SetCell(left + 3, top + 1, LockedExit, LockedExitColor);

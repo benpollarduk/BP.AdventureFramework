@@ -11,9 +11,9 @@ namespace BP.AdventureFramework.Commands.Game
         #region Properties
 
         /// <summary>
-        /// Get the target.
+        /// Get the converser.
         /// </summary>
-        public ITalkative Target { get; }
+        public IConverser Converser { get; }
 
         #endregion
 
@@ -22,10 +22,10 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Initializes a new instance of the Talk command.
         /// </summary>
-        /// <param name="target">The target.</param>
-        public Talk(ITalkative target)
+        /// <param name="converser">The converser.</param>
+        public Talk(IConverser converser)
         {
-            Target = target;
+            Converser = converser;
         }
 
         #endregion
@@ -35,18 +35,21 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Target == null)
-                return new Reaction(ReactionResult.None, "No-one is around to talk to.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
 
-            if (Target is Character character && !character.IsAlive)
-            {
-                return new Reaction(ReactionResult.None, $"{character.Identifier.Name} is dead.");
-            }
+            if (Converser == null)
+                return new Reaction(ReactionResult.Error, "No-one is around to talk to.");
 
-            return new Reaction(ReactionResult.Reacted, Target.Talk());
+            if (Converser is Character character && !character.IsAlive)
+                return new Reaction(ReactionResult.Error, $"{character.Identifier.Name} is dead.");
+
+            game.StartConversation(Converser);
+            return new Reaction(ReactionResult.Internal, "Engaged in conversation.");
         }
 
         #endregion

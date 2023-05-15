@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
@@ -11,7 +12,7 @@ using BP.AdventureFramework.Logic;
 namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
-    /// Represents an object that can be used for interpreting game commands.
+    /// Provides an object that can be used for interpreting game commands.
     /// </summary>
     internal class GameCommandInterpreter : IInterpreter
     {
@@ -58,9 +59,34 @@ namespace BP.AdventureFramework.Interpretation
         public const string WestShort = "W";
 
         /// <summary>
+        /// Get the up command.
+        /// </summary>
+        public const string Up = "Up";
+
+        /// <summary>
+        /// Get the up (short) command.
+        /// </summary>
+        public const string UpShort = "U";
+
+        /// <summary>
+        /// Get the down command.
+        /// </summary>
+        public const string Down = "Down";
+
+        /// <summary>
+        /// Get the down (short) command.
+        /// </summary>
+        public const string DownShort = "D";
+
+        /// <summary>
         /// Get the drop command.
         /// </summary>
         public const string Drop = "Drop";
+
+        /// <summary>
+        /// Get the drop (short) command.
+        /// </summary>
+        public const string DropShort = "R";
 
         /// <summary>
         /// Get the use command.
@@ -78,6 +104,11 @@ namespace BP.AdventureFramework.Interpretation
         public const string Talk = "Talk";
 
         /// <summary>
+        /// Get the talk (short) command.
+        /// </summary>
+        public const string TalkShort = "L";
+
+        /// <summary>
         /// Get the to command.
         /// </summary>
         public const string To = "To";
@@ -88,9 +119,19 @@ namespace BP.AdventureFramework.Interpretation
         public const string Take = "Take";
 
         /// <summary>
+        /// Get the take (short) command.
+        /// </summary>
+        public const string TakeShort = "T";
+
+        /// <summary>
         /// Get the examine command.
         /// </summary>
         public const string Examine = "Examine";
+
+        /// <summary>
+        /// Get the examine (short) command.
+        /// </summary>
+        public const string ExamineShort = "X";
 
         /// <summary>
         /// Get the me command.
@@ -121,10 +162,16 @@ namespace BP.AdventureFramework.Interpretation
         /// </summary>
         public static CommandHelp[] DefaultSupportedCommands { get; } =
         {
-            new CommandHelp($"{Drop} __", "Drop an item"),
-            new CommandHelp($"{Examine} __", "Examine anything in the game"),
-            new CommandHelp($"{Take} __", "Take an item"),
-            new CommandHelp($"{Talk} {To.ToLower()} __", "Talk to a character"),
+            new CommandHelp($"{North}/{NorthShort}", "Move north"),
+            new CommandHelp($"{East}/{EastShort}", "Move east"),
+            new CommandHelp($"{South}/{SouthShort}", "Move south"),
+            new CommandHelp($"{West}/{WestShort}", "Move west"),
+            new CommandHelp($"{Up}/{UpShort}", "Move up"),
+            new CommandHelp($"{Down}/{DownShort}", "Move down"),
+            new CommandHelp($"{Drop}/{DropShort} __", "Drop an item"),
+            new CommandHelp($"{Examine}/{ExamineShort} __", "Examine anything in the game"),
+            new CommandHelp($"{Take}/{TakeShort} __", "Take an item"),
+            new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} __", "Talk to a character"),
             new CommandHelp($"{Use} __", "Use an item on the this Room"),
             new CommandHelp($"{Use} __ {On.ToLower()}", "Use an item on another item or character")
         };
@@ -133,20 +180,27 @@ namespace BP.AdventureFramework.Interpretation
 
         #region StaticMethods
 
-        private static void SplitTextToNounAndObject(string text, out string noun, out string obj)
+        /// <summary>
+        /// Split text in to a verb and a noun.
+        /// </summary>
+        /// <param name="text">The text to split.</param>
+        /// <param name="verb">The verb.</param>
+        /// <param name="noun">The noun.</param>
+        private static void SplitTextToVerbAndNoun(string text, out string verb, out string noun)
         {
             // if there is a space
             if (text.IndexOf(" ", StringComparison.Ordinal) > -1)
             {
-                // noun all text up to space
-                noun = text.Substring(0, text.IndexOf(" ", StringComparison.Ordinal)).Trim();
-                // object is all text after space
-                obj = text.Substring(text.IndexOf(" ", StringComparison.Ordinal)).Trim();
+                // verb all text up to space
+                verb = text.Substring(0, text.IndexOf(" ", StringComparison.Ordinal)).Trim();
+
+                // noun is all text after space
+                noun = text.Substring(text.IndexOf(" ", StringComparison.Ordinal)).Trim();
             }
             else
             {
-                noun = text;
-                obj = string.Empty;
+                verb = text;
+                noun = string.Empty;
             }
         }
 
@@ -159,16 +213,16 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>True if the input could be parsed, else false.</returns>
         private static bool TryParseDropCommand(string text, Game game, out ICommand command)
         {
-            SplitTextToNounAndObject(text, out var noun, out var obj);
+            SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Drop.Equals(noun, StringComparison.CurrentCultureIgnoreCase))
+            if (!Drop.Equals(verb, StringComparison.CurrentCultureIgnoreCase) && !DropShort.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
             {
                 command = null;
                 return false;
             }
 
-            game.Player.FindItem(obj, out var item);
-            command = new Drop(game.Player, item, game.Overworld.CurrentRegion.CurrentRoom);
+            game.Player.FindItem(noun, out var item);
+            command = new Drop(item);
             return true;
         }
 
@@ -181,9 +235,9 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>True if the input could be parsed, else false.</returns>
         private static bool TryParseTakeCommand(string text, Game game, out ICommand command)
         {
-            SplitTextToNounAndObject(text, out var noun, out var obj);
+            SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Take.Equals(noun, StringComparison.CurrentCultureIgnoreCase))
+            if (!Take.Equals(verb, StringComparison.CurrentCultureIgnoreCase) && !TakeShort.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
             {
                 command = null;
                 return false;
@@ -192,7 +246,7 @@ namespace BP.AdventureFramework.Interpretation
             Item item;
 
             // it no item specified then find the first takeable one
-            if (string.IsNullOrEmpty(obj))
+            if (string.IsNullOrEmpty(noun))
             {
                 item = game.Overworld.CurrentRegion.CurrentRoom.Items.FirstOrDefault(x => x.IsTakeable);
 
@@ -204,14 +258,14 @@ namespace BP.AdventureFramework.Interpretation
             }
             else
             {
-                if (!game.Overworld.CurrentRegion.CurrentRoom.FindItem(obj, out item))
+                if (!game.Overworld.CurrentRegion.CurrentRoom.FindItem(noun, out item))
                 {
                     command = new Unactionable("There is no such item in the room.");
                     return true;
                 }
             }
 
-            command = new Take(game.Player, item, game.Overworld.CurrentRegion.CurrentRoom);
+            command = new Take(item);
             return true;
         }
 
@@ -224,27 +278,27 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>True if the input could be parsed, else false.</returns>
         private static bool TryParseTalkCommand(string text, Game game, out ICommand command)
         {
-            SplitTextToNounAndObject(text, out var noun, out var obj);
+            SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Talk.Equals(noun, StringComparison.CurrentCultureIgnoreCase))
+            if (!Talk.Equals(verb, StringComparison.CurrentCultureIgnoreCase) && !TalkShort.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
             {
                 command = null;
                 return false;
             }
 
             // determine if a target has been specified
-            if (obj.Length > 3 && string.Equals(obj.Substring(0, 2), $"{To} ", StringComparison.CurrentCultureIgnoreCase))
+            if (noun.Length > 3 && string.Equals(noun.Substring(0, 2), $"{To} ", StringComparison.CurrentCultureIgnoreCase))
             {
-                obj = obj.Remove(0, 3);
+                noun = noun.Remove(0, 3);
 
-                if (game.Overworld.CurrentRegion.CurrentRoom.FindCharacter(obj, out var nPC))
+                if (game.Overworld.CurrentRegion.CurrentRoom.FindCharacter(noun, out var nPC))
                 {
                     command = new Talk(nPC);
                     return true;
                 }
             }
 
-            if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Count == 1)
+            if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Length == 1)
             {
                 command = new Talk(game.Overworld.CurrentRegion.CurrentRoom.Characters.First());
                 return true;
@@ -263,15 +317,15 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>True if the input could be parsed, else false.</returns>
         private static bool TryParseExamineCommand(string text, Game game, out ICommand command)
         {
-            SplitTextToNounAndObject(text, out var noun, out var obj);
+            SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Examine.Equals(noun, StringComparison.CurrentCultureIgnoreCase))
+            if (!verb.Equals(Examine, StringComparison.CurrentCultureIgnoreCase) && !verb.Equals(ExamineShort, StringComparison.CurrentCultureIgnoreCase))
             {
                 command = null;
                 return false;
             }
 
-            if (string.IsNullOrEmpty(obj))
+            if (string.IsNullOrEmpty(noun))
             {
                 // default to current room
                 command = new Examine(game.Overworld.CurrentRegion.CurrentRoom);
@@ -279,28 +333,28 @@ namespace BP.AdventureFramework.Interpretation
             }
 
             // check player items
-            if (game.Player.FindItem(obj, out var item))
+            if (game.Player.FindItem(noun, out var item))
             {
                 command = new Examine(item);
                 return true;
             }
 
             // check items in room
-            if (game.Overworld.CurrentRegion.CurrentRoom.FindItem(obj, out item))
+            if (game.Overworld.CurrentRegion.CurrentRoom.FindItem(noun, out item))
             {
                 command = new Examine(item);
                 return true;
             }
 
             // check characters in room
-            if (game.Overworld.CurrentRegion.CurrentRoom.FindCharacter(obj, out var character))
+            if (game.Overworld.CurrentRegion.CurrentRoom.FindCharacter(noun, out var character))
             {
                 command = new Examine(character);
                 return true;
             }
 
             // check exits to room
-            if (TryParseToCardinalDirection(obj, out var direction))
+            if (TryParseToDirection(noun, out var direction))
             {
                 if (game.Overworld.CurrentRegion.CurrentRoom.FindExit(direction, false, out var exit))
                 {
@@ -313,37 +367,37 @@ namespace BP.AdventureFramework.Interpretation
             }
 
             // check self examination
-            if (Me.Equals(obj, StringComparison.CurrentCultureIgnoreCase) || obj.EqualsExaminable(game.Player))
+            if (Me.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Player))
             {
                 command = new Examine(game.Player);
                 return true;
             }
 
             // check room examination
-            if (Room.Equals(obj, StringComparison.CurrentCultureIgnoreCase) || obj.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom))
+            if (Room.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom))
             {
                 command = new Examine(game.Overworld.CurrentRegion.CurrentRoom);
                 return true;
             }
 
             // check region examination
-            if (Region.Equals(obj, StringComparison.CurrentCultureIgnoreCase) || obj.EqualsExaminable(game.Overworld.CurrentRegion))
+            if (Region.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Overworld.CurrentRegion))
             {
                 command = new Examine(game.Overworld.CurrentRegion);
                 return true;
             }
 
             // check overworld examination
-            if (Overworld.Equals(obj, StringComparison.CurrentCultureIgnoreCase) || obj.EqualsExaminable(game.Overworld))
+            if (Overworld.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Overworld))
             {
                 command = new Examine(game.Overworld);
                 return true;
             }
 
             // unknown
-            if (!string.IsNullOrEmpty(obj))
+            if (!string.IsNullOrEmpty(noun))
             {
-                command = new Unactionable($"Can't examine {obj}.");
+                command = new Unactionable($"Can't examine {noun}.");
                 return true;
             }
 
@@ -361,24 +415,24 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>True if the input could be parsed, else false.</returns>
         private static bool TryParseUseOnCommand(string text, Game game, out ICommand command)
         {
-            SplitTextToNounAndObject(text, out var noun, out var obj);
+            SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Use.Equals(noun, StringComparison.CurrentCultureIgnoreCase))
+            if (!Use.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
             {
                 command = null;
                 return false;
             }
 
             IInteractWithItem target;
-            obj = obj.ToUpper();
+            noun = noun.ToUpper();
             var on = On.ToUpper();
-            var itemName = obj;
+            var itemName = noun;
 
-            if (obj.Contains($" {On.ToUpper()} "))
+            if (noun.Contains($" {On.ToUpper()} "))
             {
-                itemName = obj.Substring(0, obj.IndexOf($" {on} ", StringComparison.CurrentCultureIgnoreCase));
-                obj = obj.Replace(itemName, string.Empty);
-                var targetName = obj.Replace($" {on} ", string.Empty);
+                itemName = noun.Substring(0, noun.IndexOf($" {on} ", StringComparison.CurrentCultureIgnoreCase));
+                noun = noun.Replace(itemName, string.Empty);
+                var targetName = noun.Replace($" {on} ", string.Empty);
 
                 if (targetName.Equals(Me, StringComparison.CurrentCultureIgnoreCase))
                     target = game.Player;
@@ -398,43 +452,55 @@ namespace BP.AdventureFramework.Interpretation
                 return true;
             }
 
-            command = new UseOn(item, target, game.Player, game.Overworld.CurrentRegion.CurrentRoom);
+            command = new UseOn(item, target);
             return true;
         }
 
         /// <summary>
-        /// Try and parse a string to a CardinalDirection.
+        /// Try and parse a string to a Direction.
         /// </summary>
         /// <param name="text">The string to parse.</param>
         /// <param name="direction">The direction.</param>
         /// <returns>The result of the parse.</returns>
-        private static bool TryParseToCardinalDirection(string text, out CardinalDirection direction)
+        private static bool TryParseToDirection(string text, out Direction direction)
         {
             if (text.Equals(North, StringComparison.CurrentCultureIgnoreCase) || text.Equals(NorthShort, StringComparison.CurrentCultureIgnoreCase))
             {
-                direction = CardinalDirection.North;
+                direction = Direction.North;
                 return true;
             }
 
             if (text.Equals(East, StringComparison.CurrentCultureIgnoreCase) || text.Equals(EastShort, StringComparison.CurrentCultureIgnoreCase))
             {
-                direction = CardinalDirection.East;
+                direction = Direction.East;
                 return true;
             }
 
             if (text.Equals(South, StringComparison.CurrentCultureIgnoreCase) || text.Equals(SouthShort, StringComparison.CurrentCultureIgnoreCase))
             {
-                direction = CardinalDirection.South;
+                direction = Direction.South;
                 return true;
             }
 
             if (text.Equals(West, StringComparison.CurrentCultureIgnoreCase) || text.Equals(WestShort, StringComparison.CurrentCultureIgnoreCase))
             {
-                direction = CardinalDirection.West;
+                direction = Direction.West;
                 return true;
             }
 
-            direction = CardinalDirection.East;
+            if (text.Equals(Up, StringComparison.CurrentCultureIgnoreCase) || text.Equals(UpShort, StringComparison.CurrentCultureIgnoreCase))
+            {
+                direction = Direction.Up;
+                return true;
+            }
+
+            if (text.Equals(Down, StringComparison.CurrentCultureIgnoreCase) || text.Equals(DownShort, StringComparison.CurrentCultureIgnoreCase))
+            {
+                direction = Direction.Down;
+                return true;
+            }
+
+            direction = Direction.East;
             return false;
         }
 
@@ -457,8 +523,8 @@ namespace BP.AdventureFramework.Interpretation
         public InterpretationResult Interpret(string input, Game game)
         {
             // try and parse as movement
-            if (TryParseToCardinalDirection(input, out var direction))
-                return new InterpretationResult(true, new Move(game.Overworld.CurrentRegion, direction));
+            if (TryParseToDirection(input, out var direction))
+                return new InterpretationResult(true, new Move(direction));
 
             // handle as drop command
             if (TryParseDropCommand(input, game, out var drop))
@@ -481,6 +547,56 @@ namespace BP.AdventureFramework.Interpretation
                 return new InterpretationResult(true, useOn);
 
             return new InterpretationResult(false, new Unactionable("Invalid input."));
+        }
+
+        /// <summary>
+        /// Get contextual command help for a game, based on its current state.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>The contextual help.</returns>
+        public CommandHelp[] GetContextualCommandHelp(Game game)
+        {
+            if (game.ActiveConverser?.Conversation != null)
+                return new CommandHelp[0];
+
+            var commands = new List<CommandHelp>();
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.North))
+                commands.Add(new CommandHelp($"{North}/{NorthShort}", "Move north"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.East))
+                commands.Add(new CommandHelp($"{East}/{EastShort}", "Move east"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.South))
+                commands.Add(new CommandHelp($"{South}/{SouthShort}", "Move south"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.West))
+                commands.Add(new CommandHelp($"{West}/{WestShort}", "Move west"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.Up))
+                commands.Add(new CommandHelp($"{Up}/{UpShort}", "Move up"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.Down))
+                commands.Add(new CommandHelp($"{Down}/{DownShort}", "Move down"));
+
+            commands.Add(new CommandHelp($"{Examine}/{ExamineShort} __", "Examine anything in the game"));
+
+            if (game.Player.Items.Any())
+                commands.Add(new CommandHelp($"{Drop}/{DropShort} __", "Drop an item"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any())
+                commands.Add(new CommandHelp($"{Take}/{TakeShort} __", "Take an item"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Any())
+                commands.Add(new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} __", "Talk to a character"));
+
+            if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any() || game.Player.Items.Any())
+            {
+                commands.Add(new CommandHelp($"{Use} __", "Use an item on the this Room"));
+                commands.Add(new CommandHelp($"{Use} __ {On.ToLower()}", "Use an item on another item or character"));
+            }
+
+            return commands.ToArray();
         }
 
         #endregion

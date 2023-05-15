@@ -7,42 +7,21 @@ namespace BP.AdventureFramework.Commands.Global
     /// </summary>
     internal class About : ICommand
     {
-        #region Properties
-
-        /// <summary>
-        /// Get the game.
-        /// </summary>
-        public Logic.Game Game { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the About class.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        public About(Logic.Game game)
-        {
-            Game = game;
-        }
-
-        #endregion
-
         #region Implementation of ICommand
 
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Game == null)
-                return new Reaction(ReactionResult.None, "No game specified.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
 
-            Game.DisplayAbout();
+            game.DisplayAbout();
 
-            return new Reaction(ReactionResult.SelfContained, string.Empty);
+            return new Reaction(ReactionResult.Internal, string.Empty);
         }
 
         #endregion

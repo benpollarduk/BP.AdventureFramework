@@ -28,9 +28,9 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         public void GivenVisitedFromNorth_WhenGetHasBeenVisited_ThenEnteredFromIsNorth()
         {
             var room = new Room(string.Empty, string.Empty);
-            room.MovedInto(CardinalDirection.North);
+            room.MovedInto(Direction.North);
 
-            Assert.AreEqual(CardinalDirection.North, room.EnteredFrom);
+            Assert.AreEqual(Direction.North, room.EnteredFrom);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room = new Room(string.Empty, string.Empty);
             room.AddCharacter(new NonPlayableCharacter(string.Empty, string.Empty));
 
-            Assert.AreEqual(1, room.Characters.Count);
+            Assert.AreEqual(1, room.Characters.Length);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             room.AddCharacter(npc);
             room.RemoveCharacter(npc);
 
-            Assert.AreEqual(0, room.Characters.Count);
+            Assert.AreEqual(0, room.Characters.Length);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             room.AddCharacter(new NonPlayableCharacter("A", string.Empty));
             room.RemoveCharacter(new NonPlayableCharacter("B", string.Empty));
 
-            Assert.AreEqual(1, room.Characters.Count);
+            Assert.AreEqual(1, room.Characters.Length);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room = new Room(string.Empty, string.Empty);
             room.AddItem(new Item(string.Empty, string.Empty));
 
-            Assert.AreEqual(1, room.Items.Count);
+            Assert.AreEqual(1, room.Items.Length);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             room.AddItem(item);
             room.RemoveItem(item);
 
-            Assert.AreEqual(0, room.Items.Count);
+            Assert.AreEqual(0, room.Items.Length);
         }
 
         [TestMethod]
@@ -90,7 +90,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             room.AddItem(new Item("A", string.Empty));
             room.RemoveItem(new Item("B", string.Empty));
 
-            Assert.AreEqual(1, room.Items.Count);
+            Assert.AreEqual(1, room.Items.Length);
         }
 
         [TestMethod]

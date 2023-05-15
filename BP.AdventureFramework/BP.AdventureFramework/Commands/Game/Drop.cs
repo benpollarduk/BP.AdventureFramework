@@ -1,7 +1,5 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Commands.Game
 {
@@ -13,19 +11,9 @@ namespace BP.AdventureFramework.Commands.Game
         #region Properties
 
         /// <summary>
-        /// Get the character who has the item.
-        /// </summary>
-        public PlayableCharacter Character { get; }
-
-        /// <summary>
         /// Get the item.
         /// </summary>
         public Item Item { get; }
-
-        /// <summary>
-        /// Get the room to drop the item in.
-        /// </summary>
-        public Room Room { get; }
 
         #endregion
 
@@ -34,14 +22,10 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Initializes a new instance of the Drop command.
         /// </summary>
-        /// <param name="character">The character who has the item.</param>
         /// <param name="item">The item to take.</param>
-        /// <param name="room">The room to drop the item in.</param>
-        public Drop(PlayableCharacter character, Item item, Room room)
+        public Drop(Item item)
         {
-            Character = character;
             Item = item;
-            Room = room;
         }
 
         #endregion
@@ -51,21 +35,26 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Character == null)
-                return new Reaction(ReactionResult.None, "You must specify a character.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
+
+            if (game.Player == null)
+                return new Reaction(ReactionResult.Error, "You must specify a character.");
 
             if (Item == null)
-                return new Reaction(ReactionResult.None, "You must specify what to drop.");
+                return new Reaction(ReactionResult.Error, "You must specify what to drop.");
 
-            if (!Character.HasItem(Item))
-                return new Reaction(ReactionResult.None, "You don't have that item.");
+            if (!game.Player.HasItem(Item))
+                return new Reaction(ReactionResult.Error, "You don't have that item.");
 
-            Room.AddItem(Item);
-            Character.DequireItem(Item);
-            return new Reaction(ReactionResult.Reacted, $"Dropped {Item.Identifier.Name}.");
+            game.Overworld.CurrentRegion.CurrentRoom.AddItem(Item);
+            game.Player.DequireItem(Item);
+
+            return new Reaction(ReactionResult.OK, $"Dropped {Item.Identifier.Name}.");
         }
 
         #endregion

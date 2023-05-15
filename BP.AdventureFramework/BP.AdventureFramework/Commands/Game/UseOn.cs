@@ -1,8 +1,6 @@
 ﻿using System;
 using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Commands.Game
 {
@@ -23,16 +21,6 @@ namespace BP.AdventureFramework.Commands.Game
         /// </summary>
         public IInteractWithItem Target { get; }
 
-        /// <summary>
-        /// Get the character using this item.
-        /// </summary>
-        public PlayableCharacter Character { get; }
-
-        /// <summary>
-        /// Get the room this item is being used within.
-        /// </summary>
-        public Room Room { get; }
-
         #endregion
 
         #region Constructors
@@ -42,14 +30,10 @@ namespace BP.AdventureFramework.Commands.Game
         /// </summary>
         /// <param name="item">The item to use.</param>
         /// <param name="target">The target of the command.</param>
-        /// <param name="character">The character using this item.</param>
-        /// <param name="room">The room the item is being used within.</param>
-        public UseOn(Item item, IInteractWithItem target, PlayableCharacter character, Room room)
+        public UseOn(Item item, IInteractWithItem target)
         {
             Item = item;
             Target = target;
-            Character = character;
-            Room = room;
         }
 
         #endregion
@@ -59,17 +43,21 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
+
             if (Item == null)
-                return new Reaction(ReactionResult.None, "You must specify an item.");
+                return new Reaction(ReactionResult.Error, "You must specify an item.");
 
             if (Target == null)
-                return new Reaction(ReactionResult.None, "You must specify a target.");
+                return new Reaction(ReactionResult.Error, "You must specify a target.");
 
-            if (Character == null)
-                return new Reaction(ReactionResult.None, "You must specify the character that is using this item.");
+            if (game.Player == null)
+                return new Reaction(ReactionResult.Error, "You must specify the character that is using this item.");
 
             var result = Target.Interact(Item);
 
@@ -77,15 +65,15 @@ namespace BP.AdventureFramework.Commands.Game
             {
                 case InteractionEffect.FatalEffect:
 
-                    Character.Kill(result.Desciption);
-                    return new Reaction(ReactionResult.Reacted, result.Desciption);
+                    game.Player.Kill(result.Description);
+                    return new Reaction(ReactionResult.Fatal, result.Description);
 
                 case InteractionEffect.ItemUsedUp:
 
-                    if (Room.ContainsItem(Item))
-                        Room.RemoveItem(Item);
-                    else if (Character.HasItem(Item))
-                        Character.DequireItem(Item);
+                    if (game.Overworld.CurrentRegion.CurrentRoom.ContainsItem(Item))
+                        game.Overworld.CurrentRegion.CurrentRoom.RemoveItem(Item);
+                    else if (game.Player.HasItem(Item))
+                        game.Player.DequireItem(Item);
 
                     break;
 
@@ -95,8 +83,8 @@ namespace BP.AdventureFramework.Commands.Game
 
                     if (examinable != null)
                     {
-                        if (Room.ContainsInteractionTarget(examinable.Identifier.Name))
-                            Room.RemoveInteractionTarget(Target);
+                        if (game.Overworld.CurrentRegion.CurrentRoom.ContainsInteractionTarget(examinable.Identifier.Name))
+                            game.Overworld.CurrentRegion.CurrentRoom.RemoveInteractionTarget(Target);
                     }
 
                     break;
@@ -109,7 +97,7 @@ namespace BP.AdventureFramework.Commands.Game
                     throw new NotImplementedException();
             }
 
-            return new Reaction(ReactionResult.Reacted, result.Desciption);
+            return new Reaction(ReactionResult.OK, result.Description);
         }
 
         #endregion

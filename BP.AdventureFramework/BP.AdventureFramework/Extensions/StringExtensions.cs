@@ -126,18 +126,18 @@ namespace BP.AdventureFramework.Extensions
         /// <summary>
         /// Convert a string to sentence case.
         /// </summary>
-        /// <param name="word">The word.</param>
+        /// <param name="value">The value.</param>
         /// <returns>The word in sentence case.</returns>
-        public static string ToSentenceCase(this string word)
+        public static string ToSentenceCase(this string value)
         {
-            if (string.IsNullOrEmpty(word))
-                return word;
+            if (string.IsNullOrEmpty(value))
+                return value;
 
-            if (word.Length == 1)
-                return word.ToUpper();
+            if (value.Length == 1)
+                return value.ToUpper();
 
-            var first = word.Substring(0, 1).ToUpper();
-            var rest = word.Substring(1, word.Length - 1);
+            var first = value.Substring(0, 1).ToUpper();
+            var rest = value.Substring(1, value.Length - 1);
 
             return $"{first}{rest}";
         }
@@ -150,6 +150,25 @@ namespace BP.AdventureFramework.Extensions
         public static int LineCount(this string value)
         {
             return value?.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length ?? 0;
+        }
+
+        /// <summary>
+        /// Convert a string to speech.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The value in sentence case.</returns>
+        public static string ToSpeech(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return "\"\"";
+
+            if (!value.StartsWith("\""))
+                value = "\"" + value;
+
+            if (!value.EndsWith("\""))
+                value = value + "\"";
+
+            return value;
         }
 
         #endregion

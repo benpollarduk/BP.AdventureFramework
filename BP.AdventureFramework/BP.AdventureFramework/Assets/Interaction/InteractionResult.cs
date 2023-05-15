@@ -36,22 +36,22 @@ namespace BP.AdventureFramework.Assets.Interaction
             switch (effect)
             {
                 case InteractionEffect.FatalEffect:
-                    Desciption = "There was a fatal effect.";
+                    Description = "There was a fatal effect.";
                     break;
                 case InteractionEffect.ItemMorphed:
-                    Desciption = "The item morphed.";
+                    Description = "The item morphed.";
                     break;
                 case InteractionEffect.ItemUsedUp:
-                    Desciption = "The item was used up.";
+                    Description = "The item was used up.";
                     break;
                 case InteractionEffect.NoEffect:
-                    Desciption = "There was no effect.";
+                    Description = "There was no effect.";
                     break;
                 case InteractionEffect.SelfContained:
-                    Desciption = "The effect was self contained.";
+                    Description = "The effect was self contained.";
                     break;
                 case InteractionEffect.TargetUsedUp:
-                    Desciption = "The target was used up.";
+                    Description = "The target was used up.";
                     break;
                 default:
                     throw new NotImplementedException();
@@ -68,7 +68,7 @@ namespace BP.AdventureFramework.Assets.Interaction
         {
             Effect = effect;
             Item = item;
-            Desciption = descriptionOfEffect;
+            Description = descriptionOfEffect;
         }
 
         #endregion

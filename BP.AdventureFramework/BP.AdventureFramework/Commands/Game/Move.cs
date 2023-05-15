@@ -11,14 +11,9 @@ namespace BP.AdventureFramework.Commands.Game
         #region Properties
 
         /// <summary>
-        /// Get the region.
-        /// </summary>
-        public Region Region { get; }
-
-        /// <summary>
         /// Get the direction.
         /// </summary>
-        public CardinalDirection Direction { get; }
+        public Direction Direction { get; }
 
         #endregion
 
@@ -27,11 +22,9 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Initializes a new instance of the Move command.
         /// </summary>
-        /// <param name="region">The region to move within.</param>
         /// <param name="direction">The direction to move.</param>
-        public Move(Region region, CardinalDirection direction)
+        public Move(Direction direction)
         {
-            Region = region;
             Direction = direction;
         }
 
@@ -42,13 +35,17 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            if (Region.Move(Direction))
-                return new Reaction(ReactionResult.Reacted, $"Moved {Direction}.");
+            if (game == null)
+                return new Reaction(ReactionResult.Error, "No game specified.");
 
-            return new Reaction(ReactionResult.None, $"Could not move {Direction}.");
+            if (game.Overworld.CurrentRegion.Move(Direction))
+                return new Reaction(ReactionResult.OK, $"Moved {Direction}.");
+
+            return new Reaction(ReactionResult.Error, $"Could not move {Direction}.");
         }
 
         #endregion

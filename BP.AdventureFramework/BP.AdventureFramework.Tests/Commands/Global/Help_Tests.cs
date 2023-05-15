@@ -8,24 +8,24 @@ namespace BP.AdventureFramework.Tests.Commands.Global
     public class Help_Tests
     {
         [TestMethod]
-        public void GivenNullGame_WhenInvoke_ThenNone()
+        public void GivenNullGame_WhenInvoke_ThenError()
         {
-            var command = new Help(null);
+            var command = new Help();
 
-            var result = command.Invoke();
+            var result = command.Invoke(null);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenValidGame_WhenInvoke_ThenSelfContained()
+        public void GivenValidGame_WhenInvoke_ThenInternal()
         {
-            var game = Logic.Game.Create(string.Empty, string.Empty, null, null, null).Invoke();
-            var command = new Help(game);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var command = new Help();
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.SelfContained, result.Result);
+            Assert.AreEqual(ReactionResult.Internal, result.Result);
         }
     }
 }

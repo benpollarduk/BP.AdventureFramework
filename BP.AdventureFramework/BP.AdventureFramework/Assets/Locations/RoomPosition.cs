@@ -22,6 +22,11 @@
         /// </summary>
         public int Y { get; }
 
+        /// <summary>
+        /// Get the Z position of the room.
+        /// </summary>
+        public int Z { get; }
+
         #endregion
 
         #region Constructors
@@ -32,11 +37,13 @@
         /// <param name="room">The room/</param>
         /// <param name="x">The x position of the room.</param>
         /// <param name="y">The y position of the room.</param>
-        public RoomPosition(Room room, int x, int y)
+        /// <param name="z">The z position of the room.</param>
+        public RoomPosition(Room room, int x, int y, int z)
         {
             Room = room;
             X = x;
             Y = y;
+            Z = z;
         }
 
         #endregion
@@ -48,11 +55,12 @@
         /// </summary>
         /// <param name="x">The X position.</param>
         /// <param name="y">The Y position.</param>
+        /// <param name="z">The Z position.</param>
         /// <returns>True if this is at the position, else false.</returns>
-        public bool IsAtPosition(int x, int y)
+        public bool IsAtPosition(int x, int y, int z)
         {
             
-            return X == x && Y == y;
+            return X == x && Y == y && Z == z;
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿using System;
-using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Assets.Characters
 {
@@ -8,15 +7,6 @@ namespace BP.AdventureFramework.Assets.Characters
     /// </summary>
     public sealed class PlayableCharacter : Character
     {
-        #region Properties
-
-        /// <summary>
-        /// Occurs if this player dies.
-        /// </summary>
-        public event EventHandler<string> Died;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -39,7 +29,7 @@ namespace BP.AdventureFramework.Assets.Characters
         {
             Identifier = identifier;
             Description = description;
-            Items.AddRange(items);
+            Items = items ?? new Item[0];
         }
 
         #endregion
@@ -60,16 +50,6 @@ namespace BP.AdventureFramework.Assets.Characters
                 IsAlive = false;
 
             return result;
-        }
-
-        /// <summary>
-        /// Kill the character.
-        /// </summary>
-        /// <param name="reason">A reason for the death.</param>
-        public override void Kill(string reason)
-        {
-            base.Kill(reason);
-            Died?.Invoke(this, reason);
         }
 
         #endregion

@@ -41,10 +41,11 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
-            return new Reaction(ReactionResult.None, Description);
+            return new Reaction(ReactionResult.Error, Description);
         }
 
         #endregion

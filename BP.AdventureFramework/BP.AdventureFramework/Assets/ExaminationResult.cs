@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Assets
         /// <param name="description">A description of the result.</param>
         public ExaminationResult(string description)
         {
-            Desciption = description;
+            Description = description;
             Type = ExaminationResults.DescriptionReturned;
         }
 

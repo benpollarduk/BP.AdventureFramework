@@ -10,24 +10,25 @@ namespace BP.AdventureFramework.Tests.Commands.Game
     public class Examine_Tests
     {
         [TestMethod]
-        public void GivenNothingToExamine_WhenInvoke_ThenNone()
+        public void GivenNothingToExamine_WhenInvoke_ThenError()
         {
             var command = new Examine(null);
 
-            var result = command.Invoke();
+            var result = command.Invoke(null);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenSomethingToExamine_WhenInvoke_ThenReacted()
+        public void GivenSomethingToExamine_WhenInvoke_ThenOK()
         {
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var region = new Region(Identifier.Empty, Description.Empty);
             var command = new Examine(region);
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
     }
 }

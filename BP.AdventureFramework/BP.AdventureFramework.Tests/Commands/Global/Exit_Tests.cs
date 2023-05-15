@@ -8,24 +8,24 @@ namespace BP.AdventureFramework.Tests.Commands.Global
     public class Exit_Tests
     {
         [TestMethod]
-        public void GivenNullGame_WhenInvoke_ThenNone()
+        public void GivenNullGame_WhenInvoke_ThenError()
         {
-            var command = new Exit(null);
+            var command = new Exit();
 
-            var result = command.Invoke();
+            var result = command.Invoke(null);
 
-            Assert.AreEqual(ReactionResult.None, result.Result);
+            Assert.AreEqual(ReactionResult.Error, result.Result);
         }
 
         [TestMethod]
-        public void GivenValidGame_WhenInvoke_ThenReacted()
+        public void GivenValidGame_WhenInvoke_ThenOK()
         {
-            var game = Logic.Game.Create(string.Empty, string.Empty, null, null, null).Invoke();
-            var command = new Exit(game);
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var command = new Exit();
 
-            var result = command.Invoke();
+            var result = command.Invoke(game);
 
-            Assert.AreEqual(ReactionResult.Reacted, result.Result);
+            Assert.AreEqual(ReactionResult.OK, result.Result);
         }
     }
 }

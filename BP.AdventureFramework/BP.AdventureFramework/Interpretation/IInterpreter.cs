@@ -18,5 +18,11 @@ namespace BP.AdventureFramework.Interpretation
         /// <param name="game">The game.</param>
         /// <returns>The result of the interpretation.</returns>
         InterpretationResult Interpret(string input, Game game);
+        /// <summary>
+        /// Get contextual command help for a game, based on its current state.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>The contextual help.</returns>
+        CommandHelp[] GetContextualCommandHelp(Game game);
     }
 }

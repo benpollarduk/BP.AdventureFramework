@@ -2,6 +2,7 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 
@@ -9,40 +10,28 @@ namespace BP.AdventureFramework.Examples.Assets
 {
     internal static class Zelda
     {
-        private const string Sword = "Sword";
-        private const string Shield = "Sheld";
-        private const string Rupee = "Rupee";
-        private const string TailKey = "Tail Key";
-        private const string TailCave = "Tail Cave";
-        private const string TailDoor = "Tail Door";
-        private const string YoshiDoll = "Yoshi Doll";
-        private const string Table = "Table";
-        private const string Stump = "Stump";
-        private const string Bush = "Bush";
-        private const string Stream = "Stream";
-        private const string Saria = "Saria";
-        private const string Link = "Link";
-        private const string SplintersOfWood = "Splinters Of Wood";
-        private const string Hyrule = "Hyrule";
-        private const string KokiriForest = "Kokiri Forest";
-        private const string LinksHouse = "Links House";
-        private const string OutsideLinksHouse = "Outside Links House";
+        internal const string Sword = "Sword";
+        internal const string Shield = "Sheld";
+        internal const string Rupee = "Rupee";
+        internal const string TailKey = "Tail Key";
+        internal const string TailCave = "Tail Cave";
+        internal const string TailDoor = "Tail Door";
+        internal const string YoshiDoll = "Yoshi Doll";
+        internal const string Table = "Table";
+        internal const string Stump = "Stump";
+        internal const string Bush = "Bush";
+        internal const string Stream = "Stream";
+        internal const string Saria = "Saria";
+        internal const string SplintersOfWood = "Splinters Of Wood";
+        internal const string KokiriForest = "Kokiri Forest";
+        internal const string LinksHouse = "Links House";
+        internal const string OutsideLinksHouse = "Outside Links House";
 
-        internal static PlayableCharacter GeneratePC()
+        internal static Region GenerateRegion(PlayableCharacter pC)
         {
-            var character = new PlayableCharacter(Link, "A Kokiri boy from the forest");
-            var shield = new Item(Shield, "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.", true);
-            character.AquireItem(shield);
-
-            return character;
-        }
-
-        internal static Overworld GenerateOverworld(PlayableCharacter pC)
-        {
-            var overworld = new Overworld(Hyrule, "The ancient land of Hyrule");
             var region = new Region(KokiriForest, "The home of the Kokiri tree folk");
-            var room = new Room(LinksHouse, "You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north", new Exit(CardinalDirection.North));
-
+            var room = new Room(LinksHouse, "You are in your house, as it is in the hollow trunk of the tree the room is small and round, and very wooden. There is a small table in the center of the room. The front door leads to the Kokiri forest to the north", new Exit(Direction.North));
+            room.AddItem(new Item(Shield, "A small wooden shield. It has the Deku mark painted on it in red, the sign of the forest.", true));
             room.AddItem(new Item(Table, "A small wooden table made from a slice of a trunk of a Deku tree. Pretty handy, but you can't take it with you"));
 
             var sword = new Item(Sword, "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp", true);
@@ -53,17 +42,19 @@ namespace BP.AdventureFramework.Examples.Assets
 
             room.AddItem(yoshiDoll);
 
-            var outsideLinksHouse = new Room(OutsideLinksHouse, "The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave", new Exit(CardinalDirection.South), new Exit(CardinalDirection.North), new Exit(CardinalDirection.East, true));
+            var outsideLinksHouse = new Room(OutsideLinksHouse, "The Kokiri forest looms in front of you. It seems duller and much smaller than you remember, with thickets of deku scrub growing in every direction, except to the north where you can hear the trickle of a small stream. To the south is you house, and to the east is the entrance to the Tail Cave", new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.East, true));
             var key01 = new Item(TailKey, "A small key, with a complex handle in the shape of a worm like creature", true);
             var saria = new NonPlayableCharacter(Saria, "A very annoying, but admittedly quite pretty elf, dressed, like you, completely in green");
 
             saria.AquireItem(key01);
 
-            saria.Conversation = new Conversation(
-                new ConversationElement("Hi Link, how's it going"),
-                new ConversationElement("I lost my red rupee, if you find it will you please bring it to me?"),
-                new ConversationElement("Oh Link you are so adorable"),
-                new ConversationElement("OK Link your annoying me now, I'm just going to ignore you")) { RepeatLastElement = true };
+            saria.Conversation = new Conversation
+            (
+                new Paragraph("Hi Link, how's it going.."),
+                new Paragraph("I lost my red rupee, if you find it will you please bring it to me?"),
+                new Paragraph("Oh Link you are so adorable"),
+                new Paragraph("OK Link your annoying me now, I'm just going to ignore you.", 0)
+            );
 
             // define the interaction with items for Saria
             saria.Interaction = (item, target) =>
@@ -72,7 +63,7 @@ namespace BP.AdventureFramework.Examples.Assets
                 {
                     pC.Give(item, saria);
                     saria.Give(key01, pC);
-                    return new InteractionResult(InteractionEffect.SelfContained, item, "Saria looks excited! \"Thanks Link, here take the Tail Key!\"You got the Tail Key, awesome!");
+                    return new InteractionResult(InteractionEffect.SelfContained, item, "Saria looks excited! \"Thanks Link, here take the Tail Key!\" You've got the Tail Key, awesome!");
                 }
 
                 if (Shield.EqualsIdentifier(item.Identifier))
@@ -126,7 +117,7 @@ namespace BP.AdventureFramework.Examples.Assets
             {
                 if (TailKey.EqualsExaminable(item))
                 {
-                    region.UnlockDoorPair(CardinalDirection.East);
+                    region.UnlockDoorPair(Direction.East);
                     outsideLinksHouse.RemoveItem(tailDoor);
                     return new InteractionResult(InteractionEffect.ItemUsedUp, item, "The Tail Key fits perfectly in the lock, you turn it and the door swings open, revealing a gaping cave mouth...");
                 }
@@ -139,8 +130,8 @@ namespace BP.AdventureFramework.Examples.Assets
                 return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
-            var tailCave = new Room(TailCave, "The cave is dark, and currently very empty. Quite shabby really, not like the cave on Koholint at all...", new Exit(CardinalDirection.West, true));
-            var stream = new Room(Stream, string.Empty, new Exit(CardinalDirection.South));
+            var tailCave = new Room(TailCave, "The cave is dark, and currently very empty. Quite shabby really, not like the cave on Koholint at all...", new Exit(Direction.West, true));
+            var stream = new Room(Stream, string.Empty, new Exit(Direction.South));
             stream.Description = new ConditionalDescription("A small stream flows east to west in front of you. The water is clear, and looks good enough to drink. On the bank is a small bush. To the south is the Kokiri forest", "A small stream flows east to west infront of you. The water is clear, and looks good enough to drink. On the bank is a stump where the bush was. To the south is the Kokiri forest", () => stream.ContainsItem("Bush"));
 
             var bush = new Item(Bush, "The bush is small, but very dense. Something is gleaming inside, but you cant reach it because the bush is so thick");
@@ -162,15 +153,12 @@ namespace BP.AdventureFramework.Examples.Assets
             stream.AddItem(rupee);
 
             // add all rooms to region
-            region.AddRoom(room, 0, 0);
-            region.AddRoom(outsideLinksHouse, 0, 1);
-            region.AddRoom(tailCave, 1, 1);
-            region.AddRoom(stream, 0, 2);
+            region.AddRoom(room, 0, 0, 0);
+            region.AddRoom(outsideLinksHouse, 0, 1, 0);
+            region.AddRoom(tailCave, 1, 1, 0);
+            region.AddRoom(stream, 0, 2, 0);
 
-            // add region to overworld
-            overworld.Regions.Add(region);
-
-            return overworld;
+            return region;
         }
 
         /// <summary>

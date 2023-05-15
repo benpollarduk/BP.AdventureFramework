@@ -5,7 +5,7 @@ using BP.AdventureFramework.Logic;
 namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
-    /// Represents an object that can be used for interpreting game input.
+    /// Provides an object that can be used for interpreting game input.
     /// </summary>
     internal class InputInterpreter : IInterpreter
     {
@@ -43,7 +43,10 @@ namespace BP.AdventureFramework.Interpretation
                 var l = new List<CommandHelp>();
 
                 foreach (var interpreter in Interpreters)
-                    l.AddRange(interpreter.SupportedCommands);
+                {
+                    if (interpreter.SupportedCommands != null)
+                        l.AddRange(interpreter.SupportedCommands);
+                }
 
                 return l.ToArray();
             }
@@ -66,6 +69,26 @@ namespace BP.AdventureFramework.Interpretation
             }
 
             return new InterpretationResult(false, new Unactionable($"Could not interpret {input}"));
+        }
+
+        /// <summary>
+        /// Get contextual command help for a game, based on its current state.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>The contextual help.</returns>
+        public CommandHelp[] GetContextualCommandHelp(Game game)
+        {
+            var l = new List<CommandHelp>();
+
+            foreach (var interpreter in Interpreters)
+            {
+                var contextualCommands = interpreter.GetContextualCommandHelp(game);
+
+                if (contextualCommands != null)
+                    l.AddRange(interpreter.GetContextualCommandHelp(game));
+            }
+
+            return l.ToArray();
         }
 
         #endregion

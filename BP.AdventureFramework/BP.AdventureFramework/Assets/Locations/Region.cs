@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utils;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Assets.Locations
 {
@@ -21,12 +21,12 @@ namespace BP.AdventureFramework.Assets.Locations
         #region Properties
 
         /// <summary>
-        /// Get the number of Rooms region contains.
+        /// Get the number of rooms region contains.
         /// </summary>
         public int Rooms => roomPositions.Count;
 
         /// <summary>
-        /// Get the current Room.
+        /// Get the current room.
         /// </summary>
         public Room CurrentRoom
         {
@@ -36,7 +36,11 @@ namespace BP.AdventureFramework.Assets.Locations
                     return currentRoom;
 
                 if (roomPositions.Count > 0)
-                    SetStartRoom(roomPositions.First().Room);
+                {
+                    var first = roomPositions.First().Room;
+                    SetStartRoom(first);
+                    currentRoom = first;
+                }
 
                 return currentRoom;
             }
@@ -44,12 +48,13 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Get a Room at a specified location.
+        /// Get a room at a specified location.
         /// </summary>
-        /// <param name="column">The column.</param>
-        /// <param name="row">The row.</param>
+        /// <param name="x">The x position.</param>
+        /// <param name="y">The y position.</param>
+        /// <param name="z">The z position.</param>
         /// <returns>The room.</returns>
-        public Room this[int column, int row] => roomPositions.FirstOrDefault(r => r.IsAtPosition(column, row))?.Room;
+        public Room this[int x, int y, int z] => roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z))?.Room;
 
         #endregion
 
@@ -80,54 +85,82 @@ namespace BP.AdventureFramework.Assets.Locations
         #region Methods
 
         /// <summary>
-        /// Add a Room to this Region.
+        /// Get the position of a room.
         /// </summary>
-        /// <param name="room">The Room to add.</param>
-        /// <param name="column">The column within the region.</param>
-        /// <param name="row">The row within the region.</param>
-        public bool AddRoom(Room room, int column, int row)
+        /// <param name="room">The room.</param>
+        /// <returns>The position of the room.</returns>
+        public RoomPosition GetPositionOfRoom(Room room)
         {
-            var addable = !roomPositions.Any(r => r.IsAtPosition(column, row));
+            var matrix = ToMatrix();
+
+            if (matrix == null)
+                return null;
+
+            for (var z = 0; z < matrix.Depth; z++)
+            {
+                for (var y = 0; y < matrix.Height; y++)
+                {
+                    for (var x = 0; x < matrix.Width; x++)
+                    {
+                        if (room == matrix[x, y, z])
+                            return new RoomPosition(room, x, y, z);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Add a Room to this region.
+        /// </summary>
+        /// <param name="room">The room to add.</param>
+        /// <param name="x">The x position within the region.</param>
+        /// <param name="y">The y position within the region.</param>
+        /// <param name="z">The z position within the region.</param>
+        public bool AddRoom(Room room, int x, int y, int z)
+        {
+            var addable = !roomPositions.Any(r => r.IsAtPosition(x, y, z));
 
             if (addable)
-                roomPositions.Add(new RoomPosition(room, column, row));
+                roomPositions.Add(new RoomPosition(room, x, y, z));
 
             return addable;
         }
 
         /// <summary>
-        /// Get an adjoining Room to the Region.CurrentRoom property.
+        /// Get an adjoining room to the Region.CurrentRoom property.
         /// </summary>
         /// <param name="direction">The direction of the adjoining Room.</param>
-        /// <returns>The adjoining Room, if there is one.</returns>
-        public Room GetAdjoiningRoom(CardinalDirection direction)
+        /// <returns>The adjoining Room.</returns>
+        public Room GetAdjoiningRoom(Direction direction)
         {
             return GetAdjoiningRoom(direction, CurrentRoom);
         }
 
         /// <summary>
-        /// Get an adjoining Room to a Room.
+        /// Get an adjoining room to a room.
         /// </summary>
-        /// <param name="direction">The direction of the adjoining Room.</param>
-        /// <param name="room">The Room to start the check in.</param>
-        /// <returns>The adjoining Room, if there is one.</returns>
-        public Room GetAdjoiningRoom(CardinalDirection direction, Room room)
+        /// <param name="direction">The direction of the adjoining room.</param>
+        /// <param name="room">The room to use as the reference.</param>
+        /// <returns>The adjoining room.</returns>
+        public Room GetAdjoiningRoom(Direction direction, Room room)
         {
-            var roomPosition = roomPositions.FirstOrDefault(x => x.Room == room);
+            var roomPosition = roomPositions.FirstOrDefault(r => r.Room == room);
 
             if (roomPosition == null)
                 return null;
 
-            NextPosition(roomPosition.X, roomPosition.Y, direction, out var column, out var row);
-            return this[column, row];
+            NextPosition(roomPosition.X, roomPosition.Y, roomPosition.Z, direction, out var x, out var y, out var z);
+            return this[x, y, z];
         }
 
         /// <summary>
         /// Move in a direction.
         /// </summary>
         /// <param name="direction">The direction to move in.</param>
-        /// <returns>If a move was successful.</returns>
-        public bool Move(CardinalDirection direction)
+        /// <returns>True if the move was successful, else false.</returns>
+        public bool Move(Direction direction)
         {
             if (!CurrentRoom.CanMove(direction)) 
                 return false;
@@ -144,7 +177,7 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Set the Room to start in.
+        /// Set the room to start in.
         /// </summary>
         /// <param name="room">The Room to start in.</param>
         public void SetStartRoom(Room room)
@@ -154,13 +187,14 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Set the Room to start in.
+        /// Set the room to start in.
         /// </summary>
-        /// <param name="column">The column.</param>
-        /// <param name="row">The row.</param>
-        public void SetStartRoom(int column, int row)
+        /// <param name="x">The x position.</param>
+        /// <param name="y">The y position.</param>
+        /// <param name="z">The z position.</param>
+        public void SetStartRoom(int x, int y, int z)
         {
-            var room = roomPositions.FirstOrDefault(x => x.IsAtPosition(column, row))?.Room;
+            var room = roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z))?.Room;
             SetStartRoom(room ?? roomPositions.ElementAt(0).Room);
         }
 
@@ -169,7 +203,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="direction">The direction to unlock in.</param>
         /// <returns>True if the door pair could be unlocked, else false.</returns>
-        public bool UnlockDoorPair(CardinalDirection direction)
+        public bool UnlockDoorPair(Direction direction)
         {
             var exitInThisRoom = CurrentRoom[direction];
             var roomPosition = roomPositions.FirstOrDefault(x => x.Room == CurrentRoom);
@@ -197,10 +231,10 @@ namespace BP.AdventureFramework.Assets.Locations
         }
 
         /// <summary>
-        /// Get this region as a 2D matrix of rooms.
+        /// Get this region as a 3D matrix of rooms.
         /// </summary>
-        /// <returns>This region, as a 2D matrix.</returns>
-        public Room[,] ToMatrix()
+        /// <returns>This region, as a 3D matrix.</returns>
+        public Matrix ToMatrix()
         {
             return RegionMaker.ConvertToRoomMatrix(roomPositions);
         }
@@ -214,28 +248,44 @@ namespace BP.AdventureFramework.Assets.Locations
         /// </summary>
         /// <param name="x">The current X.</param>
         /// <param name="y">The current Y.</param>
+        /// <param name="z">The current Z.</param>
         /// <param name="direction">The direction.</param>
         /// <param name="nextX">The next X.</param>
         /// <param name="nextY">The next Y.</param>
-        internal static void NextPosition(int x, int y, CardinalDirection direction, out int nextX, out int nextY)
+        /// <param name="nextZ">The next Z.</param>
+        internal static void NextPosition(int x, int y, int z, Direction direction, out int nextX, out int nextY, out int nextZ)
         {
             switch (direction)
             {
-                case CardinalDirection.North:
+                case Direction.North:
                     nextX = x;
                     nextY = y + 1;
+                    nextZ = z;
                     break;
-                case CardinalDirection.East:
+                case Direction.East:
                     nextX = x + 1;
                     nextY = y;
+                    nextZ = z;
                     break;
-                case CardinalDirection.South:
+                case Direction.South:
                     nextX = x;
                     nextY = y - 1;
+                    nextZ = z;
                     break;
-                case CardinalDirection.West:
+                case Direction.West:
                     nextX = x - 1;
                     nextY = y;
+                    nextZ = z;
+                    break;
+                case Direction.Up:
+                    nextX = x;
+                    nextY = y;
+                    nextZ = z + 1;
+                    break;
+                case Direction.Down:
+                    nextX = x;
+                    nextY = y;
+                    nextZ = z - 1;
                     break;
                 default:
                     throw new NotImplementedException();

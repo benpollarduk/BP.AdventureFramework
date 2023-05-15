@@ -10,7 +10,8 @@ namespace BP.AdventureFramework.Commands
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        Reaction Invoke();
+        Reaction Invoke(Logic.Game game);
     }
 }

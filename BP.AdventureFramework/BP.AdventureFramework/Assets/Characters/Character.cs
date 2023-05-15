@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Assets.Characters
 {
@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <summary>
         /// Get the items this Character holds.
         /// </summary>
-        public List<Item> Items { get; protected set; } = new List<Item>();
+        public Item[] Items { get; protected set; } = new Item[0];
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <param name="item">The item to acquire.</param>
         public virtual void AquireItem(Item item)
         {
-            Items.Add(item);
+            Items = Items.Add(item);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <param name="item">The item to de-acquire.</param>
         public virtual void DequireItem(Item item)
         {
-            Items.Remove(item);
+            Items = Items.Remove(item);
         }
 
         /// <summary>

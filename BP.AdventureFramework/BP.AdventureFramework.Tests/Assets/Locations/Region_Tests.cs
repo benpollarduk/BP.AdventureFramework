@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         {
             var room1 = new Room(Identifier.Empty, Description.Empty);
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
+            region.AddRoom(room1, 0, 0, 0);
 
             Assert.IsNotNull(region.CurrentRoom);
         }
@@ -33,9 +33,9 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room3 = new Room(Identifier.Empty, Description.Empty);
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 0, 1);
-            region.AddRoom(room3, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 0, 1, 0);
+            region.AddRoom(room3, 1, 0, 0);
 
             Assert.AreEqual(room1, region.CurrentRoom);
         }
@@ -48,11 +48,11 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room3 = new Room(Identifier.Empty, Description.Empty);
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 0, 1);
-            region.AddRoom(room3, 1, 1);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 0, 1, 0);
+            region.AddRoom(room3, 1, 1, 0);
 
-            region.SetStartRoom(1, 1);
+            region.SetStartRoom(1, 1, 0);
 
             Assert.AreEqual(room3, region.CurrentRoom);
         }
@@ -66,10 +66,10 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room4 = new Room(Identifier.Empty, Description.Empty);
             
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 0, 1);
-            region.AddRoom(room3, 1, 0);
-            region.AddRoom(room4, 1, 1);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 0, 1, 0);
+            region.AddRoom(room3, 1, 0, 0);
+            region.AddRoom(room4, 1, 1, 0);
             
             Assert.AreEqual(4, region.Rooms);
         }
@@ -81,8 +81,8 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room2 = new Room(Identifier.Empty, Description.Empty);
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 0, 1);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 0, 1, 0);
 
             Assert.AreEqual(2, region.Rooms);
         }
@@ -94,8 +94,8 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
             var room2 = new Room(Identifier.Empty, Description.Empty);
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 0, 1);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 0, 1, 0);
 
             region.SetStartRoom(room2);
 
@@ -105,14 +105,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenCanMove_WhenMove_ThenTrue()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            var result = region.Move(CardinalDirection.East);
+            var result = region.Move(Direction.East);
 
             Assert.IsTrue(result);
         }
@@ -120,14 +120,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenCantMove_WhenMove_ThenFalse()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            var result = region.Move(CardinalDirection.West);
+            var result = region.Move(Direction.West);
 
             Assert.IsFalse(result);
         }
@@ -135,14 +135,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenCanMove_WhenMove_ThenCurrentRoomIsNewRoom()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            region.Move(CardinalDirection.East);
+            region.Move(Direction.East);
 
             Assert.AreEqual(room2, region.CurrentRoom);
         }
@@ -150,14 +150,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenCantMove_WhenMove_ThenCurrentRoomIsNotChanged()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            region.Move(CardinalDirection.West);
+            region.Move(Direction.West);
             
             Assert.AreEqual(room1, region.CurrentRoom);
         }
@@ -165,14 +165,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenNoAdjoiningRoom_WhenGetAdjoiningRoom_ThenNull()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            var result = region.GetAdjoiningRoom(CardinalDirection.West, region.CurrentRoom);
+            var result = region.GetAdjoiningRoom(Direction.West, region.CurrentRoom);
 
             Assert.IsNull(result);
         }
@@ -180,14 +180,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenAdjoiningRoom_WhenGetAdjoiningRoom_ThenNotNull()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            var result = region.GetAdjoiningRoom(CardinalDirection.East, region.CurrentRoom);
+            var result = region.GetAdjoiningRoom(Direction.East, region.CurrentRoom);
             
             Assert.IsNotNull(result);
         }
@@ -195,14 +195,14 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void Given2LockedDoors_WhenUnlockDoorPair_ThenTrue()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East, true));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West, true));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East, true));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West, true));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            var result = region.UnlockDoorPair(CardinalDirection.East);
+            var result = region.UnlockDoorPair(Direction.East);
 
             Assert.IsTrue(result);
         }
@@ -210,17 +210,17 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void Given2LockedDoors_WhenUnlockDoorPair_ThenBothDoorsUnlocked()
         {
-            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.East, true));
-            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(CardinalDirection.West, true));
+            var room1 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.East, true));
+            var room2 = new Room(Identifier.Empty, Description.Empty, new Exit(Direction.West, true));
 
             var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(room1, 0, 0);
-            region.AddRoom(room2, 1, 0);
+            region.AddRoom(room1, 0, 0, 0);
+            region.AddRoom(room2, 1, 0, 0);
 
-            room1.FindExit(CardinalDirection.East, true, out var room1Exit);
-            room2.FindExit(CardinalDirection.West, true, out var room2Exit);
+            room1.FindExit(Direction.East, true, out var room1Exit);
+            room2.FindExit(Direction.West, true, out var room2Exit);
 
-            region.UnlockDoorPair(CardinalDirection.East);
+            region.UnlockDoorPair(Direction.East);
 
             Assert.IsFalse(room1Exit.IsLocked);
             Assert.IsFalse(room2Exit.IsLocked);
@@ -229,7 +229,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenNorth_WhenNextPosition_ThenXTheSameYIncrements()
         {
-            Region.NextPosition(0, 0, CardinalDirection.North, out var x, out var y);
+            Region.NextPosition(0, 0, 0, Direction.North, out var x, out var y, out _);
 
             Assert.AreEqual(0, x);
             Assert.AreEqual(1, y);
@@ -238,7 +238,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenSouth_WhenNextPosition_ThenXTheSameYDecrements()
         {
-            Region.NextPosition(0, 0, CardinalDirection.South, out var x, out var y);
+            Region.NextPosition(0, 0, 0, Direction.South, out var x, out var y, out _);
 
             Assert.AreEqual(0, x);
             Assert.AreEqual(-1, y);
@@ -247,7 +247,7 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenWest_WhenNextPosition_ThenXDecrementsYTheSame()
         {
-            Region.NextPosition(0, 0, CardinalDirection.West, out var x, out var y);
+            Region.NextPosition(0, 0, 0, Direction.West, out var x, out var y, out _);
 
             Assert.AreEqual(-1, x);
             Assert.AreEqual(0, y);
@@ -256,10 +256,59 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         [TestMethod]
         public void GivenEast_WhenNextPosition_ThenXIncrementsYTheSame()
         {
-            Region.NextPosition(0, 0, CardinalDirection.East, out var x, out var y);
+            Region.NextPosition(0, 0, 0, Direction.East, out var x, out var y, out _);
 
             Assert.AreEqual(1, x);
             Assert.AreEqual(0, y);
+        }
+
+        [TestMethod]
+        public void GivenRoomNotInRegion_WhenNextPosition_ThenNull()
+        {
+            var region = new Region(string.Empty, string.Empty);
+            var room = new Room(Identifier.Empty, Description.Empty);
+
+            var result = region.GetPositionOfRoom(room);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GivenRoomaAtX0Y0Z0_WhenNextPosition_ThenNotNull()
+        {
+            var region = new Region(string.Empty, string.Empty);
+            var room = new Room(Identifier.Empty, Description.Empty);
+            region.AddRoom(room, 0, 0, 0);
+
+            var result = region.GetPositionOfRoom(room);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GivenRoomaAtX0Y0Z0_WhenNextPosition_ThenResultRoomQualsInputRoom()
+        {
+            var region = new Region(string.Empty, string.Empty);
+            var room = new Room(Identifier.Empty, Description.Empty);
+            region.AddRoom(room, 0, 0, 0);
+
+            var result = region.GetPositionOfRoom(room);
+
+            Assert.AreEqual(room, result.Room);
+        }
+
+        [TestMethod]
+        public void GivenRoomaAtX0Y0Z0_WhenNextPosition_ThenX0Y0Z0()
+        {
+            var region = new Region(string.Empty, string.Empty);
+            var room = new Room(Identifier.Empty, Description.Empty);
+            region.AddRoom(room, 0, 0, 0);
+
+            var result = region.GetPositionOfRoom(room);
+
+            Assert.AreEqual(0, result.X);
+            Assert.AreEqual(0, result.Y);
+            Assert.AreEqual(0, result.Z);
         }
     }
 }

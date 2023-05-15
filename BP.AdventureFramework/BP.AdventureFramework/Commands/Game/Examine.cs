@@ -35,13 +35,14 @@ namespace BP.AdventureFramework.Commands.Game
         /// <summary>
         /// Invoke the command.
         /// </summary>
+        /// <param name="game">The game to invoke the command on.</param>
         /// <returns>The reaction.</returns>
-        public Reaction Invoke()
+        public Reaction Invoke(Logic.Game game)
         {
             if (Examinable == null)
-                return new Reaction(ReactionResult.None, "Nothing to examine.");
+                return new Reaction(ReactionResult.Error, "Nothing to examine.");
 
-            return new Reaction(ReactionResult.Reacted, Examinable.Examime().Desciption);
+            return new Reaction(ReactionResult.OK, Examinable.Examime().Description);
         }
 
         #endregion

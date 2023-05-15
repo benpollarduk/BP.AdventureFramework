@@ -6,16 +6,20 @@
     public enum ReactionResult
     {
         /// <summary>
-        /// No reaction.
+        /// Error.
         /// </summary>
-        None = 0,
+        Error = 0,
         /// <summary>
-        /// Reacted.
+        /// OK.
         /// </summary>
-        Reacted,
+        OK,
         /// <summary>
-        /// A self contained reaction.
+        /// An internal reaction.
         /// </summary>
-        SelfContained
+        Internal,
+        /// <summary>
+        /// A reaction that has a fatal effect on the player.
+        /// </summary>
+        Fatal
     }
 }

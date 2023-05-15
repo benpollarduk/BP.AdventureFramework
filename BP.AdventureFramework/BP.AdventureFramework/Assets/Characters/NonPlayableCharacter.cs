@@ -1,21 +1,13 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Conversations;
 
 namespace BP.AdventureFramework.Assets.Characters
 {
     /// <summary>
     /// Represents a non-playable character.
     /// </summary>
-    public sealed class NonPlayableCharacter : Character, ITalkative
+    public sealed class NonPlayableCharacter : Character, IConverser
     {
-        #region Properties
-
-        /// <summary>
-        /// Get or set the conversation.
-        /// </summary>
-        public Conversation Conversation { get; set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -71,22 +63,12 @@ namespace BP.AdventureFramework.Assets.Characters
 
         #endregion
 
-        #region ITalkative Members
+        #region Implementation of IConverser
 
         /// <summary>
-        /// Talk to this object.
+        /// Get or set the conversation.
         /// </summary>
-        /// <returns>A string representing the conversation.</returns>
-        public string Talk()
-        {
-            if (Conversation == null)
-                return Identifier + " has nothing to say";
-
-            if (Conversation.HasSomeRemainingLines || Conversation.RepeatLastElement)
-                return Identifier + ": \"" + Conversation.NextLine() + "\"";
-
-            return Identifier + " has nothing else to say";
-        }
+        public Conversation Conversation { get; set; }
 
         #endregion
     }

@@ -10,7 +10,7 @@
         /// <summary>
         /// Get the direction of the exit.
         /// </summary>
-        public CardinalDirection Direction { get; }
+        public Direction Direction { get; }
 
         /// <summary>
         /// Get if this Exit is locked.
@@ -27,7 +27,7 @@
         /// <param name="direction">The direction of the exit.</param>
         /// <param name="isLocked">If this exit is locked.</param>
         /// <param name="description">A description of the exit.</param>
-        public Exit(CardinalDirection direction, bool isLocked = false, Description description = null)
+        public Exit(Direction direction, bool isLocked = false, Description description = null)
         {
             Direction = direction;
             Description = description ?? GenerateDescription();

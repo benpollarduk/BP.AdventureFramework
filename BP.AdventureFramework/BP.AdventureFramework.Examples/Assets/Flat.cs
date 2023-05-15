@@ -2,87 +2,68 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utils;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets
 {
     internal static class Flat
     {
-        private const string Ben = "Ben";
-        private const string EmptyCoffeeMug = "Empty Coffee Mug";
-        private const string MugOfCoffee = "Mug Of Coffee";
-        private const string Guitar = "Guitar";
-        private const string Flat3 = "Flat";
-        private const string Bed = "Bed";
-        private const string TV = "TV";
-        private const string Bedroom = "Bedroom";
-        private const string Picture = "Picture";
-        private const string EasternHallway = "Eastern Hallway";
-        private const string WesternHallway = "Western Hallway";
-        private const string Telephone = "Telephone";
-        private const string Bathroom = "Bathroom";
-        private const string Bath = "Bath";
-        private const string Toilet = "Toilet";
-        private const string Kettle = "Kettle";
-        private const string Mirror = "Mirror";
-        private const string Lead = "Lead";
-        private const string FaustosRoof = "Faustos Roof";
-        private const string Skylight = "Sky Light";
-        private const string SpareBedroom = "Spare Bedroom";
-        private const string Kitchen = "Kitchen";
-        private const string Gamecube = "Gamecube";
-        private const string HamsterCage = "Hamster Cage";
-        private const string Map = "Map";
-        private const string Table = "Table";
-        private const string Canvas = "Canvas";
-        private const string Lounge = "Lounge";
-        private const string Beth = "Beth";
-        private const string Stairway = "Stairway";
-        private const string Smalltown = "Smalltown";
+        internal const string EmptyCoffeeMug = "Empty Coffee Mug";
+        internal const string MugOfCoffee = "Mug Of Coffee";
+        internal const string Guitar = "Guitar";
+        internal const string Flat3 = "Flat";
+        internal const string Bed = "Bed";
+        internal const string TV = "TV";
+        internal const string Bedroom = "Bedroom";
+        internal const string Picture = "Picture";
+        internal const string EasternHallway = "Eastern Hallway";
+        internal const string WesternHallway = "Western Hallway";
+        internal const string Telephone = "Telephone";
+        internal const string Bathroom = "Bathroom";
+        internal const string Bath = "Bath";
+        internal const string Toilet = "Toilet";
+        internal const string Kettle = "Kettle";
+        internal const string Mirror = "Mirror";
+        internal const string Lead = "Lead";
+        internal const string FaustosRoof = "Faustos Roof";
+        internal const string Skylight = "Sky Light";
+        internal const string SpareBedroom = "Spare Bedroom";
+        internal const string Kitchen = "Kitchen";
+        internal const string Gamecube = "Gamecube";
+        internal const string HamsterCage = "Hamster Cage";
+        internal const string Map = "Map";
+        internal const string Table = "Table";
+        internal const string Canvas = "Canvas";
+        internal const string Lounge = "Lounge";
+        internal const string Beth = "Beth";
+        internal const string Stairway = "Stairway";
+        internal const string Attic = "Attic";
 
-        internal static PlayableCharacter GeneratePC()
-        {
-            var player = new PlayableCharacter(Ben, "You are wearing shorts and a t-shirt")
-            {
-                Interaction = (i, target) =>
-                {
-                    if (EmptyCoffeeMug.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "If there was some coffee in the mug you could drink it");
-
-                    if (Guitar.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "You bust out some Bad Religion. Cracking, shame the guitar isn't plugged in to an amplified though...");
-
-                    return new InteractionResult(InteractionEffect.NoEffect, i);
-                }
-            };
-
-            return player;
-        }
-
-        internal static Overworld GenerateOverworld(PlayableCharacter pC)
+        internal static Region GenerateRegion(PlayableCharacter pC)
         {
             var regionMaker = new RegionMaker(Flat3, "Ben and Beth's Flat");
 
             var bedroom = new Room(Bedroom,
                 "The bedroom is large, with one duck-egg blue wall. There is a double bed against the western wall, and a few other items of bedroom furniture are dotted around, but they all look pretty scruffy. To the north is a doorway leading to the hallway",
-                new[] { new Exit(CardinalDirection.North) },
+                new[] { new Exit(Direction.North), new Exit(Direction.Up) },
                 new Item(Bed, "The bed is neatly made, Beth makes it every day. By your reckoning there are way too many cushions on it though..."),
                 new Item(Picture, "The picture is of some flowers and a mountain"),
                 new Item(TV, "The TV is small - the screen is only 14\"! Two DVD's are propped alongside it 'Miranda' and 'The Vicar Of Dibly'"));
 
             var hallway1 = new Room(EasternHallway,
                 "The hallway is pretty narrow, and all the walls are bare except for a strange looking telephone. To the east is the front door, but it looks to heavy to open. To the south is the bedroom, to the west the hallway continues",
-                new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.East, true), new Exit(CardinalDirection.West) },
+                new[] { new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.West) },
                 new Item(Telephone, "As soon as you pickup the telephone to examine it you hear hideous feedback. You replace it quickly!"));
 
             var hallway2 = new Room(WesternHallway,
                 "This hallway is a continuation of the Eastern Hallway, to the north is the Bathroom, to the west is the Kitchen, to the South is a neat looking Spare Room. The hallway continues to the East",
-                new Exit(CardinalDirection.North), new Exit(CardinalDirection.South), new Exit(CardinalDirection.East), new Exit(CardinalDirection.West));
+                new Exit(Direction.North), new Exit(Direction.South), new Exit(Direction.East), new Exit(Direction.West));
 
             var bathroom = new Room(Bathroom,
                 "The bathroom is fairly small. There are some clothes drying on a clothes horse. A bath lies along the eastern wall. There is a remarkably clean toilet and sink along the western wall, with a mirror above the sink. To the north is a large window, it is open and you can see out onto the roof of the flat below. The doorway to the south leads into the Western Hallway",
-                new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.North) },
+                new[] { new Exit(Direction.South), new Exit(Direction.North) },
                 new Item(Bath, "A long but narrow bath. You wan't to fill it but you can't because there is a wetsuit in it."),
                 new Item(Toilet, "A clean looking toilet. You lift the lid to take a look inside... ergh a floater! You flush the toilet but it just churns around! You close the lid and pretend it isn't there."),
                 new Item(Mirror, "Looking in the mirror you see yourself clearly, and make a mental note to grow back some sideburns"));
@@ -104,7 +85,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             var roof = new Room(FaustosRoof,
                 string.Empty,
-                new[] { new Exit(CardinalDirection.South) },
+                new[] { new Exit(Direction.South) },
                 new Item(Skylight, "You peer down into the skylight, only to see a naked Italian man... cooking! Yikes! Not liking the idea of the accidents one could get into by cooking naked you look away quickly"),
                 mug);
 
@@ -114,7 +95,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             var bedroom2 = new Room(SpareBedroom,
                 string.Empty,
-                new[] { new Exit(CardinalDirection.North) },
+                new[] { new Exit(Direction.North) },
                 new Item(Gamecube, "A Nintendo Gamecube. You pop the disk cover, it looks like someone has been playing Killer7."),
                 new Item(Guitar, "The guitar is blue, with birds inlaid on the fret board. On the headstock is someones name... 'Paul Reed Smith'. Who the hell is that. The guitar is literally begging to be played...", true));
 
@@ -143,7 +124,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             var kitchen = new Room(Kitchen,
                 "The kitchen is a small area with work tops along the northern and eastern walls. There is a kettle on the work top, it has steam rising out of it's spout. There is a also window along the northern wall. Underneath the window is a hamster cage. To the south is the living room, the Western Hallway is to the east.",
-                new[] { new Exit(CardinalDirection.South), new Exit(CardinalDirection.East) },
+                new[] { new Exit(Direction.South), new Exit(Direction.East) },
                 new Item(HamsterCage, "There is a pretty large hamster cage on the floor. When you go up to it you hear a small, but irritated sniffing. Mable sounds annoyed, best leave her alone for now."),
                 kettle)
             {
@@ -161,11 +142,14 @@ namespace BP.AdventureFramework.Examples.Assets
                 }
             };
 
-            var beth = new NonPlayableCharacter(Beth, "Beth is very pretty, she has blue eyes and ginger hair. She is sat on the sofa watching the TV", new Conversation(new ConversationElement("Hello Ben"), new ConversationElement("How are you?")));
+            var beth = new NonPlayableCharacter(Beth, "Beth is very pretty, she has blue eyes and ginger hair. She is sat on the sofa watching the TV")
+            {
+                Conversation = new Conversation(new Paragraph("Hello Ben"), new Paragraph("How are you?", null, 0))
+            };
 
             var lounge = new Room(Lounge,
                 string.Empty,
-                new[] { new Exit(CardinalDirection.North) },
+                new[] { new Exit(Direction.North) },
                 new Item(Map, "This things huge! Who would buy one of these? It looks pretty cheap, like it could have been bought from one of those massive Swedish outlets. The resolution of the map is too small to see your road on."),
                 new Item(Canvas, "Wow, cool canvas. It is brightly painted with aliens and planets. On one planet there is a rabbit playing a guitar and whistling, but you can't see his face because he has his back turned to you. Something looks wrong with the rabbit..."),
                 new Item(Table, "The coffee table is one of those large oblong ones. It is made of reconstituted wood, made to look like birch"),
@@ -226,7 +210,7 @@ namespace BP.AdventureFramework.Examples.Assets
                     {
                         if (obj.ContainsItem(Lead))
                         {
-                            hallway1[CardinalDirection.East].Unlock();
+                            hallway1[Direction.East].Unlock();
 
                             if (lounge.FindCharacter(Beth, out var b))
                             {
@@ -246,20 +230,22 @@ namespace BP.AdventureFramework.Examples.Assets
                 return new InteractionResult(InteractionEffect.NoEffect, i);
             };
 
-            var stairway = new Room(Stairway, "You are in the Stairway. It is dimly lit because the bulbs have blown again, to the north is a staircase leading down to the other flats. Fausto, your next door neighbour is standing naked at the bottom of the stairs. He looks pretty pissed off about all the noise, and doesn't look like he is going to let you past. To the west is the front door of the flat.", new Exit(CardinalDirection.West));
+            var stairway = new Room(Stairway, "You are in the Stairway. It is dimly lit because the bulbs have blown again, to the north is a staircase leading down to the other flats. Fausto, your next door neighbour is standing naked at the bottom of the stairs. He looks pretty pissed off about all the noise, and doesn't look like he is going to let you past. To the west is the front door of the flat.", new Exit(Direction.West));
+            var attic = new Room(Attic, "You are in the Attic. Even though there aren't many boxes up here the lack of light makes it pretty creepy.", new Exit(Direction.Down));
 
             // create all rooms
-            regionMaker[2, 0] = bedroom;
-            regionMaker[2, 1] = hallway1;
-            regionMaker[1, 1] = hallway2;
-            regionMaker[1, 2] = bathroom;
-            regionMaker[1, 3] = roof;
-            regionMaker[1, 0] = bedroom2;
-            regionMaker[0, 1] = kitchen;
-            regionMaker[0, 0] = lounge;
-            regionMaker[3, 1] = stairway;
+            regionMaker[2, 0, 0] = bedroom;
+            regionMaker[2, 1, 0] = hallway1;
+            regionMaker[1, 1, 0] = hallway2;
+            regionMaker[1, 2, 0] = bathroom;
+            regionMaker[1, 3, 0] = roof;
+            regionMaker[1, 0, 0] = bedroom2;
+            regionMaker[0, 1, 0] = kitchen;
+            regionMaker[0, 0, 0] = lounge;
+            regionMaker[3, 1, 0] = stairway;
+            regionMaker[2, 0, 1] = attic;
 
-            return new OverworldMaker(Smalltown, "A sleepy town", regionMaker).Make();
+            return regionMaker.Make(2, 0, 0);
         }
     }
 }

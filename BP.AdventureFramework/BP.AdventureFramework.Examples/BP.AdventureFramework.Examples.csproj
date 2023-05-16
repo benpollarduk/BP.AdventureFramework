@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Ship.cs" />
     <Compile Include="Assets\Everglades.cs" />
     <Compile Include="Assets\Flat.cs" />
     <Compile Include="Assets\Hub.cs" />

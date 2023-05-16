@@ -59,7 +59,6 @@
         /// <returns>True if this is at the position, else false.</returns>
         public bool IsAtPosition(int x, int y, int z)
         {
-            
             return X == x && Y == y && Z == z;
         }
 

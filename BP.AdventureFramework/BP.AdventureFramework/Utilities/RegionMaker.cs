@@ -117,7 +117,8 @@ namespace BP.AdventureFramework.Utilities
 
             LinkExits(region);
 
-            region.SetStartRoom(x, y, z);
+            // offset start room, matrix will have normalised positions
+            region.SetStartRoom(x - rooms.Min(r => r.X), y - rooms.Min(r => r.Y), z - rooms.Min(r => r.Z));
 
             return region;
         }

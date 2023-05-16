@@ -1,4 +1,6 @@
-﻿using BP.AdventureFramework.Commands;
+﻿using System.Linq;
+using BP.AdventureFramework.Commands;
+using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Assets
 {
@@ -12,7 +14,35 @@ namespace BP.AdventureFramework.Assets
         /// <summary>
         /// Get or set the callback handling all examination of this object.
         /// </summary>
-        public ExaminationCallback Examination { get; set; } = obj => new ExaminationResult(obj.Description != null ? obj.Description.GetDescription() : obj.GetType().Name);
+        public ExaminationCallback Examination { get; set; } = obj =>
+        {
+            var description = string.Empty;
+
+            if (obj.Description != null)
+                description = obj.Description.GetDescription();
+
+            if (obj.Commands?.Any() ?? false)
+            {
+                if (!string.IsNullOrEmpty(description))
+                    description += " ";
+
+                description += "This provides the following commands: ";
+
+                foreach (var customCommand in obj.Commands)
+                    description += $"{customCommand.Help.Command} - {customCommand.Help.Description}, ";
+
+                if (description.EndsWith(", "))
+                {
+                    description = description.Remove(description.Length - 2);
+                    description.EnsureFinishedSentence();
+                }
+            }
+
+            if (string.IsNullOrEmpty(description))
+                description = obj.GetType().Name;
+
+            return new ExaminationResult(description);
+        };
 
         #endregion
 
@@ -42,7 +72,7 @@ namespace BP.AdventureFramework.Assets
         /// Examine this object.
         /// </summary>
         /// <returns>A ExaminationResult detailing the examination of this object.</returns>
-        public virtual ExaminationResult Examime()
+        public virtual ExaminationResult Examine()
         {
             return Examination(this);
         }

@@ -61,13 +61,16 @@
     <Compile Include="Commands\Conversations\Respond_Tests.cs" />
     <Compile Include="Commands\Conversations\Next_Tests.cs" />
     <Compile Include="Commands\Conversations\End_Tests.cs" />
+    <Compile Include="Commands\Game\TakeAll_Tests.cs" />
     <Compile Include="Conversations\Conversation_Tests.cs" />
     <Compile Include="Extensions\ArrayExtensions_Tests.cs" />
     <Compile Include="Interpretation\CustomCommandInterpreter_Tests.cs" />
     <Compile Include="Logic\Game_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyConversationFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyTransitionFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Grid\Color\SimpleColorConversationFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\ColorConversationFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Grid\Color\SimpleColorSceneFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\ColorTransitionFrameBuilder_Tests.cs" />
     <Compile Include="Utilities\StringUtils_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyAboutFrameBuilder_Tests.cs" />

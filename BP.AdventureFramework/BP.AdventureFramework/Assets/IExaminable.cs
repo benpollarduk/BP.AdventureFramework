@@ -27,6 +27,6 @@ namespace BP.AdventureFramework.Assets
         /// Examine this object.
         /// </summary>
         /// <returns>A ExaminationResult detailing the examination of this object.</returns>
-        ExaminationResult Examime();
+        ExaminationResult Examine();
     }
 }

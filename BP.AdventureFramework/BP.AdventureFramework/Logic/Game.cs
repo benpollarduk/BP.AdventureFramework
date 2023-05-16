@@ -477,7 +477,11 @@ namespace BP.AdventureFramework.Logic
         /// </summary>
         public void DisplayHelp()
         {
-            Refresh(FrameBuilders.HelpFrameBuilder.Build("Help", string.Empty, Interpreter.SupportedCommands, DisplaySize.Width, DisplaySize.Height));
+            var commands = new List<CommandHelp>();
+            commands.AddRange(Interpreter.SupportedCommands);
+            commands.AddRange(Interpreter.GetContextualCommandHelp(this));
+
+            Refresh(FrameBuilders.HelpFrameBuilder.Build("Help", string.Empty, commands.Distinct().ToArray(), DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>
@@ -530,7 +534,7 @@ namespace BP.AdventureFramework.Logic
                 playerGenerator,
                 completionCondition,
                 DefaultSize,
-                FrameBuilderCollections.Color,
+                FrameBuilderCollections.Default,
                 ExitMode.ReturnToTitleScreen,
                 DefaultErrorPrefix,
                 DefaultInterpreter);

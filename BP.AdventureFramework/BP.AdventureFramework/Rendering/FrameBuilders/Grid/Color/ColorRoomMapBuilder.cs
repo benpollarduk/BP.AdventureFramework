@@ -18,9 +18,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         public char LockedExit { get; set; } = Convert.ToChar("x");
 
         /// <summary>
-        /// Get or set the character used for representing there is an item in the room.
+        /// Get or set the character used for representing there is an item or a character in the room.
         /// </summary>
-        public char ItemInRoom { get; set; } = Convert.ToChar("?");
+        public char ItemOrCharacterInRoom { get; set; } = Convert.ToChar("?");
 
         /// <summary>
         /// Get or set the character to use for vertical boundaries.
@@ -58,9 +58,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         public ConsoleColor BoundaryColor { get; set; } = ConsoleColor.DarkGray;
 
         /// <summary>
-        /// Get or set the item color.
+        /// Get or set the item or character color.
         /// </summary>
-        public ConsoleColor ItemColor { get; set; } = ConsoleColor.Blue;
+        public ConsoleColor ItemOrCharacterColor { get; set; } = ConsoleColor.Blue;
 
         /// <summary>
         /// Get or set the locked exit color.
@@ -292,16 +292,16 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         }
 
         /// <summary>
-        /// Draw the item.
+        /// Draw the item or character.
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="gridStringBuilder">The builder to use for the map.</param>
         /// <param name="startX">The start position, x.</param>
         /// <param name="startY">The start position, x.</param>
-        private void DrawItem(Room room, GridStringBuilder gridStringBuilder, int startX, int startY)
+        private void DrawItemOrCharacter(Room room, GridStringBuilder gridStringBuilder, int startX, int startY)
         {
-            if (room.Items.Any())
-                gridStringBuilder.SetCell(startX + 4, startY + 3, ItemInRoom, ItemColor);
+            if (room.Items.Any(x => x.IsPlayerVisible) || room.Characters.Any(x => x.IsPlayerVisible))
+                gridStringBuilder.SetCell(startX + 4, startY + 3, ItemOrCharacterInRoom, ItemOrCharacterColor);
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             var lockedExitString = $"{LockedExit} = Locked Exit";
             var notVisitedExitString = "N/E/S/W/U/D = Unvisited";
             var visitedExitString = "n/e/s/w/u/d = Visited";
-            var itemsString = $"{ItemInRoom} = Item(s) In Room";
+            var itemsString = $"{ItemOrCharacterInRoom} = Item(s) or Character(s) in Room";
 
             switch (key)
             {
@@ -339,8 +339,8 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                     if (room.EnteredFrom.HasValue)
                         keyLines.Add($"{room.EnteredFrom.Value.ToString().ToLower().Substring(0, 1)} = Entrance", VisitedExitColor);
 
-                    if (room.Items.Any(x => x.IsPlayerVisible))
-                        keyLines.Add(itemsString, ItemColor);
+                    if (room.Items.Any(x => x.IsPlayerVisible) || room.Characters.Any(x => x.IsPlayerVisible))
+                        keyLines.Add(itemsString, ItemOrCharacterColor);
 
                     break;
 
@@ -349,7 +349,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                     keyLines.Add(lockedExitString, LockedExitColor);
                     keyLines.Add(notVisitedExitString, UnvisitedExitColor);
                     keyLines.Add(visitedExitString, VisitedExitColor);
-                    keyLines.Add(itemsString, ItemColor);
+                    keyLines.Add(itemsString, ItemOrCharacterColor);
 
                     break;
 
@@ -362,8 +362,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             endX = startX + 8;
             endY = startY;
 
+            var startKeyX = endX + KeyPadding;
+            var maxWidth = keyLines.Max(x => x.Key.Length) + startKeyX + 1;
+
             foreach (var keyLine in keyLines)
-                gridStringBuilder.DrawWrapped(keyLine.Key, startX + 8 + KeyPadding, endY + 1, keyLines.Max(x => x.Key.Length) + 1, keyLine.Value, out endX, out endY);
+                gridStringBuilder.DrawWrapped(keyLine.Key, startKeyX, endY + 1, maxWidth, keyLine.Value, out endX, out endY);
 
         }
 
@@ -400,7 +403,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             DrawWestBorder(room, viewPoint, gridStringBuilder, startX, startY);
             DrawUpExit(room, viewPoint, gridStringBuilder, startX, startY);
             DrawDownExit(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawItem(room, gridStringBuilder, startX, startY);
+            DrawItemOrCharacter(room, gridStringBuilder, startX, startY);
             DrawKey(room, viewPoint, key, gridStringBuilder, startX, startY, out endX, out endY);
 
             if (endY < startY + 6)

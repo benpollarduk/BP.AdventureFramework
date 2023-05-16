@@ -82,7 +82,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
             var availableWidth = width - 4;
             const int leftMargin = 2;
-            var padding = (commandHelp.Any() ? commandHelp.Max(x => x.Command.Length) : 0) + 2;
+            var padding = (commandHelp.Any() ? commandHelp.Max(x => x.Command.Length) : 0) + 1;
 
             gridStringBuilder.DrawWrapped(title, leftMargin, 2, availableWidth, TitleColor, out _, out var lastY);
             gridStringBuilder.DrawUnderline(leftMargin, lastY + 1, title.Length, TitleColor);
@@ -94,10 +94,14 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
             foreach (var command in commandHelp)
             {
+                if (lastY >= height - 1)
+                    break;
+
                 if (!string.IsNullOrEmpty(command.Command) && !string.IsNullOrEmpty(command.Command))
                 {
                     gridStringBuilder.DrawWrapped(command.Command, leftMargin, lastY + 1, availableWidth, CommandColor, out _, out lastY);
-                    gridStringBuilder.DrawWrapped($"- {command.Description}", leftMargin + padding, lastY, availableWidth, CommandDescriptionColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped("-", leftMargin + padding, lastY, availableWidth, CommandColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped(command.Description, leftMargin + padding + 2, lastY, availableWidth, CommandDescriptionColor, out _, out lastY);
                 }
                 else if (!string.IsNullOrEmpty(command.Command) && string.IsNullOrEmpty(command.Description))
                 {

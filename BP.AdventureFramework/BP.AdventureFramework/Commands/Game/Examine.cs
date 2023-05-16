@@ -42,7 +42,7 @@ namespace BP.AdventureFramework.Commands.Game
             if (Examinable == null)
                 return new Reaction(ReactionResult.Error, "Nothing to examine.");
 
-            return new Reaction(ReactionResult.OK, Examinable.Examime().Description);
+            return new Reaction(ReactionResult.OK, Examinable.Examine().Description);
         }
 
         #endregion

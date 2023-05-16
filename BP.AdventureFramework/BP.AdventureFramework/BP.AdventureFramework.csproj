@@ -5,14 +5,14 @@
     <AssemblyName>BP.AdventureFramework</AssemblyName>
     <Authors>Ben Pollard</Authors>
     <Copyright />
-    <PackageReleaseNotes>Added color rendering, added (Z) depth to regions to allow for 3D maps, reworked conversations.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added take all command, fixed some rendering issues.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/ben-pollard-uk/adventure-framework.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ben-pollard-uk/adventure-framework</PackageProjectUrl>
     <Description>An open source library for creating text adventures. Provides game assets, parsers, and other classes to assist with logic. For examples see the project website at https://github.com/ben-pollard-uk/adventure-framework.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.4.0</Version>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
+    <Version>1.4.1</Version>
+    <AssemblyVersion>1.4.1.0</AssemblyVersion>
+    <FileVersion>1.4.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Examples.Assets
                 {
                     Commands = new[]
                     {
-                        new CustomCommand(new CommandHelp($"Warp {region.Identifier.Name}", $"Warp to the {region.Identifier.Name}."), g =>
+                        new CustomCommand(new CommandHelp($"Warp {region.Identifier.Name}", $"Use the {region.Identifier.Name} Sphere to warp to the {region.Identifier.Name}."), g =>
                         {
                             var move = overworld?.Move(region) ?? false;
 
@@ -71,14 +71,16 @@ namespace BP.AdventureFramework.Examples.Assets
                 {
                     Responses = new[]
                     {
-                        new Response("Yes please, change to legacy."), 
-                        new Response("Yes please, change to color.", 2),
-                        new Response("No thanks, keep things as they are.", 3)
+                        new Response("Yes please, change to default."),
+                        new Response("Yes please, change to simple.", 2),
+                        new Response("Yes please, change to legacy.", 3),
+                        new Response("No thanks, keep things as they are.", 4)
                     }
                 },
-                new Paragraph("Squarrk! Legacy, looks old. Arrk!", g => g.FrameBuilders = FrameBuilderCollections.Legacy, - 1),
-                new Paragraph("Arrk! Color it is.", g => g.FrameBuilders = FrameBuilderCollections.Color, -2),
-                new Paragraph("Fine, suit yourself! Squarrk!", -3)
+                new Paragraph("Arrk! Color it is.", g => g.FrameBuilders = FrameBuilderCollections.Default, -1),
+                new Paragraph("Eeek, simple be fine too!", g => g.FrameBuilders = FrameBuilderCollections.Simple, -2),
+                new Paragraph("Squarrk! Legacy, looks old. Arrk!", g => g.FrameBuilders = FrameBuilderCollections.Legacy, - 3),
+                new Paragraph("Fine, suit yourself! Squarrk!", -4)
             );
 
             var parrot = new NonPlayableCharacter(new Identifier("Parrot"), new Description("A brightly colored parrot."))

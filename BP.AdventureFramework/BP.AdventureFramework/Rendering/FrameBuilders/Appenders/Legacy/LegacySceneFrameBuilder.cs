@@ -62,7 +62,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
             scene.Append(whitespace);
 
             if (room.Items.Any())
-                scene.Append(lineStringBuilder.BuildWrappedPadded(room.Examime().Description.EnsureFinishedSentence(), width, false));
+                scene.Append(lineStringBuilder.BuildWrappedPadded(room.Examine().Description.EnsureFinishedSentence(), width, false));
             else
                 scene.Append(lineStringBuilder.BuildWrappedPadded("There are no items in this area.", width, false));
 

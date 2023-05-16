@@ -163,7 +163,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
 
             while (value.Length > 0)
             {
-                var chunk = StringUtilities.CutLineFromParagraph(ref value, maxWidth);
+                var chunk = StringUtilities.CutLineFromParagraph(ref value, maxWidth - startX);
 
                 for (var i = 0; i < chunk.Length; i++)
                 {

@@ -59,7 +59,7 @@ namespace BP.AdventureFramework.Utilities.Generation
         /// Examine this object.
         /// </summary>
         /// <returns>A ExaminationResult detailing the examination of this object.</returns>
-        public ExaminationResult Examime()
+        public ExaminationResult Examine()
         {
             throw new NotImplementedException();
         }

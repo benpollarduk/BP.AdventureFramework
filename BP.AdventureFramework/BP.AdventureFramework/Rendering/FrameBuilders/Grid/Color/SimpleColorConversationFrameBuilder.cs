@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using BP.AdventureFramework.Assets.Characters;
@@ -10,9 +9,9 @@ using BP.AdventureFramework.Rendering.Frames;
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 {
     /// <summary>
-    /// Provides a builder of color conversation frames.
+    /// Provides a builder of simple color conversation frames.
     /// </summary>
-    public sealed class ColorConversationFrameBuilder : IConversationFrameBuilder
+    public sealed class SimpleColorConversationFrameBuilder : IConversationFrameBuilder
     {
         #region Fields
 
@@ -62,45 +61,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the ColorConversationFrameBuilder class.
+        /// Initializes a new instance of the SimpleColorConversationFrameBuilder class.
         /// </summary>
         /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-        public ColorConversationFrameBuilder(GridStringBuilder gridStringBuilder)
+        public SimpleColorConversationFrameBuilder(GridStringBuilder gridStringBuilder)
         {
             this.gridStringBuilder = gridStringBuilder;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Truncate a log.
-        /// </summary>
-        /// <param name="startX">The start X position, in the grid.</param>
-        /// <param name="availableWidth">The available width.</param>
-        /// <param name="availableHeight">The available height.</param>
-        /// <param name="log">The log.</param>
-        /// <returns>The truncated log.</returns>
-        private LogItem[] TruncateLog(int startX, int availableWidth, int availableHeight, LogItem[] log)
-        {
-            var truncated = new List<LogItem>();
-
-            for (var i = log.Length - 1; i >= 0; i--)
-            {
-                var lines = gridStringBuilder.GetNumberOfLines(log[i].Line, startX, 0, availableWidth);
-
-                availableHeight -= lines;
-
-                if (availableHeight >= 0)
-                    truncated.Add(log[i]);
-                else
-                    break;
-            }
-
-            truncated.Reverse();
-
-            return truncated.ToArray();
         }
 
         #endregion
@@ -122,9 +88,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             gridStringBuilder.DrawBoundary(BorderColor);
 
             var availableWidth = width - 4;
-            var availableHeight = height - 2;
             const int leftMargin = 2;
-            const int linePadding = 2;
             var lastY = 2;
 
             if (!string.IsNullOrEmpty(title))
@@ -136,12 +100,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
             if (converser?.Conversation?.Log != null)
             {
-                var spaceForLog = availableHeight - 10 - contextualCommands?.Length ?? 0;
-                var truncatedLog = TruncateLog(leftMargin, availableWidth, spaceForLog, converser.Conversation.Log);
+                lastY++;
 
-                foreach (var log in truncatedLog)
+                var log = converser.Conversation.Log.LastOrDefault();
+
+                if (log != null)
                 {
-                    lastY++;
                     switch (log.Participant)
                     {
                         case Participant.Player:
@@ -158,8 +122,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
             if (contextualCommands?.Any() ?? false)
             {
-                gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, BorderColor);
-                gridStringBuilder.DrawWrapped("You can:", leftMargin, lastY + 4, availableWidth, ResponseColor, out _, out lastY);
+                gridStringBuilder.DrawWrapped("You can:", leftMargin, lastY + 3, availableWidth, ResponseColor, out _, out lastY);
 
                 var maxCommandLength = contextualCommands.Max(x => x.Command.Length);
                 const int padding = 4;
@@ -175,10 +138,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                 }
             }
 
-            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+            gridStringBuilder.DrawWrapped(">", leftMargin, lastY + 2, availableWidth, InputColor, out _, out _);
 
-            return new GridTextFrame(gridStringBuilder, leftMargin + 2, availableHeight, BackgroundColor) { AcceptsInput = true, ShowCursor = true };
+            return new GridTextFrame(gridStringBuilder, leftMargin + 2, lastY + 2, BackgroundColor) { AcceptsInput = true, ShowCursor = true };
         }
 
         #endregion

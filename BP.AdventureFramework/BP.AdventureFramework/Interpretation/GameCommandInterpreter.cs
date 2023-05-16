@@ -124,6 +124,11 @@ namespace BP.AdventureFramework.Interpretation
         public const string TakeShort = "T";
 
         /// <summary>
+        /// Get the all command.
+        /// </summary>
+        public const string All = "All";
+
+        /// <summary>
         /// Get the examine command.
         /// </summary>
         public const string Examine = "Examine";
@@ -171,6 +176,7 @@ namespace BP.AdventureFramework.Interpretation
             new CommandHelp($"{Drop}/{DropShort} __", "Drop an item"),
             new CommandHelp($"{Examine}/{ExamineShort} __", "Examine anything in the game"),
             new CommandHelp($"{Take}/{TakeShort} __", "Take an item"),
+            new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in a room"),
             new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} __", "Talk to a character"),
             new CommandHelp($"{Use} __", "Use an item on the this Room"),
             new CommandHelp($"{Use} __ {On.ToLower()}", "Use an item on another item or character")
@@ -255,6 +261,11 @@ namespace BP.AdventureFramework.Interpretation
                     command = new Unactionable("There are no takeable items in the room.");
                     return true;
                 }
+            }
+            else if (noun.Equals(All, StringComparison.CurrentCultureIgnoreCase))
+            {
+                command = new TakeAll();
+                return true;
             }
             else
             {
@@ -585,7 +596,10 @@ namespace BP.AdventureFramework.Interpretation
                 commands.Add(new CommandHelp($"{Drop}/{DropShort} __", "Drop an item"));
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any())
+            {
                 commands.Add(new CommandHelp($"{Take}/{TakeShort} __", "Take an item"));
+                commands.Add(new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in a room"));
+            }
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Any())
                 commands.Add(new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} __", "Talk to a character"));

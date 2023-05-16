@@ -118,7 +118,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// Examine this object.
         /// </summary>
         /// <returns>A ExaminationResult detailing the examination of this object.</returns>
-        public override ExaminationResult Examime()
+        public override ExaminationResult Examine()
         {
             return new ExaminationResult(Description.GetDescription());
         }

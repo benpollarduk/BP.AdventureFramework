@@ -10,14 +10,13 @@ using BP.AdventureFramework.Rendering.Frames;
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 {
     /// <summary>
-    /// Provides a builder for color scene frames.
+    /// Provides a builder for simple color scene frames.
     /// </summary>
-    public sealed class ColorSceneFrameBuilder : ISceneFrameBuilder
+    public sealed class SimpleColorSceneFrameBuilder : ISceneFrameBuilder
     {
         #region Fields
 
         private readonly GridStringBuilder gridStringBuilder;
-        private readonly IRoomMapBuilder roomMapBuilder;
 
         #endregion
 
@@ -43,24 +42,17 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// </summary>
         public ConsoleColor InputColor { get; set; } = ConsoleColor.White;
 
-        /// <summary>
-        /// Get or set the commands color.
-        /// </summary>
-        public ConsoleColor CommandsColor { get; set; } = ConsoleColor.DarkGray;
-
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the ColorSceneFrameBuilder class.
+        /// Initializes a new instance of the SimpleColorSceneFrameBuilder class.
         /// </summary>
         /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-        /// <param name="roomMapBuilder">A builder to use for room maps.</param>
-        public ColorSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder)
+        public SimpleColorSceneFrameBuilder(GridStringBuilder gridStringBuilder)
         {
             this.gridStringBuilder = gridStringBuilder;
-            this.roomMapBuilder = roomMapBuilder;
         }
 
         #endregion
@@ -81,7 +73,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         public IFrame Build(Room room, ViewPoint viewPoint, PlayableCharacter player, string message, CommandHelp[] contextualCommands, KeyType keyType, int width, int height)
         {
             var availableWidth = width - 4;
-            var availableHeight = height - 2;
             const int leftMargin = 2;
             const int linePadding = 2;
 
@@ -93,8 +84,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             gridStringBuilder.DrawUnderline(leftMargin, lastY + 1, room.Identifier.Name.Length, TextColor);
 
             gridStringBuilder.DrawWrapped(room.Description.GetDescription().EnsureFinishedSentence(), 2, lastY + 3, availableWidth, TextColor, out _, out lastY);
-
-            roomMapBuilder?.BuildRoomMap(gridStringBuilder, room, viewPoint, keyType, leftMargin, lastY + linePadding, out _, out lastY);
 
             if (room.Items.Any())
                 gridStringBuilder.DrawWrapped(room.Examine().Description.EnsureFinishedSentence(), 2, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
@@ -117,49 +106,13 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             }
 
             if (player.Items.Any())
-            {
-                gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, BorderColor);
-                gridStringBuilder.DrawWrapped("You have: " + player.GetItemsAsList(), leftMargin, lastY + 4, availableWidth, TextColor, out _, out lastY);
-            }
+                gridStringBuilder.DrawWrapped("You have: " + player.GetItemsAsList(), leftMargin, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
 
-            if (contextualCommands?.Any() ?? false)
-            {
-                gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, BorderColor);
-                gridStringBuilder.DrawWrapped("You can:", leftMargin, lastY + 4, availableWidth, CommandsColor, out _, out lastY);
+            gridStringBuilder.DrawWrapped(message.EnsureFinishedSentence(), leftMargin, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
 
-                var messageLines = gridStringBuilder.GetNumberOfLines(message, leftMargin, 0, availableWidth);
-                var requiredSpaceForMessageAndPrompt = !string.IsNullOrEmpty(message) ? messageLines + 8 : 4;
-                var maxCommandLength = contextualCommands.Max(x => x.Command.Length);
-                const int padding = 4;
-                var dashStartX = leftMargin + maxCommandLength + padding;
-                var descriptionStartX = dashStartX + 2;
-                lastY++;
+            gridStringBuilder.DrawWrapped(">", leftMargin, lastY + 2, availableWidth, InputColor, out _, out _);
 
-                foreach (var contextualCommand in contextualCommands)
-                {
-                    gridStringBuilder.DrawWrapped(contextualCommand.Command, leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
-                    gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
-                    gridStringBuilder.DrawWrapped(contextualCommand.Description, descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
-
-                    // only continue if not run out of space
-                    if (lastY + requiredSpaceForMessageAndPrompt >= availableHeight)
-                    {
-                        gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
-                        break;
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(message))
-            {
-                gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, BorderColor);
-                gridStringBuilder.DrawWrapped(message.EnsureFinishedSentence(), leftMargin, lastY + 4, availableWidth, TextColor, out _, out _);
-            }
-
-            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
-
-            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, 4, lastY + 2, BackgroundColor);
         }
 
         #endregion

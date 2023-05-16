@@ -210,7 +210,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// Handle examination this Room.
         /// </summary>
         /// <returns>The result of this examination.</returns>
-        public override ExaminationResult Examime()
+        public override ExaminationResult Examine()
         {
             if (!Items.Where(i => i.IsPlayerVisible).ToArray().Any())
                 return new ExaminationResult("There is nothing to examine");

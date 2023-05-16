@@ -18,9 +18,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
         public string LockedExitString { get; set; } = "x";
 
         /// <summary>
-        /// Get or set the string used for representing there is an item in the room.
+        /// Get or set the string used for representing there is an item or character in the room.
         /// </summary>
-        public string ItemInRoomString { get; set; } = "?";
+        public string ItemOrCharacterInRoomString { get; set; } = "?";
 
         /// <summary>
         /// Get or set the string to use for vertical boundaries.
@@ -63,7 +63,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
             var lockedExitString = $"{LockedExitString} = Locked Exit";
             var unlockedExitString = "N/E/S/W = Unlocked Exit";
             var entranceString = "n/e/s/w = Entrance";
-            var itemsString = $"{ItemInRoomString} = Item(s) In Room";
+            var itemsString = $"{ItemOrCharacterInRoomString} = Item(s) or Character(s) in Room";
 
             switch (key)
             {
@@ -78,7 +78,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
                     if (room.EnteredFrom.HasValue)
                         keyLines.Enqueue($"  {room.EnteredFrom.Value.ToString().ToLower().Substring(0, 1)} = Entrance");
 
-                    if (room.Items.Any(x => x.IsPlayerVisible))
+                    if (room.Items.Any(x => x.IsPlayerVisible) || room.Characters.Any(x => x.IsPlayerVisible))
                         keyLines.Enqueue($"  {itemsString}");
 
                     break;
@@ -154,7 +154,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
 
             map += lineStringBuilder.BuildWrappedPadded($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[Direction.North] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
             map += lineStringBuilder.BuildWrappedPadded($"{VerticalBoundaryString}{exitRepresentations[Direction.Up]}   {exitRepresentations[Direction.Down]}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
-            map += lineStringBuilder.BuildWrappedPadded(exitRepresentations[Direction.West] + "  " + (room.Items.Any() ? ItemInRoomString : " ") + "  " + exitRepresentations[Direction.East] + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
+            map += lineStringBuilder.BuildWrappedPadded(exitRepresentations[Direction.West] + "  " + (room.Items.Any(x => x.IsPlayerVisible) || room.Characters.Any(x => x.IsPlayerVisible) ? ItemOrCharacterInRoomString : " ") + "  " + exitRepresentations[Direction.East] + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
             map += lineStringBuilder.BuildWrappedPadded($"{VerticalBoundaryString}     {VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
             map += lineStringBuilder.BuildWrappedPadded($"{VerticalBoundaryString}{HorizontalBoundaryString}{HorizontalBoundaryString}" + exitRepresentations[Direction.South] + $"{HorizontalBoundaryString}{HorizontalBoundaryString}{VerticalBoundaryString}" + (keyLines.Count > 0 ? keyLines.Dequeue() : ""), availableColumns, false);
 

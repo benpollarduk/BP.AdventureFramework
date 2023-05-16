@@ -33,9 +33,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         }
         
         /// <summary>
-        /// Get the color frame builder collection.
+        /// Get the default frame builder collection.
         /// </summary>
-        public static FrameBuilderCollection Color
+        public static FrameBuilderCollection Default
         {
             get
             {
@@ -51,6 +51,28 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
                     new ColorAboutFrameBuilder(gridLayoutBuilder),
                     new ColorTransitionFrameBuilder(gridLayoutBuilder),
                     new ColorConversationFrameBuilder(gridLayoutBuilder));
+            }
+        }
+
+        /// <summary>
+        /// Get the simple frame builder collection.
+        /// </summary>
+        public static FrameBuilderCollection Simple
+        {
+            get
+            {
+                var gridLayoutBuilder = new GridStringBuilder();
+
+                return new FrameBuilderCollection(
+                    new ColorTitleFrameBuilder(gridLayoutBuilder),
+                    new SimpleColorSceneFrameBuilder(gridLayoutBuilder), 
+                    new ColorRegionMapFrameBuilder(gridLayoutBuilder, new ColorRegionMapBuilder()),
+                    new ColorHelpFrameBuilder(gridLayoutBuilder),
+                    new ColorCompletionFrameBuilder(gridLayoutBuilder),
+                    new ColorGameOverFrameBuilder(gridLayoutBuilder),
+                    new ColorAboutFrameBuilder(gridLayoutBuilder),
+                    new ColorTransitionFrameBuilder(gridLayoutBuilder),
+                    new SimpleColorConversationFrameBuilder(gridLayoutBuilder));
             }
         }
     }

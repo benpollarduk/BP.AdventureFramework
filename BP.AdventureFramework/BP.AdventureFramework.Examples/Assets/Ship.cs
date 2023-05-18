@@ -19,25 +19,30 @@ namespace BP.AdventureFramework.Examples.Assets
         {
             var regionMaker = new RegionMaker(ShipName, "The SS Ben");
 
+            // L2
             regionMaker[0, 0, 0] = new Room(BridgeCentral, "The central bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.East), new Exit(Direction.West), new Exit(Direction.South));
             regionMaker[-1, 0, 0] = new Room(BridgePort, "The port side of the bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.East));
             regionMaker[1, 0, 0] = new Room(BridgeStarbord, "The starboard side of the bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.West));
             regionMaker[0, -1, 0] = new Room(BridgeTunnel, "The tunnel leads up to the bridge.", new Exit(Direction.North), new Exit(Direction.Down));
-            regionMaker[0, -1, -1] = new Room(BridgeTunnelEntry, "The entry to the tunnel.", new Exit(Direction.Up), new Exit(Direction.South));
-            regionMaker[0, -2, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[0, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[0, -4, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[-1, -2, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[1, -2, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[-2, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[-1, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[1, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[2, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[0, -2, -2] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[-1, -3, -2] = new Room(Hull, "", new Exit(Direction.South));
-            regionMaker[1, -3, -2] = new Room(Hull, "", new Exit(Direction.South));
+            
+            // L1
+            regionMaker[0, -1, -1] = new Room("Access", "", new Exit(Direction.South), new Exit(Direction.Up));
+            regionMaker[0, -2, -1] = new Room("Access", "", new Exit(Direction.South), new Exit(Direction.East), new Exit(Direction.West));
+            regionMaker[0, -3, -1] = new Room("Center FW", "", new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.Down));
+            regionMaker[0, -4, -1] = new Room("Booster", "", new Exit(Direction.North));
+            regionMaker[-1, -2, -1] = new Room("Port Wing", "", new Exit(Direction.East));
+            regionMaker[1, -2, -1] = new Room("Starboard Wing", "", new Exit(Direction.West));
+            regionMaker[-2, -3, -1] = new Room("Port Wing Outer", "", new Exit(Direction.East));
+            regionMaker[-1, -3, -1] = new Room("Port Wing Inner", "", new Exit(Direction.East), new Exit(Direction.West));
+            regionMaker[1, -3, -1] = new Room("Starboard Wing Inner", "", new Exit(Direction.East), new Exit(Direction.West));
+            regionMaker[2, -3, -1] = new Room("Starboard Wing Outer", "", new Exit(Direction.West));
 
-            return regionMaker.Make(0, 0, 0);
+            // L0
+            regionMaker[0, -3, -2] = new Room(Hull, "", new Exit(Direction.Up), new Exit(Direction.East), new Exit(Direction.West));
+            regionMaker[-1, -3, -2] = new Room(Hull, "", new Exit(Direction.East));
+            regionMaker[1, -3, -2] = new Room(Hull, "", new Exit(Direction.West));
+
+            return regionMaker.Make(0, -2, -1);
         }
     }
 }

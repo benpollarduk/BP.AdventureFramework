@@ -59,11 +59,6 @@ namespace BP.AdventureFramework.Assets
         public Description Description { get; set; }
 
         /// <summary>
-        /// Get or set if this is player visible.
-        /// </summary>
-        public bool IsPlayerVisible { get; set; } = true;
-
-        /// <summary>
         /// Get or set this objects commands.
         /// </summary>
         public CustomCommand[] Commands { get; set; }
@@ -76,6 +71,15 @@ namespace BP.AdventureFramework.Assets
         {
             return Examination(this);
         }
+
+        #endregion
+
+        #region Implementation of IPlayerVisible
+
+        /// <summary>
+        /// Get or set if this is visible to the player.
+        /// </summary>
+        public bool IsPlayerVisible { get; set; } = true;
 
         #endregion
     }

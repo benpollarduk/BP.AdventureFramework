@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Commands
@@ -6,14 +7,19 @@ namespace BP.AdventureFramework.Commands
     /// <summary>
     /// Provides a custom command.
     /// </summary>
-    public class CustomCommand : ICommand
+    public class CustomCommand : ICommand, IPlayerVisible
     {
         #region Properties
 
         /// <summary>
-        /// Get or set the callback.
+        /// Get the callback.
         /// </summary>
         private CustomCommandCallback Callback { get; }
+
+        /// <summary>
+        /// Get or set the arguments.
+        /// </summary>
+        public string[] Arguments { get; set; }
 
         /// <summary>
         /// Get the help for this command.
@@ -29,10 +35,12 @@ namespace BP.AdventureFramework.Commands
         /// </summary>
         /// <param name="help">The help for this command.</param>
         /// <param name="callback">The callback to invoke when this command is invoked.</param>
-        public CustomCommand(CommandHelp help, CustomCommandCallback callback)
+        /// <param name="isPlayerVisible">If this is visible to the player.</param>
+        public CustomCommand(CommandHelp help, CustomCommandCallback callback, bool isPlayerVisible = true)
         {
             Help = help;
             Callback = callback;
+            IsPlayerVisible = isPlayerVisible;
         }
 
         #endregion
@@ -46,8 +54,17 @@ namespace BP.AdventureFramework.Commands
         /// <returns>The reaction.</returns>
         public Reaction Invoke(Logic.Game game)
         {
-            return Callback.Invoke(game);
+            return Callback.Invoke(game, Arguments);
         }
+
+        #endregion
+
+        #region Implementation of IPlayerVisible
+
+        /// <summary>
+        /// Get or set if this is visible to the player.
+        /// </summary>
+        public bool IsPlayerVisible { get; set; }
 
         #endregion
     }

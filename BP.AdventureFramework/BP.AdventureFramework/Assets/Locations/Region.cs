@@ -239,6 +239,25 @@ namespace BP.AdventureFramework.Assets.Locations
             return RegionMaker.ConvertToRoomMatrix(roomPositions);
         }
 
+        /// <summary>
+        /// Jump to a room.
+        /// </summary>
+        /// <param name="x">The x location of the room.</param>
+        /// <param name="y">The y location of the room.</param>
+        /// <param name="z">The z location of the room.</param>
+        /// <returns>True if the room could be jumped to, else false.</returns>
+        public bool JumpToRoom(int x, int y, int z)
+        {
+            var roomPosition = roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z));
+
+            if (roomPosition == null)
+                return false;
+
+            CurrentRoom = roomPosition.Room;
+
+            return true;
+        }
+
         #endregion
 
         #region StaticMethods

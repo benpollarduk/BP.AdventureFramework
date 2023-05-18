@@ -26,13 +26,15 @@ namespace BP.AdventureFramework.Examples
                     var evergaldes = Everglades.GenerateRegion(p);
                     var flat = Flat.GenerateRegion(p);
                     var zelda = Zelda.GenerateRegion(p);
+                    var ship = Ship.GenerateRegion(p);
 
                     var regions = new List<Region>
                     {
                         evergaldes,
                         flat,
                         zelda,
-                        castle.Regions.First()
+                        castle.Regions.First(),
+                        ship
                     };
                     
                     var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");

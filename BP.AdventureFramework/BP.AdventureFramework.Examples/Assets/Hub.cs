@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Examples.Assets
                 {
                     Commands = new[]
                     {
-                        new CustomCommand(new CommandHelp($"Warp {region.Identifier.Name}", $"Use the {region.Identifier.Name} Sphere to warp to the {region.Identifier.Name}."), g =>
+                        new CustomCommand(new CommandHelp($"Warp {region.Identifier.Name}", $"Use the {region.Identifier.Name} Sphere to warp to the {region.Identifier.Name}."), (g, a) =>
                         {
                             var move = overworld?.Move(region) ?? false;
 

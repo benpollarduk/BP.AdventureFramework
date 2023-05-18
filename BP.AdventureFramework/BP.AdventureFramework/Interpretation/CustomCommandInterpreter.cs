@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BP.AdventureFramework.Commands;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Interpretation
@@ -26,12 +27,29 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>The result of the interpretation.</returns>
         public InterpretationResult Interpret(string input, Game game)
         {
+            if (string.IsNullOrEmpty(input))
+                return InterpretationResult.Fail;
+            
+            var entries = input.Split(" ".ToCharArray(), StringSplitOptions.None);
+            var commandName = entries.First();
+            var args = entries.Remove(commandName);
+
             var commands = new List<CustomCommand>();
 
             foreach (var examinable in game.GetAllPlayerVisibleExaminables().Where(x => x.Commands != null))
                 commands.AddRange(examinable.Commands);
 
-            var command = commands.FirstOrDefault(x => x.Help.Command.Equals(input, StringComparison.CurrentCultureIgnoreCase));
+            // check looking for just command, not including args
+            var command = commands.FirstOrDefault(x => x.Help.Command.Equals(commandName, StringComparison.CurrentCultureIgnoreCase));
+
+            if (command != null)
+            {
+                command.Arguments = args;
+                return new InterpretationResult(true, command);
+            }
+
+            //  maybe the command had a space in it?
+            command = commands.FirstOrDefault(x => x.Help.Command.Equals(input, StringComparison.CurrentCultureIgnoreCase));
 
             return command == null ? InterpretationResult.Fail : new InterpretationResult(true, command);
         }
@@ -49,7 +67,7 @@ namespace BP.AdventureFramework.Interpretation
             var help = new List<CommandHelp>();
 
             foreach (var examinable in game.GetAllPlayerVisibleExaminables().Where(x => x.Commands != null)) 
-                help.AddRange(examinable.Commands.Select(command => command.Help));
+                help.AddRange(examinable.Commands.Where(x => x.IsPlayerVisible).Select(command => command.Help));
 
             return help.ToArray();
         }

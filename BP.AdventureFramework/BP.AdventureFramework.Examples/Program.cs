@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Examples.Assets;
+using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Utilities.Generation;
 using BP.AdventureFramework.Utilities.Generation.Themes;
@@ -15,22 +18,20 @@ namespace BP.AdventureFramework.Examples
         {
             try
             {
-                OverworldCreationCallback overworldCreator = x =>
+                OverworldCreationCallback overworldCreator = p =>
                 {
                     var options = new GameGenerationOptions { MaximumRegions = 1, MinimumRegions = 1 };
                     var generator = new GameGenerator(string.Empty, string.Empty);
                     var castle = generator.Generate(options, new Castle(), out _).Make();
-                    var evergaldes = Everglades.GenerateRegion(x);
-                    var flat = Flat.GenerateRegion(x);
-                    var zelda = Zelda.GenerateRegion(x);
-                    var ship = Ship.GenerateRegion(x);
+                    var evergaldes = Everglades.GenerateRegion(p);
+                    var flat = Flat.GenerateRegion(p);
+                    var zelda = Zelda.GenerateRegion(p);
 
                     var regions = new List<Region>
                     {
                         evergaldes,
                         flat,
                         zelda,
-                        ship,
                         castle.Regions.First()
                     };
                     
@@ -39,6 +40,31 @@ namespace BP.AdventureFramework.Examples
 
                     foreach (var region in regions)
                         overworld.AddRegion(region);
+
+                    overworld.Commands = new[]
+                    {
+                        // add a hidden custom command to the overworld that allows jumping around a region for debugging purposes
+                        new CustomCommand(new CommandHelp("Jump", "Jump to a location in a region."), (g, a) =>
+                        {
+                            var x = 0;
+                            var y = 0;
+                            var z = 0;
+
+                            if (a?.Length >= 3)
+                            {
+                                int.TryParse(a[0], out x);
+                                int.TryParse(a[1], out y);
+                                int.TryParse(a[2], out z);
+                            }
+
+                            var result = g.Overworld.CurrentRegion.JumpToRoom(x, y, z);
+
+                            if (!result)
+                                return new Reaction(ReactionResult.Error, $"Failed to jump to {x} {y} {z}.");
+
+                            return new Reaction(ReactionResult.OK, $"Jumped to {x} {y} {z}.");
+                        }, false)
+                    };
 
                     return overworld;
                 };

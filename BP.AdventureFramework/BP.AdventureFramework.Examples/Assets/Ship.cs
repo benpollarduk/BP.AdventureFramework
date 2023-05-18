@@ -23,9 +23,19 @@ namespace BP.AdventureFramework.Examples.Assets
             regionMaker[-1, 0, 0] = new Room(BridgePort, "The port side of the bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.East));
             regionMaker[1, 0, 0] = new Room(BridgeStarbord, "The starboard side of the bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.West));
             regionMaker[0, -1, 0] = new Room(BridgeTunnel, "The tunnel leads up to the bridge.", new Exit(Direction.North), new Exit(Direction.Down));
-            regionMaker[0, -1, -1] = new Room(BridgeTunnelVertical, "The tunnel leads up to the bridge.", new Exit(Direction.Up), new Exit(Direction.Down));
-            regionMaker[0, -1, -2] = new Room(BridgeTunnelEntry, "The entry to the tunnel.", new Exit(Direction.Up), new Exit(Direction.South));
-            regionMaker[0, -2, -2] = new Room(Hull, "The underbelly of the ship.", new Exit(Direction.South));
+            regionMaker[0, -1, -1] = new Room(BridgeTunnelEntry, "The entry to the tunnel.", new Exit(Direction.Up), new Exit(Direction.South));
+            regionMaker[0, -2, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[0, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[0, -4, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[-1, -2, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[1, -2, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[-2, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[-1, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[1, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[2, -3, -1] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[0, -2, -2] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[-1, -3, -2] = new Room(Hull, "", new Exit(Direction.South));
+            regionMaker[1, -3, -2] = new Room(Hull, "", new Exit(Direction.South));
 
             return regionMaker.Make(0, 0, 0);
         }

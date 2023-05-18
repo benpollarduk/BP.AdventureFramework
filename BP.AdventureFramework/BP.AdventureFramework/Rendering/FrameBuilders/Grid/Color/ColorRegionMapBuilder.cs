@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the unvisited room boundary color.
         /// </summary>
-        public ConsoleColor UnvisitedBoundaryColor { get; set; } = ConsoleColor.Gray;
+        public ConsoleColor UnvisitedBoundaryColor { get; set; } = ConsoleColor.DarkGray;
 
         /// <summary>
         /// Get or set the player color.
@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the visibility mode to use for Rooms.
         /// </summary>
-        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.VistitedRoomsOnly;
+        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.AllRegion;
 
         /// <summary>
         /// Get or set if lower floors should be shown.

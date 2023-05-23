@@ -34,9 +34,9 @@ namespace BP.AdventureFramework.Commands
         /// Initializes a new instance of the CustomCommand class.
         /// </summary>
         /// <param name="help">The help for this command.</param>
-        /// <param name="callback">The callback to invoke when this command is invoked.</param>
         /// <param name="isPlayerVisible">If this is visible to the player.</param>
-        public CustomCommand(CommandHelp help, CustomCommandCallback callback, bool isPlayerVisible = true)
+        /// <param name="callback">The callback to invoke when this command is invoked.</param>
+        public CustomCommand(CommandHelp help, bool isPlayerVisible, CustomCommandCallback callback)
         {
             Help = help;
             Callback = callback;

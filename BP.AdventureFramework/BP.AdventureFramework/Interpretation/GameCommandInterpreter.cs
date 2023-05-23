@@ -435,15 +435,15 @@ namespace BP.AdventureFramework.Interpretation
             }
 
             IInteractWithItem target;
-            noun = noun.ToUpper();
-            var on = On.ToUpper();
             var itemName = noun;
+            var onPadded = $" {On} ";
 
-            if (noun.Contains($" {On.ToUpper()} "))
+            if (noun.CaseInsensitiveContains(onPadded))
             {
-                itemName = noun.Substring(0, noun.IndexOf($" {on} ", StringComparison.CurrentCultureIgnoreCase));
+                itemName = noun.Substring(0, noun.IndexOf(onPadded, StringComparison.CurrentCultureIgnoreCase));
                 noun = noun.Replace(itemName, string.Empty);
-                var targetName = noun.Replace($" {on} ", string.Empty);
+                var onIndex = noun.IndexOf(onPadded, StringComparison.CurrentCultureIgnoreCase);
+                var targetName = noun.Substring(onIndex + onPadded.Length);
 
                 if (targetName.Equals(Me, StringComparison.CurrentCultureIgnoreCase))
                     target = game.Player;
@@ -451,6 +451,12 @@ namespace BP.AdventureFramework.Interpretation
                     target = game.Overworld.CurrentRegion.CurrentRoom;
                 else
                     target = game.FindInteractionTarget(targetName);
+
+                if (target == null)
+                {
+                    command = new Unactionable($"{targetName} is not a valid target.");
+                    return true;
+                }
             }
             else
             {

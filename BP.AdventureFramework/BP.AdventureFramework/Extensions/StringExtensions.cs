@@ -124,6 +124,22 @@ namespace BP.AdventureFramework.Extensions
         }
 
         /// <summary>
+        /// Ensure this string is not a finished sentence, ending in either ?, ! or .
+        /// </summary>
+        /// <param name="value">The string to ensure isn't finished finish.</param>
+        /// <returns>The unfinished string.</returns>
+        public static string RemoveSentenceEnd(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            if (value.EndsWith(".") || value.EndsWith("!") || value.EndsWith("?"))
+                return value.Remove(value.Length - 1);
+
+            return value;
+        }
+
+        /// <summary>
         /// Convert a string to sentence case.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -169,6 +185,18 @@ namespace BP.AdventureFramework.Extensions
                 value = value + "\"";
 
             return value;
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether a specified substring occurs within this string. This is not case sensitive.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="subString">The string to seek.</param>
+        /// <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false.</returns>
+        public static bool CaseInsensitiveContains(this string value, string subString)
+        {
+            var valueUpper = value.ToUpper();
+            return valueUpper.Contains(subString.ToUpper());
         }
 
         #endregion

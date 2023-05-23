@@ -316,5 +316,65 @@ namespace BP.AdventureFramework.Tests.Extensions
 
             Assert.AreEqual("\"ABC\"", result);
         }
+
+        [TestMethod]
+        public void GivenSentenceEndingInFullStop_WhenRemoveSentenceEnd_ThenReturnStringMinusFullStop()
+        {
+            var value = "ABC.";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenSentenceEndingInExclamationMark_WhenRemoveSentenceEnd_ThenReturnStringMinusExclamationMark()
+        {
+            var value = "ABC!";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenSentenceEndingInQuestionMark_WhenRemoveSentenceEnd_ThenReturnStringMinusQuestionMark()
+        {
+            var value = "ABC?";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenABC_WhenRemoveSentenceEnd_ThenABC()
+        {
+            var value = "ABC";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenABCSeekingb_WhenCaseInsensitiveContains_ThenTrue()
+        {
+            var value = "ABC";
+
+            var result = value.CaseInsensitiveContains("B");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenAbCSeekingD_WhenCaseInsensitiveContains_ThenFalse()
+        {
+            var value = "ABC";
+
+            var result = value.CaseInsensitiveContains("D");
+
+            Assert.IsFalse(result);
+        }
     }
 }

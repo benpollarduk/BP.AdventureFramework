@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Assets
                 description += "This provides the following commands: ";
 
                 foreach (var customCommand in obj.Commands)
-                    description += $"{customCommand.Help.Command} - {customCommand.Help.Description}, ";
+                    description += $"{customCommand.Help.Command} - {customCommand.Help.Description.RemoveSentenceEnd()}, ";
 
                 if (description.EndsWith(", "))
                 {

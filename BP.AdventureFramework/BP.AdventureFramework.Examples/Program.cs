@@ -46,7 +46,7 @@ namespace BP.AdventureFramework.Examples
                     overworld.Commands = new[]
                     {
                         // add a hidden custom command to the overworld that allows jumping around a region for debugging purposes
-                        new CustomCommand(new CommandHelp("Jump", "Jump to a location in a region."), (g, a) =>
+                        new CustomCommand(new CommandHelp("Jump", "Jump to a location in a region."), false, (g, a) =>
                         {
                             var x = 0;
                             var y = 0;
@@ -65,7 +65,7 @@ namespace BP.AdventureFramework.Examples
                                 return new Reaction(ReactionResult.Error, $"Failed to jump to {x} {y} {z}.");
 
                             return new Reaction(ReactionResult.OK, $"Jumped to {x} {y} {z}.");
-                        }, false)
+                        })
                     };
 
                     return overworld;

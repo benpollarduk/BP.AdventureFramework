@@ -8,10 +8,12 @@ using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
 {
-    internal class Airlock : IRoomTemplate
+    internal class Airlock : RoomTemplate<Airlock>
     {
-        internal const string ControlPanel = "Control Panel";
-        internal const string BrokenControlPanel = "Broken Control Panel";
+        private const string Name = "Airlock";
+        private const string Description = "The airlock is a small, mostly empty, chamber with two thick doors.One leads in to the ship, the other back to deep space.";
+        private const string ControlPanel = "Control Panel";
+        private const string BrokenControlPanel = "Broken Control Panel";
 
         private CustomCommand[] CreateControlPannelCommands(PlayableCharacter pC, Room room)
         {
@@ -63,22 +65,11 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
             return controlPanel;
         }
 
-        #region Implementation of IRoomTemplate
+        #region Overrides of RoomTemplate<Airlock2>
 
-        /// <summary>
-        /// Get the identifier for the room.
-        /// </summary>
-        public Identifier Identifier { get; } = new Identifier("Airlock");
-
-        /// <summary>
-        /// Convert this template to a room.
-        /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <returns>The converted room.</returns>
-        public Room ToRoom(PlayableCharacter pC)
+        protected override Room OnCreate(PlayableCharacter pC)
         {
-            var description = new Description("The airlock is a small, mostly empty, chamber with two thick doors. One leads in to the ship, the other back to deep space.");
-            var room = new Room(Identifier, description, new Exit(Direction.East, true), new Exit(Direction.West, true));
+            var room = new Room(Name, Description, new Exit(Direction.East, true), new Exit(Direction.West, true));
             room.AddItem(CreateControlPanel(pC, room));
             return room;
         }

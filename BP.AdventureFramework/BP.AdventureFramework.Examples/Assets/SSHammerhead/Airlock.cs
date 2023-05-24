@@ -8,14 +8,12 @@ using BP.AdventureFramework.Interpretation;
 
 namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
 {
-    internal static class Airlock
+    internal class Airlock : IRoomTemplate
     {
-        internal const string Name = "Airlock";
-        private const string Description = "The airlock is a small, mostly empty, chamber with two thick doors. One leads in to the ship, the other back to deep space.";
         internal const string ControlPanel = "Control Panel";
         internal const string BrokenControlPanel = "Broken Control Panel";
 
-        private static CustomCommand[] CreateControlPannelCommands(PlayableCharacter pC, Room room)
+        private CustomCommand[] CreateControlPannelCommands(PlayableCharacter pC, Room room)
         {
             var redButtonCommand = new CustomCommand(new CommandHelp("Press red", "Press the red button on the control panel."), true, (game, arguments) =>
             {
@@ -36,7 +34,7 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
             return new[] { redButtonCommand, greenButtonCommand };
         }
 
-        private static Item CreateControlPanel(PlayableCharacter pC, Room room)
+        private Item CreateControlPanel(PlayableCharacter pC, Room room)
         {
             var controlPanel = new Item(ControlPanel, "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red.") { Commands = CreateControlPannelCommands(pC, room) };
 
@@ -65,11 +63,26 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
             return controlPanel;
         }
 
-        internal static Room Create(PlayableCharacter pC)
+        #region Implementation of IRoomTemplate
+
+        /// <summary>
+        /// Get the identifier for the room.
+        /// </summary>
+        public Identifier Identifier { get; } = new Identifier("Airlock");
+
+        /// <summary>
+        /// Convert this template to a room.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <returns>The converted room.</returns>
+        public Room ToRoom(PlayableCharacter pC)
         {
-            var room = new Room(Name, Description, new Exit(Direction.East, true), new Exit(Direction.West, true));
+            var description = new Description("The airlock is a small, mostly empty, chamber with two thick doors. One leads in to the ship, the other back to deep space.");
+            var room = new Room(Identifier, description, new Exit(Direction.East, true), new Exit(Direction.West, true));
             room.AddItem(CreateControlPanel(pC, room));
             return room;
         }
+
+        #endregion
     }
 }

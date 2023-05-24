@@ -76,7 +76,7 @@ namespace BP.AdventureFramework.Examples.Assets
 
             // L0
             regionMaker[0, -3, -2] = engineRoom;
-            regionMaker[-1, -3, -2] = Airlock.Create(pC);
+            regionMaker[-1, -3, -2] = new Airlock().ToRoom(pC);
             regionMaker[1, -3, -2] = starboardHull;
 
             // start in airlock

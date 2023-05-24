@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\IRoomTemplate.cs" />
     <Compile Include="Assets\Ship.cs" />
     <Compile Include="Assets\Everglades.cs" />
     <Compile Include="Assets\Flat.cs" />

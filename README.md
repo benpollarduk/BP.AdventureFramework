@@ -1,7 +1,7 @@
 # Introduction 
 .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
 
-![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/57a5ce48-b35a-402b-bfbc-f4840e249211)
+![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/98f9ad2a-d09b-4c9f-ad07-443d6abeaab1)
 
 Provides simple classes for developing game elements:
   * Interface and base class for examinable objects:
@@ -95,6 +95,9 @@ var gameCreator = Game.Create("The Life Of Dave",
     x => overworldMaker.Make(),
     () => player,
     x => CompletionCheckResult.NotComplete);
+
+// execute the game
+Game.Execute(gameCreator);
 ```
 
 # Contribute

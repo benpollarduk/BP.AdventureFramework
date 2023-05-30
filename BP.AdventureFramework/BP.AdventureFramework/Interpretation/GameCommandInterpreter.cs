@@ -158,6 +158,11 @@ namespace BP.AdventureFramework.Interpretation
         /// </summary>
         public const string Overworld = "Overworld";
 
+        /// <summary>
+        /// Get a string representing a variable.
+        /// </summary>
+        private const string Variable = "__";
+
         #endregion
 
         #region StaticProperties
@@ -173,13 +178,13 @@ namespace BP.AdventureFramework.Interpretation
             new CommandHelp($"{West}/{WestShort}", "Move west"),
             new CommandHelp($"{Up}/{UpShort}", "Move up"),
             new CommandHelp($"{Down}/{DownShort}", "Move down"),
-            new CommandHelp($"{Drop}/{DropShort} __", "Drop an item"),
-            new CommandHelp($"{Examine}/{ExamineShort} __", "Examine anything in the game"),
-            new CommandHelp($"{Take}/{TakeShort} __", "Take an item"),
+            new CommandHelp($"{Drop}/{DropShort} {Variable}", "Drop an item"),
+            new CommandHelp($"{Examine}/{ExamineShort} {Variable}", "Examine anything in the game"),
+            new CommandHelp($"{Take}/{TakeShort} {Variable}", "Take an item"),
             new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in a room"),
-            new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} __", "Talk to a character"),
-            new CommandHelp($"{Use} __", "Use an item on the this Room"),
-            new CommandHelp($"{Use} __ {On.ToLower()}", "Use an item on another item or character")
+            new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} {Variable}", "Talk to a character"),
+            new CommandHelp($"{Use} {Variable}", "Use an item on this room"),
+            new CommandHelp($"{Use} {Variable} {On.ToLower()} {Variable}", "Use an item on another item or character")
         };
 
         #endregion
@@ -596,24 +601,24 @@ namespace BP.AdventureFramework.Interpretation
             if (game.Overworld.CurrentRegion.CurrentRoom.CanMove(Direction.Down))
                 commands.Add(new CommandHelp($"{Down}/{DownShort}", "Move down"));
 
-            commands.Add(new CommandHelp($"{Examine}/{ExamineShort} __", "Examine anything in the game"));
+            commands.Add(new CommandHelp($"{Examine}/{ExamineShort} {Variable}", "Examine anything in the game"));
 
             if (game.Player.Items.Any())
-                commands.Add(new CommandHelp($"{Drop}/{DropShort} __", "Drop an item"));
+                commands.Add(new CommandHelp($"{Drop}/{DropShort} {Variable}", "Drop an item"));
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any())
             {
-                commands.Add(new CommandHelp($"{Take}/{TakeShort} __", "Take an item"));
+                commands.Add(new CommandHelp($"{Take}/{TakeShort} {Variable}", "Take an item"));
                 commands.Add(new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in a room"));
             }
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Any())
-                commands.Add(new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} __", "Talk to a character"));
+                commands.Add(new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} {Variable}", "Talk to a character"));
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any() || game.Player.Items.Any())
             {
-                commands.Add(new CommandHelp($"{Use} __", "Use an item on the this Room"));
-                commands.Add(new CommandHelp($"{Use} __ {On.ToLower()}", "Use an item on another item or character"));
+                commands.Add(new CommandHelp($"{Use} {Variable}", "Use an item on this room"));
+                commands.Add(new CommandHelp($"{Use} {Variable} {On.ToLower()} {Variable}", "Use an item on another item or character"));
             }
 
             return commands.ToArray();

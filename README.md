@@ -1,7 +1,7 @@
 # Introduction 
 .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
 
-![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/57a5ce48-b35a-402b-bfbc-f4840e249211)
+![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/824ea918-200e-4855-9975-bf17d7942627)
 
 Provides simple classes for developing game elements:
   * Interface and base class for examinable objects:
@@ -75,28 +75,28 @@ Maps are automatically generated for regions:
  * Run the BP.AdventureFramework.Examples project
 
 # Hello World
-
 ```csharp
 // create player
-var player = new PlayableCharacter(new Identifier("Dave"), new Description("A young boy on a quest to find the meaning of life."));
+var player = new PlayableCharacter("Dave", "A young boy on a quest to find the meaning of life.");
 
 // create region maker and add room
-var regionMaker = new RegionMaker(new Identifier("Mountain"), new Description("An imposing volcano just East of town."))
+var regionMaker = new RegionMaker("Mountain", "An imposing volcano just East of town.")
 {
-    [0, 0] = new Room(new Identifier("Cavern"), new Description("A dark cavern set in to the base of the mountain."))
+    [0, 0, 0] = new Room("Cavern", "A dark cavern set in to the base of the mountain.")
 };
 
 // create overworld maker
-var overworldMaker = new OverworldMaker(new Identifier("Daves World"), new Description("An ancient kingdom."), regionMaker);
+var overworldMaker = new OverworldMaker("Daves World", "An ancient kingdom.", regionMaker);
 
 // create callback for generating games
 var gameCreator = Game.Create("The Life Of Dave",
+    "Dave awakes to find himself in a cavern...",
     "A very low budget adventure.",
     x => overworldMaker.Make(),
     () => player,
-    x => false);
+    x => CompletionCheckResult.NotComplete);
 
-// execute game
+// execute the game
 Game.Execute(gameCreator);
 ```
 

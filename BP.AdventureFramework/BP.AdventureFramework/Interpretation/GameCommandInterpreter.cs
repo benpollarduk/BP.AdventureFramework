@@ -181,9 +181,9 @@ namespace BP.AdventureFramework.Interpretation
             new CommandHelp($"{Drop}/{DropShort} {Variable}", "Drop an item"),
             new CommandHelp($"{Examine}/{ExamineShort} {Variable}", "Examine anything in the game"),
             new CommandHelp($"{Take}/{TakeShort} {Variable}", "Take an item"),
-            new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in a room"),
+            new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in the current room"),
             new CommandHelp($"{Talk}/{TalkShort} {To.ToLower()} {Variable}", "Talk to a character"),
-            new CommandHelp($"{Use} {Variable}", "Use an item on this room"),
+            new CommandHelp($"{Use} {Variable}", "Use an item on the current room"),
             new CommandHelp($"{Use} {Variable} {On.ToLower()} {Variable}", "Use an item on another item or character")
         };
 
@@ -603,7 +603,7 @@ namespace BP.AdventureFramework.Interpretation
             if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any())
             {
                 commands.Add(new CommandHelp($"{Take}/{TakeShort} {Variable}", "Take an item"));
-                commands.Add(new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in a room"));
+                commands.Add(new CommandHelp($"{Take}/{TakeShort} {All}", "Take all items in the current room"));
             }
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Any())
@@ -611,7 +611,7 @@ namespace BP.AdventureFramework.Interpretation
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Items.Any() || game.Player.Items.Any())
             {
-                commands.Add(new CommandHelp($"{Use} {Variable}", "Use an item on this room"));
+                commands.Add(new CommandHelp($"{Use} {Variable}", "Use an item on the current room"));
                 commands.Add(new CommandHelp($"{Use} {Variable} {On.ToLower()} {Variable}", "Use an item on another item or character"));
             }
 

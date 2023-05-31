@@ -101,7 +101,7 @@ namespace BP.AdventureFramework.Extensions
                 return false;
 
             var vowels = new[] { "A", "E", "I", "O", "U" };
-            return vowels.Any(x => x.Equals(value, StringComparison.CurrentCultureIgnoreCase));
+            return vowels.Any(x => x.InsensitiveEquals(value));
         }
 
         /// <summary>
@@ -197,6 +197,17 @@ namespace BP.AdventureFramework.Extensions
         {
             var valueUpper = value.ToUpper();
             return valueUpper.Contains(subString.ToUpper());
+        }
+
+        /// <summary>
+        /// Compare this string to another, with no case sensitivity.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="other">The other value.</param>
+        /// <returns>The number of lines in the string.</returns>
+        internal static bool InsensitiveEquals(this string value, string other)
+        {
+            return value?.Equals(other, StringComparison.InvariantCultureIgnoreCase) ?? false;
         }
 
         #endregion

@@ -318,6 +318,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         }
 
         [TestMethod]
+
         public void GivenSentenceEndingInFullStop_WhenRemoveSentenceEnd_ThenReturnStringMinusFullStop()
         {
             var value = "ABC.";
@@ -375,6 +376,22 @@ namespace BP.AdventureFramework.Tests.Extensions
             var result = value.CaseInsensitiveContains("D");
 
             Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GivenCompareABCToABC_WhenInsensitiveEquals_ThenReturnTrue()
+        {
+            var result = "ABC".InsensitiveEquals("ABC");
+            
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenCompareABCToabc_WhenInsensitiveEquals_ThenReturnTrue()
+        {
+            var result = "ABC".InsensitiveEquals("abc");
+
+            Assert.IsTrue(result);
         }
     }
 }

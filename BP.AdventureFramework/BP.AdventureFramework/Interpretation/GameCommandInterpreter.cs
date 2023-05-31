@@ -248,7 +248,7 @@ namespace BP.AdventureFramework.Interpretation
         {
             SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Take.Equals(verb, StringComparison.CurrentCultureIgnoreCase) && !TakeShort.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
+            if (!Take.InsensitiveEquals(verb) && !TakeShort.InsensitiveEquals(verb))
             {
                 command = null;
                 return false;
@@ -267,7 +267,7 @@ namespace BP.AdventureFramework.Interpretation
                     return true;
                 }
             }
-            else if (noun.Equals(All, StringComparison.CurrentCultureIgnoreCase))
+            else if (noun.InsensitiveEquals(All))
             {
                 command = new TakeAll();
                 return true;
@@ -296,14 +296,14 @@ namespace BP.AdventureFramework.Interpretation
         {
             SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Talk.Equals(verb, StringComparison.CurrentCultureIgnoreCase) && !TalkShort.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
+            if (!Talk.InsensitiveEquals(verb) && !TalkShort.InsensitiveEquals(verb))
             {
                 command = null;
                 return false;
             }
 
             // determine if a target has been specified
-            if (noun.Length > 3 && string.Equals(noun.Substring(0, 2), $"{To} ", StringComparison.CurrentCultureIgnoreCase))
+            if (noun.Length > 3 && noun.Substring(0, 2).InsensitiveEquals($"{To} "))
             {
                 noun = noun.Remove(0, 3);
 
@@ -335,7 +335,7 @@ namespace BP.AdventureFramework.Interpretation
         {
             SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!verb.Equals(Examine, StringComparison.CurrentCultureIgnoreCase) && !verb.Equals(ExamineShort, StringComparison.CurrentCultureIgnoreCase))
+            if (!verb.InsensitiveEquals(Examine) && !verb.InsensitiveEquals(ExamineShort))
             {
                 command = null;
                 return false;
@@ -383,28 +383,28 @@ namespace BP.AdventureFramework.Interpretation
             }
 
             // check self examination
-            if (Me.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Player))
+            if (Me.InsensitiveEquals(noun) || noun.EqualsExaminable(game.Player))
             {
                 command = new Examine(game.Player);
                 return true;
             }
 
             // check room examination
-            if (Room.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom))
+            if (Room.InsensitiveEquals(noun) || noun.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom))
             {
                 command = new Examine(game.Overworld.CurrentRegion.CurrentRoom);
                 return true;
             }
 
             // check region examination
-            if (Region.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Overworld.CurrentRegion))
+            if (Region.InsensitiveEquals(noun) || noun.EqualsExaminable(game.Overworld.CurrentRegion))
             {
                 command = new Examine(game.Overworld.CurrentRegion);
                 return true;
             }
 
             // check overworld examination
-            if (Overworld.Equals(noun, StringComparison.CurrentCultureIgnoreCase) || noun.EqualsExaminable(game.Overworld))
+            if (Overworld.InsensitiveEquals(noun) || noun.EqualsExaminable(game.Overworld))
             {
                 command = new Examine(game.Overworld);
                 return true;
@@ -433,7 +433,7 @@ namespace BP.AdventureFramework.Interpretation
         {
             SplitTextToVerbAndNoun(text, out var verb, out var noun);
 
-            if (!Use.Equals(verb, StringComparison.CurrentCultureIgnoreCase))
+            if (!Use.InsensitiveEquals(verb))
             {
                 command = null;
                 return false;
@@ -450,9 +450,9 @@ namespace BP.AdventureFramework.Interpretation
                 noun = noun.Replace(itemName, string.Empty);
                 var targetName = noun.Replace($" {on} ", string.Empty);
 
-                if (targetName.Equals(Me, StringComparison.CurrentCultureIgnoreCase))
+                if (targetName.InsensitiveEquals(Me))
                     target = game.Player;
-                else if (targetName.Equals(Room, StringComparison.CurrentCultureIgnoreCase))
+                else if (targetName.InsensitiveEquals(Room))
                     target = game.Overworld.CurrentRegion.CurrentRoom;
                 else
                     target = game.FindInteractionTarget(targetName);
@@ -480,37 +480,37 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>The result of the parse.</returns>
         private static bool TryParseToDirection(string text, out Direction direction)
         {
-            if (text.Equals(North, StringComparison.CurrentCultureIgnoreCase) || text.Equals(NorthShort, StringComparison.CurrentCultureIgnoreCase))
+            if (text.InsensitiveEquals(North) || text.InsensitiveEquals(NorthShort))
             {
                 direction = Direction.North;
                 return true;
             }
 
-            if (text.Equals(East, StringComparison.CurrentCultureIgnoreCase) || text.Equals(EastShort, StringComparison.CurrentCultureIgnoreCase))
+            if (text.InsensitiveEquals(East) || text.InsensitiveEquals(EastShort))
             {
                 direction = Direction.East;
                 return true;
             }
 
-            if (text.Equals(South, StringComparison.CurrentCultureIgnoreCase) || text.Equals(SouthShort, StringComparison.CurrentCultureIgnoreCase))
+            if (text.InsensitiveEquals(South) || text.InsensitiveEquals(SouthShort))
             {
                 direction = Direction.South;
                 return true;
             }
 
-            if (text.Equals(West, StringComparison.CurrentCultureIgnoreCase) || text.Equals(WestShort, StringComparison.CurrentCultureIgnoreCase))
+            if (text.InsensitiveEquals(West) || text.InsensitiveEquals(WestShort))
             {
                 direction = Direction.West;
                 return true;
             }
 
-            if (text.Equals(Up, StringComparison.CurrentCultureIgnoreCase) || text.Equals(UpShort, StringComparison.CurrentCultureIgnoreCase))
+            if (text.InsensitiveEquals(Up) || text.InsensitiveEquals(UpShort))
             {
                 direction = Direction.Up;
                 return true;
             }
 
-            if (text.Equals(Down, StringComparison.CurrentCultureIgnoreCase) || text.Equals(DownShort, StringComparison.CurrentCultureIgnoreCase))
+            if (text.InsensitiveEquals(Down) || text.InsensitiveEquals(DownShort))
             {
                 direction = Direction.Down;
                 return true;

@@ -316,5 +316,21 @@ namespace BP.AdventureFramework.Tests.Extensions
 
             Assert.AreEqual("\"ABC\"", result);
         }
+
+        [TestMethod]
+        public void GivenCompareABCToABC_WhenInsensitiveEquals_ThenReturnTrue()
+        {
+            var result = "ABC".InsensitiveEquals("ABC");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenCompareABCToabc_WhenInsensitiveEquals_ThenReturnTrue()
+        {
+            var result = "ABC".InsensitiveEquals("abc");
+
+            Assert.IsTrue(result);
+        }
     }
 }

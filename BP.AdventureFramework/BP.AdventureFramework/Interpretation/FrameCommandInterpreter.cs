@@ -1,5 +1,6 @@
 ﻿using System;
 using BP.AdventureFramework.Commands.Frame;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 
 namespace BP.AdventureFramework.Interpretation
@@ -61,16 +62,16 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>The result of the interpretation.</returns>
         public InterpretationResult Interpret(string input, Game game)
         {
-            if (input.Equals(CommandsOff, StringComparison.CurrentCultureIgnoreCase))
+            if (input.InsensitiveEquals(CommandsOff))
                 return new InterpretationResult(true, new CommandsOff());
 
-            if (input.Equals(CommandsOn, StringComparison.CurrentCultureIgnoreCase))
+            if (input.InsensitiveEquals(CommandsOn))
                 return new InterpretationResult(true, new CommandsOn());
 
-            if (input.Equals(KeyOff, StringComparison.CurrentCultureIgnoreCase))
+            if (input.InsensitiveEquals(KeyOff))
                 return new InterpretationResult(true, new KeyOff());
 
-            if (input.Equals(KeyOn, StringComparison.CurrentCultureIgnoreCase))
+            if (input.InsensitiveEquals(KeyOn))
                 return new InterpretationResult(true, new KeyOn());
 
             return InterpretationResult.Fail;

@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Interpretation
             if (game.ActiveConverser == null)
                 return InterpretationResult.Fail;
 
-            if (input.Equals(End, StringComparison.CurrentCultureIgnoreCase))
+            if (input.InsensitiveEquals(End))
                 return new InterpretationResult(true, new End());
 
             if (string.IsNullOrEmpty(input.Trim()))

@@ -40,7 +40,7 @@ namespace BP.AdventureFramework.Interpretation
                 commands.AddRange(examinable.Commands);
 
             // check looking for just command, not including args
-            var command = commands.FirstOrDefault(x => x.Help.Command.Equals(commandName, StringComparison.CurrentCultureIgnoreCase));
+            var command = commands.FirstOrDefault(x => x.Help.Command.InsensitiveEquals(commandName));
 
             if (command != null)
             {
@@ -49,7 +49,7 @@ namespace BP.AdventureFramework.Interpretation
             }
 
             //  maybe the command had a space in it?
-            command = commands.FirstOrDefault(x => x.Help.Command.Equals(input, StringComparison.CurrentCultureIgnoreCase));
+            command = commands.FirstOrDefault(x => x.Help.Command.InsensitiveEquals(input));
 
             return command == null ? InterpretationResult.Fail : new InterpretationResult(true, command);
         }

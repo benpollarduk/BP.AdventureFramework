@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {
@@ -64,6 +65,11 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// Get or set if this Frame excepts input.
         /// </summary>
         public bool AcceptsInput { get; set; } = true;
+
+        /// <summary>
+        /// Occurs when this frame is updated.
+        /// </summary>
+        public event EventHandler Updated;
 
         /// <summary>
         /// Render this frame on a writer.

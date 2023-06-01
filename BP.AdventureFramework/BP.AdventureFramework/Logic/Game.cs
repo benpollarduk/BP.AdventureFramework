@@ -55,6 +55,7 @@ namespace BP.AdventureFramework.Logic
         private bool displayCommandListInSceneFrames = true;
         private KeyType sceneMapKeyType = KeyType.Dynamic;
         private FrameBuilderCollection frameBuilders;
+        private IFrame currentFrame;
 
         #endregion
 
@@ -188,7 +189,21 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the current Frame.
         /// </summary>
-        private IFrame CurrentFrame { get; set; }
+        private IFrame CurrentFrame
+        {
+            get { return currentFrame; }
+            set
+            {
+                if (currentFrame != null)
+                    currentFrame.Updated -= CurrentFrame_Updated;
+
+                currentFrame = value;
+
+                if (currentFrame != null)
+                    currentFrame.Updated += CurrentFrame_Updated;
+            }
+        }
+
 
         /// <summary>
         /// Get or set the completion condition.
@@ -632,6 +647,15 @@ namespace BP.AdventureFramework.Logic
             var actualDisplaySize = new Size(game.DisplaySize.Width + 1, game.DisplaySize.Height);
             Console.SetWindowSize(actualDisplaySize.Width, actualDisplaySize.Height);
             Console.SetBufferSize(actualDisplaySize.Width, actualDisplaySize.Height);
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        private void CurrentFrame_Updated(object sender, EventArgs e)
+        {
+            Refresh(CurrentFrame);
         }
 
         #endregion

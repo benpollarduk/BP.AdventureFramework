@@ -92,6 +92,11 @@ namespace BP.AdventureFramework.Rendering.Frames
         public bool AcceptsInput { get; set; } = true;
 
         /// <summary>
+        /// Occurs when this frame is updated.
+        /// </summary>
+        public event EventHandler Updated;
+
+        /// <summary>
         /// Render this frame on a writer.
         /// </summary>
         /// <param name="writer">The writer.</param>

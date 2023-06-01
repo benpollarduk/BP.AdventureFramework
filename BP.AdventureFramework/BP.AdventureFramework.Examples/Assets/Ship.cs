@@ -24,7 +24,6 @@ namespace BP.AdventureFramework.Examples.Assets
         private const string StarboardWingInner = "Starboard Wing Inner";
         private const string StarboardWingOuter = "Starboard Wing Outer";
         private const string Booster = "Booster";
-        private const string EngineRoom = "Engine Room";
 
         // characters
 
@@ -51,7 +50,6 @@ namespace BP.AdventureFramework.Examples.Assets
             var starboardWingOuter = new Room(StarboardWingOuter, "", new Exit(Direction.West));
 
             // L0
-            var engineRoom = new Room(EngineRoom, "", new Exit(Direction.Up), new Exit(Direction.East), new Exit(Direction.West));
             var starboardHull = new Room(StarboardHull, "", new Exit(Direction.West));
             
             // assign room
@@ -75,7 +73,7 @@ namespace BP.AdventureFramework.Examples.Assets
             regionMaker[2, -3, -1] = starboardWingOuter;
 
             // L0
-            regionMaker[0, -3, -2] = engineRoom;
+            regionMaker[0, -3, -2] = EngineRoom.Create(pC);
             regionMaker[-1, -3, -2] = Airlock.Create(pC);
             regionMaker[1, -3, -2] = starboardHull;
 

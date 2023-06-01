@@ -79,6 +79,7 @@
     <Compile Include="Assets\Everglades.cs" />
     <Compile Include="Assets\Flat.cs" />
     <Compile Include="Assets\Hub.cs" />
+    <Compile Include="Assets\SSHammerhead\EngineRoom.cs" />
     <Compile Include="Assets\SSHammerhead\Airlock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

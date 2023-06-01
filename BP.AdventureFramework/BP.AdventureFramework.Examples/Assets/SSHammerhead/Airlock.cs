@@ -10,10 +10,16 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
 {
     internal class Airlock : RoomTemplate<Airlock>
     {
+        #region Constants
+
         private const string Name = "Airlock";
         private const string Description = "The airlock is a small, mostly empty, chamber with two thick doors.One leads in to the ship, the other back to deep space.";
         private const string ControlPanel = "Control Panel";
         private const string BrokenControlPanel = "Broken Control Panel";
+
+        #endregion
+
+        #region Methods
 
         private CustomCommand[] CreateControlPannelCommands(PlayableCharacter pC, Room room)
         {
@@ -64,6 +70,8 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
 
             return controlPanel;
         }
+
+        #endregion
 
         #region Overrides of RoomTemplate<Airlock2>
 

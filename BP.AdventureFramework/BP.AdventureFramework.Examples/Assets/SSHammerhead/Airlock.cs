@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
             {
                 room.FindExit(Direction.West, true, out var west);
                 west.Unlock();
-                var result = "You press the red button on the control panel. The airlock door that leads to outer space opens and in an instant you are sucked out. As you drift in to outer space the SS Hammerhead becomes smaller and smaller until you can no longer see it. You die all alone.";
+                const string result = "You press the red button on the control panel. The airlock door that leads to outer space opens and in an instant you are sucked out. As you drift in to outer space the SS Hammerhead becomes smaller and smaller until you can no longer see it. You die all alone.";
                 pC.Kill(result);
                 return new Reaction(ReactionResult.Fatal, result);
             });

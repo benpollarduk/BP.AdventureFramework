@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using BP.AdventureFramework.Assets;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid;

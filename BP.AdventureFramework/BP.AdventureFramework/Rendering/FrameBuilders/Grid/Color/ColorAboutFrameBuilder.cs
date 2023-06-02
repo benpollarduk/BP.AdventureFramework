@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering.Frames;

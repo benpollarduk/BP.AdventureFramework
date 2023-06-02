@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Drawing;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

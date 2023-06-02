@@ -55,27 +55,27 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the visited room boundary color.
         /// </summary>
-        public ConsoleColor VisitedBoundaryColor { get; set; } = ConsoleColor.White;
+        public RenderColor VisitedBoundaryColor { get; set; } = RenderColor.White;
 
         /// <summary>
         /// Get or set the unvisited room boundary color.
         /// </summary>
-        public ConsoleColor UnvisitedBoundaryColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor UnvisitedBoundaryColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the player color.
         /// </summary>
-        public ConsoleColor PlayerColor { get; set; } = ConsoleColor.Blue;
+        public RenderColor PlayerColor { get; set; } = RenderColor.Blue;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public ConsoleColor LockedExitColor { get; set; } = ConsoleColor.Red;
+        public RenderColor LockedExitColor { get; set; } = RenderColor.Red;
 
         /// <summary>
         /// Get or set the lower floor color.
         /// </summary>
-        public ConsoleColor LowerFloorColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor LowerFloorColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the visibility mode to use for Rooms.

@@ -64,6 +64,7 @@
     <Compile Include="Commands\Game\TakeAll_Tests.cs" />
     <Compile Include="Conversations\Conversation_Tests.cs" />
     <Compile Include="Extensions\ArrayExtensions_Tests.cs" />
+    <Compile Include="Extensions\RenderColorExtensions_Tests.cs" />
     <Compile Include="Interpretation\CustomCommandInterpreter_Tests.cs" />
     <Compile Include="Logic\Game_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyConversationFrameBuilder_Tests.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
@@ -11,7 +12,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
     {
         #region Fields
 
-        private ConsoleColor[,] colors;
+        private RenderColor[,] colors;
         private char[,] buffer;
 
         #endregion
@@ -71,7 +72,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         public void Resize(Size displaySize)
         {
             DisplaySize = displaySize;
-            colors = new ConsoleColor[displaySize.Width, displaySize.Height];
+            colors = new RenderColor[displaySize.Width, displaySize.Height];
             Flush();
         }
 
@@ -92,7 +93,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <param name="x">The x position of the cell.</param>
         /// <param name="y">The y position of the cell.</param>
         /// <returns>The cell color.</returns>
-        public ConsoleColor GetCellColor(int x, int y)
+        public RenderColor GetCellColor(int x, int y)
         {
             return colors[x, y];
         }
@@ -112,7 +113,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <param name="y">The y position of the cell.</param>
         /// <param name="character">The character.</param>
         /// <param name="color">The color of the character.</param>
-        public void SetCell(int x, int y, char character, ConsoleColor color)
+        public void SetCell(int x, int y, char character, RenderColor color)
         {
             buffer[x, y] = character;
             colors[x, y] = color;
@@ -122,7 +123,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// Draw the bound
         /// </summary>
         /// <param name="color">The color to draw the boundary.</param>
-        public void DrawBoundary(ConsoleColor color)
+        public void DrawBoundary(RenderColor color)
         {
             DrawHorizontalDivider(0, color);
             DrawHorizontalDivider(DisplaySize.Height - 1, color);
@@ -140,7 +141,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <param name="y">The y position of the divider.</param>
         /// <param name="color">The color to draw the boundary.</param>
         /// <returns>The divider.</returns>
-        public void DrawHorizontalDivider(int y, ConsoleColor color)
+        public void DrawHorizontalDivider(int y, RenderColor color)
         {
             for (var i = 1; i < DisplaySize.Width - 1; i++)
                 SetCell(i, y, HorizontalDividerCharacter, color);
@@ -156,7 +157,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <param name="color">The color to draw the text.</param>
         /// <param name="endX">The end x position.</param>
         /// <param name="endY">The end y position.</param>
-        public void DrawWrapped(string value, int startX, int startY, int maxWidth, ConsoleColor color, out int endX, out int endY)
+        public void DrawWrapped(string value, int startX, int startY, int maxWidth, RenderColor color, out int endX, out int endY)
         {
             endX = startX;
             endY = startY;
@@ -209,7 +210,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <param name="color">The color to draw the text.</param>
         /// <param name="endX">The end x position.</param>
         /// <param name="endY">The end y position.</param>
-        public void DrawCentralisedWrapped(string value, int startY, int maxWidth, ConsoleColor color, out int endX, out int endY)
+        public void DrawCentralisedWrapped(string value, int startY, int maxWidth, RenderColor color, out int endX, out int endY)
         {
             endX = 0;
             endY = startY;
@@ -237,7 +238,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <param name="y">The position of the underline, in y.</param>
         /// <param name="length">The length of the underline.</param>
         /// <param name="color">The color of the underline.</param>
-        public void DrawUnderline(int x, int y, int length, ConsoleColor color)
+        public void DrawUnderline(int x, int y, int length, RenderColor color)
         {
             var underline = Convert.ToChar("-");
 

@@ -22,32 +22,32 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the background color.
         /// </summary>
-        public ConsoleColor BackgroundColor { get; set; }
+        public RenderColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor BorderColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public ConsoleColor TitleColor { get; set; } = ConsoleColor.White;
+        public RenderColor TitleColor { get; set; } = RenderColor.White;
 
         /// <summary>
         /// Get or set the description color.
         /// </summary>
-        public ConsoleColor DescriptionColor { get; set; } = ConsoleColor.White;
+        public RenderColor DescriptionColor { get; set; } = RenderColor.White;
 
         /// <summary>
         /// Get or set the command color.
         /// </summary>
-        public ConsoleColor CommandColor { get; set; } = ConsoleColor.Green;
+        public RenderColor CommandColor { get; set; } = RenderColor.Green;
 
         /// <summary>
         /// Get or set the description color.
         /// </summary>
-        public ConsoleColor CommandDescriptionColor { get; set; } = ConsoleColor.Yellow;
+        public RenderColor CommandDescriptionColor { get; set; } = RenderColor.Yellow;
 
         #endregion
 

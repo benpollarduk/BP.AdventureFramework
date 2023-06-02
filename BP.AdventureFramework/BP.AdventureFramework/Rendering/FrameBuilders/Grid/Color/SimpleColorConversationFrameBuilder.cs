@@ -24,37 +24,37 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the background color.
         /// </summary>
-        public ConsoleColor BackgroundColor { get; set; }
+        public RenderColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor BorderColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public ConsoleColor TitleColor { get; set; } = ConsoleColor.Green;
+        public RenderColor TitleColor { get; set; } = RenderColor.Green;
 
         /// <summary>
         /// Get or set the player message color.
         /// </summary>
-        public ConsoleColor NonPlayerMessageColor { get; set; } = ConsoleColor.Yellow;
+        public RenderColor NonPlayerMessageColor { get; set; } = RenderColor.Yellow;
 
         /// <summary>
         /// Get or set the player message color.
         /// </summary>
-        public ConsoleColor PlayerMessageColor { get; set; } = ConsoleColor.Blue;
+        public RenderColor PlayerMessageColor { get; set; } = RenderColor.Blue;
 
         /// <summary>
         /// Get or set the response color.
         /// </summary>
-        public ConsoleColor ResponseColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor ResponseColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the input color.
         /// </summary>
-        public ConsoleColor InputColor { get; set; } = ConsoleColor.White;
+        public RenderColor InputColor { get; set; } = RenderColor.White;
 
         #endregion
 

@@ -55,27 +55,27 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the room boundary color.
         /// </summary>
-        public ConsoleColor BoundaryColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor BoundaryColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the item or character color.
         /// </summary>
-        public ConsoleColor ItemOrCharacterColor { get; set; } = ConsoleColor.Blue;
+        public RenderColor ItemOrCharacterColor { get; set; } = RenderColor.Blue;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public ConsoleColor LockedExitColor { get; set; } = ConsoleColor.Red;
+        public RenderColor LockedExitColor { get; set; } = RenderColor.Red;
 
         /// <summary>
         /// Get or set the visited exit color.
         /// </summary>
-        public ConsoleColor VisitedExitColor { get; set; } = ConsoleColor.Yellow;
+        public RenderColor VisitedExitColor { get; set; } = RenderColor.Yellow;
 
         /// <summary>
         /// Get or set the unvisited exit color.
         /// </summary>
-        public ConsoleColor UnvisitedExitColor { get; set; } = ConsoleColor.Green;
+        public RenderColor UnvisitedExitColor { get; set; } = RenderColor.Green;
 
         #endregion
 
@@ -317,7 +317,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <param name="endY">The end position, x.</param>
         private void DrawKey(Room room, ViewPoint viewPoint, KeyType key, GridStringBuilder gridStringBuilder, int startX, int startY, out int endX, out int endY)
         {
-            var keyLines = new Dictionary<string, ConsoleColor>();
+            var keyLines = new Dictionary<string, RenderColor>();
             var lockedExitString = $"{LockedExit} = Locked Exit";
             var notVisitedExitString = "N/E/S/W/U/D = Unvisited";
             var visitedExitString = "n/e/s/w/u/d = Visited";

@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
         {
             var view = string.Empty;
 
-            foreach (var direction in new[] { Direction.North, Direction.East, Direction.South, Direction.West, Direction.Up, Direction.Down })
+            foreach (var direction in new[] { Direction.West, Direction.North, Direction.East, Direction.South, Direction.Up, Direction.Down })
             {
                 var roomInDirection = viewPoint[direction];
 

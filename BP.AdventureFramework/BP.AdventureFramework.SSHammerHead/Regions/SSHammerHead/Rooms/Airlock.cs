@@ -5,9 +5,10 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
+using BP.AdventureFramework.SSHammerHead.Global;
 using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.SSHammerHead.SSHammerhead
+namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
 {
     internal class Airlock : RoomTemplate<Airlock>
     {
@@ -51,18 +52,18 @@ namespace BP.AdventureFramework.SSHammerHead.SSHammerhead
             {
                 if (ControlPanel.EqualsExaminable(controlPanel))
                 {
-                    if (Ship.Knife.EqualsExaminable(item))
+                    if (item == GlobalItems.Hammer)
                     {
                         controlPanel.Morph(new Item(BrokenControlPanel, "The beaten up and broken remains of a control panel."));
                         controlPanel.Commands = null;
-                        return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Jabbing the {Ship.Knife} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
+                        return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Smalling the {GlobalItems.Hammer} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                     }
                 }
                 else if (BrokenControlPanel.EqualsExaminable(controlPanel))
                 {
-                    if (Ship.Knife.EqualsExaminable(item))
+                    if (item == GlobalItems.Hammer)
                     {
-                        return new InteractionResult(InteractionEffect.FatalEffect, item, $"Once again you jab the {Ship.Knife} in to the remains of the control panel. You must have hit a high voltage wire inside because you are suddenly electrocuted. You are electrocuted to death.");
+                        return new InteractionResult(InteractionEffect.FatalEffect, item, $"Once again you swing the {GlobalItems.Hammer} in to the remains of the control panel. You must have hit a high voltage wire inside because you are suddenly electrocuted. You are electrocuted to death.");
                     }
                 }
                 
@@ -76,6 +77,11 @@ namespace BP.AdventureFramework.SSHammerHead.SSHammerhead
 
         #region Overrides of RoomTemplate<Airlock2>
 
+        /// <summary>
+        /// Create a new instance of the room.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <returns>The room.</returns>
         protected override Room OnCreate(PlayableCharacter pC)
         {
             var room = new Room(Name, Description, new Exit(Direction.East, true), new Exit(Direction.West, true));

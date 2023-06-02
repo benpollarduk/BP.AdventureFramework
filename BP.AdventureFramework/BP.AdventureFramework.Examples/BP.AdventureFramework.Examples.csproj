@@ -75,16 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Ship.cs" />
     <Compile Include="Assets\Everglades.cs" />
     <Compile Include="Assets\Flat.cs" />
     <Compile Include="Assets\Hub.cs" />
-    <Compile Include="Assets\SSHammerhead\EngineRoom.cs" />
-    <Compile Include="Assets\SSHammerhead\Airlock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Assets\Zelda.cs" />
-    <Compile Include="RoomTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

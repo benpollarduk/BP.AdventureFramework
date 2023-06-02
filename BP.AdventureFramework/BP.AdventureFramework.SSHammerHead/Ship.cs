@@ -1,9 +1,11 @@
-﻿using BP.AdventureFramework.Assets.Characters;
+﻿using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Examples.Assets.SSHammerhead;
+using BP.AdventureFramework.SSHammerHead.SSHammerhead;
 using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.Examples.Assets
+namespace BP.AdventureFramework.SSHammerHead
 {
     internal static class Ship
     {
@@ -24,8 +26,25 @@ namespace BP.AdventureFramework.Examples.Assets
         private const string StarboardWingInner = "Starboard Wing Inner";
         private const string StarboardWingOuter = "Starboard Wing Outer";
         private const string Booster = "Booster";
+        internal const string Knife = "Knife";
 
         // characters
+
+        internal static PlayableCharacter GeneratePC()
+        {
+            var player = new PlayableCharacter("Ben", "You are a 25 year old man, dressed in shorts, a t-shirt and flip-flops.", new Item(Ship.Knife, "A small pocket knife", true))
+            {
+                Interaction = (i, target) =>
+                {
+                    if (i == null)
+                        return new InteractionResult(InteractionEffect.NoEffect, null);
+
+                    return new InteractionResult(InteractionEffect.NoEffect, i);
+                }
+            };
+
+            return player;
+        }
 
         internal static Region GenerateRegion(PlayableCharacter pC)
         {

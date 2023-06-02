@@ -5,8 +5,9 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
+using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
+namespace BP.AdventureFramework.SSHammerHead.SSHammerhead
 {
     internal class Airlock : RoomTemplate<Airlock>
     {
@@ -50,18 +51,18 @@ namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
             {
                 if (ControlPanel.EqualsExaminable(controlPanel))
                 {
-                    if (Everglades.Knife.EqualsExaminable(item))
+                    if (Ship.Knife.EqualsExaminable(item))
                     {
                         controlPanel.Morph(new Item(BrokenControlPanel, "The beaten up and broken remains of a control panel."));
                         controlPanel.Commands = null;
-                        return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Jabbing the {Everglades.Knife} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
+                        return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Jabbing the {Ship.Knife} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                     }
                 }
                 else if (BrokenControlPanel.EqualsExaminable(controlPanel))
                 {
-                    if (Everglades.Knife.EqualsExaminable(item))
+                    if (Ship.Knife.EqualsExaminable(item))
                     {
-                        return new InteractionResult(InteractionEffect.FatalEffect, item, $"Once again you jab the {Everglades.Knife} in to the remains of the control panel. You must have hit a high voltage wire inside because you are suddenly electrocuted. You are electrocuted to death.");
+                        return new InteractionResult(InteractionEffect.FatalEffect, item, $"Once again you jab the {Ship.Knife} in to the remains of the control panel. You must have hit a high voltage wire inside because you are suddenly electrocuted. You are electrocuted to death.");
                     }
                 }
                 

@@ -1,7 +1,8 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.Examples.Assets.SSHammerhead
+namespace BP.AdventureFramework.SSHammerHead.SSHammerhead
 {
     internal class EngineRoom : RoomTemplate<EngineRoom>
     {

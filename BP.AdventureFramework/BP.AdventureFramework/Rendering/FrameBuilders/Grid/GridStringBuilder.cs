@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         /// <summary>
         /// Get or set the line terminator.
         /// </summary>
-        public string LineTerminator { get; set; } = Environment.NewLine;
+        public string LineTerminator { get; set; } = StringUtilities.Newline;
 
         /// <summary>
         /// Get the display size.

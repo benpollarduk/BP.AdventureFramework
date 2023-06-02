@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Extensions
 {
@@ -165,7 +166,7 @@ namespace BP.AdventureFramework.Extensions
         /// <returns>The number of lines in the string.</returns>
         public static int LineCount(this string value)
         {
-            return value?.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length ?? 0;
+            return value?.Split(new[] { StringUtilities.Newline }, StringSplitOptions.RemoveEmptyEntries).Length ?? 0;
         }
 
         /// <summary>

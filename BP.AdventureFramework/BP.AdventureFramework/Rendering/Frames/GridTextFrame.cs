@@ -4,6 +4,7 @@ using System.Text;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {
@@ -63,7 +64,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                     stringBuilder.Append(builder.GetCharacter(x, y));
                 }
 
-                stringBuilder.Append(Environment.NewLine);
+                stringBuilder.Append(StringUtilities.Newline);
             }
 
             return stringBuilder.ToString();

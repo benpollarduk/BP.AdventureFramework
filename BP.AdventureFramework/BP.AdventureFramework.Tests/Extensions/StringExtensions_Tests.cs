@@ -1,6 +1,7 @@
 ﻿using System;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Extensions
@@ -284,7 +285,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void GivenOneNewline_WhenLineCount_Then2()
         {
-            var result = $"AN{Environment.NewLine}AN".LineCount();
+            var result = $"AN{StringUtilities.Newline}AN".LineCount();
 
             Assert.AreEqual(2, result);
         }
@@ -292,7 +293,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void Given2Newline_WhenLineCount_Then3()
         {
-            var result = $"AN{Environment.NewLine}AN{Environment.NewLine}AN".LineCount();
+            var result = $"AN{StringUtilities.Newline}AN{StringUtilities.Newline}AN".LineCount();
 
             Assert.AreEqual(3, result);
         }

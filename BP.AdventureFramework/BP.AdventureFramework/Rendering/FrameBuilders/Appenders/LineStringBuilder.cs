@@ -28,7 +28,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders
         /// <summary>
         /// Get or set the line terminator.
         /// </summary>
-        public string LineTerminator { get; set; } = Environment.NewLine;
+        public string LineTerminator { get; set; } = StringUtilities.Newline;
 
         #endregion
 

@@ -13,6 +13,7 @@ using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.FrameBuilders;
 using BP.AdventureFramework.Rendering.Frames;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Logic
 {
@@ -203,7 +204,6 @@ namespace BP.AdventureFramework.Logic
             }
         }
 
-
         /// <summary>
         /// Get or set the completion condition.
         /// </summary>
@@ -317,6 +317,7 @@ namespace BP.AdventureFramework.Logic
                             }
                             else
                             {
+                                input = StringUtilities.PreenInput(input);
                                 var interpretation = Interpreter?.Interpret(input, this) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
                                 
                                 if (interpretation.WasInterpretedSuccessfully)

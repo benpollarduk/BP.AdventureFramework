@@ -9,7 +9,7 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
         #region Constants
 
         private const string Name = "Engine Room";
-        private const string Description = "This room hosts the large engine that used to power the SS HammerHead. It is now dormant and eerily silent, the fusion mechanism long since powered down. The room itself is very industrial, with metal walkways surrounding the perimeter of the room and the engine itself. A ladder leads upwards from one of these walkways.";
+        private const string Description = "This area hosts the large engine that used to power the SS HammerHead. It is now dormant and eerily silent, the fusion mechanism long since powered down. The room itself is very industrial, with metal walkways surrounding the perimeter of the room and the engine itself. A ladder leads upwards from one of these walkways.";
 
         #endregion
 

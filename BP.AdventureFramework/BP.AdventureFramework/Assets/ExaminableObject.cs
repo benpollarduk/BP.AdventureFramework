@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
 
@@ -26,10 +27,10 @@ namespace BP.AdventureFramework.Assets
                 if (!string.IsNullOrEmpty(description))
                     description += " ";
 
-                description += "This provides the following commands: ";
+                description += $"{Environment.NewLine}{Environment.NewLine}{obj.Identifier.Name} provides the following commands: ";
 
                 foreach (var customCommand in obj.Commands)
-                    description += $"{customCommand.Help.Command} - {customCommand.Help.Description.RemoveSentenceEnd()}, ";
+                    description += $"{Environment.NewLine}\"{customCommand.Help.Command}\" - {customCommand.Help.Description.RemoveSentenceEnd()}, ";
 
                 if (description.EndsWith(", "))
                 {

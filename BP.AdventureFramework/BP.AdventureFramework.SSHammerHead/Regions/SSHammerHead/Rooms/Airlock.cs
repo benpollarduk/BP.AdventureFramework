@@ -21,9 +21,9 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
 
         #endregion
 
-        #region Methods
+        #region StaticMethods
 
-        private CustomCommand[] CreateControlPannelCommands(PlayableCharacter pC, Room room)
+        private static CustomCommand[] CreateControlPannelCommands(PlayableCharacter pC, Room room)
         {
             var redButtonCommand = new CustomCommand(new CommandHelp("Press red", "Press the red button on the control panel."), true, (game, arguments) =>
             {
@@ -44,9 +44,9 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
             return new[] { redButtonCommand, greenButtonCommand };
         }
 
-        private Item CreateControlPanel(PlayableCharacter pC, Room room)
+        private static Item CreateControlPanel(PlayableCharacter pC, Room room)
         {
-            var controlPanel = new Item(ControlPanel, "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red.") { Commands = CreateControlPannelCommands(pC, room) };
+            var controlPanel = new Item(ControlPanel, "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".") { Commands = CreateControlPannelCommands(pC, room) };
 
             controlPanel.Interaction = (item, target) =>
             {

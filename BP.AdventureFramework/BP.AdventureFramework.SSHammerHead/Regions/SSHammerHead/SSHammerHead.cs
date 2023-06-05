@@ -1,8 +1,5 @@
-﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.SSHammerHead.Global;
 using BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms;
 using BP.AdventureFramework.Utilities;
 
@@ -19,7 +16,6 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead
         private const string BridgeTunnelVertical = "Bridge Tunnel (vertical)";
         private const string BridgeTunnelEntry = "Bridge Tunnel (entry)";
         private const string CentralHull = "Central Hull";
-        private const string StarboardHull = "Starboard Hull";
         private const string PortWing = "Port Wing";
         private const string PortWingInner = "Port Wing Inner";
         private const string PortWingOuter = "Port Wing Outer";
@@ -52,9 +48,6 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead
             var starboardWingInner = new Room(StarboardWingInner, "", new Exit(Direction.East), new Exit(Direction.West));
             var starboardWingOuter = new Room(StarboardWingOuter, "", new Exit(Direction.West));
 
-            // L0
-            var starboardHull = new Room(StarboardHull, "", new Exit(Direction.West));
-            
             // assign room
 
             // L2
@@ -78,7 +71,7 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead
             // L0
             regionMaker[0, -3, -2] = EngineRoom.Create(pC);
             regionMaker[-1, -3, -2] = Airlock.Create(pC);
-            regionMaker[1, -3, -2] = starboardHull;
+            regionMaker[1, -3, -2] = SupplyRoom.Create(pC);
 
             // start in airlock
             return regionMaker.Make(-1, -3, -2);

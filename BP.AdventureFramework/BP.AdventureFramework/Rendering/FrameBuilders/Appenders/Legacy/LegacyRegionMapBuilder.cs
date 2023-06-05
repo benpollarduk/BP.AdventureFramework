@@ -43,11 +43,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
         public string CurrentFloorIndicatorString { get; set; } = "*";
 
         /// <summary>
-        /// Get or set the visibility mode to use for Rooms.
-        /// </summary>
-        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.VistitedRoomsOnly;
-
-        /// <summary>
         /// Get or set the detail to use for a Region map.
         /// </summary>
         public RegionMapMode RegionMapDetail { get; } = RegionMapMode.Dynamic;
@@ -130,7 +125,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
 
                     if (room != null)
                     {
-                        if (room.HasBeenVisited || RoomVisibilityMode == RegionDisplayMode.AllRegion)
+                        if (room.HasBeenVisited || region.VisibleWithoutDiscovery)
                             line += region.CurrentRoom == room ? CurrentRoomString : EmptyRoomString;
                         else
                             line += blankRoomRow;
@@ -194,7 +189,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
 
                         if (room != null)
                         {
-                            if (room.HasBeenVisited || RoomVisibilityMode == RegionDisplayMode.AllRegion)
+                            if (room.HasBeenVisited || region.VisibleWithoutDiscovery)
                                 line += BuildRoomRowString(room, region.CurrentRoom == room, yPass);
                             else
                                 line += blankRoomRow;

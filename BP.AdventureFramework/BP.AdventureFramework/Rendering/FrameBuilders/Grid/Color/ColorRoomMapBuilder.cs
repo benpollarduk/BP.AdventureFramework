@@ -362,6 +362,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             endX = startX + 8;
             endY = startY;
 
+            if (!keyLines.Any())
+                return;
+
             var startKeyX = endX + KeyPadding;
             var maxWidth = keyLines.Max(x => x.Key.Length) + startKeyX + 1;
 

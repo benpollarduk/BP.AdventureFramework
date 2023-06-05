@@ -52,8 +52,6 @@ namespace BP.AdventureFramework.Logic
 
         #region Fields
 
-        private bool displayCommandListInSceneFrames = true;
-        private KeyType sceneMapKeyType = KeyType.Dynamic;
         private FrameBuilderCollection frameBuilders;
         private IFrame currentFrame;
 
@@ -74,32 +72,12 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set if the command list is displayed in scene frames.
         /// </summary>
-        public bool DisplayCommandListInSceneFrames
-        {
-            get { return displayCommandListInSceneFrames; }
-            set
-            {
-                displayCommandListInSceneFrames = value;
-
-                if (State == GameState.Active)
-                    DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, string.Empty, value ? Interpreter.GetContextualCommandHelp(this) : null, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
-            }
-        }
+        public bool DisplayCommandListInSceneFrames { get; set; } = true;
 
         /// <summary>
         /// Get or set the type of key to use on the scene map.
         /// </summary>
-        public KeyType SceneMapKeyType
-        {
-            get { return sceneMapKeyType; }
-            set
-            {
-                sceneMapKeyType = value;
-
-                if (State == GameState.Active)
-                    DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, string.Empty, DisplayCommandListInSceneFrames ? Interpreter.GetContextualCommandHelp(this) : null, value, DisplaySize.Width, DisplaySize.Height));
-            }
-        }
+        public KeyType SceneMapKeyType { get; set; } = KeyType.Dynamic;
 
         /// <summary>
         /// Get the player.

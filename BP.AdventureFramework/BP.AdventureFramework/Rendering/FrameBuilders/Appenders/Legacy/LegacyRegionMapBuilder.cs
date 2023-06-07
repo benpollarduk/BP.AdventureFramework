@@ -54,16 +54,28 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
         /// <summary>
         /// Build floor indicators.
         /// </summary>
-        /// <param name="currentFloor">The current floor.</param>
+        /// <param name="region">The region.</param>
         /// <param name="totalFloors">The total floor.</param>
         /// <param name="lineStringBuilder">The line string builder to use.</param>
         /// <returns>A list of strings representing the floor indicators.</returns>
-        private List<string> BuildFloorIndicators(int currentFloor, int totalFloors, LineStringBuilder lineStringBuilder)
+        private List<string> BuildFloorIndicators(Region region, int totalFloors, LineStringBuilder lineStringBuilder)
         {
             var floorIndicators = new List<string>();
-            
+            var matrix = region.ToMatrix();
+            var currentRoom = region.GetPositionOfRoom(region.CurrentRoom);
+            var currentFloor = currentRoom.Z;
+            var rooms = matrix.ToRooms().Where(r => r != null).ToArray();
+
             for (var l = totalFloors - 1; l >= 0; l--)
+            {
+                var roomsOnThisFloor = rooms.Where(r => region.GetPositionOfRoom(r).Z == l).ToArray();
+
+                // only draw levels indicators where a region is visible without discovery or a room on the floor has been visited
+                if (!region.VisibleWithoutDiscovery && roomsOnThisFloor.All(r => !r.HasBeenVisited))
+                    continue;
+
                 floorIndicators.Add(BuildFloorIndicator(l, l == currentFloor, lineStringBuilder));
+            }
 
             return floorIndicators;
         }
@@ -102,7 +114,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
             var currentRoomPosition = region.GetPositionOfRoom(region.CurrentRoom);
             var z = currentRoomPosition?.Z ?? 0;
             var floors = rooms.Depth;
-            var floorIndicators = BuildFloorIndicators(z, floors, lineStringBuilder);
+            var floorIndicators = BuildFloorIndicators(region, floors, lineStringBuilder);
             var longestIndicatorAsWhiteSpace = lineStringBuilder.BuildWhitespace(floorIndicators.Max(x => x.Length));
 
             for (var y = roomsToBuildY - 1; y >= firstRoomY; y--)
@@ -164,7 +176,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
             var currentRoomPosition = region.GetPositionOfRoom(region.CurrentRoom);
             var z = currentRoomPosition?.Z ?? 0;
             var floors = rooms.Depth;
-            var floorIndicators = BuildFloorIndicators(z, floors, lineStringBuilder);
+            var floorIndicators = BuildFloorIndicators(region, floors, lineStringBuilder);
             var longestIndicatorAsWhitespace = lineStringBuilder.BuildWhitespace(floorIndicators.Max(x => x.Length));
 
             for (var y = roomsToBuildY - 1; y >= firstRoomY; y--)

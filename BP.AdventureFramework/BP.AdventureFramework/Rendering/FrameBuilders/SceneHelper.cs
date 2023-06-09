@@ -52,7 +52,23 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
                 }
                 else
                 {
-                    view += $"{direction.ToString().ToLower()} is {roomDescription}, ";
+                    switch (direction)
+                    {
+                        case Direction.North:
+                        case Direction.East:
+                        case Direction.South:
+                        case Direction.West:
+                            view += $"{direction.ToString().ToLower()} is {roomDescription}, ";
+                            break;
+                        case Direction.Up:
+                            view += $"above is {roomDescription}, ";
+                            break;
+                        case Direction.Down:
+                            view += $"below is {roomDescription}, ";
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
 

@@ -15,7 +15,7 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
 
         private const string Name = "Supply Room";
         private const string Description = "The supply room is the rough shape and size of the air lock, but has been used by the crew as a makeshift supply room, containing everything from spare parts for the ship to first aid kits.";
-        private const string Map = "Map";
+        private const string Blueprint = "Blueprint";
         private const string Tray = "Tray";
         private const string EmptyTray = "Empty Tray";
         private const string USBDrive = "USB Drive";
@@ -35,9 +35,9 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
             return new[] { checkCommand };
         }
 
-        private static Item CreateMap()
+        private static Item CreateBlueprint()
         {
-            return new Item(Map, "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".") { Commands = CreateMapCommands() };
+            return new Item(Blueprint, "A wall mounted blueprint of the ship, entitle SS Hammerhead. The blueprint shows the ship from various angles with details of each area.") { Commands = CreateMapCommands() };
         }
         
         private static Item CreateUSBDrive()
@@ -77,7 +77,7 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
         protected override Room OnCreate(PlayableCharacter pC)
         {
             var room = new Room(Name, Description, new Exit(Direction.West));
-            room.AddItem(CreateMap());
+            room.AddItem(CreateBlueprint());
             room.AddItem(CreateTray(pC));
             return room;
         }

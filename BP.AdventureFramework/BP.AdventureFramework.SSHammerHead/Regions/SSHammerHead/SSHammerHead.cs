@@ -1,80 +1,60 @@
-﻿using BP.AdventureFramework.Assets.Characters;
+﻿using System.Linq;
+using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms;
+using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L0;
+using BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L1;
+using BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L2;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead
 {
-    internal static class SSHammerHead
+    internal class SSHammerHead : RegionTemplate<SSHammerHead>
     {
-        // rooms
-        private const string ShipName = "SS Hammerhead";
-        private const string BridgeCentral = "Bridge (central)";
-        private const string BridgePort = "Bridge (port)";
-        private const string BridgeStarbord = "Bridge (starboard)";
-        private const string BridgeTunnel = "Bridge Tunnel";
-        private const string BridgeTunnelVertical = "Bridge Tunnel (vertical)";
-        private const string BridgeTunnelEntry = "Bridge Tunnel (entry)";
-        private const string CentralHull = "Central Hull";
-        private const string PortWing = "Port Wing";
-        private const string PortWingInner = "Port Wing Inner";
-        private const string PortWingOuter = "Port Wing Outer";
-        private const string StarboardWing = "Starboard Wing";
-        private const string StarboardWingInner = "Starboard Wing Inner";
-        private const string StarboardWingOuter = "Starboard Wing Outer";
-        private const string Booster = "Booster";
+        #region Constants
 
-        // characters
-        
-        internal static Region GenerateRegion(PlayableCharacter pC)
+        private const string Name = "SS Hammerhead.";
+        private const string Description = "The star ship Hammerhead.";
+
+        #endregion
+
+        #region Overrides of RegionTemplate<SSHammerHead>
+
+        /// <summary>
+        /// Create a new instance of the region.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <returns>The room.</returns>
+        protected override Region OnCreate(PlayableCharacter pC)
         {
-            var regionMaker = new RegionMaker(ShipName, "The SS Hammerhead");
-
-            // L2
-            var bridgeCentral = new Room(BridgeCentral, "The central bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.East), new Exit(Direction.West), new Exit(Direction.South));
-            var bridgePort = new Room(BridgePort, "The port side of the bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.East));
-            var bridgeStarbord = new Room(BridgeStarbord, "The starboard side of the bridge is full of consoles filled with all kinds of dials, knobs and buttons.", new Exit(Direction.West));
-            var bridgeTunnel = new Room(BridgeTunnel, "The tunnel leads up to the bridge.", new Exit(Direction.North), new Exit(Direction.Down));
-
-            // L1
-            var bridgeTunnelVertical = new Room(BridgeTunnelVertical, "", new Exit(Direction.South), new Exit(Direction.Up));
-            var bridgeTunnelEntry = new Room(BridgeTunnelEntry, "", new Exit(Direction.South), new Exit(Direction.East), new Exit(Direction.West));
-            var centralHull = new Room(CentralHull, "", new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.Down));
-            var booster = new Room(Booster, "", new Exit(Direction.North));
-            var portWing = new Room(PortWing, "", new Exit(Direction.East));
-            var starboardWing = new Room(StarboardWing, "", new Exit(Direction.West));
-            var portWingOuter = new Room(PortWingOuter, "", new Exit(Direction.East));
-            var portWingInner = new Room(PortWingInner, "", new Exit(Direction.East), new Exit(Direction.West));
-            var starboardWingInner = new Room(StarboardWingInner, "", new Exit(Direction.East), new Exit(Direction.West));
-            var starboardWingOuter = new Room(StarboardWingOuter, "", new Exit(Direction.West));
-
-            // assign room
-
-            // L2
-            regionMaker[0, 0, 0] = bridgeCentral;
-            regionMaker[-1, 0, 0] = bridgePort;
-            regionMaker[1, 0, 0] = bridgeStarbord;
-            regionMaker[0, -1, 0] = bridgeTunnel;
-            
-            // L1
-            regionMaker[0, -1, -1] = bridgeTunnelVertical;
-            regionMaker[0, -2, -1] = bridgeTunnelEntry;
-            regionMaker[0, -3, -1] = centralHull;
-            regionMaker[0, -4, -1] = booster;
-            regionMaker[-1, -2, -1] = portWing;
-            regionMaker[1, -2, -1] = starboardWing;
-            regionMaker[-2, -3, -1] = portWingOuter;
-            regionMaker[-1, -3, -1] = portWingInner;
-            regionMaker[1, -3, -1] = starboardWingInner;
-            regionMaker[2, -3, -1] = starboardWingOuter;
-
-            // L0
-            regionMaker[0, -3, -2] = EngineRoom.Create(pC);
-            regionMaker[-1, -3, -2] = Airlock.Create(pC);
-            regionMaker[1, -3, -2] = SupplyRoom.Create(pC);
+            var regionMaker = new RegionMaker(Name, Description)
+            {
+                // L2
+                [0, 0, 0] = Bridge.Create(pC),
+                [-1, 0, 0] = BridgePort.Create(pC),
+                [1, 0, 0] = BridgeStarboard.Create(pC),
+                [0, -1, 0] = BridgeTunnel.Create(pC),
+                // L1
+                [0, -1, -1] = BridgeTunnelVertical.Create(pC),
+                [0, -2, -1] = BridgeTunnelEntry.Create(pC),
+                [0, -3, -1] = CentralHull.Create(pC),
+                [0, -4, -1] = Booster.Create(pC),
+                [-1, -2, -1] = PortWing.Create(pC),
+                [1, -2, -1] = StarboardWing.Create(pC),
+                [-2, -3, -1] = PortWingOuter.Create(pC),
+                [-1, -3, -1] = PortWingInner.Create(pC),
+                [1, -3, -1] = StarboardWingInner.Create(pC),
+                [2, -3, -1] = StarboardWingOuter.Create(pC),
+                // L0
+                [0, -3, -2] = EngineRoom.Create(pC),
+                [-1, -3, -2] = Airlock.Create(pC),
+                [1, -3, -2] = SupplyRoom.Create(pC)
+            };
 
             // start in airlock
-            return regionMaker.Make(-1, -3, -2);
+            return regionMaker.Make(regionMaker.GetRoomPositions().FirstOrDefault(r => Airlock.Name.EqualsIdentifier(r.Room.Identifier)));
         }
+
+        #endregion
     }
 }

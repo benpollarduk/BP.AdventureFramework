@@ -2,7 +2,7 @@
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
+namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L0
 {
     internal class EngineRoom : RoomTemplate<EngineRoom>
     {

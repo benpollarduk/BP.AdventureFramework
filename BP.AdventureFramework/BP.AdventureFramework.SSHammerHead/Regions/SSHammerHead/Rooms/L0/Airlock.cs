@@ -8,13 +8,13 @@ using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.SSHammerHead.Global;
 using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
+namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L0
 {
     internal class Airlock : RoomTemplate<Airlock>
     {
         #region Constants
 
-        private const string Name = "Airlock";
+        internal const string Name = "Airlock";
         private const string Description = "The airlock is a small, mostly empty, chamber with two thick doors.One leads in to the ship, the other back to deep space.";
         private const string ControlPanel = "Control Panel";
         private const string BrokenControlPanel = "Broken Control Panel";

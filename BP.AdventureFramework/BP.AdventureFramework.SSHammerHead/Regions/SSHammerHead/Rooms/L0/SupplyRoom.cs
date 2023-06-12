@@ -7,7 +7,7 @@ using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
+namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L0
 {
     internal class SupplyRoom : RoomTemplate<SupplyRoom>
     {
@@ -24,12 +24,12 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
 
         #region StaticMethods
 
-        private static CustomCommand[] CreateMapCommands()
+        private static CustomCommand[] CreateBlueprintCommands()
         {
-            var checkCommand = new CustomCommand(new CommandHelp("Check", "Check the map in detail."), true, (game, arguments) =>
+            var checkCommand = new CustomCommand(new CommandHelp($"Check {Blueprint}", $"Check the {Blueprint} in detail."), true, (game, arguments) =>
             {
                 game.Overworld.CurrentRegion.VisibleWithoutDiscovery = true;
-                return new Reaction(ReactionResult.OK, "You check the map in detail. You know understand the internal layout of the ship.");
+                return new Reaction(ReactionResult.OK, $"You check the {Blueprint} in detail. You know understand the internal layout of the ship.");
             });
 
             return new[] { checkCommand };
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
 
         private static Item CreateBlueprint()
         {
-            return new Item(Blueprint, "A wall mounted blueprint of the ship, entitle SS Hammerhead. The blueprint shows the ship from various angles with details of each area.") { Commands = CreateMapCommands() };
+            return new Item(Blueprint, $"A wall mounted {Blueprint} of the ship, entitle SS Hammerhead. The {Blueprint} shows the ship from various angles with details of each area.") { Commands = CreateBlueprintCommands() };
         }
         
         private static Item CreateUSBDrive()
@@ -47,19 +47,19 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms
 
         private static Item CreateTray(PlayableCharacter pC)
         {
-            var item = new Item(Tray, "A tray containing a range of different cables that have become intertwined.");
+            var item = new Item(Tray, $"A {Tray} containing a range of different cables that have become intertwined.");
 
             item.Examination = x =>
             {
                 if (Tray.EqualsExaminable(x))
                 {
-                    var examinedJumble = new Item(EmptyTray, "There is nothing else of interest in the tray.");
+                    var examinedJumble = new Item(EmptyTray, $"There is nothing else of interest in the {Tray}.");
                     item.Morph(examinedJumble);
                     pC.AquireItem(CreateUSBDrive());
-                    return new ExaminationResult("A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small USB drive, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the USB drive here so you take it.", ExaminationResults.DescriptionReturned);
+                    return new ExaminationResult($"A {Tray} containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive}, you empty the contents of the {Tray} on to the shelf in front of you. It seems unusual to leave the {USBDrive} here so you take it.", ExaminationResults.DescriptionReturned);
                 }
 
-                return new ExaminationResult("There is nothing else of interest in the tray.", ExaminationResults.DescriptionReturned);
+                return new ExaminationResult($"There is nothing else of interest in the {Tray}.", ExaminationResults.DescriptionReturned);
             };
 
             return item;

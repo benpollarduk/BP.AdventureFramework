@@ -1,9 +1,11 @@
-﻿namespace BP.AdventureFramework.Interpretation
+﻿using System;
+
+namespace BP.AdventureFramework.Interpretation
 {
     /// <summary>
     /// Provides help for a command.
     /// </summary>
-    public class CommandHelp
+    public class CommandHelp : IEquatable<CommandHelp>
     {
         #region Properties
 
@@ -34,19 +36,17 @@
 
         #endregion
 
-        #region Overrides of Object
+        #region Implementation of IEquatable<ExaminableIdentifier>
 
         /// <summary>
-        /// Determines whether the specified object is equal to the current object.
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns>true if the specified object  is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object obj)
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
+        public bool Equals(CommandHelp other)
         {
-            if (obj is CommandHelp other)
-                return Command == other.Command && Description == other.Description;
-
-            return false;
+            return Command == other?.Command && Description == other?.Description;
         }
 
         #endregion

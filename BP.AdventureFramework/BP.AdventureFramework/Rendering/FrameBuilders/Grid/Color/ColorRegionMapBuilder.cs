@@ -55,32 +55,27 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the visited room boundary color.
         /// </summary>
-        public ConsoleColor VisitedBoundaryColor { get; set; } = ConsoleColor.White;
+        public RenderColor VisitedBoundaryColor { get; set; } = RenderColor.White;
 
         /// <summary>
         /// Get or set the unvisited room boundary color.
         /// </summary>
-        public ConsoleColor UnvisitedBoundaryColor { get; set; } = ConsoleColor.Gray;
+        public RenderColor UnvisitedBoundaryColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the player color.
         /// </summary>
-        public ConsoleColor PlayerColor { get; set; } = ConsoleColor.Blue;
+        public RenderColor PlayerColor { get; set; } = RenderColor.Blue;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public ConsoleColor LockedExitColor { get; set; } = ConsoleColor.Red;
+        public RenderColor LockedExitColor { get; set; } = RenderColor.Red;
 
         /// <summary>
         /// Get or set the lower floor color.
         /// </summary>
-        public ConsoleColor LowerFloorColor { get; set; } = ConsoleColor.DarkGray;
-
-        /// <summary>
-        /// Get or set the visibility mode to use for Rooms.
-        /// </summary>
-        public RegionDisplayMode RoomVisibilityMode { get; set; } = RegionDisplayMode.VistitedRoomsOnly;
+        public RenderColor LowerFloorColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set if lower floors should be shown.
@@ -284,6 +279,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
                 for (var floor = matrix.Depth - 1; floor >= 0; floor--)
                 {
+                    var roomsOnThisFloor = rooms.Where(r => region.GetPositionOfRoom(r).Z == floor).ToArray();
+
+                    // only draw levels indicators where a region is visible without discovery or a room on the floor has been visited
+                    if (!region.VisibleWithoutDiscovery && roomsOnThisFloor.All(r => !r.HasBeenVisited))
+                        continue;
+
                     if (floor == currentFloor)
                         gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxWidth, VisitedBoundaryColor, out _, out _);
                     else
@@ -300,7 +301,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                 var lowerLevelRooms = new List<RoomPosition>();
                 lowerLevelRooms.AddRange(visitedRoomPositions.Where(r => r.Z < currentFloor));
 
-                if (RoomVisibilityMode == RegionDisplayMode.AllRegion)
+                if (region.VisibleWithoutDiscovery)
                     lowerLevelRooms.AddRange(unvisitedRoomPositions.Where(r => r.Z < currentFloor));
 
                 foreach (var position in lowerLevelRooms)
@@ -315,7 +316,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             var currentLevelRooms = new List<RoomPosition>();
             currentLevelRooms.AddRange(visitedRoomPositions.Where(r => r.Z == currentFloor));
 
-            if (RoomVisibilityMode == RegionDisplayMode.AllRegion)
+            if (region.VisibleWithoutDiscovery)
                 currentLevelRooms.AddRange(unvisitedRoomPositions.Where(r => r.Z == currentFloor));
 
             foreach (var position in currentLevelRooms)

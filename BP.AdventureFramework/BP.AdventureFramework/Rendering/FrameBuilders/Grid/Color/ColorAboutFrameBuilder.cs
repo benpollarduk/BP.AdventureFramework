@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering.Frames;
@@ -22,32 +21,32 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the background color.
         /// </summary>
-        public ConsoleColor BackgroundColor { get; set; }
+        public RenderColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor BorderColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public ConsoleColor TitleColor { get; set; } = ConsoleColor.White;
+        public RenderColor TitleColor { get; set; } = RenderColor.White;
 
         /// <summary>
         /// Get or set the name color.
         /// </summary>
-        public ConsoleColor NameColor { get; set; } = ConsoleColor.Green;
+        public RenderColor NameColor { get; set; } = RenderColor.Green;
 
         /// <summary>
         /// Get or set the description color.
         /// </summary>
-        public ConsoleColor DescriptionColor { get; set; } = ConsoleColor.Yellow;
+        public RenderColor DescriptionColor { get; set; } = RenderColor.Yellow;
 
         /// <summary>
         /// Get or set the author color.
         /// </summary>
-        public ConsoleColor AuthorColor { get; set; } = ConsoleColor.Gray;
+        public RenderColor AuthorColor { get; set; } = RenderColor.Gray;
 
         #endregion
 

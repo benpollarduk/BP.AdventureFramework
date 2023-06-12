@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoCustomCommands_WhenGetContextualCommands_ThenReturn1CommandHelp()
         {
             var interpreter = new CustomCommandInterpreter();
-            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), (g,a) => new Reaction(ReactionResult.Error, string.Empty)) };
+            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), true, (g, a) => new Reaction(ReactionResult.Error, string.Empty)) };
             var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
             var result = interpreter.GetContextualCommandHelp(game);
@@ -51,7 +51,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenValidCustomCommand_WhenInterpret_ThenCommandInvoked()
         {
             var interpreter = new CustomCommandInterpreter();
-            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), (g,a) =>
+            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), true, (g, a) =>
             {
                 Assert.IsTrue(true);
                 return new Reaction(ReactionResult.Error, string.Empty);

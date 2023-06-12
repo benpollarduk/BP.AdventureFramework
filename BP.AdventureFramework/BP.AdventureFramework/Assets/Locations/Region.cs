@@ -56,6 +56,11 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The room.</returns>
         public Room this[int x, int y, int z] => roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z))?.Room;
 
+        /// <summary>
+        /// Get if the current region is visible without discovery.
+        /// </summary>
+        public bool VisibleWithoutDiscovery { get; set; }
+
         #endregion
 
         #region Constructors

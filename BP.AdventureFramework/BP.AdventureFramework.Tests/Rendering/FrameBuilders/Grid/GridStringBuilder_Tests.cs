@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Drawing;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
+using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
@@ -14,7 +15,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawHorizontalDivider(0, ConsoleColor.Black);
+            builder.DrawHorizontalDivider(0, RenderColor.Black);
             var left = builder.GetCharacter(1, 0);
             var right = builder.GetCharacter(8, 0);
 
@@ -28,7 +29,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawUnderline(0, 0, 1, ConsoleColor.Black);
+            builder.DrawUnderline(0, 0, 1, RenderColor.Black);
             var result = builder.GetCharacter(0, 0);
 
             Assert.AreEqual(builder.HorizontalDividerCharacter, result);
@@ -40,7 +41,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawBoundary(ConsoleColor.Black);
+            builder.DrawBoundary(RenderColor.Black);
             var topLeft = builder.GetCharacter(0, 0);
             var topRight = builder.GetCharacter(0, 9);
             var bottomLeft = builder.GetCharacter(0, 9);
@@ -58,7 +59,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawWrapped("A", 0, 0, 10, ConsoleColor.Black, out _, out _);
+            builder.DrawWrapped("A", 0, 0, 10, RenderColor.Black, out _, out _);
             var result = builder.GetCharacter(0, 0);
 
             Assert.AreEqual("A", result.ToString());
@@ -70,7 +71,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawWrapped("AA", 0, 0, 10, ConsoleColor.Black, out var x, out _);
+            builder.DrawWrapped("AA", 0, 0, 10, RenderColor.Black, out var x, out _);
             
             Assert.AreEqual(1, x);
         }
@@ -81,7 +82,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawCentralisedWrapped("AA", 0, 10, ConsoleColor.Black, out _, out _);
+            builder.DrawCentralisedWrapped("AA", 0, 10, RenderColor.Black, out _, out _);
             var result = builder.GetCharacter(5, 0);
 
             Assert.AreEqual("A", result.ToString());
@@ -93,7 +94,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
 
-            builder.DrawCentralisedWrapped("A", 0, 10, ConsoleColor.Black, out var x, out _);
+            builder.DrawCentralisedWrapped("A", 0, 10, RenderColor.Black, out var x, out _);
 
             Assert.AreEqual(5, x);
         }

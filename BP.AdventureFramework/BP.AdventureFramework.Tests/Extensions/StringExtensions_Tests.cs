@@ -1,6 +1,7 @@
 ﻿using System;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Extensions
@@ -284,7 +285,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void GivenOneNewline_WhenLineCount_Then2()
         {
-            var result = $"AN{Environment.NewLine}AN".LineCount();
+            var result = $"AN{StringUtilities.Newline}AN".LineCount();
 
             Assert.AreEqual(2, result);
         }
@@ -292,7 +293,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void Given2Newline_WhenLineCount_Then3()
         {
-            var result = $"AN{Environment.NewLine}AN{Environment.NewLine}AN".LineCount();
+            var result = $"AN{StringUtilities.Newline}AN{StringUtilities.Newline}AN".LineCount();
 
             Assert.AreEqual(3, result);
         }
@@ -318,10 +319,71 @@ namespace BP.AdventureFramework.Tests.Extensions
         }
 
         [TestMethod]
+
+        public void GivenSentenceEndingInFullStop_WhenRemoveSentenceEnd_ThenReturnStringMinusFullStop()
+        {
+            var value = "ABC.";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenSentenceEndingInExclamationMark_WhenRemoveSentenceEnd_ThenReturnStringMinusExclamationMark()
+        {
+            var value = "ABC!";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenSentenceEndingInQuestionMark_WhenRemoveSentenceEnd_ThenReturnStringMinusQuestionMark()
+        {
+            var value = "ABC?";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenABC_WhenRemoveSentenceEnd_ThenABC()
+        {
+            var value = "ABC";
+
+            var result = value.RemoveSentenceEnd();
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenABCSeekingb_WhenCaseInsensitiveContains_ThenTrue()
+        {
+            var value = "ABC";
+
+            var result = value.CaseInsensitiveContains("B");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenAbCSeekingD_WhenCaseInsensitiveContains_ThenFalse()
+        {
+            var value = "ABC";
+
+            var result = value.CaseInsensitiveContains("D");
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public void GivenCompareABCToABC_WhenInsensitiveEquals_ThenReturnTrue()
         {
             var result = "ABC".InsensitiveEquals("ABC");
-
+            
             Assert.IsTrue(result);
         }
 

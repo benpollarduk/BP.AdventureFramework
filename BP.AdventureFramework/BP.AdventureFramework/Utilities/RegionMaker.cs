@@ -84,8 +84,17 @@ namespace BP.AdventureFramework.Utilities
         /// <returns>The created region.</returns>
         public Region Make()
         {
-            var firstRoom = rooms.First();
-            return Make(firstRoom.X, firstRoom.Y, firstRoom.Z);
+            return Make(rooms.First());
+        }
+
+        /// <summary>
+        /// Make a region.
+        /// </summary>
+        /// <param name="startPosition">The start position.</param>
+        /// <returns>The created region.</returns>
+        public Region Make(RoomPosition startPosition)
+        {
+            return Make(startPosition.X, startPosition.Y, startPosition.Z);
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Rendering.Frames;
 
@@ -21,22 +20,22 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         /// <summary>
         /// Get or set the background color.
         /// </summary>
-        public ConsoleColor BackgroundColor { get; set; }
+        public RenderColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGray;
+        public RenderColor BorderColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public ConsoleColor TitleColor { get; set; } = ConsoleColor.Green;
+        public RenderColor TitleColor { get; set; } = RenderColor.Green;
 
         /// <summary>
         /// Get or set the message color.
         /// </summary>
-        public ConsoleColor MessageColor { get; set; } = ConsoleColor.Yellow;
+        public RenderColor MessageColor { get; set; } = RenderColor.Yellow;
 
         #endregion
 

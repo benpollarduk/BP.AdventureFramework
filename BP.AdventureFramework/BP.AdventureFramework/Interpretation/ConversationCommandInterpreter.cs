@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BP.AdventureFramework.Commands.Conversation;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;

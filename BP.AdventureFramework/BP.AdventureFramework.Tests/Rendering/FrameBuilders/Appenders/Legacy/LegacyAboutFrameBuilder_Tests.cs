@@ -3,6 +3,7 @@ using System.Linq;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Rendering.FrameBuilders.Appenders;
 using BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy;
+using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Appenders.Legacy
@@ -17,7 +18,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Appenders.Legacy
 
             var game = Game.Create(string.Empty, string.Empty, string.Empty, x => null, () => null, p => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
             var result = builder.Build(string.Empty, game,  80, 50);
-            var lines = result.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = result.ToString().Split(new[] { StringUtilities.Newline }, StringSplitOptions.RemoveEmptyEntries);
             var lineCount = lines.Length;
             var lineLength = lines.Average(x => x.Length);
 

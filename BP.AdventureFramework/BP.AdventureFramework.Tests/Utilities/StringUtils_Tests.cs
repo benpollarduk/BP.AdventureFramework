@@ -78,5 +78,55 @@ namespace BP.AdventureFramework.Tests.Utilities
 
             Assert.AreEqual(" On The Mat", paragraph);
         }
+
+        [TestMethod]
+        public void GivenABC_WhenPreenInput_ThenABC()
+        {
+            var paragraph = "ABC";
+
+            var result = StringUtilities.PreenInput(paragraph);
+
+            Assert.AreEqual("ABC", result);
+        }
+
+        [TestMethod]
+        public void GivenABCLF_WhenPreenInput_ThenABCLF()
+        {
+            var paragraph = $"ABC{StringUtilities.LF}";
+
+            var result = StringUtilities.PreenInput(paragraph);
+
+            Assert.AreEqual($"ABC{StringUtilities.LF}", result);
+        }
+
+        [TestMethod]
+        public void GivenABCCR_WhenPreenInput_ThenABCLF()
+        {
+            var paragraph = $"ABC{StringUtilities.CR}";
+
+            var result = StringUtilities.PreenInput(paragraph);
+
+            Assert.AreEqual($"ABC{StringUtilities.LF}", result);
+        }
+
+        [TestMethod]
+        public void GivenABCCRLF_WhenPreenInput_ThenABCLF()
+        {
+            var paragraph = $"ABC{StringUtilities.CR}{StringUtilities.LF}";
+
+            var result = StringUtilities.PreenInput(paragraph);
+
+            Assert.AreEqual($"ABC{StringUtilities.LF}", result);
+        }
+
+        [TestMethod]
+        public void GivenABCLFCR_WhenPreenInput_ThenABCLF()
+        {
+            var paragraph = $"ABC{StringUtilities.LF}{StringUtilities.CR}";
+
+            var result = StringUtilities.PreenInput(paragraph);
+
+            Assert.AreEqual($"ABC{StringUtilities.LF}", result);
+        }
     }
 }

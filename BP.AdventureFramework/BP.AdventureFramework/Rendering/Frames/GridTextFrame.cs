@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
+using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.Frames
 {
@@ -21,7 +24,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <summary>
         /// Get the background color.
         /// </summary>
-        public ConsoleColor BackgroundColor { get; }
+        public RenderColor BackgroundColor { get; }
 
         #endregion
 
@@ -34,7 +37,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <param name="cursorLeft">The cursor left position.</param>
         /// <param name="cursorTop">The cursor top position.</param>
         /// <param name="backgroundColor">The background color.</param>
-        public GridTextFrame(GridStringBuilder builder, int cursorLeft, int cursorTop, ConsoleColor backgroundColor)
+        public GridTextFrame(GridStringBuilder builder, int cursorLeft, int cursorTop, RenderColor backgroundColor)
         {
             this.builder = builder;
             CursorLeft = cursorLeft;
@@ -61,7 +64,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                     stringBuilder.Append(builder.GetCharacter(x, y));
                 }
 
-                stringBuilder.Append(Environment.NewLine);
+                stringBuilder.Append(StringUtilities.Newline);
             }
 
             return stringBuilder.ToString();
@@ -100,7 +103,7 @@ namespace BP.AdventureFramework.Rendering.Frames
             var cursorVisible = Console.CursorVisible;
             var startColor = Console.ForegroundColor;
 
-            Console.BackgroundColor = BackgroundColor;
+            Console.BackgroundColor = BackgroundColor.ToConsoleColor();
 
             Console.CursorVisible = false;
 
@@ -112,7 +115,7 @@ namespace BP.AdventureFramework.Rendering.Frames
 
                     if (c != 0)
                     {
-                        Console.ForegroundColor = builder.GetCellColor(x, y);
+                        Console.ForegroundColor = builder.GetCellColor(x, y).ToConsoleColor();
                         writer.Write(c);
                     }
                     else

@@ -1,5 +1,6 @@
 ﻿using System;
 using BP.AdventureFramework.Rendering.FrameBuilders.Appenders;
+using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Appenders
@@ -98,8 +99,8 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Appenders
         [TestMethod]
         public void GivenAWidthOf15ValueWithLengthOf15_WhenBuildWrappedPadded_ThenReturn2Lines()
         {
-            builder.LineTerminator = Environment.NewLine;
-            var result = builder.BuildWrappedPadded("12345 78910 111", 15, false).Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            builder.LineTerminator = StringUtilities.Newline;
+            var result = builder.BuildWrappedPadded("12345 78910 111", 15, false).Split(new[] { StringUtilities.Newline }, StringSplitOptions.RemoveEmptyEntries);
 
             Assert.AreEqual(2, result.Length);
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using BP.AdventureFramework.Commands.Frame;
+﻿using BP.AdventureFramework.Commands.Frame;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 

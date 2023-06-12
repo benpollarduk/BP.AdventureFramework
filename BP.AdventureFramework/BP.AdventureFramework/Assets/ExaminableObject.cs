@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
 
@@ -26,10 +27,10 @@ namespace BP.AdventureFramework.Assets
                 if (!string.IsNullOrEmpty(description))
                     description += " ";
 
-                description += "This provides the following commands: ";
+                description += $"{Environment.NewLine}{Environment.NewLine}{obj.Identifier.Name} provides the following commands: ";
 
                 foreach (var customCommand in obj.Commands)
-                    description += $"{customCommand.Help.Command} - {customCommand.Help.Description}, ";
+                    description += $"{Environment.NewLine}\"{customCommand.Help.Command}\" - {customCommand.Help.Description.RemoveSentenceEnd()}, ";
 
                 if (description.EndsWith(", "))
                 {
@@ -43,6 +44,19 @@ namespace BP.AdventureFramework.Assets
 
             return new ExaminationResult(description);
         };
+
+        #endregion
+
+        #region Overrides of Object
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return Identifier.Name;
+        }
 
         #endregion
 

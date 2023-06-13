@@ -211,6 +211,23 @@ namespace BP.AdventureFramework.Extensions
             return value?.Equals(other, StringComparison.InvariantCultureIgnoreCase) ?? false;
         }
 
+        /// <summary>
+        /// Add a sentence to this string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="other">The other value.</param>
+        /// <returns>The concatenated string.</returns>
+        internal static string AddSentence(this string value, string other)
+        {
+            if (string.IsNullOrEmpty(value))
+                return other;
+
+            if (string.IsNullOrEmpty(other))
+                return value;
+
+            return $"{value} {other}";
+        }
+
         #endregion
     }
 }

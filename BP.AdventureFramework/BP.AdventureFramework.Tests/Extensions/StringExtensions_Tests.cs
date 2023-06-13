@@ -1,5 +1,4 @@
-﻿using System;
-using BP.AdventureFramework.Assets;
+﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -393,6 +392,36 @@ namespace BP.AdventureFramework.Tests.Extensions
             var result = "ABC".InsensitiveEquals("abc");
 
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenValueIsEmptyString_WhenInsensitiveEquals_ThenReturnOther()
+        {
+            const string value = "";
+            const string other = "abc";
+            var result = value.AddSentence(other);
+
+            Assert.AreEqual(other, result);
+        }
+
+        [TestMethod]
+        public void GivenOtherIsEmptyString_WhenInsensitiveEquals_ThenReturnValue()
+        {
+            const string value = "abc";
+            const string other = "";
+            var result = value.AddSentence(other);
+
+            Assert.AreEqual(value, result);
+        }
+
+        [TestMethod]
+        public void GivenAbcAnd123_WhenInsensitiveEquals_ThenReturnAbcSpace123()
+        {
+            const string value = "abc";
+            const string other = "123";
+            var result = value.AddSentence(other);
+
+            Assert.AreEqual($"{value} {other}", result);
         }
     }
 }

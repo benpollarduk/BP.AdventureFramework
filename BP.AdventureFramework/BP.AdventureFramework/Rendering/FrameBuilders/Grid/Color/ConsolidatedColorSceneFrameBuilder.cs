@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
     /// <summary>
     /// Provides a builder for color consolidated scene frames.
     /// </summary>
-    public sealed class ColorConsolidatedSceneFrameBuilder : ISceneFrameBuilder
+    public sealed class ConsolidatedColorSceneFrameBuilder : ISceneFrameBuilder
     {
         #region Fields
 
@@ -64,11 +64,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the ColorConsolidatedSceneFrameBuilder class.
+        /// Initializes a new instance of the ConsolidatedColorSceneFrameBuilder class.
         /// </summary>
         /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
         /// <param name="roomMapBuilder">A builder to use for room maps.</param>
-        public ColorConsolidatedSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder)
+        public ConsolidatedColorSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder)
         {
             this.gridStringBuilder = gridStringBuilder;
             this.roomMapBuilder = roomMapBuilder;

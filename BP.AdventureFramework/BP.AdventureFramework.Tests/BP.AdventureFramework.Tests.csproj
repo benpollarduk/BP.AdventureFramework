@@ -70,6 +70,7 @@
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyTransitionFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\SimpleColorConversationFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\ColorConversationFrameBuilder_Tests.cs" />
+    <Compile Include="Rendering\FrameBuilders\Grid\Color\ConsolidatedColorSceneFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\SimpleColorSceneFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\ColorTransitionFrameBuilder_Tests.cs" />
     <Compile Include="Utilities\StringUtils_Tests.cs" />

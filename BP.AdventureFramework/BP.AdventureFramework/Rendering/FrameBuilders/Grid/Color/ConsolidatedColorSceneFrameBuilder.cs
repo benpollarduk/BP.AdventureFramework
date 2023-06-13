@@ -76,6 +76,29 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
         #endregion
 
+        #region StaticMethods
+
+        /// <summary>
+        /// Determine if a string is a confirmation to a movement.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>True is the message was a movement confirmation, else false.</returns>
+        private static bool IsMovementConfirmation(string message)
+        {
+            if (string.IsNullOrEmpty(message))
+                return false;
+
+            foreach (var dir in new[] { Direction.North, Direction.South, Direction.East, Direction.West, Direction.Up, Direction.Down })
+            {
+                if (message.InsensitiveEquals($"{Move.SuccessfulMovePrefix} {dir}."))
+                    return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
         #region Implementation of ISceneFrameBuilder
 
         /// <summary>
@@ -95,7 +118,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             var availableHeight = height - 2;
             const int leftMargin = 2;
             const int linePadding = 2;
-            var isMovementMessage = message?.StartsWith(Move.SuccessfulMovePrefix) ?? false;
+            var isMovementMessage = IsMovementConfirmation(message);
             var displayMessage = ((!string.IsNullOrEmpty(message)) && ((!isMovementMessage) || (!SupressMovementMessages)));
 
             gridStringBuilder.Resize(new Size(width, height));
@@ -117,8 +140,6 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
                 gridStringBuilder.DrawWrapped(room.Description.GetDescription().EnsureFinishedSentence(), 2, lastY + 3, availableWidth, TextColor, out _, out lastY);
 
-                roomMapBuilder?.BuildRoomMap(gridStringBuilder, room, viewPoint, keyType, leftMargin, lastY + linePadding, out _, out lastY);
-
                 var extendedDescription = string.Empty;
 
                 if (room.Items.Any())
@@ -132,6 +153,8 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                     extendedDescription = extendedDescription.AddSentence(SceneHelper.CreateViewpointAsString(room, viewPoint));
 
                 gridStringBuilder.DrawWrapped(extendedDescription, leftMargin, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
+
+                roomMapBuilder?.BuildRoomMap(gridStringBuilder, room, viewPoint, keyType, leftMargin, lastY + linePadding, out _, out lastY);
 
                 if (player.Items.Any())
                     gridStringBuilder.DrawWrapped("You have: " + player.GetItemsAsList(), leftMargin, lastY + 2, availableWidth, TextColor, out _, out lastY);

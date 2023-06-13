@@ -15,7 +15,7 @@ namespace BP.AdventureFramework.SSHammerHead.Regions.SSHammerHead.Rooms.L0
         #region Constants
 
         internal const string Name = "Airlock";
-        private const string Description = "The airlock is a small, mostly empty, chamber with two thick doors.One leads in to the ship, the other back to deep space.";
+        private const string Description = "The airlock is a small, mostly empty, chamber with two thick doors. One leads in to the ship, the other back to deep space.";
         private const string ControlPanel = "Control Panel";
         private const string BrokenControlPanel = "Broken Control Panel";
 

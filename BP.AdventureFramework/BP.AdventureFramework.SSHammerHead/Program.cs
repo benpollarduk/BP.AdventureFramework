@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.SSHammerHead
             {
                 OverworldCreationCallback overworldCreator = p =>
                 {
-                    var ship = Regions.SSHammerHead.SSHammerHead.Create(p);
+                    var ship = Assets.Regions.SSHammerHead.SSHammerHead.Create(p);
                     var overworld = new Overworld("CTY-1 Galaxy", "A solar system in deep space, part of the SR389 galaxy.");
                     overworld.AddRegion(ship);
                     return overworld;
@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.SSHammerHead
                     introduction,
                     about,
                     x => overworldCreator(x),
-                    PlayableCharacters.GeneratePC,
+                    PlayableCharacters.Generate,
                     g => CompletionCheckResult.NotComplete);
 
                 Game.Execute(creator);

@@ -1,6 +1,6 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Utilities;
+using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 {

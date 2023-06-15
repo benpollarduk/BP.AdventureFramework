@@ -5,7 +5,6 @@ using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities;
-using static System.String;
 
 namespace BP.AdventureFramework.Assets.Locations
 {

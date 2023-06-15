@@ -74,7 +74,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Items\Knife.cs" />
+    <Compile Include="Assets\Player\Player.cs" />
     <Compile Include="Assets\Regions\Everglades\Everglades.cs" />
+    <Compile Include="Assets\Regions\Everglades\Items\ConchShell.cs" />
     <Compile Include="Assets\Regions\Everglades\Rooms\InnerCave.cs" />
     <Compile Include="Assets\Regions\Everglades\Rooms\GreatWesternOcean.cs" />
     <Compile Include="Assets\Regions\Everglades\Rooms\Outskirts.cs" />
@@ -82,8 +85,39 @@
     <Compile Include="Assets\Regions\Everglades\Rooms\CaveMouth.cs" />
     <Compile Include="Assets\Regions\Everglades\Rooms\ForestFloor.cs" />
     <Compile Include="Assets\Regions\Everglades\Rooms\ForestEntrance.cs" />
-    <Compile Include="Assets\Regions\Flat.cs" />
-    <Compile Include="Assets\Hub.cs" />
+    <Compile Include="Assets\Regions\Flat\Flat.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Canvas.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Guitar.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Table.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Picture.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Telephone.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Map.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\LoungeTV.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Lead.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Skylight.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\EmptyCoffeeMug.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\MugOfCoffee.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\GameCube.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\TV.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Mirror.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Bed.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Toilet.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Bath.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\Kettle.cs" />
+    <Compile Include="Assets\Regions\Flat\Items\HamsterCage.cs" />
+    <Compile Include="Assets\Regions\Flat\NPCs\Beth.cs" />
+    <Compile Include="Assets\Regions\Hub\Hub.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Kitchen.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Attic.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Lounge.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Stairway.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\SpareBedroom.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Roof.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Bathroom.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\WesternHallway.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\EasternHallway.cs" />
+    <Compile Include="Assets\Regions\Flat\Rooms\Bedroom.cs" />
+    <Compile Include="Assets\Regions\Hub\Rooms\Clearing.cs" />
     <Compile Include="Assets\Regions\Zelda\Rooms\Stream.cs" />
     <Compile Include="Assets\Regions\Zelda\Rooms\TailCave.cs" />
     <Compile Include="Assets\Regions\Zelda\Rooms\OutsideLinksHouse.cs" />
@@ -110,9 +144,7 @@
       <Name>BP.AdventureFramework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Regions\Flat\Rooms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

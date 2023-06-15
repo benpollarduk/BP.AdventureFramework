@@ -8,7 +8,7 @@ namespace BP.AdventureFramework.SSHammerHead.Global
     /// </summary>
     internal static class PlayableCharacters
     {
-        internal static PlayableCharacter GeneratePC()
+        internal static PlayableCharacter Generate()
         {
             var player = new PlayableCharacter("Naomi", "You, Naomi Watts, are a 45 year old shuttle mechanic.", GlobalItems.Hammer, GlobalItems.Mirror)
             {

@@ -5,6 +5,7 @@ using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Conversations;
+using BP.AdventureFramework.Examples.Assets.Regions;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.FrameBuilders;
@@ -14,16 +15,22 @@ namespace BP.AdventureFramework.Examples.Assets
 {
     internal class Hub
     {
+        #region Constants
+
+        internal const string Knife = "Knife";
+
+        #endregion
+
         internal static PlayableCharacter GeneratePC()
         {
-            var player = new PlayableCharacter("Ben", "You are a 25 year old man, dressed in shorts, a t-shirt and flip-flops.", new Item(Everglades.Knife, "A small pocket knife", true))
+            var player = new PlayableCharacter("Ben", "You are a 25 year old man, dressed in shorts, a t-shirt and flip-flops.", new Item(Hub.Knife, "A small pocket knife", true))
             {
                 Interaction = (i, target) =>
                 {
                     if (i == null)
                         return new InteractionResult(InteractionEffect.NoEffect, null);
 
-                    if (Everglades.Knife.EqualsExaminable(i))
+                    if (Knife.EqualsExaminable(i))
                         return new InteractionResult(InteractionEffect.FatalEffect, i, "You slash wildly at your own throat. You are dead.");
 
                     if (Flat.EmptyCoffeeMug.EqualsIdentifier(i.Identifier))

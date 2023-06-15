@@ -5,6 +5,9 @@ using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Examples.Assets;
+using BP.AdventureFramework.Examples.Assets.Regions;
+using BP.AdventureFramework.Examples.Assets.Regions.Everglades;
+using BP.AdventureFramework.Examples.Assets.Regions.Zelda;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Utilities.Generation;
@@ -23,9 +26,9 @@ namespace BP.AdventureFramework.Examples
                     var options = new GameGenerationOptions { MaximumRegions = 1, MinimumRegions = 1 };
                     var generator = new GameGenerator(string.Empty, string.Empty);
                     var castle = generator.Generate(options, new Castle(), out _).Make();
-                    var evergaldes = Everglades.GenerateRegion(p);
+                    var evergaldes = Everglades.Create(p);
                     var flat = Flat.GenerateRegion(p);
-                    var zelda = Zelda.GenerateRegion(p);
+                    var zelda = Zelda.Create(p);
 
                     var regions = new List<Region>
                     {

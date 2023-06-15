@@ -6,7 +6,7 @@ using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities;
 
-namespace BP.AdventureFramework.Examples.Assets
+namespace BP.AdventureFramework.Examples.Assets.Regions
 {
     internal static class Flat
     {

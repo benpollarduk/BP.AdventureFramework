@@ -73,7 +73,7 @@
     <Compile Include="Rendering\FrameBuilders\Grid\Color\ConsolidatedColorSceneFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\SimpleColorSceneFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Grid\Color\ColorTransitionFrameBuilder_Tests.cs" />
-    <Compile Include="Utilities\StringUtils_Tests.cs" />
+    <Compile Include="Utilities\StringUtilities_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyAboutFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyGameOverFrameBuilder_Tests.cs" />
     <Compile Include="Rendering\FrameBuilders\Appenders\Legacy\LegacyTitleFrameBuilder_Tests.cs" />

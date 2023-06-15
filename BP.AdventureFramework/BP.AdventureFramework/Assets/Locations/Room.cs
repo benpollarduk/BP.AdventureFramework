@@ -4,6 +4,7 @@ using System.Linq;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Utilities;
 using static System.String;
 
 namespace BP.AdventureFramework.Assets.Locations
@@ -221,60 +222,10 @@ namespace BP.AdventureFramework.Assets.Locations
                 return new ExaminationResult($"There {(singularItem.Identifier.Name.IsPlural() ? "are" : "is")} {singularItem.Identifier.Name.GetObjectifier()} {singularItem.Identifier}");
             }
 
-            var sentence = GetItemsAsString();
-            var somethingLeftToCheck = true;
-            var index = 0;
-            string currentItemName;
-
-            while (somethingLeftToCheck)
-            {
-                index = sentence.IndexOf(",", index, StringComparison.Ordinal);
-
-                if (index == sentence.LastIndexOf(", ", StringComparison.Ordinal))
-                {
-                    sentence = sentence.Remove(index, 2);
-                    currentItemName = sentence.Substring(index).Trim(Convert.ToChar(" "));
-                    sentence = sentence.Insert(index, $" and {currentItemName.GetObjectifier()} ");
-                    somethingLeftToCheck = false;
-                }
-                else
-                {
-                    sentence = sentence.Remove(index, 2);
-                    currentItemName = sentence.Substring(index, sentence.IndexOf(", ", index, StringComparison.Ordinal) - index).Trim(Convert.ToChar(" "));
-                    sentence = sentence.Insert(index, $", {currentItemName.GetObjectifier()} ");
-                    index += 1;
-                }
-            }
-
-            currentItemName = sentence.Substring(0, sentence.Contains(", ") ? sentence.IndexOf(", ", StringComparison.Ordinal) : sentence.IndexOf(" and ", StringComparison.Ordinal));
-            return new ExaminationResult($"There {(currentItemName.IsPlural() ? "are" : "is")} {currentItemName.GetObjectifier()} {sentence}");
-        }
-
-        /// <summary>
-        /// Get all Items as a string.
-        /// </summary>
-        /// <returns>A string representing all items as a string.</returns>
-        private string GetItemsAsString()
-        {
-            if (!Items.Any()) 
-                return Empty;
-
-            var itemsInRoom = Empty;
-            var itemNames = new List<string>();
-
-            foreach (var i in Items)
-            {
-                if (i.IsPlayerVisible)
-                    itemNames.Add(i.Identifier.Name);
-            }
-
-            itemNames.Sort();
-
-            foreach (var name in itemNames)
-                itemsInRoom += name + ", ";
-
-            itemsInRoom = itemsInRoom.Remove(itemsInRoom.Length - 2);
-            return itemsInRoom;
+            var items = Items?.Cast<IExaminable>().ToArray();
+            var sentence = StringUtilities.ConstructExaminablesAsSentence(items);
+            var firstItemName = sentence.Substring(0, sentence.Contains(", ") ? sentence.IndexOf(", ", StringComparison.Ordinal) : sentence.IndexOf(" and ", StringComparison.Ordinal));
+            return new ExaminationResult($"There {(firstItemName.IsPlural() ? "are" : "is")} {sentence.StartWithLower()}");
         }
 
         /// <summary>

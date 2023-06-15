@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.Frames;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
 {
@@ -114,7 +116,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
 
             scene.Append(lineStringBuilder.BuildPaddedArea(width, height - linesInString - linesAfterWhitespace));
             scene.Append(divider);
-            scene.Append(lineStringBuilder.BuildWrappedPadded("INVENTORY: " + player.GetItemsAsList(), width, false));
+            scene.Append(lineStringBuilder.BuildWrappedPadded("INVENTORY: " + StringUtilities.ConstructExaminablesAsSentence(player.Items.Cast<IExaminable>().ToArray()), width, false));
             scene.Append(divider);
             var yPositionOfCursor = scene.ToString().LineCount();
             scene.Append(lineStringBuilder.BuildWrappedPadded("WHAT DO YOU DO? ", width, false));

@@ -7,6 +7,7 @@ using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.Frames;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 {
@@ -157,7 +158,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                 roomMapBuilder?.BuildRoomMap(gridStringBuilder, room, viewPoint, keyType, leftMargin, lastY + linePadding, out _, out lastY);
 
                 if (player.Items.Any())
-                    gridStringBuilder.DrawWrapped("You have: " + player.GetItemsAsList(), leftMargin, lastY + 2, availableWidth, TextColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped("You have: " + StringUtilities.ConstructExaminablesAsSentence(player.Items?.Cast<IExaminable>().ToArray()), leftMargin, lastY + 2, availableWidth, TextColor, out _, out lastY);
 
                 if ((!DisplayMessagesInIsolation) && (displayMessage))
                 {

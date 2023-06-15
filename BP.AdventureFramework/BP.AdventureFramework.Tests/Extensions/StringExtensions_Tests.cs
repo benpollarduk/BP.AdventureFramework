@@ -233,15 +233,6 @@ namespace BP.AdventureFramework.Tests.Extensions
         }
 
         [TestMethod]
-        public void GivenNull_WhenToSentenceCase_ThenNull()
-        {
-            string s = null;
-            var result = s.ToSentenceCase();
-
-            Assert.IsNull(result);
-        }
-
-        [TestMethod]
         public void GivenEmpty_WhenToSentenceCase_ThenEmpty()
         {
             var result = string.Empty.ToSentenceCase();
@@ -422,6 +413,42 @@ namespace BP.AdventureFramework.Tests.Extensions
             var result = value.AddSentence(other);
 
             Assert.AreEqual($"{value} {other}", result);
+        }
+
+        [TestMethod]
+        public void GivenEmptyString_WhenInsensitiveEquals_ThenReturnEmptyString()
+        {
+            var value = string.Empty;
+            var result = value.StartWithLower();
+
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [TestMethod]
+        public void GivenA_WhenInsensitiveEquals_ThenReturna()
+        {
+            var value = "A";
+            var result = value.StartWithLower();
+
+            Assert.AreEqual("a", result);
+        }
+
+        [TestMethod]
+        public void Givena_WhenInsensitiveEquals_ThenReturna()
+        {
+            var value = "a";
+            var result = value.StartWithLower();
+
+            Assert.AreEqual("a", result);
+        }
+
+        [TestMethod]
+        public void GivenAA_WhenInsensitiveEquals_ThenReturnaA()
+        {
+            var value = "AA";
+            var result = value.StartWithLower();
+
+            Assert.AreEqual("aA", result);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Utilities.Templates
 {
@@ -14,8 +16,19 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Create a new instance of the item.
         /// </summary>
-        /// <returns>The region.</returns>
+        /// <returns>The item.</returns>
         protected virtual Item OnCreate()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Create a new instance of the item.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <param name="room">The room.</param>
+        /// <returns>The item.</returns>
+        protected virtual Item OnCreate(PlayableCharacter pC, Room room)
         {
             throw new NotImplementedException();
         }
@@ -37,10 +50,21 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Create a new instance of the item.
         /// </summary>
-        /// <returns>The playable character.</returns>
+        /// <returns>The item.</returns>
         public static Item Create()
         {
             return GetInstance().OnCreate();
+        }
+
+        /// <summary>
+        /// Create a new instance of the item.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <param name="room">The room.</param>
+        /// <returns>The playable character.</returns>
+        public static Item Create(PlayableCharacter pC, Room room)
+        {
+            return GetInstance().OnCreate(pC, room);
         }
 
         /// <summary>

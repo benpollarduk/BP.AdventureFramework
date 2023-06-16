@@ -1,18 +1,18 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Utilities.Templates;
 
-namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items
+namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 {
-    public class Sword : ItemTemplate<Sword>
+    public class Hammer : ItemTemplate<Hammer>
     {
         #region Constants
 
-        internal const string Name = "Sword";
-        private const string Description = "A small sword handed down by the Kokiri. It has a wooden handle but the blade is sharp.";
+        internal const string Name = "Hammer";
+        private const string Description = "A small utility hammer use for small engineering tasks.";
 
         #endregion
 
-        #region Overrides of ItemTemplate<Sword>
+        #region Overrides of ItemTemplate<Hammer>
 
         /// <summary>
         /// Create a new instance of the item.

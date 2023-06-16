@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<EngineRoom>
+        #region Overrides of RoomTemplate<CaveMouth>
 
         /// <summary>
         /// Create a new instance of the room.

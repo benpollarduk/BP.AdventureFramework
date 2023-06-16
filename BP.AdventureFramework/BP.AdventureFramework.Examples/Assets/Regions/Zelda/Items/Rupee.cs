@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<ConchShell>
+        #region Overrides of ItemTemplate<Rupee>
 
         /// <summary>
         /// Create a new instance of the item.

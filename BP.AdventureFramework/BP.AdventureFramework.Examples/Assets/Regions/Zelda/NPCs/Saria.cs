@@ -1,10 +1,14 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
+using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
 {
-    public static class Saria
+    internal class Saria : NonPlayableCharacterTemplate<Saria>
     {
         #region Constants
 
@@ -13,9 +17,15 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
 
         #endregion
 
-        #region StaticMethods
+        #region Overrides of NonPlayableCharacterTemplate<Saria>
 
-        public static NonPlayableCharacter Create()
+        /// <summary>
+        /// Create a new instance of the non-playable character.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <param name="room">The room.</param>
+        /// <returns>The non-playable character.</returns>
+        protected override NonPlayableCharacter OnCreate(PlayableCharacter pC, Room room)
         {
             var saria = new NonPlayableCharacter(Name, Description);
 
@@ -28,6 +38,38 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
                 new Paragraph("Oh Link you are so adorable."),
                 new Paragraph("OK Link your annoying me now, I'm just going to ignore you.", 0)
             );
+
+            saria.Interaction = (item, target) =>
+            {
+                saria.FindItem(TailKey.Name, out var key);
+
+                if (Rupee.Name.EqualsIdentifier(item.Identifier))
+                {
+                    pC.Give(item, saria);
+                    saria.Give(key, pC);
+                    return new InteractionResult(InteractionEffect.SelfContained, item, $"{saria.Identifier.Name} looks excited! \"Thanks Link, here take the Tail Key!\" You've got the Tail Key, awesome!");
+                }
+
+                if (Shield.Name.EqualsIdentifier(item.Identifier))
+                {
+                    return new InteractionResult(InteractionEffect.NoEffect, item, $"{saria.Identifier.Name} looks at your shield, but seems pretty unimpressed.");
+                }
+
+                if (Sword.Name.EqualsIdentifier(item.Identifier))
+                {
+                    saria.Kill(string.Empty);
+
+                    if (!saria.HasItem(key))
+                        return new InteractionResult(InteractionEffect.SelfContained, item, $"You strike {saria.Identifier.Name} in the face with the sword and she falls down dead.");
+
+                    saria.DequireItem(key);
+                    room.AddItem(key);
+
+                    return new InteractionResult(InteractionEffect.SelfContained, item, $"You strike {saria.Identifier.Name} in the face with the sword and she falls down dead. When she fell you saw something drop to out of her hand, it looked like a key...");
+                }
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
+            };
 
             return saria;
         }

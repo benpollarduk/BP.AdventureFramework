@@ -1,6 +1,5 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities.Templates;
 
@@ -15,7 +14,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<ConchShell>
+        #region Overrides of ItemTemplate<Kettle>
 
         /// <summary>
         /// Create a new instance of the item.

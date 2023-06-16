@@ -14,7 +14,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<ConchShell>
+        #region Overrides of ItemTemplate<EmptyCoffeeMug>
 
         /// <summary>
         /// Create a new instance of the item.

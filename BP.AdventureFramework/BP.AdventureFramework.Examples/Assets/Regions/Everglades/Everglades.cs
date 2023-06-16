@@ -15,7 +15,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades
 
         #endregion
 
-        #region Overrides of RegionTemplate<EvergladesR>
+        #region Overrides of RegionTemplate<Everglades>
 
         /// <summary>
         /// Create a new instance of the region.

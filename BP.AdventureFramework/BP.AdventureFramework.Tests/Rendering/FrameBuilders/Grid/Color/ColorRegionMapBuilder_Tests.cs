@@ -3,7 +3,6 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
 using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Region = BP.AdventureFramework.Assets.Locations.Region;
 
 namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid.Color
 {

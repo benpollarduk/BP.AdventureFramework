@@ -67,7 +67,7 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L
 
         #endregion
 
-        #region Overrides of RoomTemplate<EngineRoom>
+        #region Overrides of RoomTemplate<SupplyRoom>
 
         /// <summary>
         /// Create a new instance of the room.

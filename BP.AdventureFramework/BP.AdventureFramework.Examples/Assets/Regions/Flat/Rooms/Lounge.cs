@@ -1,8 +1,6 @@
-﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
+﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs;
 using BP.AdventureFramework.Extensions;
@@ -18,7 +16,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<EngineRoom>
+        #region Overrides of RoomTemplate<Lounge>
 
         /// <summary>
         /// Create a new instance of the room.

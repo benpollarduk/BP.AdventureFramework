@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
@@ -30,6 +31,32 @@ namespace BP.AdventureFramework.Examples
             return new CompletionCheckResult(true, "Game Over", "You have reached the end of the game, thanks for playing!");
         }
 
+        private static void PopulateHub(Region hub, Overworld overworld, Region[] otherRegions)
+        {
+            var room = hub.CurrentRoom;
+
+            foreach (var otherRegion in otherRegions)
+            {
+                room.AddItem(new Item($"{otherRegion.Identifier.Name} Sphere", "A glass sphere, about the size of a snooker ball. Inside you can see a swirling mist.", true)
+                {
+                    Commands = new[]
+                    {
+                        new CustomCommand(new CommandHelp($"Warp {otherRegion.Identifier.Name}", $"Use the {otherRegion.Identifier.Name} Sphere to warp to the {otherRegion.Identifier.Name}."), true, (g, a) =>
+                        {
+                            var move = overworld?.Move(otherRegion) ?? false;
+
+                            if (!move)
+                                return new Reaction(ReactionResult.Error, $"Could not move to {otherRegion.Identifier.Name}.");
+
+                            g.DisplayTransition(string.Empty, $"You peer inside the sphere and feel faint. When the sensation passes you open you eyes and have been transported to the {otherRegion.Identifier.Name}.");
+
+                            return new Reaction(ReactionResult.Internal, string.Empty);
+                        })
+                    }
+                });
+            }
+        }
+
         private static void Main(string[] args)
         {
             try
@@ -49,7 +76,10 @@ namespace BP.AdventureFramework.Examples
                     };
                     
                     var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");
-                    overworld.AddRegion(Hub.GenerateHub(regions.ToArray(), overworld));
+
+                    var hub = Hub.Create(p);
+                    PopulateHub(hub, overworld, regions.ToArray());
+                    overworld.AddRegion(hub);
 
                     foreach (var region in regions)
                         overworld.AddRegion(region);

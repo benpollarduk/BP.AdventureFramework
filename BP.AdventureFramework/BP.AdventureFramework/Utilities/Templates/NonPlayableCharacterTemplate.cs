@@ -6,19 +6,20 @@ using BP.AdventureFramework.Assets.Locations;
 namespace BP.AdventureFramework.Utilities.Templates
 {
     /// <summary>
-    /// Provides a template class to help with the creation of regions.
+    /// Provides a template class to help with the creation of non-playable characters.
     /// </summary>
     /// <typeparam name="TDerived">The derived type.</typeparam>
-    public class RegionTemplate<TDerived> where TDerived : RegionTemplate<TDerived>
+    public class NonPlayableCharacterTemplate<TDerived> where TDerived : NonPlayableCharacterTemplate<TDerived>
     {
         #region Methods
 
         /// <summary>
-        /// Create a new instance of the region.
+        /// Create a new instance of the non-playable character.
         /// </summary>
         /// <param name="pC">The playable character.</param>
-        /// <returns>The region.</returns>
-        protected virtual Region OnCreate(PlayableCharacter pC)
+        /// <param name="room">The room.</param>
+        /// <returns>The non-playable character.</returns>
+        protected virtual NonPlayableCharacter OnCreate(PlayableCharacter pC, Room room)
         {
             throw new NotImplementedException();
         }
@@ -38,23 +39,25 @@ namespace BP.AdventureFramework.Utilities.Templates
         }
 
         /// <summary>
-        /// Create a new instance of the region.
+        /// Create a new instance of the non-playable character.
         /// </summary>
         /// <param name="pC">The playable character.</param>
-        /// <returns>The region.</returns>
-        public static Region Create(PlayableCharacter pC)
+        /// <param name="room">The room.</param>
+        /// <returns>The non-playable character.</returns>
+        public static NonPlayableCharacter Create(PlayableCharacter pC, Room room)
         {
-            return GetInstance().OnCreate(pC);
+            return GetInstance().OnCreate(pC, room);
         }
 
         /// <summary>
-        /// Get an identifier for the templated region.
+        /// Get an identifier for the templated non-playable character.
         /// </summary>
         /// <param name="pC">The playable character.</param>
-        /// <returns>The identifier for the templated region.</returns>
-        public static Identifier GetIdentifier(PlayableCharacter pC)
+        /// <param name="room">The room.</param>
+        /// <returns>The identifier for the templated room.</returns>
+        public static Identifier GetIdentifier(PlayableCharacter pC, Room room)
         {
-            return Create(pC).Identifier;
+            return Create(pC, room).Identifier;
         }
 
         #endregion

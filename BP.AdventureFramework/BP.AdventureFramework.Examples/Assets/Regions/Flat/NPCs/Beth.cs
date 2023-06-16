@@ -1,9 +1,11 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
+using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Conversations;
+using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
 {
-    public static class Beth
+    internal class Beth : NonPlayableCharacterTemplate<Beth>
     {
         #region Constants
 
@@ -12,9 +14,15 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
 
         #endregion
 
-        #region StaticMethods
+        #region Overrides of NonPlayableCharacterTemplate<Beth>
 
-        public static NonPlayableCharacter Create()
+        /// <summary>
+        /// Create a new instance of the non-playable character.
+        /// </summary>
+        /// <param name="pC">The playable character.</param>
+        /// <param name="room">The room.</param>
+        /// <returns>The non-playable character.</returns>
+        protected override NonPlayableCharacter OnCreate(PlayableCharacter pC, Room room)
         {
             return new NonPlayableCharacter(Name, Description)
             {

@@ -16,7 +16,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<EngineRoom>
+        #region Overrides of RoomTemplate<Clearing>
 
         /// <summary>
         /// Create a new instance of the room.

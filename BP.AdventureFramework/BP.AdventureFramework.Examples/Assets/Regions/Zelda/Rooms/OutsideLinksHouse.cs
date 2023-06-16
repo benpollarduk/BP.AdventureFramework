@@ -17,7 +17,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<EngineRoom>
+        #region Overrides of RoomTemplate<OutsideLinksHouse>
 
         /// <summary>
         /// Create a new instance of the room.
@@ -28,7 +28,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
         {
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.East, true));
             var door = TailDoor.Create();
-            var saria = Saria.Create();
+            var saria = Saria.Create(pC, room);
 
             door.Interaction = (item, target) =>
             {
@@ -43,38 +43,6 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
                 if (Sword.Name.EqualsExaminable(item))
                     return new InteractionResult(InteractionEffect.NoEffect, item, "Clang clang!");
-
-                return new InteractionResult(InteractionEffect.NoEffect, item);
-            };
-
-            saria.Interaction = (item, target) =>
-            {
-                saria.FindItem(TailKey.Name, out var key);
-
-                if (Rupee.Name.EqualsIdentifier(item.Identifier))
-                {
-                    pC.Give(item, saria);
-                    saria.Give(key, pC);
-                    return new InteractionResult(InteractionEffect.SelfContained, item, $"{saria.Identifier.Name} looks excited! \"Thanks Link, here take the Tail Key!\" You've got the Tail Key, awesome!");
-                }
-
-                if (Shield.Name.EqualsIdentifier(item.Identifier))
-                {
-                    return new InteractionResult(InteractionEffect.NoEffect, item, $"{saria.Identifier.Name} looks at your shield, but seems pretty unimpressed.");
-                }
-
-                if (Sword.Name.EqualsIdentifier(item.Identifier))
-                {
-                    saria.Kill(string.Empty);
-
-                    if (!saria.HasItem(key))
-                        return new InteractionResult(InteractionEffect.SelfContained, item, $"You strike {saria.Identifier.Name} in the face with the sword and she falls down dead.");
-
-                    saria.DequireItem(key);
-                    room.AddItem(key);
-
-                    return new InteractionResult(InteractionEffect.SelfContained, item, $"You strike {saria.Identifier.Name} in the face with the sword and she falls down dead. When she fell you saw something drop to out of her hand, it looked like a key...");
-                }
 
                 return new InteractionResult(InteractionEffect.NoEffect, item);
             };

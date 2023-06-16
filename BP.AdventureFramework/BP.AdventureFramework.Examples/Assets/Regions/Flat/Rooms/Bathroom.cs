@@ -14,7 +14,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<EngineRoom>
+        #region Overrides of RoomTemplate<Bathroom>
 
         /// <summary>
         /// Create a new instance of the room.

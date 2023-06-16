@@ -2,7 +2,6 @@
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Examples.Assets.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
-using BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms;
 using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Examples.Assets.Player

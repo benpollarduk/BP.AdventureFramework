@@ -1,26 +1,34 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
+using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items;
 
-namespace BP.AdventureFramework.SSHammerHead.Global
+namespace BP.AdventureFramework.SSHammerHead.Assets.Players
 {
-    /// <summary>
-    /// Provides all playable characters.
-    /// </summary>
-    internal static class PlayableCharacters
+    public static class Player
     {
-        internal static PlayableCharacter Generate()
+        #region Constants
+
+        private const string Name = "Naomi";
+        private const string Description = "You, Naomi Watts, are a 45 year old shuttle mechanic.";
+
+        #endregion
+
+        #region StaticMethods
+
+        public static PlayableCharacter Create()
         {
-            var player = new PlayableCharacter("Naomi", "You, Naomi Watts, are a 45 year old shuttle mechanic.", GlobalItems.Hammer, GlobalItems.Mirror)
+            var player = new PlayableCharacter(Name, Description, Hammer.Create(), Mirror.Create())
             {
                 Interaction = (i, target) =>
                 {
                     if (i == null)
                         return new InteractionResult(InteractionEffect.NoEffect, null);
 
-                    if (i == GlobalItems.Hammer)
+                    if (Hammer.Name.EqualsIdentifier(i.Identifier))
                         return new InteractionResult(InteractionEffect.FatalEffect, i, "You swing wildly at your own head. The first few blows connect and knock you down. You are dead.");
 
-                    if (i == GlobalItems.Mirror)
+                    if (Mirror.Name.EqualsIdentifier(i.Identifier))
                         return new InteractionResult(InteractionEffect.NoEffect, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
 
                     return new InteractionResult(InteractionEffect.NoEffect, i);
@@ -29,5 +37,7 @@ namespace BP.AdventureFramework.SSHammerHead.Global
 
             return player;
         }
+
+        #endregion
     }
 }

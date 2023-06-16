@@ -1,7 +1,7 @@
 ﻿using System;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.SSHammerHead.Global;
+using BP.AdventureFramework.SSHammerHead.Assets.Players;
 
 namespace BP.AdventureFramework.SSHammerHead
 {
@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.SSHammerHead
                     introduction,
                     about,
                     x => overworldCreator(x),
-                    PlayableCharacters.Generate,
+                    Player.Create,
                     g => CompletionCheckResult.NotComplete);
 
                 Game.Execute(creator);

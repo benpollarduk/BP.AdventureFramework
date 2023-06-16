@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Examples.Assets.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<ConchShell>
+        #region Overrides of ItemTemplate<Knife>
 
         /// <summary>
         /// Create a new instance of the item.

@@ -1,5 +1,4 @@
 ﻿using System;
-using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 

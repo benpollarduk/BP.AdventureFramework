@@ -1,5 +1,4 @@
-﻿using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Locations;
+﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L2

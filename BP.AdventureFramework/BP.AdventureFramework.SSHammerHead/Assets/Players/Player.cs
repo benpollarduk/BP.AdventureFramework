@@ -2,10 +2,11 @@
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items;
+using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Players
 {
-    public static class Player
+    public class Player : PlayableCharacterTemplate<Player>
     {
         #region Constants
 
@@ -14,9 +15,13 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Players
 
         #endregion
 
-        #region StaticMethods
+        #region Overrides of PlayableCharacterTemplate<Player>
 
-        public static PlayableCharacter Create()
+        /// <summary>
+        /// Create a new instance of the playable character.
+        /// </summary>
+        /// <returns>The playable character.</returns>
+        protected override PlayableCharacter OnCreate()
         {
             var player = new PlayableCharacter(Name, Description, Hammer.Create(), Mirror.Create())
             {

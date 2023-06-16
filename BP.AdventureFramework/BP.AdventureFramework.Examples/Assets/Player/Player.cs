@@ -3,10 +3,11 @@ using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Examples.Assets.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Player
 {
-    public static class Player
+    public class Player : PlayableCharacterTemplate<Player>
     {
         #region Constants
 
@@ -15,9 +16,13 @@ namespace BP.AdventureFramework.Examples.Assets.Player
 
         #endregion
 
-        #region StaticMethods
+        #region Overrides of PlayableCharacterTemplate<Player>
 
-        public static PlayableCharacter Create()
+        /// <summary>
+        /// Create a new instance of the playable character.
+        /// </summary>
+        /// <returns>The playable character.</returns>
+        protected override PlayableCharacter OnCreate()
         {
             var player = new PlayableCharacter(Name, Description, Knife.Create())
             {

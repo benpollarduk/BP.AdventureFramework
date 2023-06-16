@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <returns>The item.</returns>
         protected virtual Item OnCreate(PlayableCharacter pC, Room room)
         {
-            throw new NotImplementedException();
+            return OnCreate();
         }
 
         #endregion
@@ -65,15 +65,6 @@ namespace BP.AdventureFramework.Utilities.Templates
         public static Item Create(PlayableCharacter pC, Room room)
         {
             return GetInstance().OnCreate(pC, room);
-        }
-
-        /// <summary>
-        /// Get an identifier for the templated item.
-        /// </summary>
-        /// <returns>The identifier for the templated item.</returns>
-        public static Identifier GetIdentifier()
-        {
-            return Create().Identifier;
         }
 
         #endregion

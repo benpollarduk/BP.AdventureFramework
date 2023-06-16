@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <returns>The region.</returns>
         protected virtual Region OnCreate(PlayableCharacter pC)
         {
-            throw new NotImplementedException();
+            return OnCreate();
         }
 
         #endregion
@@ -63,15 +63,6 @@ namespace BP.AdventureFramework.Utilities.Templates
         public static Region Create(PlayableCharacter pC)
         {
             return GetInstance().OnCreate(pC);
-        }
-
-        /// <summary>
-        /// Get an identifier for the templated region.
-        /// </summary>
-        /// <returns>The identifier for the templated region.</returns>
-        public static Identifier GetIdentifier()
-        {
-            return Create().Identifier;
         }
 
         #endregion

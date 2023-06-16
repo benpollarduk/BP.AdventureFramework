@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <returns>The non-playable character.</returns>
         protected virtual NonPlayableCharacter OnCreate(PlayableCharacter pC, Room room)
         {
-            throw new NotImplementedException();
+            return OnCreate();
         }
 
         #endregion
@@ -65,15 +65,6 @@ namespace BP.AdventureFramework.Utilities.Templates
         public static NonPlayableCharacter Create(PlayableCharacter pC, Room room)
         {
             return GetInstance().OnCreate(pC, room);
-        }
-
-        /// <summary>
-        /// Get an identifier for the templated non-playable character.
-        /// </summary>
-        /// <returns>The identifier for the templated room.</returns>
-        public static Identifier GetIdentifier()
-        {
-            return Create().Identifier;
         }
 
         #endregion

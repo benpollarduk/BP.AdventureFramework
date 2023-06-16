@@ -1,7 +1,7 @@
 # Introduction 
 .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
 
-![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/824ea918-200e-4855-9975-bf17d7942627)
+![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/3d6fb517-3b00-4362-868a-0a21b5195163)
 
 Provides simple classes for developing game elements:
   * Interface and base class for examinable objects:

@@ -63,10 +63,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
             scene.Append(lineStringBuilder.BuildWrappedPadded(room.Description.GetDescription().EnsureFinishedSentence(), width, false));
             scene.Append(whitespace);
 
+            var extendedDescription = string.Empty;
+
             if (room.Items.Any())
-                scene.Append(lineStringBuilder.BuildWrappedPadded(room.Examine().Description.EnsureFinishedSentence(), width, false));
+                extendedDescription = extendedDescription.AddSentence(room.Examine().Description.EnsureFinishedSentence());
             else
-                scene.Append(lineStringBuilder.BuildWrappedPadded("There are no items in this area.", width, false));
+                extendedDescription = extendedDescription.AddSentence("There are no items in this area.");
 
             var visibleCharacters = room.Characters.Where(c => c.IsPlayerVisible && c.IsAlive).ToArray<Character>();
 
@@ -74,7 +76,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
             {
                 if (visibleCharacters.Length == 1)
                 {
-                    scene.Append(lineStringBuilder.BuildWrappedPadded(visibleCharacters[0].Identifier + " is in this area.", width, false));
+                    extendedDescription = extendedDescription.AddSentence(visibleCharacters[0].Identifier + " is in this area.");
                 }
                 else
                 {
@@ -84,9 +86,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
                         characters += character.Identifier + ", ";
 
                     characters = characters.Remove(characters.Length - 2);
-                    scene.Append(lineStringBuilder.BuildWrappedPadded(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + room.Identifier + ".", width, false));
+                    extendedDescription = extendedDescription.AddSentence(characters.Substring(0, characters.LastIndexOf(",", StringComparison.Ordinal)) + " and " + characters.Substring(characters.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + room.Identifier + ".");
                 }
             }
+
+            scene.Append(lineStringBuilder.BuildWrappedPadded(extendedDescription, width, false));
 
             scene.Append(whitespace);
             scene.Append(divider);

@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Utilities
 {
@@ -107,6 +109,41 @@ namespace BP.AdventureFramework.Utilities
             }
 
             return chunk.TrimEnd();
+        }
+
+        /// <summary>
+        /// Construct a sentence describing a series of examinables.
+        /// </summary>
+        /// <param name="examinables">The examinables.</param>
+        /// <returns>The sentence.</returns>
+        internal static string ConstructExaminablesAsSentence(IExaminable[] examinables)
+        {
+            if (!examinables.Any())
+                return string.Empty;
+
+            var examinablesAsList = string.Empty;
+            var examinableNames = (from i in examinables where i.IsPlayerVisible select i.Identifier).Select(x => x.Name).ToList();
+
+            if (examinableNames.Count == 1)
+                return $"{examinableNames[0].GetObjectifier().ToSentenceCase()} {examinableNames[0]}.";
+
+            for (var i = 0; i < examinableNames.Count; i++)
+            {
+                var examinable = examinableNames[i];
+
+                if ((i == 0) && (examinableNames.Count > 2))
+                    examinablesAsList += $"{examinable.GetObjectifier().ToSentenceCase()} {examinable}, ";
+                else if (i == 0)
+                    examinablesAsList += $"{examinable.GetObjectifier().ToSentenceCase()} {examinable} ";
+                else if (i < examinableNames.Count - 2)
+                    examinablesAsList += $"{examinable.GetObjectifier()} {examinable}, ";
+                else if (i < examinableNames.Count - 1)
+                    examinablesAsList += $"{examinable.GetObjectifier()} {examinable} ";
+                else
+                    examinablesAsList += $"and {examinable.GetObjectifier()} {examinable}.";
+            }
+
+            return examinablesAsList;
         }
     }
 }

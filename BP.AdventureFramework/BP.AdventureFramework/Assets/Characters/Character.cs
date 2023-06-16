@@ -100,26 +100,6 @@ namespace BP.AdventureFramework.Assets.Characters
         }
 
         /// <summary>
-        /// Get items as a list.
-        /// </summary>
-        /// <returns>A list of all.</returns>
-        internal virtual string GetItemsAsList()
-        {
-            if (!Items.Any()) 
-                return string.Empty;
-
-            var itemsInRoom = string.Empty;
-            var itemNames = (from i in Items where i.IsPlayerVisible select i.Identifier).Select(x => x.Name).ToList();
-
-            itemNames.Sort();
-
-            foreach (var n in itemNames)
-                itemsInRoom += n + ", ";
-
-            return itemsInRoom.Remove(itemsInRoom.Length - 2);
-        }
-
-        /// <summary>
         /// Give an item to another in game Character.
         /// </summary>
         /// <param name="item">The item to give.</param>

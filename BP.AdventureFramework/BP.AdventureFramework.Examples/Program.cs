@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
-using BP.AdventureFramework.Examples.Assets;
+using BP.AdventureFramework.Examples.Assets.Player;
+using BP.AdventureFramework.Examples.Assets.Regions.Everglades;
+using BP.AdventureFramework.Examples.Assets.Regions.Flat;
+using BP.AdventureFramework.Examples.Assets.Regions.Hub;
+using BP.AdventureFramework.Examples.Assets.Regions.Zelda;
+using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms;
+using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Utilities.Generation;
@@ -14,6 +21,42 @@ namespace BP.AdventureFramework.Examples
 {
     internal class Program
     {
+        private static CompletionCheckResult DetermineIfGameHasCompleted(Game game)
+        {
+            var atDestination = TailCave.Name.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom);
+
+            if (!atDestination)
+                return CompletionCheckResult.NotComplete;
+
+            return new CompletionCheckResult(true, "Game Over", "You have reached the end of the game, thanks for playing!");
+        }
+
+        private static void PopulateHub(Region hub, Overworld overworld, Region[] otherRegions)
+        {
+            var room = hub.CurrentRoom;
+
+            foreach (var otherRegion in otherRegions)
+            {
+                room.AddItem(new Item($"{otherRegion.Identifier.Name} Sphere", "A glass sphere, about the size of a snooker ball. Inside you can see a swirling mist.", true)
+                {
+                    Commands = new[]
+                    {
+                        new CustomCommand(new CommandHelp($"Warp {otherRegion.Identifier.Name}", $"Use the {otherRegion.Identifier.Name} Sphere to warp to the {otherRegion.Identifier.Name}."), true, (g, a) =>
+                        {
+                            var move = overworld?.Move(otherRegion) ?? false;
+
+                            if (!move)
+                                return new Reaction(ReactionResult.Error, $"Could not move to {otherRegion.Identifier.Name}.");
+
+                            g.DisplayTransition(string.Empty, $"You peer inside the sphere and feel faint. When the sensation passes you open you eyes and have been transported to the {otherRegion.Identifier.Name}.");
+
+                            return new Reaction(ReactionResult.Internal, string.Empty);
+                        })
+                    }
+                });
+            }
+        }
+
         private static void Main(string[] args)
         {
             try
@@ -23,20 +66,20 @@ namespace BP.AdventureFramework.Examples
                     var options = new GameGenerationOptions { MaximumRegions = 1, MinimumRegions = 1 };
                     var generator = new GameGenerator(string.Empty, string.Empty);
                     var castle = generator.Generate(options, new Castle(), out _).Make();
-                    var evergaldes = Everglades.GenerateRegion(p);
-                    var flat = Flat.GenerateRegion(p);
-                    var zelda = Zelda.GenerateRegion(p);
 
                     var regions = new List<Region>
                     {
-                        evergaldes,
-                        flat,
-                        zelda,
+                        Everglades.Create(p),
+                        Flat.Create(p),
+                        Zelda.Create(p),
                         castle.Regions.First()
                     };
                     
                     var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");
-                    overworld.AddRegion(Hub.GenerateHub(regions.ToArray(), overworld));
+
+                    var hub = Hub.Create(p);
+                    PopulateHub(hub, overworld, regions.ToArray());
+                    overworld.AddRegion(hub);
 
                     foreach (var region in regions)
                         overworld.AddRegion(region);
@@ -75,8 +118,8 @@ namespace BP.AdventureFramework.Examples
                     about,
                     about,
                     x => overworldCreator(x), 
-                    Hub.GeneratePC,
-                    g => CompletionCheckResult.NotComplete);
+                    Player.Create,
+                    DetermineIfGameHasCompleted);
 
                 Game.Execute(creator);
             }

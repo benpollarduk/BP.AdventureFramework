@@ -211,6 +211,39 @@ namespace BP.AdventureFramework.Extensions
             return value?.Equals(other, StringComparison.InvariantCultureIgnoreCase) ?? false;
         }
 
+        /// <summary>
+        /// Add a sentence to this string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="other">The other value.</param>
+        /// <returns>The concatenated string.</returns>
+        internal static string AddSentence(this string value, string other)
+        {
+            if (string.IsNullOrEmpty(value))
+                return other;
+
+            if (string.IsNullOrEmpty(other))
+                return value;
+
+            return $"{value} {other}";
+        }
+
+        /// <summary>
+        /// Ensure this string starts with a lower case character.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The modified string.</returns>
+        internal static string StartWithLower(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            if (value.Length == 1)
+                return value.ToLower();
+
+            return $"{value.Substring(0, 1).ToLower()}{value.Substring(1)}";
+        }
+
         #endregion
     }
 }

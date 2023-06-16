@@ -60,19 +60,5 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
 
             Assert.IsFalse(result);
         }
-
-        [TestMethod]
-        public void GivenItemAAndB_WhenGetItemsAsList_ThenACommaSpaceB()
-        {
-            var npc = new NonPlayableCharacter(string.Empty, string.Empty);
-            var item1 = new Item("A", string.Empty);
-            var item2 = new Item("B", string.Empty);
-            npc.AquireItem(item1);
-            npc.AquireItem(item2);
-
-            var result = npc.GetItemsAsList();
-
-            Assert.AreEqual("A, B", result);
-        }
     }
 }

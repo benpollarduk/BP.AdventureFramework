@@ -8,6 +8,15 @@ namespace BP.AdventureFramework.Commands.Game
     /// </summary>
     internal class Move : ICommand
     {
+        #region Constants
+
+        /// <summary>
+        /// Get the prefix for successful moves.
+        /// </summary>
+        public const string SuccessfulMovePrefix = "Moved";
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -43,7 +52,7 @@ namespace BP.AdventureFramework.Commands.Game
                 return new Reaction(ReactionResult.Error, "No game specified.");
 
             if (game.Overworld.CurrentRegion.Move(Direction))
-                return new Reaction(ReactionResult.OK, $"Moved {Direction}.");
+                return new Reaction(ReactionResult.OK, $"{SuccessfulMovePrefix} {Direction}.");
 
             return new Reaction(ReactionResult.Error, $"Could not move {Direction}.");
         }

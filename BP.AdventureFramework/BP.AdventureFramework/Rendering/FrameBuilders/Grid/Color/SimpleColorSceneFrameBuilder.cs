@@ -5,6 +5,7 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Rendering.Frames;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 {
@@ -105,7 +106,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             }
 
             if (player.Items.Any())
-                gridStringBuilder.DrawWrapped("You have: " + player.GetItemsAsList(), leftMargin, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
+                gridStringBuilder.DrawWrapped("You have: " + StringUtilities.ConstructExaminablesAsSentence(player.Items.Cast<IExaminable>().ToArray()), leftMargin, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
 
             gridStringBuilder.DrawWrapped(message.EnsureFinishedSentence(), leftMargin, lastY + linePadding, availableWidth, TextColor, out _, out lastY);
 

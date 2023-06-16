@@ -43,28 +43,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global\GlobalItems.cs" />
-    <Compile Include="Global\PlayableCharacters.cs" />
+    <Compile Include="Assets\Players\Player.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Items\Mirror.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Items\Hammer.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Items\BrokenControlPanel.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Items\ControlPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L0\SupplyRoom.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\BridgeTunnelVertical.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\BridgeTunnelEntry.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\CentralHull.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\Booster.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\PortWing.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\PortWingOuter.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\PortWingInner.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\StarboardWingInner.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\StarboardWing.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L1\StarboardWingOuter.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L2\BridgeStarboard.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L2\BridgePort.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L2\Bridge.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L2\BridgeTunnel.cs" />
-    <Compile Include="Regions\SSHammerHead\SSHammerHead.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L0\Airlock.cs" />
-    <Compile Include="Regions\SSHammerHead\Rooms\L0\EngineRoom.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L0\SupplyRoom.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\BridgeTunnelVertical.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\BridgeTunnelEntry.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\CentralHull.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\Booster.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\PortWing.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\PortWingOuter.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\PortWingInner.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\StarboardWingInner.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\StarboardWing.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L1\StarboardWingOuter.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L2\BridgeStarboard.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L2\BridgePort.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L2\Bridge.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L2\BridgeTunnel.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\SSHammerHead.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L0\Airlock.cs" />
+    <Compile Include="Assets\Regions\SSHammerHead\Rooms\L0\EngineRoom.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -19,10 +19,8 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
         /// <summary>
         /// Create a new instance of the non-playable character.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <param name="room">The room.</param>
         /// <returns>The non-playable character.</returns>
-        protected override NonPlayableCharacter OnCreate(PlayableCharacter pC, Room room)
+        protected override NonPlayableCharacter OnCreate()
         {
             return new NonPlayableCharacter(Name, Description)
             {

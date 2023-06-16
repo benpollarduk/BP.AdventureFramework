@@ -16,6 +16,15 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Create a new instance of the region.
         /// </summary>
+        /// <returns>The region.</returns>
+        protected virtual Region OnCreate()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Create a new instance of the region.
+        /// </summary>
         /// <param name="pC">The playable character.</param>
         /// <returns>The region.</returns>
         protected virtual Region OnCreate(PlayableCharacter pC)
@@ -40,6 +49,15 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Create a new instance of the region.
         /// </summary>
+        /// <returns>The region.</returns>
+        public static Region Create()
+        {
+            return GetInstance().OnCreate();
+        }
+
+        /// <summary>
+        /// Create a new instance of the region.
+        /// </summary>
         /// <param name="pC">The playable character.</param>
         /// <returns>The region.</returns>
         public static Region Create(PlayableCharacter pC)
@@ -50,11 +68,10 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Get an identifier for the templated region.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
         /// <returns>The identifier for the templated region.</returns>
-        public static Identifier GetIdentifier(PlayableCharacter pC)
+        public static Identifier GetIdentifier()
         {
-            return Create(pC).Identifier;
+            return Create().Identifier;
         }
 
         #endregion

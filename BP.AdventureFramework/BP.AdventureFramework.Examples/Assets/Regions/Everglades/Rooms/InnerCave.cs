@@ -22,9 +22,8 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
         /// <summary>
         /// Create a new instance of the room.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
         /// <returns>The room.</returns>
-        protected override Room OnCreate(PlayableCharacter pC)
+        protected override Room OnCreate()
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.West), new Exit(Direction.North, true));
 

@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [0, 0, 0] = Clearing.Create(pC)
+                [0, 0, 0] = Clearing.Create()
             };
 
             return regionMaker.Make(0, 0, 0);

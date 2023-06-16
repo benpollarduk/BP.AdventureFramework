@@ -29,10 +29,10 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
         /// <returns>The region.</returns>
         protected override Region OnCreate(PlayableCharacter pC)
         {
-            var roof = Roof.Create(pC);
-            var easternHallway = EasternHallway.Create(pC);
-            var spareBedroom = SpareBedroom.Create(pC);
-            var lounge = Lounge.Create(pC);
+            var roof = Roof.Create();
+            var easternHallway = EasternHallway.Create();
+            var spareBedroom = SpareBedroom.Create();
+            var lounge = Lounge.Create();
 
             lounge.Description = new ConditionalDescription("Your in a large sitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. There is what appears to be a lead of some sort poking out from underneath the sofa. The kitchen is to the north.",
                 "Your in a large sitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. The kitchen is to the north.",
@@ -76,16 +76,16 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
 
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [2, 0, 0] = Bedroom.Create(pC),
+                [2, 0, 0] = Bedroom.Create(),
                 [2, 1, 0] = easternHallway,
-                [1, 1, 0] = WesternHallway.Create(pC),
-                [1, 2, 0] = Bathroom.Create(pC),
+                [1, 1, 0] = WesternHallway.Create(),
+                [1, 2, 0] = Bathroom.Create(),
                 [1, 3, 0] = roof,
                 [1, 0, 0] = spareBedroom,
-                [0, 1, 0] = Kitchen.Create(pC),
+                [0, 1, 0] = Kitchen.Create(),
                 [0, 0, 0] = lounge,
-                [3, 1, 0] = Stairway.Create(pC),
-                [2, 0, 1] = Attic.Create(pC)
+                [3, 1, 0] = Stairway.Create(),
+                [2, 0, 1] = Attic.Create()
             };
 
             return regionMaker.Make(2, 0, 0);

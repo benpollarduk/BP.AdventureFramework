@@ -26,10 +26,10 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [0, 0, 0] = LinksHouse.Create(pC),
+                [0, 0, 0] = LinksHouse.Create(),
                 [0, 1, 0] = OutsideLinksHouse.Create(pC),
-                [1, 1, 0] = TailCave.Create(pC),
-                [0, 2, 0] = Stream.Create(pC)
+                [1, 1, 0] = TailCave.Create(),
+                [0, 2, 0] = Stream.Create()
             };
 
             return regionMaker.Make(0, 0, 0);

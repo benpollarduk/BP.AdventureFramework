@@ -21,9 +21,8 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
         /// <summary>
         /// Create a new instance of the room.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
         /// <returns>The room.</returns>
-        protected override Room OnCreate(PlayableCharacter pC)
+        protected override Room OnCreate()
         {
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.East));
 

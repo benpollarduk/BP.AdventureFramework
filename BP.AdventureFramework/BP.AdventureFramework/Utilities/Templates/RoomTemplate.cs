@@ -16,6 +16,15 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Create a new instance of the room.
         /// </summary>
+        /// <returns>The room.</returns>
+        protected virtual Room OnCreate()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Create a new instance of the room.
+        /// </summary>
         /// <param name="pC">The playable character.</param>
         /// <returns>The room.</returns>
         protected virtual Room OnCreate(PlayableCharacter pC)
@@ -40,6 +49,15 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Create a new instance of the room.
         /// </summary>
+        /// <returns>The room.</returns>
+        public static Room Create()
+        {
+            return GetInstance().OnCreate();
+        }
+
+        /// <summary>
+        /// Create a new instance of the room.
+        /// </summary>
         /// <param name="pC">The playable character.</param>
         /// <returns>The room.</returns>
         public static Room Create(PlayableCharacter pC)
@@ -50,11 +68,10 @@ namespace BP.AdventureFramework.Utilities.Templates
         /// <summary>
         /// Get an identifier for the templated room.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
         /// <returns>The identifier for the templated room.</returns>
-        public static Identifier GetIdentifier(PlayableCharacter pC)
+        public static Identifier GetIdentifier()
         {
-            return Create(pC).Identifier;
+            return Create().Identifier;
         }
 
         #endregion

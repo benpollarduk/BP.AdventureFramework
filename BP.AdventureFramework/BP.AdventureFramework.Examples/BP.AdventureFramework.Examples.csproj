@@ -118,6 +118,17 @@
     <Compile Include="Assets\Regions\Flat\Rooms\EasternHallway.cs" />
     <Compile Include="Assets\Regions\Flat\Rooms\Bedroom.cs" />
     <Compile Include="Assets\Regions\Hub\Rooms\Clearing.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\Rupee.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\Bush.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\TailKey.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\Shield.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\TailDoor.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\Sword.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\Stump.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\SplintersOfWood.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\Table.cs" />
+    <Compile Include="Assets\Regions\Zelda\Items\YoshiDoll.cs" />
+    <Compile Include="Assets\Regions\Zelda\NPCs\Saria.cs" />
     <Compile Include="Assets\Regions\Zelda\Rooms\Stream.cs" />
     <Compile Include="Assets\Regions\Zelda\Rooms\TailCave.cs" />
     <Compile Include="Assets\Regions\Zelda\Rooms\OutsideLinksHouse.cs" />

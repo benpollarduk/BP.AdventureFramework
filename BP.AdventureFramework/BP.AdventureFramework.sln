@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Examples", "BP.AdventureFramework.Examples\BP.AdventureFramework.Examples.csproj", "{BC0652A7-6EC4-480D-B98D-919D461FB518}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.SSHammerHead", "BP.AdventureFramework.SSHammerHead\BP.AdventureFramework.SSHammerHead.csproj", "{EE923C7B-A04A-4916-86F8-1674D362664F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9ACF563F-3AE6-4C57-A912-1103B6E07C9F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -34,10 +32,6 @@ Global
 		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE923C7B-A04A-4916-86F8-1674D362664F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE923C7B-A04A-4916-86F8-1674D362664F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE923C7B-A04A-4916-86F8-1674D362664F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE923C7B-A04A-4916-86F8-1674D362664F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

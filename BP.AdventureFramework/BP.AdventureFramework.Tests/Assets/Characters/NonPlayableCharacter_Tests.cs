@@ -41,7 +41,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         {
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             var item = new Item(string.Empty, string.Empty);
-            npc.AquireItem(item);
+            npc.AcquireItem(item);
 
             var result = npc.HasItem(item);
 
@@ -53,7 +53,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         {
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             var item = new Item(string.Empty, string.Empty);
-            npc.AquireItem(item);
+            npc.AcquireItem(item);
             npc.DequireItem(item);
 
             var result = npc.HasItem(item);

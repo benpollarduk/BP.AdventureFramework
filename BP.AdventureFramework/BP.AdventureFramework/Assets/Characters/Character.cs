@@ -53,7 +53,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// Acquire an item.
         /// </summary>
         /// <param name="item">The item to acquire.</param>
-        public virtual void AquireItem(Item item)
+        public virtual void AcquireItem(Item item)
         {
             Items = Items.Add(item);
         }
@@ -111,7 +111,7 @@ namespace BP.AdventureFramework.Assets.Characters
                 return false;
             
             DequireItem(item);
-            character.AquireItem(item);
+            character.AcquireItem(item);
             return true;
 
         }

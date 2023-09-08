@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
         {
             var saria = new NonPlayableCharacter(Name, Description);
 
-            saria.AquireItem(TailKey.Create());
+            saria.AcquireItem(TailKey.Create());
 
             saria.Conversation = new Conversation
             (

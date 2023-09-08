@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         {
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
 
-            npc.Kill(string.Empty);
+            npc.Kill();
 
             Assert.IsFalse(npc.IsAlive);
         }
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         }
 
         [TestMethod]
-        public void GivenHasItem_WhenHasItem_ThenFalse()
+        public void GivenHasItem_WhenHasItem_ThenTrue()
         {
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             var item = new Item(string.Empty, string.Empty);

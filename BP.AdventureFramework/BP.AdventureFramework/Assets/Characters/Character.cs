@@ -43,8 +43,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <summary>
         /// Kill the character.
         /// </summary>
-        /// <param name="reason">A reason for the death.</param>
-        public virtual void Kill(string reason)
+        public virtual void Kill()
         {
             IsAlive = false;
         }

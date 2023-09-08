@@ -107,7 +107,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <returns>True if the transaction completed OK, else false.</returns>
         public virtual bool Give(Item item, Character character)
         {
-            if (!HasItem(item, true))
+            if (!HasItem(item))
                 return false;
             
             DequireItem(item);

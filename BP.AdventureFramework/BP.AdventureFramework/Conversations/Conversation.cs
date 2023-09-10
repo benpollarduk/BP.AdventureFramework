@@ -116,7 +116,7 @@ namespace BP.AdventureFramework.Conversations
                 return new Reaction(ReactionResult.Error, "No response.");
 
             if (CurrentParagraph == null)
-                return new Reaction(ReactionResult.Error, "No branch.");
+                return new Reaction(ReactionResult.Error, "No paragraph.");
 
             if (!CurrentParagraph.Responses?.Contains(response) ?? true)
                 return new Reaction(ReactionResult.Error, "Invalid response.");

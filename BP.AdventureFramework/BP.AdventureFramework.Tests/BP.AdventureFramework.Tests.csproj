@@ -52,6 +52,7 @@
     <Compile Include="Assets\Characters\NonPlayableCharacter_Tests.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter_Tests.cs" />
     <Compile Include="Assets\Item_Tests.cs" />
+    <Compile Include="Assets\Locations\Exit_Tests.cs" />
     <Compile Include="Assets\Locations\Matrix_Tests.cs" />
     <Compile Include="Assets\Locations\Overworld_Tests.cs" />
     <Compile Include="Assets\Locations\Region_Tests.cs" />

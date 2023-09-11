@@ -48,11 +48,19 @@
         }
 
         /// <summary>
-        /// Set if this exit is locked.
+        /// Unlock this exit.
         /// </summary>
         public void Unlock()
         {
             IsLocked = false;
+        }
+
+        /// <summary>
+        /// Lock this exit.
+        /// </summary>
+        public void Lock()
+        {
+            IsLocked = true;
         }
 
         #endregion

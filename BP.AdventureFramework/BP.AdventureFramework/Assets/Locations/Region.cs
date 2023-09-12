@@ -125,7 +125,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="z">The z position within the region.</param>
         public bool AddRoom(Room room, int x, int y, int z)
         {
-            var addable = !roomPositions.Any(r => r == room ||  r.IsAtPosition(x, y, z));
+            var addable = !roomPositions.Any(r => r.Room == room ||  r.IsAtPosition(x, y, z));
 
             if (addable)
                 roomPositions.Add(new RoomPosition(room, x, y, z));

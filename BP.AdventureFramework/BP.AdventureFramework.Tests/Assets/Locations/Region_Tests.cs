@@ -75,6 +75,42 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
         }
 
         [TestMethod]
+        public void GivenNoRooms_WhenAddingRoom_ThenReturnTrue()
+        {
+            var room1 = new Room(Identifier.Empty, Description.Empty);
+
+            var region = new Region(string.Empty, string.Empty);
+            var result = region.AddRoom(room1, 0, 0, 0);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void Given1Room_WhenAddingRoomToSameLocation_ThenReturnFalse()
+        {
+            var room1 = new Room(Identifier.Empty, Description.Empty);
+            var room2 = new Room(Identifier.Empty, Description.Empty);
+
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room1, 0, 0, 0);
+            var result = region.AddRoom(room2, 0, 0, 0);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Given1Room_WhenAddingDuplicateRoomToDifferentLocation_ThenReturnFalse()
+        {
+            var room1 = new Room(Identifier.Empty, Description.Empty);
+
+            var region = new Region(string.Empty, string.Empty);
+            region.AddRoom(room1, 0, 0, 0);
+            var result = region.AddRoom(room1, 1, 0, 0);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public void Given1Room_WhenAdding1Room_Then2Rooms()
         {
             var room1 = new Room(Identifier.Empty, Description.Empty);

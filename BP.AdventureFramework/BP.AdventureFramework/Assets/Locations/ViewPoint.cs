@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BP.AdventureFramework.Assets.Locations
 {
@@ -34,12 +35,12 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if there is a view in any direction.
         /// </summary>
-        public bool AnyVisited => SurroundingRooms.Any();
+        public bool AnyVisited => SurroundingRooms.Any(x => x.Value.HasBeenVisited);
 
         /// <summary>
         /// Get if there is a view in any direction.
         /// </summary>
-        public bool AnyNotVisited => SurroundingRooms.Any();
+        public bool AnyNotVisited => SurroundingRooms.Any(x => !x.Value.HasBeenVisited);
 
         /// <summary>
         /// Get the surrounding rooms.

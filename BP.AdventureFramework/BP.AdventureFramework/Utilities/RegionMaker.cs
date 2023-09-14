@@ -168,7 +168,7 @@ namespace BP.AdventureFramework.Utilities
                 if (room == null)
                     continue;
 
-                foreach (var direction in new[] { Direction.North, Direction.East, Direction.South, Direction.West })
+                foreach (var direction in new[] { Direction.North, Direction.East, Direction.South, Direction.West, Direction.Up, Direction.Down })
                 {
                     if (!room.FindExit(direction, true, out var exit)) 
                         continue;

@@ -58,9 +58,9 @@
     <Compile Include="Assets\Locations\Region_Tests.cs" />
     <Compile Include="Assets\Locations\Room_Tests.cs" />
     <Compile Include="Assets\Locations\ViewPoint_Tests.cs" />
-    <Compile Include="Commands\Conversations\Respond_Tests.cs" />
-    <Compile Include="Commands\Conversations\Next_Tests.cs" />
-    <Compile Include="Commands\Conversations\End_Tests.cs" />
+    <Compile Include="Commands\Conversation\Respond_Tests.cs" />
+    <Compile Include="Commands\Conversation\Next_Tests.cs" />
+    <Compile Include="Commands\Conversation\End_Tests.cs" />
     <Compile Include="Commands\Game\TakeAll_Tests.cs" />
     <Compile Include="Conversations\Conversation_Tests.cs" />
     <Compile Include="Extensions\ArrayExtensions_Tests.cs" />

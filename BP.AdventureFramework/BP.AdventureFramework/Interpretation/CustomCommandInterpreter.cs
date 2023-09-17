@@ -61,6 +61,9 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>The contextual help.</returns>
         public CommandHelp[] GetContextualCommandHelp(Game game)
         {
+            if (game.ActiveConverser?.Conversation != null)
+                return new CommandHelp[0];
+
             var help = new List<CommandHelp>();
 
             foreach (var examinable in game.GetAllPlayerVisibleExaminables().Where(x => x.Commands != null)) 

@@ -4,7 +4,7 @@ using BP.AdventureFramework.Commands.Conversation;
 using BP.AdventureFramework.Conversations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands.Conversations
+namespace BP.AdventureFramework.Tests.Commands.Conversation
 {
     [TestClass]
     public class Respond_Tests
@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversations
             var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var response = new Response("");
             var paragraph = new Paragraph(string.Empty) { Responses = new[] { response } };
-            var conversation = new Conversation(paragraph);
+            var conversation = new AdventureFramework.Conversations.Conversation(paragraph);
             var converser = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = conversation };
             game.StartConversation(converser);
             var command = new Respond(response);

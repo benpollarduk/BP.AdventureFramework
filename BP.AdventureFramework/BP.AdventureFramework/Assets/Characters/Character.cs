@@ -117,7 +117,7 @@ namespace BP.AdventureFramework.Assets.Characters
 
         #endregion
 
-        #region IInteractWithInGameItem Members
+        #region IInteractWithItem Members
 
         /// <summary>
         /// Interact with an item.

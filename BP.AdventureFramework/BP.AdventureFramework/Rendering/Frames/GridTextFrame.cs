@@ -90,7 +90,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         public bool ShowCursor { get; set; } = true;
 
         /// <summary>
-        /// Get or set if this Frame excepts input.
+        /// Get or set if this Frame accepts input.
         /// </summary>
         public bool AcceptsInput { get; set; } = true;
 

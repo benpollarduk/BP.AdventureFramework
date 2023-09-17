@@ -6,7 +6,7 @@ using BP.AdventureFramework.Utilities;
 namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
 {
     /// <summary>
-    /// Provides a class for building strings, as apart of a grid.
+    /// Provides a class for building strings as part of a grid.
     /// </summary>
     public class GridStringBuilder
     {

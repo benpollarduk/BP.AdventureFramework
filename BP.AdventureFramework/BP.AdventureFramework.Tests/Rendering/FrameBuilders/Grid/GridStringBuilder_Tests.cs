@@ -99,7 +99,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
         }
 
         [TestMethod]
-        public void GivenWidth10And10Characters_WhenDrawGetNumberOfLines_Then1()
+        public void GivenWidth10And10Characters_WhenGetNumberOfLines_Then1()
         {
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));
@@ -110,7 +110,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Grid
         }
 
         [TestMethod]
-        public void GivenWidth10And11Characters_WhenDrawGetNumberOfLines_Then2()
+        public void GivenWidth10And11Characters_WhenGetNumberOfLines_Then2()
         {
             var builder = new GridStringBuilder();
             builder.Resize(new Size(10, 10));

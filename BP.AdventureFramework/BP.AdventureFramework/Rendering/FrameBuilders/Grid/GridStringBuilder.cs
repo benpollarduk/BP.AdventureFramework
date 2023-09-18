@@ -120,7 +120,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid
         }
 
         /// <summary>
-        /// Draw the bound
+        /// Draw the boundary.
         /// </summary>
         /// <param name="color">The color to draw the boundary.</param>
         public void DrawBoundary(RenderColor color)

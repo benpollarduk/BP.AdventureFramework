@@ -139,7 +139,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             {
                 // display the scene
 
-                gridStringBuilder.DrawWrapped(room.Description.GetDescription().EnsureFinishedSentence(), 2, lastY + 3, availableWidth, TextColor, out _, out lastY);
+                gridStringBuilder.DrawWrapped(room.Description.GetDescription().EnsureFinishedSentence(), leftMargin, lastY + 3, availableWidth, TextColor, out _, out lastY);
 
                 var extendedDescription = string.Empty;
 

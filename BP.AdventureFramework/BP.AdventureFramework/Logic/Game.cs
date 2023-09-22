@@ -303,10 +303,10 @@ namespace BP.AdventureFramework.Logic
                 {
                     case ReactionResult.Error:
                         var message = ErrorPrefix + ": " + reaction.Description;
-                        UpdateScreenWithCurrentFrame(message);
+                        Refresh(message);
                         break;
                     case ReactionResult.OK:
-                        UpdateScreenWithCurrentFrame(reaction.Description);
+                        Refresh(reaction.Description);
                         break;
                     case ReactionResult.Internal:
                     case ReactionResult.Fatal:
@@ -336,15 +336,6 @@ namespace BP.AdventureFramework.Logic
         internal void EndConversation()
         {
             ActiveConverser = null;
-        }
-
-        /// <summary>
-        /// Update the screen with the current Frame, provided by the GameManager.Game property.
-        /// </summary>
-        /// <param name="message">An additional message to display to the user.</param>
-        private void UpdateScreenWithCurrentFrame(string message)
-        {
-            DrawFrame(FrameBuilders.SceneFrameBuilder.Build(Overworld.CurrentRegion.CurrentRoom, ViewPoint.Create(Overworld.CurrentRegion), Player, message, DisplayCommandListInSceneFrames ? Interpreter.GetContextualCommandHelp(this) : null, SceneMapKeyType, DisplaySize.Width, DisplaySize.Height));
         }
 
         /// <summary>

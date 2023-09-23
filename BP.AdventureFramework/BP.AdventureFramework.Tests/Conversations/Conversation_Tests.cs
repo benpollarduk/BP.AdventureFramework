@@ -64,16 +64,17 @@ namespace BP.AdventureFramework.Tests.Conversations
         }
 
         [TestMethod]
-        public void GivenConverserWithAConversationWithOneParagraph_WhenNext_ThenCurrentParagraphIsNull()
+        public void GivenConverserWithAConversationWithOneParagraph_WhenNext_ThenCurrentParagraphIsUnchanged()
         {
             var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
+            var startParagraph = npc.Conversation.CurrentParagraph;
             npc.Conversation.Next(game);
             var result = npc.Conversation.CurrentParagraph;
 
-            Assert.IsNull(result);
+            Assert.AreEqual(startParagraph, result);
         }
 
         [TestMethod]

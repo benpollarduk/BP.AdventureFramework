@@ -121,6 +121,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             const int linePadding = 2;
             var isMovementMessage = IsMovementConfirmation(message);
             var displayMessage = ((!string.IsNullOrEmpty(message)) && ((!isMovementMessage) || (!SupressMovementMessages)));
+            var acceptInput = !((DisplayMessagesInIsolation) && (displayMessage));
 
             gridStringBuilder.Resize(new Size(width, height));
 
@@ -203,7 +204,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
             gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
 
-            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { AcceptsInput = acceptInput } ;
         }
 
         #endregion

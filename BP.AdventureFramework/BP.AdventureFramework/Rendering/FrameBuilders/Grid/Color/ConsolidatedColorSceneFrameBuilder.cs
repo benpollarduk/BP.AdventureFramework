@@ -166,7 +166,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                     gridStringBuilder.DrawHorizontalDivider(lastY + 3, BorderColor);
                     gridStringBuilder.DrawWrapped(message.EnsureFinishedSentence(), leftMargin, lastY + 5, availableWidth, TextColor, out _, out lastY);
                 }
-
+                
                 if (contextualCommands?.Any() ?? false)
                 {
                     const int requiredSpaceForDivider = 3;
@@ -199,12 +199,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                         }
                     }
                 }
+
+                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
+                gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
             }
 
-            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
-
-            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { AcceptsInput = acceptInput } ;
+            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { AcceptsInput = acceptInput, ShowCursor = acceptInput } ;
         }
 
         #endregion

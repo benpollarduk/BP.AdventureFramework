@@ -100,8 +100,5 @@ var gameCreator = Game.Create("The Life Of Dave",
 Game.Execute(gameCreator);
 ```
 
-# Contribute
-It´s Open Source (License >> MIT), please feel free to use or contribute. To raise a pull request visit https://github.com/ben-pollard-uk/adventure-framework/pulls.
-
 # For Open Questions
 Visit https://github.com/ben-pollard-uk/adventure-framework/issues

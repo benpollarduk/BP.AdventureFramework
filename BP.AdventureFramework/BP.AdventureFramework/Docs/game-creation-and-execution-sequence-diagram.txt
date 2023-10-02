@@ -1,13 +1,13 @@
-title Input Parsing
+title Game Creation
 
 participant Console
+participant Game (static)
+participant GameCreationCallback
 participant Game
-participant Interpreter
 
-note over Interpreter: Provided by:\nInputInterpreter\nGlobalCommandInterpreter\nFrameCommandInterpreter \nGameCommandInterpreter
-
-Console->Game: Input
-Game->Interpreter: Interpret
-Interpreter->Game:IntrepretationResult
-Game->Game: RunCommand
-Game->Console: Output
+Console->Game (static):Create
+Game (static)->Console:Instance of GameCreationCallback
+Console->Game (static):Execute
+Game (static)->GameCreationCallback:Invoke
+GameCreationCallback->Game (static):Insance of Game
+Game (static)->Game:Execute

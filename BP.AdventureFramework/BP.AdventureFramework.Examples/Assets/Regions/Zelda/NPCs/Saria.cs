@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
         {
             var saria = new NonPlayableCharacter(Name, Description);
 
-            saria.AquireItem(TailKey.Create());
+            saria.AcquireItem(TailKey.Create());
 
             saria.Conversation = new Conversation
             (
@@ -57,7 +57,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
 
                 if (Sword.Name.EqualsIdentifier(item.Identifier))
                 {
-                    saria.Kill(string.Empty);
+                    saria.Kill();
 
                     if (!saria.HasItem(key))
                         return new InteractionResult(InteractionEffect.SelfContained, item, $"You strike {saria.Identifier.Name} in the face with the sword and she falls down dead.");

@@ -61,7 +61,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             overworld.AddRegion(region);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
-            character.AquireItem(item);
+            character.AcquireItem(item);
             var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
             var command = new Drop(item);
 

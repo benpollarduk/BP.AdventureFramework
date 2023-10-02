@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Interpretation
         /// </summary>
         public static CommandHelp[] DefaultSupportedCommands { get; } =
         {
-            new CommandHelp($"{End}", "End the conversation")
+            new CommandHelp(End, "End the conversation")
         };
 
         #endregion
@@ -74,7 +74,7 @@ namespace BP.AdventureFramework.Interpretation
             if (game.ActiveConverser?.Conversation == null) 
                 return new CommandHelp[0];
 
-            var commands = new List<CommandHelp> { new CommandHelp($"{End}", "End the conversation") };
+            var commands = new List<CommandHelp> { new CommandHelp(End, "End the conversation") };
 
             if (game.ActiveConverser.Conversation.CurrentParagraph?.CanRespond ?? false)
             {

@@ -59,7 +59,7 @@ namespace BP.AdventureFramework.Conversations
         private Paragraph Shift(int delta)
         {
             paragraphIndex += delta;
-            return paragraphIndex >= 0 && paragraphIndex < Paragraphs.Length ? Paragraphs[paragraphIndex] : null;
+            return paragraphIndex >= 0 && paragraphIndex < Paragraphs.Length ? Paragraphs[paragraphIndex] : CurrentParagraph;
         }
 
         /// <summary>
@@ -71,6 +71,8 @@ namespace BP.AdventureFramework.Conversations
         {
             if (Paragraphs == null || !Paragraphs.Any())
                 return new Reaction(ReactionResult.Internal, "No paragraphs.");
+
+            var entryParagraph = CurrentParagraph;
 
             if (CurrentParagraph?.CanRespond ?? false)
             {
@@ -93,7 +95,7 @@ namespace BP.AdventureFramework.Conversations
                 CurrentParagraph = Shift(CurrentParagraph.Delta);
             }
 
-            if (CurrentParagraph == null)
+            if ((CurrentParagraph == null) || (CurrentParagraph == entryParagraph))
                 return new Reaction(ReactionResult.Internal, "End of conversation.");
 
             CurrentParagraph.Action?.Invoke(game);
@@ -116,7 +118,7 @@ namespace BP.AdventureFramework.Conversations
                 return new Reaction(ReactionResult.Error, "No response.");
 
             if (CurrentParagraph == null)
-                return new Reaction(ReactionResult.Error, "No branch.");
+                return new Reaction(ReactionResult.Error, "No paragraph.");
 
             if (!CurrentParagraph.Responses?.Contains(response) ?? true)
                 return new Reaction(ReactionResult.Error, "Invalid response.");

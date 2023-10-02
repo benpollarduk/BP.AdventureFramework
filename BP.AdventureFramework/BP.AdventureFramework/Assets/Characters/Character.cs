@@ -43,8 +43,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <summary>
         /// Kill the character.
         /// </summary>
-        /// <param name="reason">A reason for the death.</param>
-        public virtual void Kill(string reason)
+        public virtual void Kill()
         {
             IsAlive = false;
         }
@@ -53,7 +52,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// Acquire an item.
         /// </summary>
         /// <param name="item">The item to acquire.</param>
-        public virtual void AquireItem(Item item)
+        public virtual void AcquireItem(Item item)
         {
             Items = Items.Add(item);
         }
@@ -107,18 +106,18 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <returns>True if the transaction completed OK, else false.</returns>
         public virtual bool Give(Item item, Character character)
         {
-            if (!HasItem(item, true))
+            if (!HasItem(item))
                 return false;
             
             DequireItem(item);
-            character.AquireItem(item);
+            character.AcquireItem(item);
             return true;
 
         }
 
         #endregion
 
-        #region IInteractWithInGameItem Members
+        #region IInteractWithItem Members
 
         /// <summary>
         /// Interact with an item.

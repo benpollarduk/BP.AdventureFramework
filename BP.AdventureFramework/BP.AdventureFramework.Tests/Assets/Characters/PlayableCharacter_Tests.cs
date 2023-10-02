@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         {
             var pc = new PlayableCharacter(string.Empty, string.Empty);
 
-            pc.Kill(string.Empty);
+            pc.Kill();
 
             Assert.IsFalse(pc.IsAlive);
         }
@@ -37,11 +37,11 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         }
 
         [TestMethod]
-        public void GivenHasItem_WhenHasItem_ThenFalse()
+        public void GivenHasItem_WhenHasItem_ThenTrue()
         {
             var pc = new PlayableCharacter(string.Empty, string.Empty);
             var item = new Item(string.Empty, string.Empty);
-            pc.AquireItem(item);
+            pc.AcquireItem(item);
 
             var result = pc.HasItem(item);
 
@@ -53,7 +53,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
         {
             var pc = new PlayableCharacter(string.Empty, string.Empty);
             var item = new Item(string.Empty, string.Empty);
-            pc.AquireItem(item);
+            pc.AcquireItem(item);
             pc.DequireItem(item);
             
             var result = pc.HasItem(item);

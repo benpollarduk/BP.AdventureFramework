@@ -259,7 +259,7 @@ namespace BP.AdventureFramework.Interpretation
             // it no item specified then find the first takeable one
             if (string.IsNullOrEmpty(noun))
             {
-                item = game.Overworld.CurrentRegion.CurrentRoom.Items.FirstOrDefault(x => x.IsTakeable);
+                item = game.Overworld.CurrentRegion.CurrentRoom.Items.FirstOrDefault(x => x.IsPlayerVisible && x.IsTakeable);
 
                 if (item == null)
                 {
@@ -272,13 +272,10 @@ namespace BP.AdventureFramework.Interpretation
                 command = new TakeAll();
                 return true;
             }
-            else
+            else if (!game.Overworld.CurrentRegion.CurrentRoom.FindItem(noun, out item))
             {
-                if (!game.Overworld.CurrentRegion.CurrentRoom.FindItem(noun, out item))
-                {
-                    command = new Unactionable("There is no such item in the room.");
-                    return true;
-                }
+                command = new Unactionable("There is no such item in the room.");
+                return true;
             }
 
             command = new Take(item);
@@ -450,9 +447,9 @@ namespace BP.AdventureFramework.Interpretation
                 var onIndex = noun.IndexOf(onPadded, StringComparison.CurrentCultureIgnoreCase);
                 var targetName = noun.Substring(onIndex + onPadded.Length);
 
-                if (targetName.InsensitiveEquals(Me))
+                if ((targetName.InsensitiveEquals(Me)) || (targetName.EqualsExaminable(game.Player)))
                     target = game.Player;
-                else if (targetName.InsensitiveEquals(Room))
+                else if ((targetName.InsensitiveEquals(Room)) || (targetName.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom)))
                     target = game.Overworld.CurrentRegion.CurrentRoom;
                 else
                     target = game.FindInteractionTarget(targetName);

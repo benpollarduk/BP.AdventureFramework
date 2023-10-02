@@ -73,9 +73,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         public RenderColor LockedExitColor { get; set; } = RenderColor.Red;
 
         /// <summary>
-        /// Get or set the lower floor color.
+        /// Get or set the lower level color.
         /// </summary>
-        public RenderColor LowerFloorColor { get; set; } = RenderColor.DarkGray;
+        public RenderColor LowerLevelColor { get; set; } = RenderColor.DarkGray;
 
         /// <summary>
         /// Get or set if lower floors should be shown.
@@ -185,12 +185,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
         }
 
         /// <summary>
-        /// Draw a room on a lower floor.
+        /// Draw a room on a lower level.
         /// </summary>
         /// <param name="left">The left of the room.</param>
         /// <param name="top">The top of the room.</param>
         /// <param name="gridStringBuilder">The string builder to use.</param>
-        private void DrawLowerFloorRoom(int left, int top, GridStringBuilder gridStringBuilder)
+        private void DrawLowerLevelRoom(int left, int top, GridStringBuilder gridStringBuilder)
         {
             /*
              * .....
@@ -201,7 +201,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
 
             for (var y = 0; y < 3; y++)
                 for (var x = 0; x < 5; x++)
-                    gridStringBuilder.SetCell(left + x, top + y, LowerLevel, LowerFloorColor);
+                    gridStringBuilder.SetCell(left + x, top + y, LowerLevel, LowerLevelColor);
 
         }
 
@@ -288,7 +288,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                     if (floor == currentFloor)
                         gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxWidth, VisitedBoundaryColor, out _, out _);
                     else
-                        gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxWidth, LowerFloorColor, out _, out _);
+                        gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxWidth, LowerLevelColor, out _, out _);
                 }
 
                 x += indicatorLength;
@@ -307,7 +307,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                 foreach (var position in lowerLevelRooms)
                 {
                     if (TryConvertMatrixPositionToGridLayoutPosition(x, y, maxWidth, maxHeight, matrix, position.X, position.Y, currentRoom.X, currentRoom.Y, out var left, out var top))
-                        DrawLowerFloorRoom(left, top, gridStringBuilder);
+                        DrawLowerLevelRoom(left, top, gridStringBuilder);
                 }
             }
 

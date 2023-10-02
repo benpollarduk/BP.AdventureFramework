@@ -7,6 +7,7 @@ namespace BP.AdventureFramework.Assets
     /// </summary>
     public class Identifier : IEquatable<string>, IEquatable<Identifier>
     {
+
         #region StaticProperties
 
         /// <summary>

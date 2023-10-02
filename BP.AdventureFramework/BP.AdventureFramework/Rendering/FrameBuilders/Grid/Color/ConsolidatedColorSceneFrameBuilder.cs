@@ -121,6 +121,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             const int linePadding = 2;
             var isMovementMessage = IsMovementConfirmation(message);
             var displayMessage = ((!string.IsNullOrEmpty(message)) && ((!isMovementMessage) || (!SupressMovementMessages)));
+            var acceptInput = !((DisplayMessagesInIsolation) && (displayMessage));
 
             gridStringBuilder.Resize(new Size(width, height));
 
@@ -139,7 +140,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             {
                 // display the scene
 
-                gridStringBuilder.DrawWrapped(room.Description.GetDescription().EnsureFinishedSentence(), 2, lastY + 3, availableWidth, TextColor, out _, out lastY);
+                gridStringBuilder.DrawWrapped(room.Description.GetDescription().EnsureFinishedSentence(), leftMargin, lastY + 3, availableWidth, TextColor, out _, out lastY);
 
                 var extendedDescription = string.Empty;
 
@@ -165,7 +166,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                     gridStringBuilder.DrawHorizontalDivider(lastY + 3, BorderColor);
                     gridStringBuilder.DrawWrapped(message.EnsureFinishedSentence(), leftMargin, lastY + 5, availableWidth, TextColor, out _, out lastY);
                 }
-
+                
                 if (contextualCommands?.Any() ?? false)
                 {
                     const int requiredSpaceForDivider = 3;
@@ -198,12 +199,12 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
                         }
                     }
                 }
+
+                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
+                gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
             }
 
-            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
-
-            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { AcceptsInput = acceptInput, ShowCursor = acceptInput } ;
         }
 
         #endregion

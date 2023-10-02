@@ -55,7 +55,7 @@ namespace BP.AdventureFramework.Commands.Game
                 return new Reaction(ReactionResult.Error, $"{Item.Identifier.Name} cannot be taken.");
 
             game.Overworld.CurrentRegion.CurrentRoom.RemoveItem(Item);
-            game.Player.AquireItem(Item);
+            game.Player.AcquireItem(Item);
 
             return new Reaction(ReactionResult.OK, $"Took {Item.Identifier.Name}");
         }

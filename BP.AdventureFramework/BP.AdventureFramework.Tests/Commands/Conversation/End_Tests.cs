@@ -2,7 +2,7 @@
 using BP.AdventureFramework.Commands.Conversation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands.Conversations
+namespace BP.AdventureFramework.Tests.Commands.Conversation
 {
     [TestClass]
     public class End_Tests

@@ -92,7 +92,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color
             if (!string.IsNullOrEmpty(game.Author))
                 gridStringBuilder.DrawWrapped($"Created by: {game.Author}.", leftMargin, lastY + 2, availableWidth, AuthorColor, out _, out _);
             else
-                gridStringBuilder.DrawWrapped("BP.AdventureFramework by Ben Pollard 2011 - 2023", leftMargin, lastY + 2, availableWidth, AuthorColor, out _, out _);
+                gridStringBuilder.DrawWrapped("BP.AdventureFramework by Ben Pollard 2011 - 2023.", leftMargin, lastY + 2, availableWidth, AuthorColor, out _, out _);
 
             return new GridTextFrame(gridStringBuilder, 0, 0, BackgroundColor) { AcceptsInput = false, ShowCursor = false };
         }

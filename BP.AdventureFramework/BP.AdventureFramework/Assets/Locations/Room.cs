@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Assets.Locations
         public Exit[] UnlockedExits => Exits.Where(x => !x.IsLocked).ToArray();
 
         /// <summary>
-        /// Get the characters of this Room
+        /// Get the characters in this Room.
         /// </summary>
         public NonPlayableCharacter[] Characters { get; private set; } = new NonPlayableCharacter[0];
 
@@ -213,7 +213,7 @@ namespace BP.AdventureFramework.Assets.Locations
         public override ExaminationResult Examine()
         {
             if (!Items.Where(i => i.IsPlayerVisible).ToArray().Any())
-                return new ExaminationResult("There is nothing to examine");
+                return new ExaminationResult("There is nothing to examine.");
 
             if (Items.Where(i => i.IsPlayerVisible).ToArray().Length == 1)
             {
@@ -452,7 +452,7 @@ namespace BP.AdventureFramework.Assets.Locations
 
         #endregion
 
-        #region IInteractWithInGameItem Members
+        #region IInteractWithItem Members
 
         /// <summary>
         /// Interact with an item.

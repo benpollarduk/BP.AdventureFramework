@@ -4,7 +4,7 @@ using BP.AdventureFramework.Commands.Conversation;
 using BP.AdventureFramework.Conversations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Tests.Commands.Conversations
+namespace BP.AdventureFramework.Tests.Commands.Conversation
 {
     [TestClass]
     public class Next_Tests
@@ -34,7 +34,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversations
         public void GivenValidGameAndConverser_WhenInvoke_ThenInternal()
         {
             var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
-            var converser = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
+            var converser = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new AdventureFramework.Conversations.Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(converser);
             var command = new Next();
 

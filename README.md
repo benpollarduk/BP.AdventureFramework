@@ -101,4 +101,4 @@ Game.Execute(gameCreator);
 ```
 
 # For Open Questions
-Visit https://github.com/ben-pollard-uk/adventure-framework/issues
+Visit https://github.com/benpollarduk/adventure-framework/issues

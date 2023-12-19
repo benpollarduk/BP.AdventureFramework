@@ -73,9 +73,9 @@ Maps are automatically generated for regions:
    * Download free IDE Visual Studio 2022 Community ( >> https://visualstudio.microsoft.com/de/vs/community/ ), or use commercial Visual Studio 2022 Version.
 
 # Getting Started
- * Clone the repo
- * Build all projects
- * Run the BP.AdventureFramework.Examples project
+ * Clone the repo.
+ * Build all projects.
+ * Run the BP.AdventureFramework.Examples project.
 
 # Hello World
 ```csharp

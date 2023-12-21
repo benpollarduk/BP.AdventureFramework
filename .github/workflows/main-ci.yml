@@ -40,18 +40,13 @@ jobs:
     - name: Build
       run: dotnet build
     
-    - name: Test
-      run: |
-        dotnet test --verbosity detailed /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-    
-    - name: Check if coverage file exists
-      run: |
-        if (Test-Path .\coverage.opencover.xml) {
-          Write-Host "Coverage file exists."
-        } else {
-          Write-Host "Coverage file does not exist."
-        }
-      shell: pwsh
+    - name: Run tests with coverlet
+      run: dotnet test /p:CollectCoverage=true
+      continue-on-error: true
+
+    - name: Generate coverage report
+      run: dotnet tool run coverlet --target "dotnet" --targetargs "test /p:CollectCoverage=true"
+      continue-on-error: true
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3

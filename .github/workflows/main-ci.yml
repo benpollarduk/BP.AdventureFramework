@@ -34,9 +34,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
-    - name: Install coverlet
+    - name: Install coverlet globally
       run: dotnet tool install --global coverlet.console
-      
+
     - name: Build
       run: dotnet build
     
@@ -52,4 +52,3 @@ jobs:
       uses: codecov/codecov-action@v3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        

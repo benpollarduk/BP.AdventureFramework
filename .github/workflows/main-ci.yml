@@ -38,7 +38,7 @@ jobs:
       run: dotnet build
     
     - name: Test
-      run: dotnet test -xml test-results.xml
+      run: dotnet test --logger trx
 
     - name: Publish test results
       uses: actions/upload-artifact@v2

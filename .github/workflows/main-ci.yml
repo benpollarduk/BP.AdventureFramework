@@ -42,9 +42,9 @@ jobs:
     
     - name: Test
       run: |
+        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:TargetFramework=net8.0
         Write-Host "Current directory: $PWD"
         Get-ChildItem  # List all files in the current directory
-        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     
     - name: Check if coverage file exists
       run: |

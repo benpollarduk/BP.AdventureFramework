@@ -41,8 +41,11 @@ jobs:
       run: dotnet build
     
     - name: Test
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
+      run: |
+        Write-Host "Current directory: $PWD"
+        Get-ChildItem  # List all files in the current directory
+        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    
     - name: Check if coverage file exists
       run: |
         if (Test-Path .\coverage.opencover.xml) {

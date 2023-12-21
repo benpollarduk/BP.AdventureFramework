@@ -39,9 +39,9 @@ jobs:
 
     - name: Store global tools in PATH
       run: |
-        echo "PATH=$PATH:$(dotnet --tool-path)" >> $GITHUB_ENV
-        echo "::add-path::$PATH"
-
+        echo "PATH=$(dotnet --tool-path);$PATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "::add-path::$(dotnet --tool-path)"
+    
     - name: Build
       run: dotnet build
     

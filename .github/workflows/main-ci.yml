@@ -17,7 +17,6 @@ permissions:
 
 env:
   DOTNET_VERSION: '8.0'
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   build:
@@ -35,23 +34,11 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
-    - name: Install coverlet globally
-      run: dotnet tool install --global coverlet.console
-
-    - name: Store global tools in PATH
-      run: |
-        Add-Content $env:GITHUB_PATH "$(dotnet --tool-path)"
-    
     - name: Build
       run: dotnet build
     
     - name: Run tests with coverlet
-      run: dotnet test /p:CollectCoverage=true
-      continue-on-error: true
-
-    - name: Generate coverage report
-      run: dotnet coverlet --target "dotnet" --targetargs "test /p:CollectCoverage=true"
-      continue-on-error: true
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3

@@ -45,14 +45,15 @@ jobs:
 
     - name: Check if coverage file exists
       run: |
-        if Test-Path .\coverage.opencover.xml; then
+        if (Test-Path .\coverage.opencover.xml) {
           Write-Host "Coverage file exists."
-        else
+        } else {
           Write-Host "Coverage file does not exist."
-         fi
+        }
       shell: pwsh
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        

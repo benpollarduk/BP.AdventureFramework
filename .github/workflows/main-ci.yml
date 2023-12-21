@@ -42,7 +42,7 @@ jobs:
     
     - name: Test
       run: |
-        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        dotnet test --verbosity detailed /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     
     - name: Check if coverage file exists
       run: |

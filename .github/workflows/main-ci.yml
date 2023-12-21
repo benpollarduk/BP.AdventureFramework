@@ -38,7 +38,9 @@ jobs:
       run: dotnet tool install --global coverlet.console
 
     - name: Store global tools in PATH
-      run: echo "export PATH=\"$PATH:$(dotnet --tool-path)\"" >> $GITHUB_ENV
+      run: |
+        echo "PATH=$PATH:$(dotnet --tool-path)" >> $GITHUB_ENV
+        echo "::add-path::$PATH"
 
     - name: Build
       run: dotnet build

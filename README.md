@@ -1,3 +1,6 @@
+[![GitHub release](https://img.shields.io/github/release/benpollarduk/adventure-framework.svg)](https://github.com/benpollarduk/adventure-framework/releases)
+[![License](https://img.shields.io/github/license/benpollarduk/adventure-framework.svg)](https://opensource.org/licenses/MIT)
+
 # Introduction 
 .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
 
@@ -70,9 +73,9 @@ Maps are automatically generated for regions:
    * Download free IDE Visual Studio 2022 Community ( >> https://visualstudio.microsoft.com/de/vs/community/ ), or use commercial Visual Studio 2022 Version.
 
 # Getting Started
- * Clone the repo
- * Build all projects
- * Run the BP.AdventureFramework.Examples project
+ * Clone the repo.
+ * Build all projects.
+ * Run the BP.AdventureFramework.Examples project.
 
 # Hello World
 ```csharp
@@ -101,4 +104,4 @@ Game.Execute(gameCreator);
 ```
 
 # For Open Questions
-Visit https://github.com/ben-pollard-uk/adventure-framework/issues
+Visit https://github.com/benpollarduk/adventure-framework/issues

@@ -1,3 +1,4 @@
+[![main-ci](https://github.com/benpollarduk/adventure-framework/actions/workflows/main-ci.yml/badge.svg)](https://github.com/benpollarduk/adventure-framework/actions/workflows/main-ci.yml)
 [![codecov](https://codecov.io/gh/benpollarduk/adventure-framework/graph/badge.svg?token=X94GLVVA0T)](https://codecov.io/gh/benpollarduk/adventure-framework)
 [![GitHub release](https://img.shields.io/github/release/benpollarduk/adventure-framework.svg)](https://github.com/benpollarduk/adventure-framework/releases)
 [![License](https://img.shields.io/github/license/benpollarduk/adventure-framework.svg)](https://opensource.org/licenses/MIT)

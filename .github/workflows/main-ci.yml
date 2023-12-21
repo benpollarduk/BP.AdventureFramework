@@ -24,7 +24,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup environment
       uses: actions/setup-dotnet@v3
@@ -38,7 +38,7 @@ jobs:
       run: dotnet build
     
     - name: Test
-      run: dotnet test
+      run: dotnet test -xml test-results.xml
 
     - name: Publish test results
       uses: actions/upload-artifact@v2

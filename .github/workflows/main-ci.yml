@@ -31,6 +31,9 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    - name: Change working directory
+      run: cd BP.AdventureFramework
+
     - name: Install dependencies
       run: dotnet restore
 

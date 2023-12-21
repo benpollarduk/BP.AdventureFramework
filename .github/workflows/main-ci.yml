@@ -31,9 +31,6 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Change working directory
-      run: cd BP.AdventureFramework
-
     - name: Install dependencies
       run: dotnet restore
 
@@ -41,7 +38,7 @@ jobs:
       run: dotnet build
     
     - name: Test
-      run: dotnet test BP.AdventureFramework/BP.AdventureFramework.Tests/BP.AdventureFramework.Tests.csproj
+      run: dotnet test BP.AdventureFramework.Tests/BP.AdventureFramework.Tests.csproj
 
     - name: Publish test results
       uses: actions/upload-artifact@v2

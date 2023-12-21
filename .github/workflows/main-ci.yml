@@ -34,17 +34,20 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
+    - name: Install coverlet
+      run: dotnet tool install --global coverlet.console
+
+    - name: Install report generator
+      run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
     - name: Build
       run: dotnet build
     
     - name: Test
-      run: dotnet test --logger trx
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
-    - name: Publish test results
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: 'TestResults/*.trx'
+    - name: Create test report
+      run: reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" "-reporttypes:Cobertura"
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3

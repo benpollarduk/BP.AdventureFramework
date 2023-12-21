@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  DOTNET_VERSION: '5.0'
+  DOTNET_VERSION: '8.0'
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
       run: dotnet build
     
     - name: Test
-      run: dotnet test BP.AdventureFramework.Tests/BP.AdventureFramework.Tests.csproj
+      run: dotnet test
 
     - name: Publish test results
       uses: actions/upload-artifact@v2

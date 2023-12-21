@@ -45,8 +45,7 @@ jobs:
       continue-on-error: true
 
     - name: Generate coverage report
-      run: |
-        dotnet tool run --tool-path . coverlet.console --target "dotnet" --targetargs "test /p:CollectCoverage=true"
+      run: dotnet coverlet --target "dotnet" --targetargs "test /p:CollectCoverage=true"
       continue-on-error: true
     
     - name: Upload coverage reports to Codecov

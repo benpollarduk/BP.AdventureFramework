@@ -5,14 +5,9 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BP.AdventureFramework", "BP.AdventureFramework\BP.AdventureFramework.csproj", "{D0A9B7D8-4E26-49EF-93F6-648E5CC38C97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Tests", "BP.AdventureFramework.Tests\BP.AdventureFramework.Tests.csproj", "{94FE323D-B885-43DA-8411-593244D0A370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BP.AdventureFramework.Tests", "BP.AdventureFramework.Tests\BP.AdventureFramework.Tests.csproj", "{81CF1F6C-FB27-44AC-BFAF-A999E959D877}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.AdventureFramework.Examples", "BP.AdventureFramework.Examples\BP.AdventureFramework.Examples.csproj", "{BC0652A7-6EC4-480D-B98D-919D461FB518}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9ACF563F-3AE6-4C57-A912-1103B6E07C9F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BP.AdventureFramework.Examples", "BP.AdventureFramework.Examples\BP.AdventureFramework.Examples.csproj", "{8E594A3E-DDA6-40D6-922F-8B8E8D306FD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +19,14 @@ Global
 		{D0A9B7D8-4E26-49EF-93F6-648E5CC38C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A9B7D8-4E26-49EF-93F6-648E5CC38C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A9B7D8-4E26-49EF-93F6-648E5CC38C97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94FE323D-B885-43DA-8411-593244D0A370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94FE323D-B885-43DA-8411-593244D0A370}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94FE323D-B885-43DA-8411-593244D0A370}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94FE323D-B885-43DA-8411-593244D0A370}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC0652A7-6EC4-480D-B98D-919D461FB518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81CF1F6C-FB27-44AC-BFAF-A999E959D877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81CF1F6C-FB27-44AC-BFAF-A999E959D877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81CF1F6C-FB27-44AC-BFAF-A999E959D877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81CF1F6C-FB27-44AC-BFAF-A999E959D877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E594A3E-DDA6-40D6-922F-8B8E8D306FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E594A3E-DDA6-40D6-922F-8B8E8D306FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E594A3E-DDA6-40D6-922F-8B8E8D306FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E594A3E-DDA6-40D6-922F-8B8E8D306FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

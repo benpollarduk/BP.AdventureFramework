@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  DOTNET_VERSION: '2.1.x'
+  DOTNET_VERSION: '5.0'
 
 jobs:
   build:

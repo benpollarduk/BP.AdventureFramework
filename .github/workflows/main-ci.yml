@@ -43,6 +43,15 @@ jobs:
     - name: Test
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
+    - name: Check if coverage file exists
+      run: |
+        if [ -f ./coverage.opencover.xml ]; then
+          echo "Coverage file exists."
+        else
+          echo "Coverage file does not exist."
+          # You can add additional steps or take appropriate action here.
+        fi
+        
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:

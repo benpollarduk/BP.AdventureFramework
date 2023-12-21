@@ -26,19 +26,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+    - name: Setup environment
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
+    - name: Install dependencies
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration Release
-
+      run: dotnet build
+    
     - name: Test
-      run: dotnet test --configuration Release --no-restore
+      run: dotnet test BP.AdventureFramework/BP.AdventureFramework.Tests/BP.AdventureFramework.Tests.csproj
 
     - name: Publish test results
       uses: actions/upload-artifact@v2

@@ -1,6 +1,3 @@
-# main ci workflow is to ensure the codebase builds.
-# all unit tests must pass for the workflow to complete successfully.
-
 name: main-ci
 
 on:
@@ -20,7 +17,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository

@@ -51,7 +51,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Appenders.Legacy
 
             foreach (var command in commandHelp)
             {
-                if (!string.IsNullOrEmpty(command.Command) && !string.IsNullOrEmpty(command.Command))
+                if (!string.IsNullOrEmpty(command.Command) && !string.IsNullOrEmpty(command.Description))
                     builder.Append(lineStringBuilder.BuildWrappedPadded($"{command.Command}{lineStringBuilder.BuildWhitespace(30 - command.Command.Length)}- {command.Description}", width, false));
                 else if (!string.IsNullOrEmpty(command.Command) && string.IsNullOrEmpty(command.Description))
                     builder.Append(lineStringBuilder.BuildWrappedPadded(string.Empty, width, false));

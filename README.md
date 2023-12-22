@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/benpollarduk/adventure-framework.svg)](https://opensource.org/licenses/MIT)
 
 # Introduction 
-.NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has had some quality of life updates.
+.NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has since had some quality of life updates.
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/3d6fb517-3b00-4362-868a-0a21b5195163)
 

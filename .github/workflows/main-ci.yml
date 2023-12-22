@@ -1,6 +1,3 @@
-# main ci workflow is to ensure the codebase builds.
-# all unit tests must pass for the workflow to complete successfully.
-
 name: main-ci
 
 on:
@@ -20,7 +17,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
@@ -44,4 +41,14 @@ jobs:
       uses: codecov/codecov-action@v3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: SonarCloud analysis
+      uses: SonarSource/sonarcloud-github-action@v1.8
+      with:
+        args: >
+          -Dsonar.organization=benpollarduk
+          -Dsonar.projectKey=benpollarduk_adventure-framework
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         

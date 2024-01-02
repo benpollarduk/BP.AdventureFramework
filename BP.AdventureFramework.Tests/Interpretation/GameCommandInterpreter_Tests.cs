@@ -239,7 +239,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
             var interpreter = new GameCommandInterpreter();
             var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
-            var result = interpreter.Interpret($"{GameCommandInterpreter.Use} test {GameCommandInterpreter.On}", game);
+            var result = interpreter.Interpret($"{GameCommandInterpreter.Use} test {GameCommandInterpreter.On} test", game);
 
             Assert.IsTrue(result.WasInterpretedSuccessfully);
         }

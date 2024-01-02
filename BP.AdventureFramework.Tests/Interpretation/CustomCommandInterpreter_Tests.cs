@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
             var interpreter = new CustomCommandInterpreter();
             var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
 
-            var result = interpreter.GetContextualCommandHelp( game);
+            var result = interpreter.GetContextualCommandHelp(game);
 
             Assert.AreEqual(0, result.Length);
         }

@@ -221,5 +221,27 @@ namespace BP.AdventureFramework.Tests.Interpretation
 
             Assert.IsTrue(result.WasInterpretedSuccessfully);
         }
+
+        [TestMethod]
+        public void GivenUse_WhenInterpret_ThenReturnTrue()
+        {
+            var interpreter = new GameCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+
+            var result = interpreter.Interpret(GameCommandInterpreter.Use, game);
+
+            Assert.IsTrue(result.WasInterpretedSuccessfully);
+        }
+
+        [TestMethod]
+        public void GivenUseOn_WhenInterpret_ThenReturnTrue()
+        {
+            var interpreter = new GameCommandInterpreter();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+
+            var result = interpreter.Interpret($"{GameCommandInterpreter.Use} test {GameCommandInterpreter.On}", game);
+
+            Assert.IsTrue(result.WasInterpretedSuccessfully);
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace BP.AdventureFramework.Examples.Assets
     [TestClass]
     public class ConditionalDescription_Tests
     {
+        [TestMethod]
         public void GivenGetDescription_WhenTrue_ThenReturnTrueDescription()
         {
             var conditional = new ConditionalDescription("A", "B", () => true);
@@ -15,6 +16,7 @@ namespace BP.AdventureFramework.Examples.Assets
             Assert.AreEqual("A", result);
         }
 
+        [TestMethod]
         public void GivenGetDescription_WhenFalse_ThenReturnFalseDescription()
         {
             var conditional = new ConditionalDescription("A", "B", () => false);

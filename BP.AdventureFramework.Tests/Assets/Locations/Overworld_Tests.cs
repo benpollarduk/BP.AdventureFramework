@@ -37,5 +37,40 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void GivenRegionPresent_WhenRemoveRegion_ThenRegionRemoved()
+        {
+            var overworld = new Overworld(string.Empty, string.Empty);
+            var region = new Region("abc", string.Empty);
+            overworld.AddRegion(region);
+
+            overworld.RemoveRegion(region);
+
+            Assert.AreEqual(0, overworld.Regions.Length);
+        }
+
+        [TestMethod]
+        public void GivenRegionPresent_WhenMoveRegion_ThenReturnTrue()
+        {
+            var overworld = new Overworld(string.Empty, string.Empty);
+            var region = new Region("abc", string.Empty);
+            overworld.AddRegion(region);
+
+            var result = overworld.Move(region);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenRegionIsNotPresent_WhenMoveRegion_ThenReturnFalse()
+        {
+            var overworld = new Overworld(string.Empty, string.Empty);
+            var region = new Region("abc", string.Empty);
+
+            var result = overworld.Move(region);
+
+            Assert.IsFalse(result);
+        }
     }
 }

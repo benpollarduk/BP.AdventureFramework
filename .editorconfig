@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# VSSpell001: Spell Check
-dotnet_diagnostic.VSSpell001.severity = none

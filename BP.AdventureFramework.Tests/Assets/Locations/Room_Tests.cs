@@ -162,5 +162,18 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void GivenHasExit_WhenRemoveExit_ThenExitRemoved()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var exit = new Exit(Direction.Down);
+            room.AddExit(exit);
+
+            room.RemoveExit(exit);
+            var result = room.ContainsExit(exit.Direction);
+
+            Assert.IsFalse(result);
+        }
     }
 }

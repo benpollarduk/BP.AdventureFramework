@@ -1,3 +1,8 @@
+<div align="center">
+
+# BP.AdventureFramework
+A C# library that provides a framework for building text adventures and interactive stories in .NET.
+
 [![main-ci](https://github.com/benpollarduk/adventure-framework/actions/workflows/main-ci.yml/badge.svg)](https://github.com/benpollarduk/adventure-framework/actions/workflows/main-ci.yml)
 [![codecov](https://codecov.io/gh/benpollarduk/adventure-framework/graph/badge.svg?token=X94GLVVA0T)](https://codecov.io/gh/benpollarduk/adventure-framework)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_adventure-framework&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=benpollarduk_adventure-framework)
@@ -8,7 +13,9 @@
 [![GitHub release](https://img.shields.io/github/release/benpollarduk/adventure-framework.svg)](https://github.com/benpollarduk/adventure-framework/releases)
 [![License](https://img.shields.io/github/license/benpollarduk/adventure-framework.svg)](https://opensource.org/licenses/MIT)
 
-# Introduction 
+</div>
+
+## Introduction
 .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has since had some quality of life updates.
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/3d6fb517-3b00-4362-868a-0a21b5195163)
@@ -75,16 +82,16 @@ Maps are automatically generated for regions:
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/b6c05233-6856-4103-be44-be1c73a85874)
 
-# Prerequisites
+## Prerequisites
  * Windows
    * Download free IDE Visual Studio 2022 Community ( >> https://visualstudio.microsoft.com/de/vs/community/ ), or use commercial Visual Studio 2022 Version.
 
-# Getting Started
+## Getting Started
  * Clone the repo.
  * Build all projects.
  * Run the BP.AdventureFramework.Examples project.
 
-# Hello World
+## Hello World
 ```csharp
 // create player
 var player = new PlayableCharacter("Dave", "A young boy on a quest to find the meaning of life.");
@@ -110,5 +117,5 @@ var gameCreator = Game.Create("The Life Of Dave",
 Game.Execute(gameCreator);
 ```
 
-# For Open Questions
+## For Open Questions
 Visit https://github.com/benpollarduk/adventure-framework/issues

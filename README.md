@@ -18,7 +18,7 @@ A C# library that provides a framework for building text adventures and interact
 ## Introduction
 BP.AdventureFramework is a .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has since had some quality of life updates.
 
-![SelectBP AdventureFrameworkDemo2024-01-1016-59-42-ezgif com-crop](https://github.com/benpollarduk/adventure-framework/assets/129943363/fa58e48a-3ff2-40c7-a29b-ad5bc7a1fcd1)
+![BP AdventureFrameworkDemo_example](https://github.com/benpollarduk/adventure-framework/assets/129943363/83be12f2-7195-4e50-a32c-f702ca655af2)
 
 Provides simple classes for developing game elements:
   * Interface and base class for examinable objects:

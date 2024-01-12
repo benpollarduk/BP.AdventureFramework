@@ -15,12 +15,12 @@ A C# library that provides a framework for building text adventures and interact
 
 </div>
 
-## Introduction
+## Overview
 BP.AdventureFramework is a .NET Standard 2.0 implementation of a framework for building text based adventures. This was originally developed in 2011 but has since had some quality of life updates.
 
 ![BP AdventureFrameworkDemo_example](https://github.com/benpollarduk/adventure-framework/assets/129943363/20656e76-4e80-475e-aa73-93976d98c5c9)
 
-Provides simple classes for developing game elements:
+BP.AdventureFramework provides simple classes for developing game elements:
   * Interface and base class for examinable objects:
     * Examination returns a description of the object.
     * Descriptions can be conditional, with different results generated from the game state.
@@ -43,44 +43,56 @@ Provides simple classes for developing game elements:
     * Support interaction with the player, rooms, other items and NPC's.
     * Items can morph in to other items. For example, using item A on item B may cause item B to morph into item C.
   
-The framework provides keywords for interacting with game elements:
-  * Drop - drop an item.
-  * Examine - allows items, characters and environments to be examined.
-  * Take - take an item.
-  * Talk to - talk to a NPC.
-  * Use on - use an item. Items can be used on a variety of targets.
-  * N, S, E, W, U, D - traverse through the rooms in a region.
+### Commands
+  
+BP.AdventureFramework provides commands for interacting with game elements:
+  * **Drop X** - drop an item.
+  * **Examine X** - allows items, characters and environments to be examined.
+  * **Take X** - take an item.
+  * **Talk to X** - talk to a NPC, where X is the NPC.
+  * **Use X on Y** - use an item. Items can be used on a variety of targets. Where X is the item and Y is the target.
+  * **N, S, E, W, U, D** - traverse through the rooms in a region.
 
-Conversations with NPC's can be entered in to with an easy to use interface to display dialogue and provide responses:
+BP.AdventureFramework also provides global commands to help with game flow and option management:
+  * **About** - display version information.
+  * **CommandsOn / CommandsOff** - toggle commands on/off.
+  * **Exit** - exit the game.
+  * **Help** - display the help screen.
+  * **KeyOn / KeyOff** - turn the Key on/off.
+  * **Map** - display the map.
+  * **New** - start a new game.
+
+Custom commands can be added to games without the need to extend the existing interpretation.
+
+### Interpretation
+
+BP.AdventureFramework provides classes for handling interpretation of input. Interpretation is extensible with the ability for custom interpreters to be added outside of the core BP.AdventureFramework library.
+
+### Conversations
+
+Conversations can be held between the player and a NPC. Conversations support multiple lines of dialogue and responses.
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/5ed1afc0-1ab8-4d35-9c90-dd848f18bfda)
   
-The framework also provides global commands to help with game flow:
-  * About - display version information.
-  * CommandsOn / CommandsOff - toggle commands on/off.
-  * Exit - exit the game.
-  * Help - display the help screen.
-  * KeyOn / KeyOff - turn the Key on/off.
-  * Map - display the map.
-  * New - start a new game.
+### Rendering
 
-All game management is provided by the framework, including:
-  * Rendering of game screens:
-    * Default frame.
-    * Help frame.
-    * Map frame.
-    * Title frame.
-    * Completion frame.
-    * Game over frame.
-    * Transition frame.
-    * Conversation frame.
-  * Input parsing.
-  * State management.
-  * Game creation.
+BP.AdventureFramework provides frames for rendering the various game screens. These are fully extensible and customisable. These include:
+   * Scene frame.
+   * Help frame.
+   * Map frame.
+   * Title frame.
+   * Completion frame.
+   * Game over frame.
+   * Transition frame.
+   * Conversation frame.
+
+### Maps
   
-Maps are automatically generated for regions:
+Maps are automatically generated for regions and rooms, and can be viewed with the **map** command:
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/b6c05233-6856-4103-be44-be1c73a85874)
+
+Maps display visited rooms, exits, player position, if an item is in a room, lower floors and more.
 
 ## Prerequisites
  * Windows
@@ -93,16 +105,17 @@ Maps are automatically generated for regions:
 
 ## Hello World
 ```csharp
-// create player
+// create the player. this is the character the user plays as
 var player = new PlayableCharacter("Dave", "A young boy on a quest to find the meaning of life.");
 
-// create region maker and add room
+/// create region maker. the region maker simplifies creating in game regions. a region contains a series of rooms
 var regionMaker = new RegionMaker("Mountain", "An imposing volcano just East of town.")
 {
+    // add a room to the region at position x 0, y 0, z 0
     [0, 0, 0] = new Room("Cavern", "A dark cavern set in to the base of the mountain.")
 };
 
-// create overworld maker
+// create overworld maker. the overworld maker simplifies creating in game overworlds. an overworld contains a series or regions
 var overworldMaker = new OverworldMaker("Daves World", "An ancient kingdom.", regionMaker);
 
 // create callback for generating games
@@ -113,7 +126,7 @@ var gameCreator = Game.Create("The Life Of Dave",
     () => player,
     x => CompletionCheckResult.NotComplete);
 
-// execute the game
+// begin the execution of the game
 Game.Execute(gameCreator);
 ```
 

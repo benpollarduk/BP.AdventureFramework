@@ -15,9 +15,6 @@
     <FileVersion>1.4.5.0</FileVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\benpollard\Documents\Local Documents\GH\adventure-framework\BP.AdventureFramework\BP.AdventureFramework\BP.AdventureFramework.xml</DocumentationFile>
-  </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>BP.AdventureFramework.Tests</_Parameter1>

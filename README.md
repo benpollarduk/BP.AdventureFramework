@@ -53,7 +53,6 @@ Items add richness the game. Items support interaction with the player, rooms, o
 For example, using item A on item B may cause item B to morph into item C.
 
 ```csharp
-// create a sword
 var sword = new Item("Sword", "The heroes sword.");
 ```
 
@@ -61,7 +60,6 @@ var sword = new Item("Sword", "The heroes sword.");
 Each BP.AdventureFramework game has a single playable charcter. This who the player controls.
 
 ```csharp
-// create a player
 var player = new PlayableChracter("Dave", "The hero of the story.");
 ```
 
@@ -70,7 +68,6 @@ Non-playable characters (NPC's) can be added to rooms and can help drive the nar
 and interact with items.
 
 ```csharp
-// create a npc
 var npc = new NonPlayableChracter("Gary", "The antagonist of the story.");
 ```
   

@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Tests.Assets
             var i = new Item("Test", "Test Description.");
             i.Commands = new[]
             {
-                new CustomCommand(new CommandHelp("Test Command", "Test Command Descritpion."), true, (g, a) =>
+                new CustomCommand(new CommandHelp("Test Command", "Test Command Descritpion."), true, (_, _) =>
                 {
                     return new Reaction(ReactionResult.OK, "");
                 })
@@ -43,11 +43,11 @@ namespace BP.AdventureFramework.Tests.Assets
             var i = new Item("Test", "Test Description.");
             i.Commands = new[]
             {
-                new CustomCommand(new CommandHelp("A*", "Test Command Descritpion."), true, (g, a) =>
+                new CustomCommand(new CommandHelp("A*", "Test Command Descritpion."), true, (_, _) =>
                 {
                     return new Reaction(ReactionResult.OK, "");
                 }),
-                new CustomCommand(new CommandHelp("B*", "Test Command Descritpion."), true, (g, a) =>
+                new CustomCommand(new CommandHelp("B*", "Test Command Descritpion."), true, (_, _) =>
                 {
                     return new Reaction(ReactionResult.OK, "");
                 })

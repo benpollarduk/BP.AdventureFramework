@@ -12,7 +12,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenConverserWithAConversationWithOneParagraph_WhenConstructed_ThenCurrentParagraphIsFirstParagraph()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
@@ -54,7 +54,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenConverserWithAConversation_WhenNext_ThenResultIsInternal()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
@@ -66,7 +66,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenConverserWithAConversationWithOneParagraph_WhenNext_ThenCurrentParagraphIsUnchanged()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenConverserWithAConversationWithTwoParagraphs_WhenNext_ThenCurrentParagraphIsSecondParagraph()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty), new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
@@ -93,7 +93,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenNull_WhenRespond_ThenReactionIsError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
@@ -105,7 +105,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenCurrentParagraphWithNoResponses_WhenRespond_ThenReactionIsError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(npc);
 
@@ -117,7 +117,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenCurrentParagraphWithResponse_WhenRespond_ThenReactionIsInternal()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var response = new Response(string.Empty, 0);
             var paragraph = new Paragraph(string.Empty, 0) {  Responses = new[] { response }};
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(paragraph) };

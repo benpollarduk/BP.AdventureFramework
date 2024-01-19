@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Items
         {
             var conchShell = new Item(Name, Description, true)
             {
-                Interaction = (item, target) =>
+                Interaction = (item, _) =>
                 {
                     switch (item.Identifier.IdentifiableName)
                     {

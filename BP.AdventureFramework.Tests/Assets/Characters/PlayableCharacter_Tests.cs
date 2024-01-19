@@ -68,7 +68,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
             var item = new Item("Test", string.Empty);
             var pc = new PlayableCharacter(string.Empty, string.Empty)
             {
-                Interaction = (i, target) =>
+                Interaction = (i, _) =>
                 {
                     if (i == null)
                         return new InteractionResult(InteractionEffect.NoEffect, null);

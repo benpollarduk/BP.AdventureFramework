@@ -14,7 +14,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenNoItem_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var command = new UseOn(null, null);
 
             var result = command.Invoke(game);
@@ -25,7 +25,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenNoTarget_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var item = new Item(Identifier.Empty, Description.Empty, true);
             var command = new UseOn(item, null);
 
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenNoPlayer_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var item = new Item(Identifier.Empty, Description.Empty, true);
             var command = new UseOn(item, null);
 
@@ -58,7 +58,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             region.AddRoom(room, 0, 0, 0);
             var overworld = new Overworld(string.Empty, string.Empty);
             overworld.AddRegion(region);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => player, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => player, null, null).Invoke();
             var command = new UseOn(item, npc);
 
             var result = command.Invoke(game);
@@ -76,7 +76,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             region.AddRoom(room, 0, 0, 0);
             var overworld = new Overworld(string.Empty, string.Empty);
             overworld.AddRegion(region);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => pc, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => pc, null, null).Invoke();
             var command = new UseOn(item, pc);
 
             var result = command.Invoke(game);
@@ -94,7 +94,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             var overworld = new Overworld(string.Empty, string.Empty);
             overworld.AddRegion(region);
             var player = new PlayableCharacter(Identifier.Empty, Description.Empty);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => player, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => player, null, null).Invoke();
             var command = new UseOn(item, room);
 
             var result = command.Invoke(game);

@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.West), new Exit(Direction.North, true));
 
-            InteractionCallback innerCaveInteraction = (i, target) =>
+            InteractionCallback innerCaveInteraction = (i, _) =>
             {
                 if (i != null && ConchShell.Name.EqualsExaminable(i))
                 {

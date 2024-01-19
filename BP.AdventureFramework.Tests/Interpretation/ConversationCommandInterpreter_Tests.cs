@@ -28,7 +28,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoActiveConverser_WhenGetContextualCommands_ThenReturnEmptyArray()
         {
             var interpreter = new ConversationCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
 
             var result = interpreter.GetContextualCommandHelp(game);
 
@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenActiveConverserNoResponses_WhenGetContextualCommands_ThenReturnArrayWith1Element()
         {
             var interpreter = new ConversationCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             npc.Conversation = new Conversation(new Paragraph("Test"));
 
@@ -54,7 +54,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenActiveConverser1CustomCommand_WhenGetContextualCommands_ThenReturnArrayWith2Elements()
         {
             var interpreter = new ConversationCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             npc.Conversation = new Conversation(
                 new Paragraph("Test")
@@ -77,7 +77,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoActiveConverser_WhenInterpret_ThenWasInterpretedSuccessfullyIsFalse()
         {
             var interpreter = new ConversationCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
 
             var result = interpreter.Interpret(string.Empty, game);
 
@@ -88,7 +88,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoActiveConverserAndEnd_WhenInterpret_ThenWasInterpretedSuccessfullyIsTrue()
         {
             var interpreter = new ConversationCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             npc.Conversation = new Conversation(new Paragraph("Test"));
 
@@ -103,7 +103,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoActiveConverserAndEmpty_WhenInterpret_ThenWasInterpretedSuccessfullyIsTrue()
         {
             var interpreter = new ConversationCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
             var npc = new NonPlayableCharacter(string.Empty, string.Empty);
             npc.Conversation = new Conversation(new Paragraph("Test"));
 

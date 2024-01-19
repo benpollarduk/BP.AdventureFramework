@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenSomethingToExamine_WhenInvoke_ThenOK()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var region = new Region(Identifier.Empty, Description.Empty);
             var command = new Examine(region);
 

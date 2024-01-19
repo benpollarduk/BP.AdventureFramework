@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items
         {
             var stump = new Item(Name, Description);
 
-            stump.Interaction = (item, target) =>
+            stump.Interaction = (item, _) =>
             {
                 if (Shield.Name.EqualsExaminable(item))
                 {

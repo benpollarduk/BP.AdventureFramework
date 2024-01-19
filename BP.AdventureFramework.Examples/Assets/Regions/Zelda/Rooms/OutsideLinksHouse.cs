@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
             var door = TailDoor.Create();
             var saria = Saria.Create(pC, room);
 
-            door.Interaction = (item, target) =>
+            door.Interaction = (item, _) =>
             {
                 if (TailKey.Name.EqualsExaminable(item))
                 {

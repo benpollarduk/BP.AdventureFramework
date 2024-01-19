@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Examples.Assets.Player
         {
             var player = new PlayableCharacter(Name, Description, Knife.Create())
             {
-                Interaction = (i, target) =>
+                Interaction = (i, _) =>
                 {
                     if (i == null)
                         return new InteractionResult(InteractionEffect.NoEffect, null);

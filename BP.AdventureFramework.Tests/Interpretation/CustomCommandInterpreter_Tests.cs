@@ -28,7 +28,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoCustomCommands_WhenGetContextualCommands_ThenReturnEmptyArray()
         {
             var interpreter = new CustomCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.GetContextualCommandHelp(game);
 
@@ -39,8 +39,8 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNoCustomCommands_WhenGetContextualCommands_ThenReturn1CommandHelp()
         {
             var interpreter = new CustomCommandInterpreter();
-            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), true, (g, a) => new Reaction(ReactionResult.Error, string.Empty)) };
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), true, (_, _) => new Reaction(ReactionResult.Error, string.Empty)) };
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.GetContextualCommandHelp(game);
 
@@ -51,13 +51,13 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenValidCustomCommand_WhenInterpret_ThenCommandInvoked()
         {
             var interpreter = new CustomCommandInterpreter();
-            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), true, (g, a) =>
+            overworld.Commands = new[] { new CustomCommand(new CommandHelp("Test", string.Empty), true, (_, _) =>
             {
                 Assert.IsTrue(true);
                 return new Reaction(ReactionResult.Error, string.Empty);
 
             }) };
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             interpreter.Interpret("Test", game);
         }

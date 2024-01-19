@@ -16,7 +16,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Appenders.Legacy
         {
             var builder = new LegacyAboutFrameBuilder(new LineStringBuilder());
 
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => null, () => null, p => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => null, () => null, _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
             var result = builder.Build(string.Empty, game,  80, 50);
             var lines = result.ToString().Split(new[] { StringUtilities.Newline }, StringSplitOptions.RemoveEmptyEntries);
             var lineCount = lines.Length;

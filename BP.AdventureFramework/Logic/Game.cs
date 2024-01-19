@@ -238,12 +238,12 @@ namespace BP.AdventureFramework.Logic
             do
             {
                 var displayReactionToInput = true;
-                var EndCheckResult = CompletionCondition(this);
+                var endCheckResult = CompletionCondition(this);
                 var gameOverCheckResult = GameOverCondition(this);
 
-                if (EndCheckResult.HasEnded)
+                if (endCheckResult.HasEnded)
                 {
-                    Refresh(FrameBuilders.CompletionFrameBuilder.Build(EndCheckResult.Title, EndCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
+                    Refresh(FrameBuilders.CompletionFrameBuilder.Build(endCheckResult.Title, endCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
                     End();
                 } 
                 else if (gameOverCheckResult.HasEnded)

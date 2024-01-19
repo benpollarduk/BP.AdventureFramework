@@ -238,8 +238,8 @@ namespace BP.AdventureFramework.Logic
             do
             {
                 var displayReactionToInput = true;
-                var endCheckResult = CompletionCondition(this);
-                var gameOverCheckResult = GameOverCondition(this);
+                var endCheckResult = CompletionCondition(this) ?? EndCheckResult.NotEnded;
+                var gameOverCheckResult = GameOverCondition(this) ?? EndCheckResult.NotEnded;
 
                 if (endCheckResult.HasEnded)
                 {
@@ -259,8 +259,8 @@ namespace BP.AdventureFramework.Logic
                 if (!CurrentFrame.AcceptsInput)
                 {
                     var frame = CurrentFrame;
-
-                    while (!WaitForKeyPressCallback(Convert.ToChar(13)) && CurrentFrame == frame)
+                    
+                    while (!WaitForKeyPressCallback(StringUtilities.CR) && CurrentFrame == frame)
                         DrawFrame(CurrentFrame);
                 }
                 else

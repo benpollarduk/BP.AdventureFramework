@@ -5,7 +5,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items
 {
-    public class Stump : ItemTemplate<Stump>
+    public class Stump : ItemTemplate
     {
         #region Constants
 

@@ -77,15 +77,15 @@ namespace BP.AdventureFramework.Examples
 
                     var regions = new List<Region>
                     {
-                        Everglades.Create(p),
-                        Flat.Create(p),
-                        Zelda.Create(p),
+                        new Everglades().Instantiate(),
+                        new Flat().Instantiate(),
+                        new Zelda(p).Instantiate(),
                         castle.Regions.First()
                     };
                     
                     var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");
 
-                    var hub = Hub.Create(p);
+                    var hub = new Hub().Instantiate();
                     PopulateHub(hub, overworld, regions.ToArray());
                     overworld.AddRegion(hub);
 
@@ -126,7 +126,7 @@ namespace BP.AdventureFramework.Examples
                     about,
                     about,
                     x => overworldCreator(x), 
-                    Player.Create,
+                    () => new Player().Instantiate(),
                     DetermineIfGameHasCompleted,
                     DetermineIfGameOver);
 

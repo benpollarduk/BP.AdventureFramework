@@ -1,6 +1,5 @@
 ﻿using System;
 using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Locations;
 
 namespace BP.AdventureFramework.Utilities.Templates
 {

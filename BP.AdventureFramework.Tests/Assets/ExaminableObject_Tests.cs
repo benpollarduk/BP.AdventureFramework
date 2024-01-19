@@ -1,6 +1,5 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Interpretation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

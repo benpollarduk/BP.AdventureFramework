@@ -1,8 +1,6 @@
-﻿using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
-using BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities.Templates;
 
@@ -27,7 +25,6 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
         {
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.East, true));
             var door = new TailDoor().Instantiate();
-            var saria = new Saria().Instantiate();
 
             door.Interaction = (item, _) =>
             {
@@ -48,7 +45,6 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
             room.AddItem(new Stump().Instantiate());
             room.AddItem(door);
-            room.AddCharacter(saria);
 
             return room;
         }

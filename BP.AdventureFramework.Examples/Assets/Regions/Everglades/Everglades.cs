@@ -24,13 +24,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [2, 0, 0] = ForestEntrance.Create(),
-                [2, 1, 0] = ForestFloor.Create(),
-                [2, 2, 0] = CaveMouth.Create(),
-                [1, 2, 0] = GreatWesternOcean.Create(),
-                [2, 3, 0] = Cave.Create(),
-                [3, 3, 0] = InnerCave.Create(),
-                [3, 4, 0] = Outskirts.Create()
+                [2, 0, 0] = new ForestEntrance().Instantiate(),
+                [2, 1, 0] = new ForestFloor().Instantiate(),
+                [2, 2, 0] = new CaveMouth().Instantiate(),
+                [1, 2, 0] = new GreatWesternOcean().Instantiate(),
+                [2, 3, 0] = new Cave().Instantiate(),
+                [3, 3, 0] = new InnerCave().Instantiate(),
+                [3, 4, 0] = new Outskirts().Instantiate()
             };
 
 

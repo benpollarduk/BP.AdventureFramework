@@ -1,6 +1,7 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Utilities.Templates;
 
+
 namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 {
     internal class Outskirts : RoomTemplate

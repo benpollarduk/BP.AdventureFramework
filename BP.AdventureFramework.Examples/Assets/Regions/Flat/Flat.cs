@@ -27,10 +27,10 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
         /// <returns>The region.</returns>
         public override Region Instantiate()
         {
-            var roof = Roof.Create();
-            var easternHallway = EasternHallway.Create();
-            var spareBedroom = SpareBedroom.Create();
-            var lounge = Lounge.Create();
+            var roof = new Roof().Instantiate();
+            var easternHallway = new EasternHallway().Instantiate();
+            var spareBedroom = new SpareBedroom().Instantiate();
+            var lounge = new Lounge().Instantiate();
 
             lounge.Description = new ConditionalDescription("Your in a large sitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. There is what appears to be a lead of some sort poking out from underneath the sofa. The kitchen is to the north.",
                 "Your in a large sitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. The kitchen is to the north.",
@@ -74,16 +74,16 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
 
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [2, 0, 0] = Bedroom.Create(),
+                [2, 0, 0] = new Bedroom().Instantiate(),
                 [2, 1, 0] = easternHallway,
-                [1, 1, 0] = WesternHallway.Create(),
-                [1, 2, 0] = Bathroom.Create(),
+                [1, 1, 0] = new WesternHallway().Instantiate(),
+                [1, 2, 0] = new Bathroom().Instantiate(),
                 [1, 3, 0] = roof,
                 [1, 0, 0] = spareBedroom,
-                [0, 1, 0] = Kitchen.Create(),
+                [0, 1, 0] = new Kitchen().Instantiate(),
                 [0, 0, 0] = lounge,
-                [3, 1, 0] = Stairway.Create(),
-                [2, 0, 1] = Attic.Create()
+                [3, 1, 0] = new Stairway().Instantiate(),
+                [2, 0, 1] = new Attic().Instantiate()
             };
 
             return regionMaker.Make(2, 0, 0);

@@ -5,7 +5,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 {
-    public class Kettle : ItemTemplate<Kettle>
+    public class Kettle : ItemTemplate
     {
         #region Constants
 
@@ -32,7 +32,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
                     {
                         if (EmptyCoffeeMug.Name.EqualsIdentifier(i.Identifier))
                         {
-                            i.Morph(MugOfCoffee.Create());
+                            i.Morph(new MugOfCoffee().Instantiate());
                             return new InteractionResult(InteractionEffect.ItemMorphed, i, "You put some instant coffee granuals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
                         }
                     }

@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversation
         [TestMethod]
         public void GivenNullResponse_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var command = new Respond(null);
 
             var result = command.Invoke(game);
@@ -33,7 +33,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversation
         [TestMethod]
         public void GivenNoConverser_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var response = new Response("");
             var command = new Respond(response);
 
@@ -45,7 +45,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversation
         [TestMethod]
         public void GivenValidGame_WhenInvoke_ThenInternal()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var response = new Response("");
             var paragraph = new Paragraph(string.Empty) { Responses = new[] { response } };
             var conversation = new AdventureFramework.Conversations.Conversation(paragraph);

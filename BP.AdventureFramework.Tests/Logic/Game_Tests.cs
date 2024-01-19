@@ -17,7 +17,7 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room(string.Empty, string.Empty);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room(string.Empty, string.Empty);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -46,7 +46,7 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room(string.Empty, string.Empty,null, item);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -61,7 +61,7 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room(string.Empty, string.Empty, null, item);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -76,7 +76,7 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room(string.Empty, string.Empty, exit);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -91,7 +91,7 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room(string.Empty, string.Empty, exit);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -107,7 +107,7 @@ namespace BP.AdventureFramework.Tests.Logic
             room.AddCharacter(npc);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 
@@ -123,7 +123,7 @@ namespace BP.AdventureFramework.Tests.Logic
             room.AddCharacter(npc);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), x => new CompletionCheckResult(false, string.Empty, string.Empty)).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = game.GetAllPlayerVisibleExaminables();
 

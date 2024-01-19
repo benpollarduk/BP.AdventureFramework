@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenTargetIsDead_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty, null, false, null);
             var command = new Talk(npc);
 
@@ -34,7 +34,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenTarget_WhenInvoke_ThenInternal()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var npc = new NonPlayableCharacter(Identifier.Empty, Description.Empty);
             var command = new Talk(npc);
 

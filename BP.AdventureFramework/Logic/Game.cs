@@ -171,7 +171,12 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Get or set the completion condition.
         /// </summary>
-        internal CompletionCheck CompletionCondition { get; set; }
+        internal EndCheck CompletionCondition { get; set; }
+
+        /// <summary>
+        /// Get or set the game over condition.
+        /// </summary>
+        internal EndCheck GameOverCondition { get; set; }
 
         /// <summary>
         /// Get or set the callback to invoke when waiting for key presses.
@@ -233,17 +238,17 @@ namespace BP.AdventureFramework.Logic
             do
             {
                 var displayReactionToInput = true;
+                var EndCheckResult = CompletionCondition(this);
+                var gameOverCheckResult = GameOverCondition(this);
 
-                var result = CompletionCondition(this);
-
-                if (result.IsCompleted)
+                if (EndCheckResult.HasEnded)
                 {
-                    Refresh(FrameBuilders.CompletionFrameBuilder.Build(result.Title, result.Description, DisplaySize.Width, DisplaySize.Height));
+                    Refresh(FrameBuilders.CompletionFrameBuilder.Build(EndCheckResult.Title, EndCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
                     End();
                 } 
-                else if (!Player.IsAlive)
+                else if (gameOverCheckResult.HasEnded)
                 {
-                    Refresh(FrameBuilders.GameOverFrameBuilder.Build("Game Over", reaction.Description, DisplaySize.Width, DisplaySize.Height));
+                    Refresh(FrameBuilders.GameOverFrameBuilder.Build(gameOverCheckResult.Title, gameOverCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
                     End();
                 }
                 else if (ActiveConverser != null)
@@ -493,8 +498,9 @@ namespace BP.AdventureFramework.Logic
         /// <param name="overworldGenerator">A function to generate the overworld with.</param>
         /// <param name="playerGenerator">The function to generate the player with.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
+        /// <param name="gameOverCondition">The callback used to check game over.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string introduction, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition)
+        public static GameCreationCallback Create(string name, string introduction, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, EndCheck completionCondition, EndCheck gameOverCondition)
         {
             return Create(
                 name,
@@ -503,6 +509,7 @@ namespace BP.AdventureFramework.Logic
                 overworldGenerator,
                 playerGenerator,
                 completionCondition,
+                gameOverCondition,
                 DefaultSize,
                 FrameBuilderCollections.Default,
                 ExitMode.ReturnToTitleScreen,
@@ -520,12 +527,13 @@ namespace BP.AdventureFramework.Logic
         /// <param name="playerGenerator">The function to generate the player with.</param>
         /// <param name="displaySize">The display size.</param>
         /// <param name="completionCondition">The callback used to check game completion.</param>
+        /// <param name="gameOverCondition">The callback used to check game over.</param>
         /// <param name="frameBuilders">The collection of frame builders to use to render the game.</param>
         /// <param name="exitMode">The exit mode.</param>
         /// <param name="errorPrefix">A prefix to use when displaying errors.</param>
         /// <param name="interpreter">The interpreter.</param>
         /// <returns>A new GameCreationHelper that will create a GameCreator with the parameters specified.</returns>
-        public static GameCreationCallback Create(string name, string introduction, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, CompletionCheck completionCondition, Size displaySize, FrameBuilderCollection frameBuilders, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
+        public static GameCreationCallback Create(string name, string introduction, string description, OverworldCreationCallback overworldGenerator, PlayerCreationCallback playerGenerator, EndCheck completionCondition, EndCheck gameOverCondition, Size displaySize, FrameBuilderCollection frameBuilders, ExitMode exitMode, string errorPrefix, IInterpreter interpreter)
         {
             return () =>
             {
@@ -535,6 +543,7 @@ namespace BP.AdventureFramework.Logic
                 {
                     FrameBuilders = frameBuilders,
                     CompletionCondition = completionCondition,
+                    GameOverCondition = gameOverCondition,
                     ExitMode = exitMode,
                     ErrorPrefix = errorPrefix,
                     Interpreter = interpreter

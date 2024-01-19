@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
             var bush = Bush.Create();
             var rupee = Rupee.Create();
 
-            bush.Interaction = (item, target) =>
+            bush.Interaction = (item, _) =>
             {
                 if (Sword.Name.EqualsExaminable(item))
                 {

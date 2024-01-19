@@ -13,7 +13,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         [TestMethod]
         public void GivenNoCharacter_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var command = new Drop(null);
 
             var result = command.Invoke(game);
@@ -25,7 +25,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
         public void GivenNoItem_WhenInvoke_ThenError()
         {
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, () => character, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, () => character, null, null).Invoke();
             var command = new Drop(null);
 
             var result = command.Invoke(game);
@@ -43,7 +43,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             overworld.AddRegion(region);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => character, null, null).Invoke();
             var command = new Drop(item);
 
             var result = command.Invoke(game);
@@ -62,7 +62,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
             character.AcquireItem(item);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, p => overworld, () => character, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => character, null, null).Invoke();
             var command = new Drop(item);
 
             var result = command.Invoke(game);

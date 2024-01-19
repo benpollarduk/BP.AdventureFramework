@@ -22,7 +22,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversation
         [TestMethod]
         public void GivenNoConverser_WhenInvoke_ThenError()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var command = new Next();
 
             var result = command.Invoke(game);
@@ -33,7 +33,7 @@ namespace BP.AdventureFramework.Tests.Commands.Conversation
         [TestMethod]
         public void GivenValidGameAndConverser_WhenInvoke_ThenInternal()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var converser = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new AdventureFramework.Conversations.Conversation(new Paragraph(string.Empty)) };
             game.StartConversation(converser);
             var command = new Next();

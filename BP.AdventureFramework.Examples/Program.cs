@@ -21,14 +21,22 @@ namespace BP.AdventureFramework.Examples
 {
     internal class Program
     {
-        private static CompletionCheckResult DetermineIfGameHasCompleted(Game game)
+        private static EndCheckResult DetermineIfGameHasCompleted(Game game)
         {
             var atDestination = TailCave.Name.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom);
 
             if (!atDestination)
-                return CompletionCheckResult.NotComplete;
+                return EndCheckResult.NotEnded;
 
-            return new CompletionCheckResult(true, "Game Over", "You have reached the end of the game, thanks for playing!");
+            return new EndCheckResult(true, "Game Over", "You have reached the end of the game, thanks for playing!");
+        }
+
+        private static EndCheckResult DetermineIfGameOver(Game game)
+        {
+            if (game.Player.IsAlive)
+                return EndCheckResult.NotEnded;
+
+            return new EndCheckResult(true, "Game Over", "You are dead!");
         }
 
         private static void PopulateHub(Region hub, Overworld overworld, Region[] otherRegions)
@@ -41,7 +49,7 @@ namespace BP.AdventureFramework.Examples
                 {
                     Commands = new[]
                     {
-                        new CustomCommand(new CommandHelp($"Warp {otherRegion.Identifier.Name}", $"Use the {otherRegion.Identifier.Name} Sphere to warp to the {otherRegion.Identifier.Name}."), true, (g, a) =>
+                        new CustomCommand(new CommandHelp($"Warp {otherRegion.Identifier.Name}", $"Use the {otherRegion.Identifier.Name} Sphere to warp to the {otherRegion.Identifier.Name}."), true, (g, _) =>
                         {
                             var move = overworld?.Move(otherRegion) ?? false;
 
@@ -119,7 +127,8 @@ namespace BP.AdventureFramework.Examples
                     about,
                     x => overworldCreator(x), 
                     Player.Create,
-                    DetermineIfGameHasCompleted);
+                    DetermineIfGameHasCompleted,
+                    DetermineIfGameOver);
 
                 Game.Execute(creator);
             }

@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenEmptyString_WhenInterpret_ThenReturnFalse()
         {
             var interpreter = new GlobalCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(string.Empty, game);
 
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNew_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GlobalCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.New, game);
 
@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenAbout_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GlobalCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.About, game);
 
@@ -59,7 +59,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenExit_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GlobalCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.Exit, game);
 
@@ -70,7 +70,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenHelp_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GlobalCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.Help, game);
 
@@ -81,7 +81,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenMap_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GlobalCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, x => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GlobalCommandInterpreter.Map, game);
 

@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Tests.Commands.Frame
         [TestMethod]
         public void GivenValidGame_WhenInvoke_ThenOK()
         {
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var command = new KeyOff();
 
             var result = command.Invoke(game);

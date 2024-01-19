@@ -1,10 +1,10 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Conversations;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
 {
-    internal class Beth : NonPlayableCharacterTemplate
+    internal class Beth : IAssetTemplate<NonPlayableCharacter>
     {
         #region Constants
 
@@ -13,13 +13,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
 
         #endregion
 
-        #region Overrides of NonPlayableCharacterTemplate
+        #region Overrides of NonIAssetTemplate<PlayableCharacter>
 
         /// <summary>
-        /// Instantiate a new instance of the non-playable character.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The non-playable character.</returns>
-        public override NonPlayableCharacter Instantiate()
+        /// <returns>The asset.</returns>
+        public NonPlayableCharacter Instantiate()
         {
             return new NonPlayableCharacter(Name, Description)
             {

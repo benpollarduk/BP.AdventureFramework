@@ -1,11 +1,11 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Examples.Assets.Items;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Items
 {
-    public class ConchShell : ItemTemplate
+    public class ConchShell : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -14,13 +14,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate
+        #region Implementation of IAssetTemplate<Item>
 
         /// <summary>
-        /// Instantiate a new instance of the item.
+        /// Instantiate a new instance of the asset.
         /// </summary>
         /// <returns>The item.</returns>
-        public override Item Instantiate()
+        public Item Instantiate()
         {
             var conchShell = new Item(Name, Description, true)
             {

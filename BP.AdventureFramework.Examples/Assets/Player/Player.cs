@@ -3,11 +3,11 @@ using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Examples.Assets.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Player
 {
-    public class Player : PlayableCharacterTemplate
+    public class Player : IAssetTemplate<PlayableCharacter>
     {
         #region Constants
 
@@ -16,13 +16,13 @@ namespace BP.AdventureFramework.Examples.Assets.Player
 
         #endregion
 
-        #region Overrides of PlayableCharacterTemplate
+        #region Implementation of IAssetTemplate<PlayableCharacter>
 
         /// <summary>
-        /// Instantiate a new instance of the playable character.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The playable character.</returns>
-        public override PlayableCharacter Instantiate()
+        /// <returns>The asset.</returns>
+        public PlayableCharacter Instantiate()
         {
             var player = new PlayableCharacter(Name, Description, new Knife().Instantiate())
             {

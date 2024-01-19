@@ -1,11 +1,10 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms;
 using BP.AdventureFramework.Utilities;
-using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Hub
 {
-    internal class Hub : RegionTemplate
+    internal class Hub : IAssetTemplate<Region>
     {
         #region Constants
 
@@ -14,13 +13,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub
 
         #endregion
 
-        #region Overrides of RegionTemplate
+        #region Implementation of IAssetTemplate<Region>
 
         /// <summary>
-        /// Instantiate a new instance of the region.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The region.</returns>
-        public override Region Instantiate()
+        /// <returns>The asset.</returns>
+        public Region Instantiate()
         {
             var regionMaker = new RegionMaker(Name, Description)
             {

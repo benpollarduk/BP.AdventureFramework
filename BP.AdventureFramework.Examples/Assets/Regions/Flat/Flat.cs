@@ -6,11 +6,10 @@ using BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities;
-using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
 {
-    internal class Flat : RegionTemplate
+    internal class Flat : IAssetTemplate<Region>
     {
         #region Constants
 
@@ -19,13 +18,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
 
         #endregion
 
-        #region Overrides of RegionTemplate
+        #region Implementation of IAssetTemplate<Region>
 
         /// <summary>
-        /// Instantiate a new instance of the region.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The region.</returns>
-        public override Region Instantiate()
+        /// <returns>The asset.</returns>
+        public Region Instantiate()
         {
             var roof = new Roof().Instantiate();
             var easternHallway = new EasternHallway().Instantiate();

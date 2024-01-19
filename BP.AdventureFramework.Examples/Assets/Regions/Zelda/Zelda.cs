@@ -6,11 +6,10 @@ using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities;
-using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda
 {
-    internal class Zelda : RegionTemplate
+    internal class Zelda : IAssetTemplate<Region>
     {
         #region Constants
 
@@ -38,13 +37,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda
 
         #endregion
 
-        #region Overrides of RegionTemplate
+        #region Implementation of IAssetTemplate<Region>
 
         /// <summary>
-        /// Instantiate a new instance of the region.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The region.</returns>
-        public override Region Instantiate()
+        /// <returns>The asset.</returns>
+        public Region Instantiate()
         {
             var regionMaker = new RegionMaker(Name, Description)
             {

@@ -7,7 +7,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 {
-    internal class Lounge : RoomTemplate<Lounge>
+    internal class Lounge : RoomTemplate
     {
         #region Constants
 
@@ -15,22 +15,22 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Lounge>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.North));
 
-            room.AddCharacter(Beth.Create());
-            room.AddItem(Map.Create());
-            room.AddItem(Canvas.Create());
-            room.AddItem(Table.Create());
-            room.AddItem(LoungeTV.Create());
-            room.AddItem(Lead.Create());
+            room.AddCharacter(new Beth().Instantiate());
+            room.AddItem(new Map().Instantiate());
+            room.AddItem(new Canvas().Instantiate());
+            room.AddItem(new Table().Instantiate());
+            room.AddItem(new LoungeTV().Instantiate());
+            room.AddItem(new Lead().Instantiate());
 
             room.Interaction = (i, target) =>
             {
@@ -43,7 +43,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
                         if (obj.ContainsCharacter(Beth.Name))
                             return new InteractionResult(InteractionEffect.ItemUsedUp, i, "Beth takes the cup of coffee and smiles. Brownie points to you!");
 
-                        i.Morph(EmptyCoffeeMug.Create());
+                        i.Morph(new EmptyCoffeeMug().Instantiate());
                         return new InteractionResult(InteractionEffect.ItemMorphed, i, "As no one is about you decide to drink the coffee yourself. Your nose wasn't lying, it is bitter but delicious.");
 
                     }

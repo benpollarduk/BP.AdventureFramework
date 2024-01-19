@@ -1,6 +1,5 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
-using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
 using BP.AdventureFramework.Extensions;
@@ -8,7 +7,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
 {
-    internal class Saria : NonPlayableCharacterTemplate<Saria>
+    internal class Saria : NonPlayableCharacterTemplate
     {
         #region Constants
 
@@ -17,15 +16,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs
 
         #endregion
 
-        #region Overrides of NonPlayableCharacterTemplate<Saria>
+        #region Overrides of NonPlayableCharacterTemplate
 
         /// <summary>
-        /// Create a new instance of the non-playable character.
+        /// Instantiate a new instance of the non-playable character.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <param name="room">The room.</param>
         /// <returns>The non-playable character.</returns>
-        protected override NonPlayableCharacter OnCreate(PlayableCharacter pC, Room room)
+        public override NonPlayableCharacter Instantiate()
         {
             var saria = new NonPlayableCharacter(Name, Description);
 

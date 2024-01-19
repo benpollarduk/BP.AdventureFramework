@@ -3,7 +3,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 {
-    internal class Outskirts : RoomTemplate<Outskirts>
+    internal class Outskirts : RoomTemplate
     {
         #region Constants
 
@@ -12,13 +12,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Outskirts>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             return new Room(Name, Description, new Exit(Direction.South));
         }

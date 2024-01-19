@@ -7,7 +7,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 {
-    internal class Stream : RoomTemplate<Stream>
+    internal class Stream : RoomTemplate
     {
         #region Constants
 
@@ -16,26 +16,26 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Stream>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.South));
 
             room.Description = new ConditionalDescription("A small stream flows east to west in front of you. The water is clear, and looks good enough to drink. On the bank is a small bush. To the south is the Kokiri forest", "A small stream flows east to west infront of you. The water is clear, and looks good enough to drink. On the bank is a stump where the bush was. To the south is the Kokiri forest.", () => room.ContainsItem(Bush.Name));
 
-            var bush = Bush.Create();
-            var rupee = Rupee.Create();
+            var bush = new Bush().Instantiate();
+            var rupee = new Rupee().Instantiate();
 
             bush.Interaction = (item, _) =>
             {
                 if (Sword.Name.EqualsExaminable(item))
                 {
-                    bush.Morph(Stump.Create());
+                    bush.Morph(new Stump().Instantiate());
                     rupee.IsPlayerVisible = true;
                     return new InteractionResult(InteractionEffect.ItemMorphed, item, "You slash wildly at the bush and reduce it to a stump. This exposes a red rupee, that must have been what was glinting from within the bush...");
                 }

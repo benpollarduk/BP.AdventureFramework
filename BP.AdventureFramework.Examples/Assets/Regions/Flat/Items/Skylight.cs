@@ -3,7 +3,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 {
-    public class Skylight : ItemTemplate<Skylight>
+    public class Skylight : ItemTemplate
     {
         #region Constants
 
@@ -12,13 +12,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<Skylight>
+        #region Overrides of ItemTemplate
 
         /// <summary>
-        /// Create a new instance of the item.
+        /// Instantiate a new instance of the item.
         /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        /// <returns>The item.</returns>
+        public override Item Instantiate()
         {
             return new Item(Name, Description);
         }

@@ -8,7 +8,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 {
-    internal class OutsideLinksHouse : RoomTemplate<OutsideLinksHouse>
+    internal class OutsideLinksHouse : RoomTemplate
     {
         #region Constants
 
@@ -17,18 +17,17 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<OutsideLinksHouse>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
         /// <returns>The room.</returns>
-        protected override Room OnCreate(PlayableCharacter pC)
+        public override Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.East, true));
-            var door = TailDoor.Create();
-            var saria = Saria.Create(pC, room);
+            var door = new TailDoor().Instantiate();
+            var saria = new Saria().Instantiate();
 
             door.Interaction = (item, _) =>
             {
@@ -47,7 +46,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
                 return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
-            room.AddItem(Stump.Create());
+            room.AddItem(new Stump().Instantiate());
             room.AddItem(door);
             room.AddCharacter(saria);
 

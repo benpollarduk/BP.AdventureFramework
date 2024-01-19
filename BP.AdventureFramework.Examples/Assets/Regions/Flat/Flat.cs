@@ -1,5 +1,4 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
@@ -11,7 +10,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
 {
-    internal class Flat : RegionTemplate<Flat>
+    internal class Flat : RegionTemplate
     {
         #region Constants
 
@@ -20,14 +19,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
 
         #endregion
 
-        #region Overrides of RegionTemplate<Flat>
+        #region Overrides of RegionTemplate
 
         /// <summary>
-        /// Create a new instance of the region.
+        /// Instantiate a new instance of the region.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
         /// <returns>The region.</returns>
-        protected override Region OnCreate(PlayableCharacter pC)
+        public override Region Instantiate()
         {
             var roof = Roof.Create();
             var easternHallway = EasternHallway.Create();

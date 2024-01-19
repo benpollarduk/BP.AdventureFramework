@@ -4,7 +4,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 {
-    internal class LinksHouse : RoomTemplate<LinksHouse>
+    internal class LinksHouse : RoomTemplate
     {
         #region Constants
 
@@ -13,20 +13,20 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<LinksHouse>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.North));
 
-            room.AddItem(Shield.Create());
-            room.AddItem(Table.Create());
-            room.AddItem(Sword.Create());
-            room.AddItem(YoshiDoll.Create());
+            room.AddItem(new Shield().Instantiate());
+            room.AddItem(new Table().Instantiate());
+            room.AddItem(new Sword().Instantiate());
+            room.AddItem(new YoshiDoll().Instantiate());
 
             return room;
         }

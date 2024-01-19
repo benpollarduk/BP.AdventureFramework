@@ -7,7 +7,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Player
 {
-    public class Player : PlayableCharacterTemplate<Player>
+    public class Player : PlayableCharacterTemplate
     {
         #region Constants
 
@@ -16,15 +16,15 @@ namespace BP.AdventureFramework.Examples.Assets.Player
 
         #endregion
 
-        #region Overrides of PlayableCharacterTemplate<Player>
+        #region Overrides of PlayableCharacterTemplate
 
         /// <summary>
-        /// Create a new instance of the playable character.
+        /// Instantiate a new instance of the playable character.
         /// </summary>
         /// <returns>The playable character.</returns>
-        protected override PlayableCharacter OnCreate()
+        public override PlayableCharacter Instantiate()
         {
-            var player = new PlayableCharacter(Name, Description, Knife.Create())
+            var player = new PlayableCharacter(Name, Description, new Knife().Instantiate())
             {
                 Interaction = (i, _) =>
                 {

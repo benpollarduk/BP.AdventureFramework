@@ -4,7 +4,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
 {
-    internal class Beth : NonPlayableCharacterTemplate<Beth>
+    internal class Beth : NonPlayableCharacterTemplate
     {
         #region Constants
 
@@ -13,13 +13,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
 
         #endregion
 
-        #region Overrides of NonPlayableCharacterTemplate<Beth>
+        #region Overrides of NonPlayableCharacterTemplate
 
         /// <summary>
-        /// Create a new instance of the non-playable character.
+        /// Instantiate a new instance of the non-playable character.
         /// </summary>
         /// <returns>The non-playable character.</returns>
-        protected override NonPlayableCharacter OnCreate()
+        public override NonPlayableCharacter Instantiate()
         {
             return new NonPlayableCharacter(Name, Description)
             {

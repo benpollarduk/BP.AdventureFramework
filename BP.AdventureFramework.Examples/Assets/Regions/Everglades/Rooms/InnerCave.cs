@@ -8,7 +8,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 {
-    internal class InnerCave : RoomTemplate<InnerCave>
+    internal class InnerCave : RoomTemplate
     {
         #region Constants
 
@@ -16,13 +16,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<InnerCave>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.West), new Exit(Direction.North, true));
 

@@ -4,7 +4,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 {
-    internal class Bathroom : RoomTemplate<Bathroom>
+    internal class Bathroom : RoomTemplate
     {
         #region Constants
 
@@ -13,19 +13,19 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Bathroom>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.North), new Exit(Direction.South));
 
-            room.AddItem(Bath.Create());
-            room.AddItem(Toilet.Create());
-            room.AddItem(Mirror.Create());
+            room.AddItem(new Bath().Instantiate());
+            room.AddItem(new Toilet().Instantiate());
+            room.AddItem(new Mirror().Instantiate());
 
             return room;
         }

@@ -5,7 +5,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 {
-    internal class Roof : RoomTemplate<Roof>
+    internal class Roof : RoomTemplate
     {
         #region Constants
 
@@ -13,18 +13,18 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Roof>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.South));
 
-            room.AddItem(Skylight.Create());
-            room.AddItem(EmptyCoffeeMug.Create());
+            room.AddItem(new Skylight().Instantiate());
+            room.AddItem(new EmptyCoffeeMug().Instantiate());
 
             room.Description = new ConditionalDescription("The roof is small and gravely, and it hurts your shoe-less feet to stand on it. There is a large skylight in the center of the roof, and a empty coffee mug sits to the side, indicating someone has been here recently. The window behind you south leads back into the bathroom.",
                 "The roof is small and gravely, and it hurts your shoe-less feet to stand on it. There is a large skylight in the center of the roof. The window behind you south leads back into the bathroom.",

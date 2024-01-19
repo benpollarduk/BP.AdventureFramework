@@ -8,63 +8,17 @@ namespace BP.AdventureFramework.Utilities.Templates
     /// <summary>
     /// Provides a template class to help with the creation of items.
     /// </summary>
-    /// <typeparam name="TDerived">The derived type.</typeparam>
-    public class ItemTemplate<TDerived> where TDerived : ItemTemplate<TDerived>
+    public class ItemTemplate
     {
         #region Methods
 
         /// <summary>
-        /// Create a new instance of the item.
+        /// Instantiate a new instance of the item.
         /// </summary>
         /// <returns>The item.</returns>
-        protected virtual Item OnCreate()
+        public virtual Item Instantiate()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Create a new instance of the item.
-        /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <param name="room">The room.</param>
-        /// <returns>The item.</returns>
-        protected virtual Item OnCreate(PlayableCharacter pC, Room room)
-        {
-            return OnCreate();
-        }
-
-        #endregion
-
-        #region StaticMethods
-
-        /// <summary>
-        /// Get an instance of the derived type.
-        /// </summary>
-        /// <returns>The instance.</returns>
-        private static TDerived GetInstance()
-        {
-            var type = typeof(TDerived);
-            return (TDerived)Activator.CreateInstance(type);
-        }
-
-        /// <summary>
-        /// Create a new instance of the item.
-        /// </summary>
-        /// <returns>The item.</returns>
-        public static Item Create()
-        {
-            return GetInstance().OnCreate();
-        }
-
-        /// <summary>
-        /// Create a new instance of the item.
-        /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <param name="room">The room.</param>
-        /// <returns>The playable character.</returns>
-        public static Item Create(PlayableCharacter pC, Room room)
-        {
-            return GetInstance().OnCreate(pC, room);
         }
 
         #endregion

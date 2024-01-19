@@ -6,7 +6,7 @@ using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 {
-    internal class Kitchen : RoomTemplate<Kitchen>
+    internal class Kitchen : RoomTemplate
     {
         #region Constants
 
@@ -15,18 +15,18 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Kitchen>
+        #region Overrides of RoomTemplate
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the room.
         /// </summary>
         /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public override Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.East));
 
-            room.AddItem(HamsterCage.Create());
-            room.AddItem(Kettle.Create());
+            room.AddItem(new HamsterCage().Instantiate());
+            room.AddItem(new Kettle().Instantiate());
 
             room.Interaction = (i, target) =>
             {

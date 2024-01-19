@@ -14,13 +14,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<Stump>
+        #region Overrides of ItemTemplate
 
         /// <summary>
-        /// Create a new instance of the item.
+        /// Instantiate a new instance of the item.
         /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        /// <returns>The item.</returns>
+        public override Item Instantiate()
         {
             var stump = new Item(Name, Description);
 
@@ -33,7 +33,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items
 
                 if (Sword.Name.EqualsExaminable(item))
                 {
-                    stump.Morph(SplintersOfWood.Create());
+                    stump.Morph(new SplintersOfWood().Instantiate());
                     return new InteractionResult(InteractionEffect.ItemMorphed, item, "You chop the stump into tiny pieces in a mad rage. All that is left is some splinters of wood.");
                 }
 

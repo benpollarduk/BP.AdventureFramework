@@ -1,10 +1,10 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Everglades.Items;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 {
-    internal class GreatWesternOcean : RoomTemplate<GreatWesternOcean>
+    internal class GreatWesternOcean : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -13,16 +13,16 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<GreatWesternOcean>
+        #region Implementation of IAssetTemplate<Room>
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        /// <returns>The asset.</returns>
+        public Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.East));
-            room.AddItem(ConchShell.Create());
+            room.AddItem(new ConchShell().Instantiate());
             return room;
         }
 

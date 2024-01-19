@@ -1,5 +1,4 @@
-﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Assets.Interaction

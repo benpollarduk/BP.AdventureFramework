@@ -1,9 +1,9 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Items
 {
-    public class Knife : ItemTemplate<Knife>
+    public class Knife : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -12,13 +12,13 @@ namespace BP.AdventureFramework.Examples.Assets.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<Knife>
+        #region Implementation of IAssetTemplate<out Item>
 
         /// <summary>
-        /// Create a new instance of the item.
+        /// Instantiate a new instance of the templated asset.
         /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        /// <returns>The asset.</returns>
+        public Item Instantiate()
         {
             return new Item(Name, Description, true);
         }

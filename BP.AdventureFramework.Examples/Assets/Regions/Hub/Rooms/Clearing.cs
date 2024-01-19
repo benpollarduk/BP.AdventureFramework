@@ -3,11 +3,11 @@ using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Rendering.FrameBuilders;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms
 {
-    internal class Clearing : RoomTemplate<Clearing>
+    internal class Clearing : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -16,13 +16,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Clearing>
+        #region Implementation of IAssetTemplate<Room>
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        /// <returns>The asset.</returns>
+        public Room Instantiate()
         {
             var room = new Room(Name, Description);
 

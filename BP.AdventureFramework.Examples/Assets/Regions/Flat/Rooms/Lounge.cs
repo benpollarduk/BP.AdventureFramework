@@ -3,11 +3,11 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 {
-    internal class Lounge : RoomTemplate<Lounge>
+    internal class Lounge : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -15,22 +15,22 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Lounge>
+        #region Implementation of IAssetTemplate<Room>
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        /// <returns>The asset.</returns>
+        public Room Instantiate()
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.North));
 
-            room.AddCharacter(Beth.Create());
-            room.AddItem(Map.Create());
-            room.AddItem(Canvas.Create());
-            room.AddItem(Table.Create());
-            room.AddItem(LoungeTV.Create());
-            room.AddItem(Lead.Create());
+            room.AddCharacter(new Beth().Instantiate());
+            room.AddItem(new Map().Instantiate());
+            room.AddItem(new Canvas().Instantiate());
+            room.AddItem(new Table().Instantiate());
+            room.AddItem(new LoungeTV().Instantiate());
+            room.AddItem(new Lead().Instantiate());
 
             room.Interaction = (i, target) =>
             {
@@ -43,7 +43,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
                         if (obj.ContainsCharacter(Beth.Name))
                             return new InteractionResult(InteractionEffect.ItemUsedUp, i, "Beth takes the cup of coffee and smiles. Brownie points to you!");
 
-                        i.Morph(EmptyCoffeeMug.Create());
+                        i.Morph(new EmptyCoffeeMug().Instantiate());
                         return new InteractionResult(InteractionEffect.ItemMorphed, i, "As no one is about you decide to drink the coffee yourself. Your nose wasn't lying, it is bitter but delicious.");
 
                     }

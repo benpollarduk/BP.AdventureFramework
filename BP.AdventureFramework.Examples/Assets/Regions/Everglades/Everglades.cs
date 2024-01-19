@@ -1,12 +1,10 @@
-﻿using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Locations;
+﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms;
 using BP.AdventureFramework.Utilities;
-using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades
 {
-    internal class Everglades : RegionTemplate<Everglades>
+    internal class Everglades : IAssetTemplate<Region>
     {
         #region Constants
 
@@ -15,24 +13,23 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades
 
         #endregion
 
-        #region Overrides of RegionTemplate<Everglades>
+        #region Implementation of IAssetTemplate<Region>
 
         /// <summary>
-        /// Create a new instance of the region.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <returns>The region.</returns>
-        protected override Region OnCreate(PlayableCharacter pC)
+        /// <returns>The asset.</returns>
+        public Region Instantiate()
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [2, 0, 0] = ForestEntrance.Create(),
-                [2, 1, 0] = ForestFloor.Create(),
-                [2, 2, 0] = CaveMouth.Create(),
-                [1, 2, 0] = GreatWesternOcean.Create(),
-                [2, 3, 0] = Cave.Create(),
-                [3, 3, 0] = InnerCave.Create(),
-                [3, 4, 0] = Outskirts.Create()
+                [2, 0, 0] = new ForestEntrance().Instantiate(),
+                [2, 1, 0] = new ForestFloor().Instantiate(),
+                [2, 2, 0] = new CaveMouth().Instantiate(),
+                [1, 2, 0] = new GreatWesternOcean().Instantiate(),
+                [2, 3, 0] = new Cave().Instantiate(),
+                [3, 3, 0] = new InnerCave().Instantiate(),
+                [3, 4, 0] = new Outskirts().Instantiate()
             };
 
 

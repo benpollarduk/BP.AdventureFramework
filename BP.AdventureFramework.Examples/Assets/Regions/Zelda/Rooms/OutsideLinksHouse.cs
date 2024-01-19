@@ -1,14 +1,12 @@
-﻿using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Interaction;
+﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
-using BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 {
-    internal class OutsideLinksHouse : RoomTemplate<OutsideLinksHouse>
+    internal class OutsideLinksHouse : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -17,18 +15,16 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<OutsideLinksHouse>
+        #region Implementation of IAssetTemplate<Room>
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate(PlayableCharacter pC)
+        /// <returns>The asset.</returns>
+        public Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.East, true));
-            var door = TailDoor.Create();
-            var saria = Saria.Create(pC, room);
+            var door = new TailDoor().Instantiate();
 
             door.Interaction = (item, _) =>
             {
@@ -47,9 +43,8 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
                 return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
-            room.AddItem(Stump.Create());
+            room.AddItem(new Stump().Instantiate());
             room.AddItem(door);
-            room.AddCharacter(saria);
 
             return room;
         }

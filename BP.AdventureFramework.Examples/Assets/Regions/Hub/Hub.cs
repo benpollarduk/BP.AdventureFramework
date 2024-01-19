@@ -1,12 +1,10 @@
-﻿using BP.AdventureFramework.Assets.Characters;
-using BP.AdventureFramework.Assets.Locations;
+﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms;
 using BP.AdventureFramework.Utilities;
-using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Hub
 {
-    internal class Hub : RegionTemplate<Hub>
+    internal class Hub : IAssetTemplate<Region>
     {
         #region Constants
 
@@ -15,18 +13,17 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub
 
         #endregion
 
-        #region Overrides of RegionTemplate<Hub>
+        #region Implementation of IAssetTemplate<Region>
 
         /// <summary>
-        /// Create a new instance of the region.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <returns>The region.</returns>
-        protected override Region OnCreate(PlayableCharacter pC)
+        /// <returns>The asset.</returns>
+        public Region Instantiate()
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [0, 0, 0] = Clearing.Create()
+                [0, 0, 0] = new Clearing().Instantiate()
             };
 
             return regionMaker.Make(0, 0, 0);

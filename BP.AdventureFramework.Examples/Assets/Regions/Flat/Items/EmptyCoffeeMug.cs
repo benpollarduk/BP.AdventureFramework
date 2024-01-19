@@ -1,11 +1,11 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 {
-    public class EmptyCoffeeMug : ItemTemplate<EmptyCoffeeMug>
+    public class EmptyCoffeeMug : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -14,13 +14,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<EmptyCoffeeMug>
+        #region Implementation of IAssetTemplate<Item>
 
         /// <summary>
-        /// Create a new instance of the item.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        /// <returns>The item.</returns>
+        public Item Instantiate()
         {
             return new Item(Name, Description, true)
             {
@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
                     if (Kettle.Name.EqualsIdentifier(i.Identifier))
                     {
                         var item = target as Item;
-                        item?.Morph(MugOfCoffee.Create());
+                        item?.Morph(new MugOfCoffee().Instantiate());
                         return new InteractionResult(InteractionEffect.ItemMorphed, i, "You put some instant coffee graduals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
                     }
 

@@ -1,9 +1,9 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 {
-    public class Telephone : ItemTemplate<Telephone>
+    public class Telephone : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -12,13 +12,13 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<Telephone>
+        #region Implementation of IAssetTemplate<Item>
 
         /// <summary>
-        /// Create a new instance of the item.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        /// <returns>The item.</returns>
+        public Item Instantiate()
         {
             return new Item(Name, Description);
         }

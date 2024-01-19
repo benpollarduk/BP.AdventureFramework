@@ -1,10 +1,10 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 {
-    internal class LinksHouse : RoomTemplate<LinksHouse>
+    internal class LinksHouse : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -13,20 +13,20 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<LinksHouse>
+        #region Implementation of IAssetTemplate<Room>
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        /// <returns>The asset.</returns>
+        public Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.North));
 
-            room.AddItem(Shield.Create());
-            room.AddItem(Table.Create());
-            room.AddItem(Sword.Create());
-            room.AddItem(YoshiDoll.Create());
+            room.AddItem(new Shield().Instantiate());
+            room.AddItem(new Table().Instantiate());
+            room.AddItem(new Sword().Instantiate());
+            room.AddItem(new YoshiDoll().Instantiate());
 
             return room;
         }

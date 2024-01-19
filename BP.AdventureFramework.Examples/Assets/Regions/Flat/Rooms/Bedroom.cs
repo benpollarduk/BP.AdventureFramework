@@ -1,10 +1,10 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Flat.Items;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 {
-    internal class Bedroom : RoomTemplate<Bedroom>
+    internal class Bedroom : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -13,19 +13,19 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
 
         #endregion
 
-        #region Overrides of RoomTemplate<Bedroom>
+        #region Implementation of IAssetTemplate<Room>
 
         /// <summary>
-        /// Create a new instance of the room.
+        /// Instantiate a new instance of the asset.
         /// </summary>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        /// <returns>The asset.</returns>
+        public Room Instantiate()
         {
             var room = new Room(Name, Description, new Exit(Direction.North), new Exit(Direction.Up));
 
-            room.AddItem(Bed.Create());
-            room.AddItem(Picture.Create());
-            room.AddItem(TV.Create());
+            room.AddItem(new Bed().Instantiate());
+            room.AddItem(new Picture().Instantiate());
+            room.AddItem(new TV().Instantiate());
 
             return room;
         }

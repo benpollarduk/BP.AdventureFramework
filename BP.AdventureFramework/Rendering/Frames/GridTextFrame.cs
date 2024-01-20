@@ -62,7 +62,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// Determine if color is suppressed. If the NO_COLOR environment variable is present and set to anything other than '0' or 'false' this will return true.
         /// </summary>
         /// <returns>True if the NO_COLOR ebviroment variable is present and set to anything other than '0' or 'false', else false.</returns>
-        internal static bool IsColorSupressed()
+        internal static bool IsColorSuppressed()
         {
             var value = Environment.GetEnvironmentVariable(NO_COLOR)?.ToLower() ?? string.Empty;
 
@@ -132,7 +132,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <param name="writer">The writer.</param>
         public void Render(TextWriter writer)
         {
-            var renderInColor = !IsColorSupressed();
+            var renderInColor = !IsColorSuppressed();
             var cursorVisible = Console.CursorVisible;
             var startColor = Console.ForegroundColor;
 

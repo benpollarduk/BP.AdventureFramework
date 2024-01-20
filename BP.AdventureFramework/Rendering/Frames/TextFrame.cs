@@ -38,7 +38,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return this.frameData;
+            return frameData;
         }
 
         #endregion

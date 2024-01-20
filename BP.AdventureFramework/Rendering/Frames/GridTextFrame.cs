@@ -13,6 +13,15 @@ namespace BP.AdventureFramework.Rendering.Frames
     /// </summary>
     public sealed class GridTextFrame : IFrame
     {
+        #region Constants
+
+        /// <summary>
+        /// Get the value for the NO_COLOR environment variable.
+        /// </summary>
+        internal const string NO_COLOR = "NO_COLOR";
+
+        #endregion
+
         #region Fields
 
         private readonly GridStringBuilder builder;
@@ -43,6 +52,29 @@ namespace BP.AdventureFramework.Rendering.Frames
             CursorLeft = cursorLeft;
             CursorTop = cursorTop;
             BackgroundColor = backgroundColor;
+        }
+
+        #endregion
+
+        #region StaticMethods
+
+        /// <summary>
+        /// Determine if color is suppressed. If the NO_COLOR environment variable is present and set to anything other than '0' or 'false' this will return true.
+        /// </summary>
+        /// <returns>True if the NO_COLOR ebviroment variable is present and set to anything other than '0' or 'false', else false.</returns>
+        internal static bool IsColorSupressed()
+        {
+            var value = Environment.GetEnvironmentVariable(NO_COLOR)?.ToLower() ?? string.Empty;
+
+            switch (value)
+            {
+                case "":
+                case "0":
+                case "false":
+                    return false;
+                default:
+                    return true;
+            }
         }
 
         #endregion
@@ -100,10 +132,12 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <param name="writer">The writer.</param>
         public void Render(TextWriter writer)
         {
+            var renderInColor = !IsColorSupressed();
             var cursorVisible = Console.CursorVisible;
             var startColor = Console.ForegroundColor;
 
-            Console.BackgroundColor = BackgroundColor.ToConsoleColor();
+            if (renderInColor)
+                Console.BackgroundColor = BackgroundColor.ToConsoleColor();
 
             Console.CursorVisible = false;
 
@@ -115,7 +149,9 @@ namespace BP.AdventureFramework.Rendering.Frames
 
                     if (c != 0)
                     {
-                        Console.ForegroundColor = builder.GetCellColor(x, y).ToConsoleColor();
+                        if (renderInColor) 
+                            Console.ForegroundColor = builder.GetCellColor(x, y).ToConsoleColor();
+                        
                         writer.Write(c);
                     }
                     else

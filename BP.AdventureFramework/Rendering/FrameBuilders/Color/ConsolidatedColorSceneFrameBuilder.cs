@@ -33,7 +33,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public AnsiColor BorderColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor BorderColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set the text color.
@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the commands color.
         /// </summary>
-        public AnsiColor CommandsColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor CommandsColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set if messages should be displayed in isolation.

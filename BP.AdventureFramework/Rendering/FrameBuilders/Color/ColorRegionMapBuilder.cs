@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the unvisited room boundary color.
         /// </summary>
-        public AnsiColor UnvisitedBoundaryColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor UnvisitedBoundaryColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set the player color.
@@ -75,7 +75,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the lower level color.
         /// </summary>
-        public AnsiColor LowerLevelColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor LowerLevelColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set if lower floors should be shown.

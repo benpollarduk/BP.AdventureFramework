@@ -1,5 +1,6 @@
 ﻿using System;
 using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Rendering.FrameBuilders.Color;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.FrameBuilders

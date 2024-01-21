@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public AnsiColor BorderColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor BorderColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set the title color.
@@ -49,7 +49,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the response color.
         /// </summary>
-        public AnsiColor ResponseColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor ResponseColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set the input color.

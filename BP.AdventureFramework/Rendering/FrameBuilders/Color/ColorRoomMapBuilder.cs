@@ -55,7 +55,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <summary>
         /// Get or set the room boundary color.
         /// </summary>
-        public AnsiColor BoundaryColor { get; set; } = AnsiColor.DarkGray;
+        public AnsiColor BoundaryColor { get; set; } = AnsiColor.BrightBlack;
 
         /// <summary>
         /// Get or set the item or character color.

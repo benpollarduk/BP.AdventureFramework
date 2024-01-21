@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Rendering.FrameBuilders;
+using BP.AdventureFramework.Rendering.FrameBuilders.Color;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.Frames

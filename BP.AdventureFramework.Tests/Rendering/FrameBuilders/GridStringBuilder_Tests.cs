@@ -1,6 +1,6 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Rendering;
 using BP.AdventureFramework.Rendering.FrameBuilders;
+using BP.AdventureFramework.Rendering.FrameBuilders.Color;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders

@@ -1,4 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Rendering.FrameBuilders;
+using BP.AdventureFramework.Rendering.FrameBuilders.Color;
 using BP.AdventureFramework.Rendering.Frames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -63,6 +68,28 @@ namespace BP.AdventureFramework.Tests.Rendering.Frames
             var result = GridTextFrame.IsColorSuppressed();
 
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void Given10x10GridWithBorder_WhenRender_ThenStreamContainsData()
+        {
+            var gridStringBuilder = new GridStringBuilder();
+            gridStringBuilder.Resize(new Size(10, 10));
+            gridStringBuilder.DrawBoundary(AnsiColor.Black);
+            var frame = new GridTextFrame(gridStringBuilder, 0, 0, AnsiColor.Black);
+            byte[] data;
+
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new StreamWriter(stream))
+                {
+                    frame.Render(writer);
+                    writer.Flush();
+                    data = stream.ToArray();
+                }
+            }
+
+            Assert.IsTrue(data.Any(x => x != 0));
         }
     }
 }

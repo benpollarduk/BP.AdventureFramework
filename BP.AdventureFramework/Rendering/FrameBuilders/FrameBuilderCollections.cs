@@ -18,7 +18,7 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
 
                 return new FrameBuilderCollection(
                     new ColorTitleFrameBuilder(gridLayoutBuilder),
-                    new ConsolidatedColorSceneFrameBuilder(gridLayoutBuilder, new ColorRoomMapBuilder()), 
+                    new ColorSceneFrameBuilder(gridLayoutBuilder, new ColorRoomMapBuilder()), 
                     new ColorRegionMapFrameBuilder(gridLayoutBuilder, new ColorRegionMapBuilder()),
                     new ColorHelpFrameBuilder(gridLayoutBuilder),
                     new ColorCompletionFrameBuilder(gridLayoutBuilder),

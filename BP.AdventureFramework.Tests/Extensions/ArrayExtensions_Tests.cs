@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Assets;
+﻿using System;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -30,7 +31,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void GivenEmptyArray_WhenRemove_ThenNotNull()
         {
-            var value = new Item[0];
+            var value = Array.Empty<Item>();
 
             var result = value.Remove(new Item(string.Empty, string.Empty));
 
@@ -40,7 +41,7 @@ namespace BP.AdventureFramework.Tests.Extensions
         [TestMethod]
         public void GivenEmptyArray_WhenAdd_ThenOneElement()
         {
-            var value = new Item[0];
+            var value = Array.Empty<Item>();
 
             var result = value.Remove(new Item(string.Empty, string.Empty));
 

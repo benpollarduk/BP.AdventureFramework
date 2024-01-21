@@ -47,8 +47,8 @@ namespace BP.AdventureFramework.Examples
             {
                 room.AddItem(new Item($"{otherRegion.Identifier.Name} Sphere", "A glass sphere, about the size of a snooker ball. Inside you can see a swirling mist.", true)
                 {
-                    Commands = new[]
-                    {
+                    Commands =
+                    [
                         new CustomCommand(new CommandHelp($"Warp {otherRegion.Identifier.Name}", $"Use the {otherRegion.Identifier.Name} Sphere to warp to the {otherRegion.Identifier.Name}."), true, (g, _) =>
                         {
                             var move = overworld?.Move(otherRegion) ?? false;
@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Examples
 
                             return new Reaction(ReactionResult.Internal, string.Empty);
                         })
-                    }
+                    ]
                 });
             }
         }
@@ -92,8 +92,8 @@ namespace BP.AdventureFramework.Examples
                     foreach (var region in regions)
                         overworld.AddRegion(region);
 
-                    overworld.Commands = new[]
-                    {
+                    overworld.Commands =
+                    [
                         // add a hidden custom command to the overworld that allows jumping around a region for debugging purposes
                         new CustomCommand(new CommandHelp("Jump", "Jump to a location in a region."), false, (g, a) =>
                         {
@@ -115,7 +115,7 @@ namespace BP.AdventureFramework.Examples
 
                             return new Reaction(ReactionResult.OK, $"Jumped to {x} {y} {z}.");
                         })
-                    };
+                    ];
 
                     return overworld;
                 };

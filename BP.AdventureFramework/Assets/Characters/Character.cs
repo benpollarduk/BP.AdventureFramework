@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Extensions;
 
@@ -24,7 +25,7 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <summary>
         /// Get the items this Character holds.
         /// </summary>
-        public Item[] Items { get; protected set; } = new Item[0];
+        public Item[] Items { get; protected set; } = Array.Empty<Item>();
 
         #endregion
 

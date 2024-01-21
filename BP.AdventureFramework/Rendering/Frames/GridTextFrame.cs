@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
-using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
+using BP.AdventureFramework.Rendering.FrameBuilders;
+using BP.AdventureFramework.Rendering.FrameBuilders.Color;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.Frames
@@ -20,6 +19,16 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// </summary>
         internal const string NO_COLOR = "NO_COLOR";
 
+        /// <summary>
+        /// Get the ANSI escape sequence to hide the cursor.
+        /// </summary>
+        private const string ANSI_HIDE_CURSOR = "\u001b[?25l";
+
+        /// <summary>
+        /// Get the ANSI escape sequence to show the cursor.
+        /// </summary>
+        private const string ANSI_SHOW_CURSOR = "\u001b[?25h";
+
         #endregion
 
         #region Fields
@@ -33,7 +42,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <summary>
         /// Get the background color.
         /// </summary>
-        public RenderColor BackgroundColor { get; }
+        public AnsiColor BackgroundColor { get; }
 
         #endregion
 
@@ -46,7 +55,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <param name="cursorLeft">The cursor left position.</param>
         /// <param name="cursorTop">The cursor top position.</param>
         /// <param name="backgroundColor">The background color.</param>
-        public GridTextFrame(GridStringBuilder builder, int cursorLeft, int cursorTop, RenderColor backgroundColor)
+        public GridTextFrame(GridStringBuilder builder, int cursorLeft, int cursorTop, AnsiColor backgroundColor)
         {
             this.builder = builder;
             CursorLeft = cursorLeft;
@@ -75,6 +84,26 @@ namespace BP.AdventureFramework.Rendering.Frames
                 default:
                     return true;
             }
+        }
+
+        /// <summary>
+        /// Get an ANSI escape sequence for a foreground color.
+        /// </summary>
+        /// <param name="color">The foreground color.</param>
+        /// <returns>The ANSI escape sequence.</returns>
+        private string GetAnsiForegroundEscapeSequence(AnsiColor color)
+        {
+            return $"\u001B[{(int)color}m";
+        }
+
+        /// <summary>
+        /// Get an ANSI escape sequence for a background color.
+        /// </summary>
+        /// <param name="color">The background color.</param>
+        /// <returns>The ANSI escape sequence.</returns>
+        private string GetAnsiBackgroundEscapeSequence(AnsiColor color)
+        {
+            return $"\u001B[{(int)color + 10}m";
         }
 
         #endregion
@@ -132,14 +161,12 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <param name="writer">The writer.</param>
         public void Render(TextWriter writer)
         {
-            var renderInColor = !IsColorSuppressed();
-            var cursorVisible = Console.CursorVisible;
-            var startColor = Console.ForegroundColor;
+            var suppressColor = IsColorSuppressed();
 
-            if (renderInColor)
-                Console.BackgroundColor = BackgroundColor.ToConsoleColor();
+            if (!suppressColor)
+                writer.Write(GetAnsiBackgroundEscapeSequence(BackgroundColor));
 
-            Console.CursorVisible = false;
+            writer.Write(ANSI_HIDE_CURSOR);
 
             for (var y = 0; y < builder.DisplaySize.Height; y++)
             {
@@ -149,9 +176,11 @@ namespace BP.AdventureFramework.Rendering.Frames
 
                     if (c != 0)
                     {
-                        if (renderInColor) 
-                            Console.ForegroundColor = builder.GetCellColor(x, y).ToConsoleColor();
-                        
+                        if (!suppressColor)
+                        {
+                            writer.Write(GetAnsiForegroundEscapeSequence(builder.GetCellColor(x, y)));
+                        }
+
                         writer.Write(c);
                     }
                     else
@@ -164,8 +193,7 @@ namespace BP.AdventureFramework.Rendering.Frames
                     writer.Write(builder.LineTerminator);
             }
 
-            Console.ForegroundColor = startColor;
-            Console.CursorVisible = cursorVisible;
+            writer.Write(ANSI_SHOW_CURSOR);
         }
 
         #endregion

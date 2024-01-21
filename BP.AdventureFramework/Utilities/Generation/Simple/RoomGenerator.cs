@@ -99,7 +99,7 @@ namespace BP.AdventureFramework.Utilities.Generation.Simple
         /// <returns>A collection of room positions.</returns>
         internal static List<RoomPosition> GetRoomPositions(int count, Random generator)
         {
-            return GetRoomPositions(count, generator, new RoomPosition[0]);
+            return GetRoomPositions(count, generator, Array.Empty<RoomPosition>());
         }
 
         /// <summary>

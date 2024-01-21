@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Assets.Interaction;
+﻿using System;
+using BP.AdventureFramework.Assets.Interaction;
 
 namespace BP.AdventureFramework.Assets.Characters
 {
@@ -29,7 +30,7 @@ namespace BP.AdventureFramework.Assets.Characters
         {
             Identifier = identifier;
             Description = description;
-            Items = items ?? new Item[0];
+            Items = items ?? Array.Empty<Item>();
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Assets;
+﻿using System;
+using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,7 +12,7 @@ namespace BP.AdventureFramework.Tests.Utilities
         [TestMethod]
         public void GivenNullCollection_WhenConvertToRoomMatrix_ThenIsNull()
         {
-            var matrix = RegionMaker.ConvertToRoomMatrix(new RoomPosition[0]);
+            var matrix = RegionMaker.ConvertToRoomMatrix(Array.Empty<RoomPosition>());
 
             Assert.IsNull(matrix);
         }

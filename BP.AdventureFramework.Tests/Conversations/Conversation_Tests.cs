@@ -119,7 +119,7 @@ namespace BP.AdventureFramework.Tests.Conversations
         {
             var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
             var response = new Response(string.Empty, 0);
-            var paragraph = new Paragraph(string.Empty, 0) {  Responses = new[] { response }};
+            var paragraph = new Paragraph(string.Empty, 0) {  Responses = [response] };
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(paragraph) };
             game.StartConversation(npc);
 

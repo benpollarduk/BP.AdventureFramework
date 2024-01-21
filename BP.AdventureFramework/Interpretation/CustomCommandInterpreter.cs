@@ -62,7 +62,7 @@ namespace BP.AdventureFramework.Interpretation
         public CommandHelp[] GetContextualCommandHelp(Game game)
         {
             if (game.ActiveConverser?.Conversation != null)
-                return new CommandHelp[0];
+                return Array.Empty<CommandHelp>();
 
             var help = new List<CommandHelp>();
 

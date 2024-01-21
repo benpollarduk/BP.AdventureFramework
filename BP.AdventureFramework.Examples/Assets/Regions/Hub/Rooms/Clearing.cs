@@ -30,17 +30,17 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms
                 new Paragraph("Squarrrkkk!"),
                 new Paragraph("Would you like to change modes?")
                 {
-                    Responses = new[]
-                    {
+                    Responses =
+                    [
                         new Response("Yes please, change to default."),
                         new Response("Yes please, change to simple.", 2),
                         new Response("Yes please, change to legacy.", 3),
                         new Response("No thanks, keep things as they are.", 4)
-                    }
+                    ]
                 },
                 new Paragraph("Arrk! Color it is.", g => g.FrameBuilders = FrameBuilderCollections.Default, -1),
-                new Paragraph("Eeek, simple be fine too!", g => g.FrameBuilders = FrameBuilderCollections.Simple, -2),
-                new Paragraph("Squarrk! Legacy, looks old. Arrk!", g => g.FrameBuilders = FrameBuilderCollections.Legacy, -3),
+                new Paragraph("Eeek, simple be fine too! Shame it's been deleted. Maybe it will be implmented again one day! Eeek!", -2),
+                new Paragraph("Squarrk! Legacy, looks old. Shame it's been deleted. Maybe it will be implmented again one day! Arrk!", -3),
                 new Paragraph("Fine, suit yourself! Squarrk!", -4)
             );
 

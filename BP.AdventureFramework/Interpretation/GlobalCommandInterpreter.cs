@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Commands.Global;
+﻿using System;
+using BP.AdventureFramework.Commands.Global;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
 
@@ -93,7 +94,7 @@ namespace BP.AdventureFramework.Interpretation
         /// <returns>The contextual help.</returns>
         public CommandHelp[] GetContextualCommandHelp(Game game)
         {
-            return new CommandHelp[0];
+            return Array.Empty<CommandHelp>();
         }
 
         #endregion

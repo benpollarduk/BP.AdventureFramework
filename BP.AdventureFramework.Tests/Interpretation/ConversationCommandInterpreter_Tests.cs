@@ -58,10 +58,10 @@ namespace BP.AdventureFramework.Tests.Interpretation
             npc.Conversation = new Conversation(
                 new Paragraph("Test")
                 {
-                    Responses = new[]
-                    {
+                    Responses =
+                    [
                         new Response("First")
-                    }
+                    ]
                 }
             );
 

@@ -23,13 +23,13 @@ namespace BP.AdventureFramework.Tests.Assets
         public void GivenExamine_WhenDefaultExaminationWith1CustomCommand_ThenCustomCommandIsIncuded()
         {
             var i = new Item("Test", "Test Description.");
-            i.Commands = new[]
-            {
+            i.Commands =
+            [
                 new CustomCommand(new CommandHelp("Test Command", "Test Command Descritpion."), true, (_, _) =>
                 {
                     return new Reaction(ReactionResult.OK, "");
                 })
-            };
+            ];
 
             var result = i.Examine();
 
@@ -40,8 +40,8 @@ namespace BP.AdventureFramework.Tests.Assets
         public void GivenExamine_WhenDefaultExaminationWith2CustomCommands_ThenCustomCommandsAreBothIncuded()
         {
             var i = new Item("Test", "Test Description.");
-            i.Commands = new[]
-            {
+            i.Commands =
+            [
                 new CustomCommand(new CommandHelp("A*", "Test Command Descritpion."), true, (_, _) =>
                 {
                     return new Reaction(ReactionResult.OK, "");
@@ -50,7 +50,7 @@ namespace BP.AdventureFramework.Tests.Assets
                 {
                     return new Reaction(ReactionResult.OK, "");
                 })
-            };
+            ];
 
             var result = i.Examine();
 

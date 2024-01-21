@@ -33,7 +33,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get the characters in this Room.
         /// </summary>
-        public NonPlayableCharacter[] Characters { get; private set; } = new NonPlayableCharacter[0];
+        public NonPlayableCharacter[] Characters { get; private set; } = Array.Empty<NonPlayableCharacter>();
 
         /// <summary>
         /// Get the items in this Room.
@@ -103,8 +103,8 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             Identifier = identifier;
             Description = description;
-            Exits = exits ?? new Exit[0];
-            Items = items ?? new Item[0];
+            Exits = exits ?? Array.Empty<Exit>();
+            Items = items ?? Array.Empty<Item>();
         }
 
         #endregion

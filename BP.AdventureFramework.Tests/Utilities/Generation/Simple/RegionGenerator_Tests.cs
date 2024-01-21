@@ -47,7 +47,7 @@ namespace BP.AdventureFramework.Tests.Utilities.Generation.Simple
             var room = new Room("", "");
             var item = new Item("", "");
 
-            RegionGenerator.PopulateRooms(random, new []{ room }, new[] { item });
+            RegionGenerator.PopulateRooms(random, [room], [item]);
             var result = room.Items.Length;
 
             Assert.AreEqual(1, result);

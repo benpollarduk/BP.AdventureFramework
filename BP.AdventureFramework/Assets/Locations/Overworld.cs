@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Assets.Locations
@@ -19,7 +20,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get the regions in this overworld.
         /// </summary>
-        public Region[] Regions { get; private set; } = new Region[0];
+        public Region[] Regions { get; private set; } = Array.Empty<Region>();
 
         /// <summary>
         /// Get the current region.

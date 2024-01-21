@@ -2,8 +2,7 @@
 using System.IO;
 using System.Text;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Rendering.FrameBuilders.Grid;
-using BP.AdventureFramework.Rendering.FrameBuilders.Grid.Color;
+using BP.AdventureFramework.Rendering.FrameBuilders;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Rendering.Frames
@@ -33,7 +32,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <summary>
         /// Get the background color.
         /// </summary>
-        public RenderColor BackgroundColor { get; }
+        public AnsiColor BackgroundColor { get; }
 
         #endregion
 
@@ -46,7 +45,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <param name="cursorLeft">The cursor left position.</param>
         /// <param name="cursorTop">The cursor top position.</param>
         /// <param name="backgroundColor">The background color.</param>
-        public GridTextFrame(GridStringBuilder builder, int cursorLeft, int cursorTop, RenderColor backgroundColor)
+        public GridTextFrame(GridStringBuilder builder, int cursorLeft, int cursorTop, AnsiColor backgroundColor)
         {
             this.builder = builder;
             CursorLeft = cursorLeft;

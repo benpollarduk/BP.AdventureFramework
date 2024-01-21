@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BP.AdventureFramework.Commands.Conversation;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Logic;
@@ -72,7 +73,7 @@ namespace BP.AdventureFramework.Interpretation
         public CommandHelp[] GetContextualCommandHelp(Game game)
         {
             if (game.ActiveConverser?.Conversation == null) 
-                return new CommandHelp[0];
+                return Array.Empty<CommandHelp>();
 
             var commands = new List<CommandHelp> { new CommandHelp(End, "End the conversation") };
 

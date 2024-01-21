@@ -93,7 +93,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <returns>The ANSI escape sequence.</returns>
         private string GetAnsiForegroundEscapeSequence(AnsiColor color)
         {
-            return $"\u001B[${(int)color}m";
+            return $"\u001B[{(int)color}m";
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace BP.AdventureFramework.Rendering.Frames
         /// <returns>The ANSI escape sequence.</returns>
         private string GetAnsiBackgroundEscapeSequence(AnsiColor color)
         {
-            return $"\u001B[${(int)color + 10}m";
+            return $"\u001B[{(int)color + 10}m";
         }
 
         #endregion
@@ -177,8 +177,10 @@ namespace BP.AdventureFramework.Rendering.Frames
                     if (c != 0)
                     {
                         if (!suppressColor)
+                        {
                             writer.Write(GetAnsiForegroundEscapeSequence(builder.GetCellColor(x, y)));
-                        
+                        }
+
                         writer.Write(c);
                     }
                     else

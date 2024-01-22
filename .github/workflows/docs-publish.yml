@@ -36,11 +36,8 @@ jobs:
 
     - name: Copy documentation to BP.AdventureFramework-docs repository
       run: |
-        mkdir temp
-        cp -r docs/docfx/_site/* temp/
-        rm -rf docs/docfx/_site/*
-        cp -r temp/* BP.AdventureFramework-docs/
-        rm -rf temp
+        mkdir BP.AdventureFramework-docs
+        cp -r docs/docfx/_site/* BP.AdventureFramework.docs/
 
     - name: Commit and push changes to BP.AdventureFramework-docs
       run: |

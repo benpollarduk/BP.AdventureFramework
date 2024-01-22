@@ -1,2 +1,0 @@
-# Introduction
-Coming soon.

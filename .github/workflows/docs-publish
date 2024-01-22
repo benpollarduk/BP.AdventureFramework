@@ -1,6 +1,8 @@
 name: docs-publish
 
 on:
+  push:
+    branches: [ "docs-publish" ]
   workflow_dispatch:
 
 permissions:

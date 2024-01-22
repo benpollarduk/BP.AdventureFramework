@@ -34,5 +34,23 @@ jobs:
       run: dotnet build
 
     - name: Build documentation
-      run:  docfx BP.AdventureFramework/docfx.json
-    
+      run: docfx BP.AdventureFramework/docfx.json
+
+    - name: Copy documentation to BP.AdventureFramework-docs repository
+      run: |
+        mkdir temp
+        cp -r _site/* temp/
+        rm -rf _site/*
+        cp -r temp/* BP.AdventureFramework-docs/
+        rm -rf temp
+
+    - name: Commit and push changes to BP.AdventureFramework-docs
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Update documentation"
+        git remote add docs-repo https://github.com/benpollarduk/BP.AdventureFramework-docs.git
+        git push docs-repo main
+      env:
+        PAT: ${{ secrets.PAT }}

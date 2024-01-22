@@ -39,7 +39,7 @@ jobs:
         mkdir BP.AdventureFramework-docs
         cd BP.AdventureFramework-docs
         git init
-        git remote add origin https://github.com/benpollarduk/BP.AdventureFramework-docs.git
+        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework-docs.git
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git fetch
@@ -49,6 +49,4 @@ jobs:
         git add .
         git commit -m "Update documentation"
         git push origin main:main
-      env:
-        PAT: ${{ secrets.PAT }}
         

@@ -42,12 +42,12 @@ jobs:
         git remote add origin https://github.com/benpollarduk/BP.AdventureFramework-docs.git
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git fetch
         git checkout main
         git rm -r --ignore-unmatch .
         cp -r ../docs/docfx/_site/* .
         git add .
         git commit -m "Update documentation"
-        git pull origin main
         git push origin main:main
       env:
         PAT: ${{ secrets.PAT }}

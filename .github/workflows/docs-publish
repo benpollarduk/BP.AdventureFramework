@@ -34,18 +34,19 @@ jobs:
       run: dotnet build
 
     - name: Build documentation
-      run: docfx BP.AdventureFramework/docfx.json
+      run: docfx BP.AdventureFramework/docs/docfx/docfx.json
 
     - name: Copy documentation to BP.AdventureFramework-docs repository
       run: |
         mkdir temp
-        cp -r _site/* temp/
-        rm -rf _site/*
+        cp -r BP.AdventureFramework/docs/docfx/_site/* temp/
+        rm -rf BP.AdventureFramework/docs/docfx/_site/*
         cp -r temp/* BP.AdventureFramework-docs/
         rm -rf temp
 
     - name: Commit and push changes to BP.AdventureFramework-docs
       run: |
+        cd BP.AdventureFramework-docs
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .

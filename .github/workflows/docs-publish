@@ -1,0 +1,36 @@
+name: docs-publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Update docfx
+      run: dotnet tool update -g docfx
+
+    - name: Build
+      run: dotnet build
+
+    - name: Build documentation
+      run:  docfx BP.AdventureFramework/docfx.json
+    

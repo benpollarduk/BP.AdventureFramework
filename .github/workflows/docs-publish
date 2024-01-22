@@ -2,7 +2,7 @@ name: docs-publish
 
 on:
   push:
-    branches: [ "docs-publish" ]
+    branches: [ "docfx-devops" ]
   workflow_dispatch:
 
 permissions:

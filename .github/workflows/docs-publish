@@ -3,6 +3,10 @@ name: docs-publish
 on:
   push:
     branches: [ "docfx-devops" ]
+  pull_request:
+      branches:
+        - "docfx-devops"
+        - "docfx"
   workflow_dispatch:
 
 permissions:

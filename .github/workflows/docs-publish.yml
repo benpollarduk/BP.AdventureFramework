@@ -32,13 +32,13 @@ jobs:
       run: dotnet build
 
     - name: Build documentation
-      run: docfx BP.AdventureFramework/docs/docfx/docfx.json
+      run: docfx docs/docfx/docfx.json
 
     - name: Copy documentation to BP.AdventureFramework-docs repository
       run: |
         mkdir temp
-        cp -r BP.AdventureFramework/docs/docfx/_site/* temp/
-        rm -rf BP.AdventureFramework/docs/docfx/_site/*
+        cp -r docs/docfx/_site/* temp/
+        rm -rf docs/docfx/_site/*
         cp -r temp/* BP.AdventureFramework-docs/
         rm -rf temp
 

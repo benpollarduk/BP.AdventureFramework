@@ -12,6 +12,7 @@ A C# library that provides a framework for building text adventures and interact
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_adventure-framework&metric=bugs)](https://sonarcloud.io/summary/new_code?id=benpollarduk_adventure-framework)
 [![GitHub release](https://img.shields.io/github/release/benpollarduk/adventure-framework.svg)](https://github.com/benpollarduk/adventure-framework/releases)
 [![License](https://img.shields.io/github/license/benpollarduk/adventure-framework.svg)](https://opensource.org/licenses/MIT)
+[![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://benpollarduk.github.io/BP.AdventureFramework-docs/)
 
 </div>
 
@@ -170,5 +171,8 @@ and have been designed with the aim of showcasing the various features.
 The example applications can be used to execute the example BP.AdventureFramework game and demonstrate the core principals of the framework. 
 Set the **BP.AdventureFramweork.Examples** project as the start up project and build and run to start the application.
 
+## Documentation
+Please visit [https://benpollarduk.github.io/BP.AdventureFramework-docs/](https://benpollarduk.github.io/BP.AdventureFramework-docs/) to view the BP.AdventureFramework documentation.
+
 ## For Open Questions
-Visit https://github.com/benpollarduk/adventure-framework/issues
+Visit https://github.com/benpollarduk/BP.AdventureFramework/issues

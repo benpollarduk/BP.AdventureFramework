@@ -1,18 +1,11 @@
 ---
 _layout: landing
 ---
-
-<div align="center">
-
 # BP.AdventureFramework
 A C# library that provides a framework for building text adventures and interactive stories in .NET.
 
-</div>
-
 ## Overview
 BP.AdventureFramework is a .NET Standard 2.0 implementation of a framework for building text based adventures.
-
-![BP AdventureFrameworkDemo_example](https://github.com/benpollarduk/adventure-framework/assets/129943363/20656e76-4e80-475e-aa73-93976d98c5c9)
 
 At its core BP.AdventureFramework provides simple classes for developing game elements:
 
@@ -93,8 +86,6 @@ BP.AdventureFramework provides classes for handling interpretation of input. Int
 ### Conversations
 
 Conversations can be held between the player and a NPC. Conversations support multiple lines of dialogue and responses.
-
-![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/5ed1afc0-1ab8-4d35-9c90-dd848f18bfda)
   
 ### Rendering
 
@@ -111,7 +102,5 @@ BP.AdventureFramework provides frames for rendering the various game screens. Th
 ### Maps
   
 Maps are automatically generated for regions and rooms, and can be viewed with the **map** command:
-
-![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/b6c05233-6856-4103-be44-be1c73a85874)
 
 Maps display visited rooms, exits, player position, if an item is in a room, lower floors and more.

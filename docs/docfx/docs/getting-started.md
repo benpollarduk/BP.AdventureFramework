@@ -1,16 +1,12 @@
-## Getting Started
+# Getting Started
 
-### Prerequisites
- * Windows
-   * Download free IDE Visual Studio 2022 Community ( >> https://visualstudio.microsoft.com/de/vs/community/ ), or use commercial Visual Studio 2022 Version.
-
-### Clone the repo
+## Clone the repo
 Clone the repo to the local machine.
 ```bash
 git clone https://github.com/benpollarduk/adventure-framework.git
 ```
 
-### Hello World
+## Hello World
 ```csharp
 // create the player. this is the character the user plays as
 var player = new PlayableCharacter("Dave", "A young boy on a quest to find the meaning of life.");
@@ -37,11 +33,11 @@ var gameCreator = Game.Create("The Life Of Dave",
 Game.Execute(gameCreator);
 ```
 
-### Example game
+## Example game
 The quickest way to start getting to grips with the structure of BP.AdventureFramework is by taking a look at the examples.
 An example game is provided in the [BP.AdventureFramework.Examples](https://github.com/benpollarduk/adventure-framework/tree/main/BP.AdventureFramework.Examples) directory 
 and have been designed with the aim of showcasing the various features.
 
-### Running the examples
+## Running the examples
 The example applications can be used to execute the example BP.AdventureFramework game and demonstrate the core principals of the framework. 
 Set the **BP.AdventureFramweork.Examples** project as the start up project and build and run to start the application.

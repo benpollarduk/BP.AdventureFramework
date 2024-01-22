@@ -1,0 +1,55 @@
+name: docs-publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Update docfx
+      run: dotnet tool update -g docfx
+
+    - name: Build
+      run: dotnet build
+
+    - name: Build documentation
+      run: docfx BP.AdventureFramework/docs/docfx/docfx.json
+
+    - name: Copy documentation to BP.AdventureFramework-docs repository
+      run: |
+        mkdir temp
+        cp -r BP.AdventureFramework/docs/docfx/_site/* temp/
+        rm -rf BP.AdventureFramework/docs/docfx/_site/*
+        cp -r temp/* BP.AdventureFramework-docs/
+        rm -rf temp
+
+    - name: Commit and push changes to BP.AdventureFramework-docs
+      run: |
+        cd BP.AdventureFramework-docs
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Update documentation"
+        git remote add docs-repo https://github.com/benpollarduk/BP.AdventureFramework-docs.git
+        git push docs-repo main
+      env:
+        PAT: ${{ secrets.PAT }}

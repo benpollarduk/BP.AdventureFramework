@@ -45,6 +45,11 @@ Generated\ Files/
 *.VisualState.xml
 TestResult.xml
 
+### DocFx ###
+/docs/docfx/.cache
+/docs/docfx/_site/
+/docs/docfx/api/
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/

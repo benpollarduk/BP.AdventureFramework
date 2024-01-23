@@ -81,7 +81,6 @@ jobs:
 
     - name: Pack and publish NuGet package
       run: |
-        dotnet pack -c Release
         dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
 
     - name: Create GitHub release

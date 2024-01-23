@@ -34,12 +34,12 @@ jobs:
 
     - name: Update version in csproj file
       run: |
-        echo "Version: ${{ env.VER }}"
+        echo "Version: ${{ inputs.ver }}"
         
         # update the .csproj file with the input version
-        sed -i "s/<Version>.*<\/Version>/<Version>${{ env.VER }}<\/Version>/" BP.AdventureFramework/BP.AdventureFramework.csproj
-        sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ env.VER }}.0<\/AssemblyVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
-        sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ env.VER }}<\/FileVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<Version>.*<\/Version>/<Version>${{ inputs.ver }}<\/Version>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ inputs.ver }}.0<\/AssemblyVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ inputs.ver }}<\/FileVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
 
     - name: Build
       run: dotnet build -c Release
@@ -52,8 +52,8 @@ jobs:
         git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework.git
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git tag -a "${{ env.VER }}" -m "${{ env.VER }}"
-        git push origin "${{ env.VER }}"
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"
+        git push origin "${{ inputs.ver }}"
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
@@ -81,8 +81,8 @@ jobs:
 
     - name: Tag documentation repo
       run: |
-        git tag -a "${{ env.VER }}" -m "${{ env.VER }}"
-        git push origin "${{ env.VER }}":main
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"
+        git push origin "${{ inputs.ver }}":main
       working-directory: BP.AdventureFramework-docs
 
     - name: Pack and publish NuGet package

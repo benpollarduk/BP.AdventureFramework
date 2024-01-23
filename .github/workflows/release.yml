@@ -49,7 +49,6 @@ jobs:
 
     - name: Tag repo
       run: |
-        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework.git
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"

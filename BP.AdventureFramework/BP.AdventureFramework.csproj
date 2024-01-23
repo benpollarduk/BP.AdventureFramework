@@ -5,14 +5,14 @@
     <AssemblyName>BP.AdventureFramework</AssemblyName>
     <Authors>Ben Pollard</Authors>
     <Copyright />
-    <PackageReleaseNotes>Templates have been simplified.</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/benpollarduk/BP.AdventureFramework.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/benpollarduk/BP.AdventureFramework</PackageProjectUrl>
     <Description>An open source library for creating text adventures. Provides game assets, parsers, and other classes to assist with logic. For examples see the project website at https://github.com/benpollarduk/BP.AdventureFramework.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.5.0</Version>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
-    <FileVersion>1.5.0.0</FileVersion>
+    <Version>0.0.0</Version>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

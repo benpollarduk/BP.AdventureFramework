@@ -1,0 +1,91 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ver:
+        description: 'The version number, should be specified as a semantic version e.g: X.Y.Z'
+        required: false
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Update docfx
+      run: dotnet tool update -g docfx
+
+    - name: Update version in csproj file
+      run: |
+        echo "Version: ${{ env.VER }}"
+        
+        # update the .csproj file with the input version
+        sed -i "s/<Version>.*<\/Version>/<Version>${{ env.VER }}<\/Version>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ env.VER }}.0<\/AssemblyVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ env.VER }}<\/FileVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+
+    - name: Build
+      run: dotnet build -c Release
+
+    - name: Run tests with coverlet
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+    - name: Tag repo
+      run: |
+        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework.git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git tag -a "${{ env.VER }}" -m "${{ env.VER }}"
+        git push origin "${{ env.VER }}"
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Build documentation
+      run: docfx docs/docfx/docfx.json
+
+    - name: Copy website files, commit and push changes to BP.AdventureFramework-docs
+      run: |
+        mkdir BP.AdventureFramework-docs
+        cd BP.AdventureFramework-docs
+        git init
+        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework-docs.git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git fetch
+        git checkout main
+        git rm -r --ignore-unmatch .
+        cp -r ../docs/docfx/_site/* .
+        git add .
+        git commit -m "Update documentation"
+        git push origin main:main
+
+    - name: Tag documentation repo
+      run: |
+        git tag -a "${{ env.VER }}" -m "${{ env.VER }}"
+        git push origin "${{ env.VER }}":main
+      working-directory: BP.AdventureFramework-docs
+
+    - name: Pack and publish NuGet package
+      run: |
+        dotnet pack -c Release
+        dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json

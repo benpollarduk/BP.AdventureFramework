@@ -5,7 +5,10 @@ on:
     inputs:
       ver:
         description: 'The version number, should be specified as a semantic version e.g: X.Y.Z'
-        required: false
+        required: true
+      release-notes:
+        description: 'The versions release notes'
+        required: true
 
 permissions:
   contents: read
@@ -20,6 +23,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+         repository: benpollarduk/BP.AdventureFramework
+         token: ${{ secrets.PAT }}
 
     - name: Setup environment
       uses: actions/setup-dotnet@v3
@@ -32,14 +38,18 @@ jobs:
     - name: Update docfx
       run: dotnet tool update -g docfx
 
-    - name: Update version in csproj file
+    - name: Update version and release notes in csproj file
       run: |
-        echo "Version: ${{ env.VER }}"
+        echo "Version: ${{ inputs.ver }}"
+        echo "Release notes: ${{ inputs.release-notes }}"
         
         # update the .csproj file with the input version
-        sed -i "s/<Version>.*<\/Version>/<Version>${{ env.VER }}<\/Version>/" BP.AdventureFramework/BP.AdventureFramework.csproj
-        sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ env.VER }}.0<\/AssemblyVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
-        sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ env.VER }}<\/FileVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<Version>.*<\/Version>/<Version>${{ inputs.ver }}<\/Version>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ inputs.ver }}.0<\/AssemblyVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+        sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ inputs.ver }}<\/FileVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+
+        # update the .csproj file with the release notes
+        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>${{ inputs.release-notes }}<\/PackageReleaseNotes>/" BP.AdventureFramework/BP.AdventureFramework.csproj
 
     - name: Build
       run: dotnet build -c Release
@@ -47,23 +57,26 @@ jobs:
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
-    - name: Tag repo
+    - name: Tag the commit
       run: |
-        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework.git
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git tag -a "${{ env.VER }}" -m "${{ env.VER }}"
-        git push origin "${{ env.VER }}"
-
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
+        git push --tags
+      
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+    - name: Pack and publish NuGet package
+      run: |
+        dotnet nuget push ./BP.AdventureFramework/bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
+
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
 
-    - name: Copy website files, commit and push changes to BP.AdventureFramework-docs
+    - name: Copy website files, commit and tag, then push changes to BP.AdventureFramework-docs
       run: |
         mkdir BP.AdventureFramework-docs
         cd BP.AdventureFramework-docs
@@ -77,15 +90,14 @@ jobs:
         cp -r ../docs/docfx/_site/* .
         git add .
         git commit -m "Update documentation"
-        git push origin main:main
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
+        git push --follow-tags origin main:main
 
-    - name: Tag documentation repo
-      run: |
-        git tag -a "${{ env.VER }}" -m "${{ env.VER }}"
-        git push origin "${{ env.VER }}":main
-      working-directory: BP.AdventureFramework-docs
-
-    - name: Pack and publish NuGet package
-      run: |
-        dotnet pack -c Release
-        dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      with:
+        tag_name: "${{ inputs.ver }}"
+        release_name: "${{ inputs.ver }}"
+        body: "${{ inputs.release-notes }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}

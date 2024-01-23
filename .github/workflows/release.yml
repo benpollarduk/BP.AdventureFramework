@@ -53,11 +53,22 @@ jobs:
 
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+    - name: Tag the commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git tag "${{ inputs.ver }}"
+        git push origin "${{ inputs.ver }}"
       
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Pack and publish NuGet package
+      run: |
+        dotnet nuget push ./BP.AdventureFramework/bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
 
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
@@ -76,12 +87,8 @@ jobs:
         cp -r ../docs/docfx/_site/* .
         git add .
         git commit -m "Update documentation"
-        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"
+        git tag "${{ inputs.ver }}"
         git push --follow-tags origin main:main
-
-    - name: Pack and publish NuGet package
-      run: |
-        dotnet nuget push ./BP.AdventureFramework/bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
 
     - name: Create GitHub release
       uses: actions/create-release@v1

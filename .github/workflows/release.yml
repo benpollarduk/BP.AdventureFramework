@@ -59,13 +59,6 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Tag main repo
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"
-        git push origin "${{ inputs.ver }}"
-
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
 

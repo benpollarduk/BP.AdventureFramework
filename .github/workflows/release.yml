@@ -81,7 +81,7 @@ jobs:
 
     - name: Pack and publish NuGet package
       run: |
-        dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
+        dotnet nuget push ./BP.AdventureFramework/bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
 
     - name: Create GitHub release
       uses: actions/create-release@v1

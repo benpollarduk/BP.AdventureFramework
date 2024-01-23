@@ -23,6 +23,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+         repository: benpollarduk/BP.AdventureFramework
+         token: ${{ secrets.PAT }}
 
     - name: Setup environment
       uses: actions/setup-dotnet@v3
@@ -58,8 +61,8 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git tag "${{ inputs.ver }}"
-        git push https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework.git "${{ env.VER }}"
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
+        git push --tags
       
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
@@ -87,7 +90,7 @@ jobs:
         cp -r ../docs/docfx/_site/* .
         git add .
         git commit -m "Update documentation"
-        git tag "${{ inputs.ver }}"
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
         git push --follow-tags origin main:main
 
     - name: Create GitHub release

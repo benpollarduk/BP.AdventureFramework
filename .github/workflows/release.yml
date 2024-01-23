@@ -5,7 +5,10 @@ on:
     inputs:
       ver:
         description: 'The version number, should be specified as a semantic version e.g: X.Y.Z'
-        required: false
+        required: true
+      release-notes:
+        description: 'The versions release notes'
+        required: true
 
 permissions:
   contents: read
@@ -32,32 +35,36 @@ jobs:
     - name: Update docfx
       run: dotnet tool update -g docfx
 
-    - name: Update version in csproj file
+    - name: Update version and release notes in csproj file
       run: |
         echo "Version: ${{ inputs.ver }}"
+        echo "Release notes: ${{ inputs.release-notes }}"
         
         # update the .csproj file with the input version
         sed -i "s/<Version>.*<\/Version>/<Version>${{ inputs.ver }}<\/Version>/" BP.AdventureFramework/BP.AdventureFramework.csproj
         sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ inputs.ver }}.0<\/AssemblyVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
         sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ inputs.ver }}<\/FileVersion>/" BP.AdventureFramework/BP.AdventureFramework.csproj
 
+        # update the .csproj file with the release notes
+        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>${{ inputs.release-notes }}<\/PackageReleaseNotes>/" BP.AdventureFramework/BP.AdventureFramework.csproj
+
     - name: Build
       run: dotnet build -c Release
 
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Tag repo
+    - name: Tag main repo
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"
         git push origin "${{ inputs.ver }}"
-
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
@@ -88,3 +95,12 @@ jobs:
       run: |
         dotnet pack -c Release
         dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
+
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      with:
+        tag_name: "${{ inputs.ver }}"
+        release_name: "${{ inputs.ver }}"
+        body: "${{ inputs.release-notes }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}

@@ -62,7 +62,7 @@ jobs:
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
 
-    - name: Copy website files, commit and push changes to BP.AdventureFramework-docs
+    - name: Copy website files, commit and tag, then push changes to BP.AdventureFramework-docs
       run: |
         mkdir BP.AdventureFramework-docs
         cd BP.AdventureFramework-docs
@@ -76,13 +76,8 @@ jobs:
         cp -r ../docs/docfx/_site/* .
         git add .
         git commit -m "Update documentation"
-        git push origin main:main
-
-    - name: Tag documentation repo
-      run: |
         git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }}"
-        git push origin "${{ inputs.ver }}":main
-      working-directory: BP.AdventureFramework-docs
+        git push --follow-tags origin main:main
 
     - name: Pack and publish NuGet package
       run: |

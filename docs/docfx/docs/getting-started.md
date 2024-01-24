@@ -21,13 +21,22 @@ var regionMaker = new RegionMaker("Mountain", "An imposing volcano just East of 
 // create overworld maker. the overworld maker simplifies creating in game overworlds. an overworld contains a series or regions
 var overworldMaker = new OverworldMaker("Daves World", "An ancient kingdom.", regionMaker);
 
-// create callback for generating games
-var gameCreator = Game.Create("The Life Of Dave",
+// create the callback for generating new instances of the game
+// - the title of the game
+// - an introduction to the game, displayed at the start
+// - about the game, displayed on the about screen
+// - a callback that provides a new instance of the games overworld
+// - a callback that provides a new instance of the player
+// - a callback that determines if the game is complete, checked every cycle of the game
+// - a callback that determines if it's game over, checked every cycle of the game
+var gameCreator = Game.Create(
+    "The Life Of Dave",
     "Dave awakes to find himself in a cavern...",
     "A very low budget adventure.",
     x => overworldMaker.Make(),
     () => player,
-    x => CompletionCheckResult.NotComplete);
+    x => EndCheckResul.NotEnded,
+    x => EndCheckResult.NotEnded);
 
 // begin the execution of the game
 Game.Execute(gameCreator);

@@ -30,3 +30,22 @@ bomb.Commands =
     })
 ];
 ```
+
+## Interaction
+
+Interactions can be set up between different assets in the game. In this case I is the item being used and 
+
+```csharp
+var dartsBoard = new Item("Darts board", "A darts board.");
+
+var dart = new Item("Dart", "A dart")
+{
+    Interaction = (item, target) =>
+    {
+        if (target == dartsBoard)
+            return new InteractionResult(InteractionEffect.SelfContained, item, "The dart stuck in the darts board.");
+
+        return new InteractionResult(InteractionEffect.NoEffect, item);
+    }
+};
+```

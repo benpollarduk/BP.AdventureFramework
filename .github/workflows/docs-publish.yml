@@ -48,5 +48,5 @@ jobs:
         cp -r ../docs/docfx/_site/* .
         git add .
         git commit -m "Update documentation"
-        git push origin main:main
+        git push https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework-docs.git HEAD:main
         

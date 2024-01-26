@@ -91,7 +91,7 @@ jobs:
         git add .
         git commit -m "Update documentation"
         git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
-        git push --follow-tags origin main:main
+        git push --follow-tags https://${{ secrets.PAT }}@github.com/benpollarduk/BP.AdventureFramework-docs.git HEAD:main
 
     - name: Create GitHub release
       uses: actions/create-release@v1

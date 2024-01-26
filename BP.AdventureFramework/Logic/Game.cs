@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.Logic
     /// <summary>
     /// Represents the structure of the game
     /// </summary>
-    public sealed class Game : IDisposable
+    public sealed class Game
     {
         #region Constants
 
@@ -563,22 +563,21 @@ namespace BP.AdventureFramework.Logic
 
             while (run)
             {
-                using (var game = creator.Invoke())
-                {
-                    SetupConsole(game);
-                    AttachToConsole(game);
-                    game.Execute();
+                var game = creator.Invoke();
+                
+                SetupConsole(game);
+                AttachToConsole(game);
+                game.Execute();
 
-                    switch (game.ExitMode)
-                    {
-                        case ExitMode.ExitApplication:
-                            run = false;
-                            break;
-                        case ExitMode.ReturnToTitleScreen:
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+                switch (game.ExitMode)
+                {
+                    case ExitMode.ExitApplication:
+                        run = false;
+                        break;
+                    case ExitMode.ReturnToTitleScreen:
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
         }
@@ -611,20 +610,6 @@ namespace BP.AdventureFramework.Logic
             var actualDisplaySize = new Size(game.DisplaySize.Width + 1, game.DisplaySize.Height);
             Console.SetWindowSize(actualDisplaySize.Width, actualDisplaySize.Height);
             Console.SetBufferSize(actualDisplaySize.Width, actualDisplaySize.Height);
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Output?.Dispose();
-            Input?.Dispose();
-            Error?.Dispose();
         }
 
         #endregion

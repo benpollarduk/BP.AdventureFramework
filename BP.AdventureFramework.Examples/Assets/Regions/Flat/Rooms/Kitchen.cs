@@ -28,17 +28,12 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
             room.AddItem(new HamsterCage().Instantiate());
             room.AddItem(new Kettle().Instantiate());
 
-            room.Interaction = (i, target) =>
+            room.Interaction = (item) =>
             {
-                var obj = target as Room;
+                if (Guitar.Name.EqualsIdentifier(item.Identifier))
+                    return new InteractionResult(InteractionEffect.NoEffect, item, "Playing guitar in the kitchen is pretty stupid don't you think?");
 
-                if (obj != null)
-                {
-                    if (Guitar.Name.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "Playing guitar in the kitchen is pretty stupid don't you think?");
-                }
-
-                return new InteractionResult(InteractionEffect.NoEffect, i);
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             return room;

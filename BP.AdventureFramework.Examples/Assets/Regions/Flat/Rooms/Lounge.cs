@@ -32,35 +32,31 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Rooms
             room.AddItem(new LoungeTV().Instantiate());
             room.AddItem(new Lead().Instantiate());
 
-            room.Interaction = (i, target) =>
+            room.Interaction = item =>
             {
-                var obj = target as Room;
-
-                if (obj != null)
+                if (item != null)
                 {
-                    if (MugOfCoffee.Name.EqualsIdentifier(i.Identifier))
+                    if (MugOfCoffee.Name.EqualsIdentifier(item.Identifier))
                     {
-                        if (obj.ContainsCharacter(Beth.Name))
-                            return new InteractionResult(InteractionEffect.ItemUsedUp, i, "Beth takes the cup of coffee and smiles. Brownie points to you!");
+                        if (room.ContainsCharacter(Beth.Name))
+                            return new InteractionResult(InteractionEffect.ItemUsedUp, item, "Beth takes the cup of coffee and smiles. Brownie points to you!");
 
-                        i.Morph(new EmptyCoffeeMug().Instantiate());
-                        return new InteractionResult(InteractionEffect.ItemMorphed, i, "As no one is about you decide to drink the coffee yourself. Your nose wasn't lying, it is bitter but delicious.");
+                        item.Morph(new EmptyCoffeeMug().Instantiate());
+                        return new InteractionResult(InteractionEffect.ItemMorphed, item, "As no one is about you decide to drink the coffee yourself. Your nose wasn't lying, it is bitter but delicious.");
 
                     }
 
-                    if (EmptyCoffeeMug.Name.EqualsIdentifier(i.Identifier))
+                    if (EmptyCoffeeMug.Name.EqualsIdentifier(item.Identifier))
                     {
-                        obj.AddItem(i);
-                        return new InteractionResult(InteractionEffect.ItemUsedUp, i, "You put the mug down on the coffee table, sick of carrying the bloody thing around. Beth is none too impressed.");
+                        room.AddItem(item);
+                        return new InteractionResult(InteractionEffect.ItemUsedUp, item, "You put the mug down on the coffee table, sick of carrying the bloody thing around. Beth is none too impressed.");
                     }
 
-                    if (Guitar.Name.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "You strum the guitar frantically trying to impress Beth, she smiles but looks at you like you are a fool. The guitar just isn't loud enough when it is not plugged in...");
-
-                    return new InteractionResult(InteractionEffect.NoEffect, i);
+                    if (Guitar.Name.EqualsIdentifier(item.Identifier))
+                        return new InteractionResult(InteractionEffect.NoEffect, item, "You strum the guitar frantically trying to impress Beth, she smiles but looks at you like you are a fool. The guitar just isn't loud enough when it is not plugged in...");
                 }
 
-                return new InteractionResult(InteractionEffect.NoEffect, i);
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             return room;

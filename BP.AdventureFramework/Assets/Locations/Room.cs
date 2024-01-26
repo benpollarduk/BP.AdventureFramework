@@ -43,7 +43,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get or set the interaction.
         /// </summary>
-        public InteractionCallback Interaction { get; set; } = (i, target) => new InteractionResult(InteractionEffect.NoEffect, i);
+        public InteractionCallback Interaction { get; set; } = i => new InteractionResult(InteractionEffect.NoEffect, i);
 
         /// <summary>
         /// Get an exit.
@@ -203,7 +203,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The result of the interaction.</returns>
         private InteractionResult InteractWithItem(Item item)
         {
-            return Interaction.Invoke(item, this);
+            return Interaction.Invoke(item);
         }
 
         /// <summary>

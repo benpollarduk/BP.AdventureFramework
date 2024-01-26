@@ -26,18 +26,18 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Everglades.Rooms
         {
             var room = new Room(Name, string.Empty, new Exit(Direction.West), new Exit(Direction.North, true));
 
-            InteractionCallback innerCaveInteraction = (i, _) =>
+            InteractionCallback innerCaveInteraction = item =>
             {
-                if (i != null && ConchShell.Name.EqualsExaminable(i))
+                if (item != null && ConchShell.Name.EqualsExaminable(item))
                 {
                     room[Direction.North].Unlock();
-                    return new InteractionResult(InteractionEffect.ItemUsedUp, i, "You blow into the Conch Shell. The Conch Shell howls, the  bats leave! Conch shell crumbles to pieces.");
+                    return new InteractionResult(InteractionEffect.ItemUsedUp, item, "You blow into the Conch Shell. The Conch Shell howls, the  bats leave! Conch shell crumbles to pieces.");
                 }
 
-                if (i != null && Knife.Name.EqualsExaminable(i))
-                    return new InteractionResult(InteractionEffect.NoEffect, i, "You slash wildly at the bats, but there are too many. Don't aggravate them!");
+                if (item != null && Knife.Name.EqualsExaminable(item))
+                    return new InteractionResult(InteractionEffect.NoEffect, item, "You slash wildly at the bats, but there are too many. Don't aggravate them!");
 
-                return new InteractionResult(InteractionEffect.NoEffect, i);
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             room.Interaction = innerCaveInteraction;

@@ -17,7 +17,7 @@ namespace BP.AdventureFramework.Assets
         /// <summary>
         /// Get or set the interaction.
         /// </summary>
-        public InteractionCallback Interaction { get; set; } = (i, target) => new InteractionResult(InteractionEffect.NoEffect, i);
+        public InteractionCallback Interaction { get; set; } = i => new InteractionResult(InteractionEffect.NoEffect, i);
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace BP.AdventureFramework.Assets
         /// <returns>The result of the interaction.</returns>
         public InteractionResult Interact(Item item)
         {
-            return Interaction.Invoke(this, item);
+            return Interaction.Invoke(item);
         }
 
         #endregion

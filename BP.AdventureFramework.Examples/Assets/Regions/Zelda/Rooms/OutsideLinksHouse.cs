@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
             var room = new Room(Name, Description, new Exit(Direction.South), new Exit(Direction.North), new Exit(Direction.East, true));
             var door = new TailDoor().Instantiate();
 
-            door.Interaction = (item, _) =>
+            door.Interaction = item =>
             {
                 if (TailKey.Name.EqualsExaminable(item))
                 {

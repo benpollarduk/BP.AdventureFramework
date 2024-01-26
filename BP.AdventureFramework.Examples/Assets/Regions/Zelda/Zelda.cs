@@ -65,7 +65,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda
                 new Paragraph("OK Link your annoying me now, I'm just going to ignore you.", 0)
             );
 
-            saria.Interaction = (item, _) =>
+            saria.Interaction = item =>
             {
                 saria.FindItem(TailKey.Name, out var key);
 

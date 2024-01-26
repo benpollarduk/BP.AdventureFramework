@@ -35,40 +35,33 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat
                 "Your in a large sitting room. Theres a huge map hanging on the eastern wall. On the southern wall there is a canvas. Theres a large coffee table in the center of the room. Beth is sat on a green sofa watching the TV. The kitchen is to the north.",
                 () => roof.ContainsItem(Lead.Name));
 
-            spareBedroom.Interaction = (i, target) =>
+            spareBedroom.Interaction = item =>
             {
-                var obj = target as Room;
-
-                if (obj != null)
+                if (Lead.Name.EqualsIdentifier(item.Identifier))
                 {
-                    if (Lead.Name.EqualsIdentifier(i.Identifier))
-                    {
-                        obj.AddItem(new Item(i.Identifier, i.Description, true));
-                        return new InteractionResult(InteractionEffect.ItemUsedUp, i, "The lead fits snugly into the input socket on the amp.");
-                    }
-
-                    if (Guitar.Name.EqualsIdentifier(i.Identifier))
-                    {
-                        if (obj.ContainsItem(Lead.Name))
-                        {
-                            easternHallway[Direction.East].Unlock();
-
-                            if (lounge.FindCharacter(Beth.Name, out var b))
-                            {
-                                lounge.RemoveCharacter(b);
-                                return new InteractionResult(InteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings. Beth's had enough! She bolts for the front door leaving it wide open! You are free to leave the flat! You unplug the guitar.");
-                            }
-
-                            return new InteractionResult(InteractionEffect.NoEffect, i, "The guitar plugs in with a satisfying click. You play some punk and the amp sings.");
-                        }
-
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "You have no lead so you can't use the guitar with the amp...");
-                    }
-
-                    return new InteractionResult(InteractionEffect.NoEffect, i);
+                    spareBedroom.AddItem(new Item(item.Identifier, item.Description, true));
+                    return new InteractionResult(InteractionEffect.ItemUsedUp, item, "The lead fits snugly into the input socket on the amp.");
                 }
 
-                return new InteractionResult(InteractionEffect.NoEffect, i);
+                if (Guitar.Name.EqualsIdentifier(item.Identifier))
+                {
+                    if (spareBedroom.ContainsItem(Lead.Name))
+                    {
+                        easternHallway[Direction.East].Unlock();
+
+                        if (lounge.FindCharacter(Beth.Name, out var b))
+                        {
+                            lounge.RemoveCharacter(b);
+                            return new InteractionResult(InteractionEffect.NoEffect, item, "The guitar plugs in with a satisfying click. You play some punk and the amp sings. Beth's had enough! She bolts for the front door leaving it wide open! You are free to leave the flat! You unplug the guitar.");
+                        }
+
+                        return new InteractionResult(InteractionEffect.NoEffect, item, "The guitar plugs in with a satisfying click. You play some punk and the amp sings.");
+                    }
+
+                    return new InteractionResult(InteractionEffect.NoEffect, item, "You have no lead so you can't use the guitar with the amp...");
+                }
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
             };
 
             var regionMaker = new RegionMaker(Name, Description)

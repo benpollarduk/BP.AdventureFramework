@@ -24,16 +24,15 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.Items
         {
             return new Item(Name, Description, true)
             {
-                Interaction = (i, target) =>
+                Interaction = item =>
                 {
-                    if (Kettle.Name.EqualsIdentifier(i.Identifier))
+                    if (Kettle.Name.EqualsIdentifier(item.Identifier))
                     {
-                        var item = target as Item;
                         item?.Morph(new MugOfCoffee().Instantiate());
-                        return new InteractionResult(InteractionEffect.ItemMorphed, i, "You put some instant coffee graduals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
+                        return new InteractionResult(InteractionEffect.ItemMorphed, item, "You put some instant coffee graduals into the mug and add some freshly boiled water from the Kettle. The coffee smells amazing!");
                     }
 
-                    return new InteractionResult(InteractionEffect.NoEffect, i);
+                    return new InteractionResult(InteractionEffect.NoEffect, item);
                 }
             };
         }

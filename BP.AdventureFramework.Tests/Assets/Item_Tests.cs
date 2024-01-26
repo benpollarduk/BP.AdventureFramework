@@ -8,12 +8,12 @@ namespace BP.AdventureFramework.Tests.Assets
     public class Item_Tests
     {
         [TestMethod]
-        public void Given2Items_WhenUse_ThenNoEffect()
+        public void Given2Items_WhenInteract_ThenNoEffect()
         {
             var item = new Item(string.Empty, string.Empty);
             var item2 = new Item(string.Empty, string.Empty);
 
-            var result = item.Use(item2);
+            var result = item.Interact(item2);
 
             Assert.AreEqual(InteractionEffect.NoEffect, result.Effect);
         }

@@ -68,7 +68,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
             var item = new Item("Test", string.Empty);
             var pc = new PlayableCharacter(string.Empty, string.Empty)
             {
-                Interaction = (i, _) =>
+                Interaction = i =>
                 {
                     if (i == null)
                         return new InteractionResult(InteractionEffect.NoEffect, null);
@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
                 }
             };
 
-            var result = pc.UseItem(pc, item);
+            pc.UseItem(pc, item);
 
             Assert.IsFalse(pc.IsAlive);
         }

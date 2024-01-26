@@ -17,7 +17,7 @@ namespace BP.AdventureFramework.Assets
         /// <summary>
         /// Get or set the interaction.
         /// </summary>
-        public InteractionCallback Interaction { get; set; } = (i, target) => new InteractionResult(InteractionEffect.NoEffect, i);
+        public InteractionCallback Interaction { get; set; } = i => new InteractionResult(InteractionEffect.NoEffect, i);
 
         #endregion
 
@@ -62,16 +62,6 @@ namespace BP.AdventureFramework.Assets
             IsTakeable = item.IsTakeable;
         }
 
-        /// <summary>
-        /// Use this item on a target.
-        /// </summary>
-        /// <param name="target">The target to use the item on.</param>
-        /// <retunrs>The result of the interaction.</retunrs>
-        public InteractionResult Use(IInteractWithItem target)
-        {
-            return target.Interact(this);
-        }
-
         #endregion
 
         #region IInteractWithItem Members
@@ -83,7 +73,7 @@ namespace BP.AdventureFramework.Assets
         /// <returns>The result of the interaction.</returns>
         public InteractionResult Interact(Item item)
         {
-            return Interaction.Invoke(item, this);
+            return Interaction.Invoke(item);
         }
 
         #endregion

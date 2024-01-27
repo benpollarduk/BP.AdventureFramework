@@ -9,3 +9,7 @@ items:
   - href: exit.md
 - name: Items
   href: items.md
+- name: Characters
+  items:
+  - href: playable-character.md
+  - href: non-playable-character.md

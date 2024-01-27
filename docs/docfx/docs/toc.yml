@@ -15,11 +15,11 @@ items:
   items:
   - href: playable-character.md
   - href: non-playable-character.md
-- name: Commands
-  href: commands.md
-- name: End Conditions
-  href: end-conditions.md
 - name: Conditional Descriptions
   href: conditional-descriptions.md
+- name: Commands
+  href: commands.md
 - name: Frame Builders
   href: frame-builders.md
+- name: End Conditions
+  href: end-conditions.md

@@ -9,14 +9,12 @@ The **EndCheck** class allows the game to determine if it has come to an end. Ea
 When an **EndCheck** is invoked it returns an **EndCheckResult**. The **EndCheckResult** details the result of the check to see if the game has ended.
 
 ```csharp
-private static EndCheckResult DetermineIfGameHasCompleted(Game game)
+private static EndCheckResult IsGameOver(Game game)
 {
-    var atDestination = TailCave.Name.EqualsExaminable(game.Overworld.CurrentRegion.CurrentRoom);
-
-    if (!atDestination)
+    if (game.Player.IsAlive)
         return EndCheckResult.NotEnded;
 
-    return new EndCheckResult(true, "Game Over", "You have reached the end of the game, thanks for playing!");
+    return new EndCheckResult(true, "Game Over", "You died!");
 }
 ```
 

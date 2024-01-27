@@ -19,7 +19,7 @@ items:
   - href: non-playable-character.md
 - name: Commands
   items:
-  - href: game-commands.
+  - href: game-commands.md
   - href: global-commands.md
 - name: End Conditions
   href: end-conditions.md

@@ -1,4 +1,4 @@
-﻿# PlayableCharacter
+﻿# NonPlayableCharacter
 
 ## Overview
 

@@ -3,7 +3,7 @@
 ## Overview
 Normally assets are assigned a **Description** during the constructor. This is what is returned when the asset is examined.
 
-Descriptions are usaully specified as a string.
+Descriptions are usually specified as a string.
 
 ```csharp
 var item = new Item("The items name", "The items description.");

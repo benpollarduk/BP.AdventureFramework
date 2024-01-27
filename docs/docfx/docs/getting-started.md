@@ -1,12 +1,11 @@
 # Getting Started
 
-## Clone the repo
-Clone the repo to the local machine.
-```bash
-git clone https://github.com/benpollarduk/adventure-framework.git
-```
+## Adding the NuGet pacakge to your project
+You need to pull BP.AdventureFramework into your project. The easiest way to do this is to add the NuGet package. The latest package and installation instructions are available [here](https://github.com/benpollarduk/BP.AdventureFramework/pkgs/nuget/BP.AdventureFramework).
 
-## Hello World
+## First Game
+Once the package has been installed it's time to jump in and start building your first game.
+
 ```csharp
 // create the player. this is the character the user plays as
 var player = new PlayableCharacter("Dave", "A young boy on a quest to find the meaning of life.");
@@ -35,18 +34,9 @@ var gameCreator = Game.Create(
     "A very low budget adventure.",
     x => overworldMaker.Make(),
     () => player,
-    x => EndCheckResul.NotEnded,
+    x => EndCheckResult.NotEnded,
     x => EndCheckResult.NotEnded);
 
 // begin the execution of the game
 Game.Execute(gameCreator);
 ```
-
-## Example game
-The quickest way to start getting to grips with the structure of BP.AdventureFramework is by taking a look at the examples.
-An example game is provided in the [BP.AdventureFramework.Examples](https://github.com/benpollarduk/adventure-framework/tree/main/BP.AdventureFramework.Examples) directory 
-and have been designed with the aim of showcasing the various features.
-
-## Running the examples
-The example applications can be used to execute the example BP.AdventureFramework game and demonstrate the core principals of the framework. 
-Set the **BP.AdventureFramweork.Examples** project as the start up project and build and run to start the application.

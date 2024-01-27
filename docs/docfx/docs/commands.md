@@ -168,7 +168,7 @@ map
 Starts a new game.
 
 ```
-new.
+new
 ```
 
 ## Custom Commands

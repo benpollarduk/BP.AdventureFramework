@@ -56,4 +56,3 @@ goblin.Conversation = new Conversation(
     new Paragraph("You picked third response, you are dead., game => game.Player.Kill())
 );
 ```
-

@@ -179,11 +179,19 @@ namespace BP.AdventureFramework.Assets.Locations
                 return target;
             }
 
-            if (!Characters.Contains(target))
-                return null;
+            if (Characters.Contains(target))
+            {
+                RemoveCharacter(target as NonPlayableCharacter);
+                return target;
+            }
 
-            RemoveCharacter(target as NonPlayableCharacter);
-            return target;
+            if (Exits.Contains(target))
+            {
+                RemoveExit(target as Exit);
+                return target;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -364,8 +372,10 @@ namespace BP.AdventureFramework.Assets.Locations
         {
             var items = Items.Where(targetName.EqualsExaminable).ToArray();
             var nPCS = Characters.Where(targetName.EqualsExaminable).ToArray();
+            var exits = Exits.Where(targetName.EqualsExaminable).ToArray();
             var interactions = new List<IInteractWithItem>(items);
             interactions.AddRange(nPCS);
+            interactions.AddRange(exits);
 
             if (interactions.Count > 0)
             {

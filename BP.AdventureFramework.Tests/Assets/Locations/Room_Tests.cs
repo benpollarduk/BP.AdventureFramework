@@ -175,5 +175,101 @@ namespace BP.AdventureFramework.Tests.Assets.Locations
 
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void GivenValidExit_WhenRemoveInteractionTarget_ThenExitRemoved()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var exit = new Exit(Direction.Down);
+            room.AddExit(exit);
+
+            room.RemoveInteractionTarget(exit);
+            var result = room.ContainsExit(exit.Direction);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GivenValidCharacter_WhenRemoveInteractionTarget_ThenCharacterRemoved()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var character = new NonPlayableCharacter("", "");
+            room.AddCharacter(character);
+
+            room.RemoveInteractionTarget(character);
+            var result = room.ContainsCharacter(character);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GivenValidItem_WhenRemoveInteractionTarget_ThenItemRemoved()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var item = new Item("", "");
+            room.AddItem(item);
+
+            room.RemoveInteractionTarget(item);
+            var result = room.ContainsItem(item);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GivenInvalid_WhenRemoveInteractionTarget_ThenReturnNull()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var item = new Item("", "");
+
+            var result = room.RemoveInteractionTarget(item);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GivenExitName_WhenFindInteractionTarget_ThenReturnTrue()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var exit = new Exit(Direction.North, false, new Identifier("North"));
+            room.AddExit(exit);
+
+            var result = room.FindInteractionTarget(exit.Identifier.IdentifiableName, out _);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenItemName_WhenFindInteractionTarget_ThenReturnTrue()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var item = new Item("Sword", string.Empty);
+            room.AddItem(item);
+
+            var result = room.FindInteractionTarget(item.Identifier.IdentifiableName, out _);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenCharacterName_WhenFindInteractionTarget_ThenReturnTrue()
+        {
+            var room = new Room(string.Empty, string.Empty);
+            var npc = new NonPlayableCharacter("Ben", string.Empty);
+            room.AddCharacter(npc);
+
+            var result = room.FindInteractionTarget(npc.Identifier.IdentifiableName, out _);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GivenInvalid_WhenFindInteractionTarget_ThenReturnFalse()
+        {
+            var room = new Room(string.Empty, string.Empty);
+
+            var result = room.FindInteractionTarget("1234", out _);
+
+            Assert.IsFalse(result);
+        }
     }
 }

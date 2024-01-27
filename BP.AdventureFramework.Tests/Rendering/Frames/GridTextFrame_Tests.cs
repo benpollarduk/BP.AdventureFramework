@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Rendering.FrameBuilders;
 using BP.AdventureFramework.Rendering.FrameBuilders.Color;
 using BP.AdventureFramework.Rendering.Frames;

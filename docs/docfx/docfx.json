@@ -33,7 +33,7 @@
     "output": "_site",
     "template": [
       "default",
-      "material/material"
+      "templates/singulinkfx"
     ],
     "globalMetadata": {
       "_appName": "BP.AdventureFramework",

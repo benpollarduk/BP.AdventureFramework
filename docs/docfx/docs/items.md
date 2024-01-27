@@ -9,7 +9,7 @@ Items can be used to add interactivity with a game. Items can be something that 
 An Item can be simply instantiated with a name and description.
 
 ```csharp
-var exit = new Item("Sword", "A heroes sword.");
+var item = new Item("Sword", "A heroes sword.");
 ```
 
 By default an Item is not takeable and is tied to a Room. If it is takeable this can be specified in the constructor.

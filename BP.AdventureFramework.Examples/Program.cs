@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
@@ -14,8 +13,6 @@ using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
 using BP.AdventureFramework.Logic;
-using BP.AdventureFramework.Utilities.Generation;
-using BP.AdventureFramework.Utilities.Generation.Themes;
 
 namespace BP.AdventureFramework.Examples
 {
@@ -71,16 +68,11 @@ namespace BP.AdventureFramework.Examples
             {
                 OverworldCreationCallback overworldCreator = p =>
                 {
-                    var options = new GameGenerationOptions { MaximumRegions = 1, MinimumRegions = 1 };
-                    var generator = new GameGenerator(string.Empty, string.Empty);
-                    var castle = generator.Generate(options, new Castle(), out _).Make();
-
                     var regions = new List<Region>
                     {
                         new Everglades().Instantiate(),
                         new Flat().Instantiate(),
-                        new Zelda(p).Instantiate(),
-                        castle.Regions.First()
+                        new Zelda(p).Instantiate()
                     };
                     
                     var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");

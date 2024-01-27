@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Tests.Assets.Characters
                 }
             };
 
-            pc.UseItem(pc, item);
+            pc.UseItem(item, pc);
 
             Assert.IsFalse(pc.IsAlive);
         }

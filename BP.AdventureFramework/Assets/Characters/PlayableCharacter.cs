@@ -40,10 +40,10 @@ namespace BP.AdventureFramework.Assets.Characters
         /// <summary>
         /// Use an item.
         /// </summary>
-        /// <param name="targetObject">A target object to use the item on.</param>
         /// <param name="item">The item to use.</param>
+        /// <param name="targetObject">A target object to use the item on.</param>
         /// <returns>The result of the items usage.</returns>
-        public InteractionResult UseItem(IInteractWithItem targetObject, Item item)
+        public InteractionResult UseItem(Item item, IInteractWithItem targetObject)
         {
             var result = targetObject.Interact(item);
 

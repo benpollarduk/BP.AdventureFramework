@@ -23,19 +23,19 @@ An Overworld can be simply instantiated with a name and description.
 var overworld = new Overworld("Name", "Description.");
 ```
 
-Regions can be added to the Overworld with the **AddRegion** method:
+Regions can be added to the Overworld with the **AddRegion** method.
 
 ```csharp
 overworld.AddRegion(region);
 ```
 
-Regions can be removed from an Overworld with the **RemoveRegion** method:
+Regions can be removed from an Overworld with the **RemoveRegion** method.
 
 ```csharp
 overworld.RemoveRegion(region);
 ```
 
-The Overworld can be traversed with the **Move** method:
+The Overworld can be traversed with the **Move** method.
 
 ```csharp
 overworld.Move(region);

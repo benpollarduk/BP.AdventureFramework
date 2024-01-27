@@ -28,25 +28,25 @@ A Region can be simply instantiated with a name and description.
 var region = new Region("Name", "Description.");
 ```
 
-Rooms can be added to the Region with the **AddRoom** method. The x, y and z location within the Region must be specified:
+Rooms can be added to the Region with the **AddRoom** method. The x, y and z location within the Region must be specified.
 
 ```csharp
 region.AddRoom(room, 0, 0, 0);
 ```
 
-Rooms can be removed from a Region with the **RemoveRoom** method:
+Rooms can be removed from a Region with the **RemoveRoom** method.
 
 ```csharp
 region.RemoveRoom(room);
 ```
 
-The Region can be traversed with the **Move** method:
+The Region can be traversed with the **Move** method.
 
 ```csharp
 region.Move(Direction.North);
 ```
 
-The Region can be traversed with the **Move** method:
+The Region can be traversed with the **Move** method.
 
 ```csharp
 region.Move(Direction.North);
@@ -63,7 +63,7 @@ The **UnlockDoorPair** method can be used to unlock an **Exit** in the current R
 region.UnlockDoorPair(Direction.East);
 ```
 
-Like all Examinable objects, Regions can be assigned custom commands:
+Like all Examinable objects, Regions can be assigned custom commands.
 
 ```csharp
 region.Commands =

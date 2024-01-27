@@ -12,19 +12,19 @@ An Exit can be simply instantiated with a direction.
 var exit = new Exit(Direction.North);
 ```
 
-An Exit can be hidden from the player by setting its **IsPlayerVisible** property to false, this can be set in the constructor:
+An Exit can be hidden from the player by setting its **IsPlayerVisible** property to false, this can be set in the constructor.
 
 ```csharp
 var exit = new Exit(Direction.North, false);
 ```
 
-Or set explicitly:
+Or set explicitly.
 
 ```csharp
 exit.IsPlayerVisible = false;
 ```
 
-Optionally, a description of the Exit can be specified:
+Optionally, a description of the Exit can be specified.
 
 ```csharp
 var exit = new Exit(Direction.North, true, new Description("A door covered in ivy."));
@@ -32,7 +32,7 @@ var exit = new Exit(Direction.North, true, new Description("A door covered in iv
 
 This will be returned if the player examines the Exit.
 
-Like all Examinable objects, an Exit can be assigned custom commands:
+Like all Examinable objects, an Exit can be assigned custom commands.
 
 ```csharp
 exit.Commands =

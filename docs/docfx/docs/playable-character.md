@@ -42,6 +42,14 @@ var mallet = new Item("Mallet", "A large mallet.");
 player.UseItem(mallet, trapDoor);
 ```
 
+A PlayableCharacter cn give an item to a non-playable character.
+
+```csharp
+var goblin = new NonPlayableCharacter("Goblin", "A vile goblin.");
+var daisy = new Item("Daisy", "A beautiful daisy that is sure to cheer up even the most miserable creature.");
+player.Give(daisy, goblin);
+```
+
 PlayableCharacters can contains custom commands that allow the user to directly interact with the character or other assets.
 
 ```csharp

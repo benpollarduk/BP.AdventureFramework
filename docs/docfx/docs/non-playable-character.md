@@ -1,76 +1,59 @@
-﻿# Room
+﻿# PlayableCharacter
 
 ## Overview
 
-A Room is the lowest level location in a game. A Region can contain multiple Rooms.
-
-```
-Overworld
-├── Region
-│   ├── Room
-│   ├── Room
-│   ├── Room
-├── Region
-│   ├── Room
-│   ├── Room
-```
-
-A Room can contain up to six Exits, one for each of the directions **north**, **east**, **south**, **west**, **up** and **down**.
+A NonPlayableCharacter represents any character that the player may meet throughout the game.
 
 ## Use
 
-A Region can be simply instantiated with a name and description.
+A NonPlayableCharacter can be simply instantiated with a name and description.
 
 ```csharp
-var room = new Room("Name", "Description.");
+var goblin = new NonPlayableCharacter("Goblin", "A vile goblin.");
 ```
 
-Exits can be added to the Room with the **AddExit** method:
+A NonPlayableCharacter can give an item to another NonPlayableCharacter.
 
 ```csharp
-room.AddExit(new Exit(Direction.East));
+var daisy = new Item("Daisy", "A beautiful daisy that is sure to cheer up even the most miserable creature.");
+npc.Give(daisy, goblin);
 ```
 
-Exits can be removed from a Room with the **RemoveExit** method:
+NonPlayableCharacters can contains custom commands that allow the user to directly interact with the character or other assets.
 
 ```csharp
-region.RemoveExit(exit);
-```
-
-Items can be added to the Room with the **AddItem** method:
-
-```csharp
-room.AddItem(new Item("Name", "Description."));
-```
-
-Items can be removed from a Room with the **RemoveItem** method:
-
-```csharp
-region.RemoveItem(item);
-```
-
-Characters can be added to the Room with the **AddCharacter** method:
-
-```csharp
-room.AddCharacter(new Character("Name", "Description."));
-```
-
-Characters can be removed from a Room with the **RemoveCharacter** method:
-
-```csharp
-region.RemoveCharacter(character);
-```
-
-Rooms can contains custom commands that allow the user to directly interact with the Room:
-
-```csharp
-room.Commands =
+goblin.Commands =
 [
-    new CustomCommand(new CommandHelp("Pull lever", "Pull the lever."), true, (game, args) =>
+    new CustomCommand(new CommandHelp("Smile", "Crack a smile."), true, (game, args) =>
     {
-        room.FindExit(Direction.East, true, out var exit);
-        exit.Unlock();
-        return new Reaction(ReactionResult.OK, "The exit was unlocked.");
+        return new Reaction(ReactionResult.OK, "Well that felt weird.");
     })
 ];
 ```
+
+## Conversations
+
+A NonPlayableCharacter can hold a conversation with the player. 
+* A Conversation contains **Paragraphs**. 
+* A Paragraph can contain one or more **Responses**.
+* A **Response** can contain a delta to shift the conversation by, which will cause the conversation to jump parargraphs by the specified value.
+* A **Response** can also contain a callback to perform some action when the player selects that option.
+
+```csharp
+goblin.Conversation = new Conversation(
+    new Paragraph("This is a the first line."),
+    new Paragraph("This is a question.")
+    {
+        Responses =
+        [
+            new Response("This is the first response." 1),
+            new Response("This is the second response.", 2),
+            new Response("This is the third response.", 2)
+        ]
+    },
+    new Paragraph("You picked first response, return to start of conversation.", -2),
+    new Paragraph("You picked second response, return to start of conversation., -2),
+    new Paragraph("You picked third response, you are dead., game => game.Player.Kill())
+);
+```
+

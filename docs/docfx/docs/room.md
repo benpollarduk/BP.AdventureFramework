@@ -25,43 +25,43 @@ A Region can be simply instantiated with a name and description.
 var room = new Room("Name", "Description.");
 ```
 
-Exits can be added to the Room with the **AddExit** method:
+Exits can be added to the Room with the **AddExit** method.
 
 ```csharp
 room.AddExit(new Exit(Direction.East));
 ```
 
-Exits can be removed from a Room with the **RemoveExit** method:
+Exits can be removed from a Room with the **RemoveExit** method.
 
 ```csharp
 region.RemoveExit(exit);
 ```
 
-Items can be added to the Room with the **AddItem** method:
+Items can be added to the Room with the **AddItem** method.
 
 ```csharp
 room.AddItem(new Item("Name", "Description."));
 ```
 
-Items can be removed from a Room with the **RemoveItem** method:
+Items can be removed from a Room with the **RemoveItem** method.
 
 ```csharp
 region.RemoveItem(item);
 ```
 
-Characters can be added to the Room with the **AddCharacter** method:
+Characters can be added to the Room with the **AddCharacter** method.
 
 ```csharp
 room.AddCharacter(new Character("Name", "Description."));
 ```
 
-Characters can be removed from a Room with the **RemoveCharacter** method:
+Characters can be removed from a Room with the **RemoveCharacter** method.
 
 ```csharp
 region.RemoveCharacter(character);
 ```
 
-Rooms can contains custom commands that allow the user to directly interact with the Room:
+Rooms can contains custom commands that allow the user to directly interact with the Room.
 
 ```csharp
 room.Commands =

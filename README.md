@@ -171,8 +171,10 @@ var gameCreator = Game.Create(
 Game.Execute(gameCreator);
 ```
 
+### Tutorial
+The quickest way to start getting to grips with BP.AdventureFramework is to take a look at the [Getting Started](https://benpollarduk.github.io/BP.AdventureFramework-docs/docs/getting-started.html) page.
+
 ### Example game
-The quickest way to start getting to grips with the structure of BP.AdventureFramework is by taking a look at the examples.
 An example game is provided in the [BP.AdventureFramework.Examples](https://github.com/benpollarduk/adventure-framework/tree/main/BP.AdventureFramework.Examples) directory 
 and have been designed with the aim of showcasing the various features.
 

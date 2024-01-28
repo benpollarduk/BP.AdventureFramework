@@ -30,7 +30,7 @@ player.AcquireItem(new Item("Mallet", "A large mallet."));
 
 A PlayableCharacter can lose an item with the **DequireItem** method.
 
-```chsarp
+```csharp
 player.DequireItem(mallet);
 ```
 

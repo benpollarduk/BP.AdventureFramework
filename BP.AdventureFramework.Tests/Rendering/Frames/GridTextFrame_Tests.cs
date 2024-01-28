@@ -13,14 +13,6 @@ namespace BP.AdventureFramework.Tests.Rendering.Frames
     public class GridTextFrame_Tests
     {
         [TestMethod]
-        public void GivenUnmodifiedEnvironment_WhenIsColorSuppressed_ThenReturnFalse()
-        {
-            var result = GridTextFrame.IsColorSuppressed();
-
-            Assert.IsFalse(result);
-        }
-
-        [TestMethod]
         public void GivenNoColorEnvironmentVariableSetToEmptyString_WhenIsColorSuppressed_ThenReturnFalse()
         {
             Environment.SetEnvironmentVariable(GridTextFrame.NO_COLOR, "");

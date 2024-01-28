@@ -1,0 +1,23 @@
+items:
+- name: Getting Started
+  href: getting-started.md
+- name: Locations
+  items:
+  - href: overworld.md
+  - href: region.md
+  - href: room.md
+  - href: exit.md
+- name: Items
+  href: items.md
+- name: Characters
+  items:
+  - href: playable-character.md
+  - href: non-playable-character.md
+- name: Conditional Descriptions
+  href: conditional-descriptions.md
+- name: Commands
+  href: commands.md
+- name: Frame Builders
+  href: frame-builders.md
+- name: End Conditions
+  href: end-conditions.md

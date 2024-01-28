@@ -1,6 +1,6 @@
 # Getting Started
 
-## Adding the NuGet pacakge to your project
+## Adding the NuGet package to your project
 You need to pull BP.AdventureFramework into your project. The easiest way to do this is to add the NuGet package. The latest package and installation instructions are available [here](https://github.com/benpollarduk/BP.AdventureFramework/pkgs/nuget/BP.AdventureFramework).
 
 ## First Game
@@ -35,7 +35,7 @@ private static PlayableCharacter CreatePlayer()
 In this example whenever **CreatePlayer** is called a new **PlayableCharacter** will be created. The character is called "Dave" and has a description that describes him as "A young boy on a quest to find the meaning of life.".
 
 ### Creating the game world
-The game world consists of a heirachy of three tiers: **Overworld**, **Region** and **Room**. We will create a simple **Region** with two **Rooms**. We can do this directly in the **Main** function for simplicity. To start with lets make the **Rooms**:
+The game world consists of a hierarchy of three tiers: **Overworld**, **Region** and **Room**. We will create a simple **Region** with two **Rooms**. We can do this directly in the **Main** function for simplicity. To start with lets make the **Rooms**:
 
 ```csharp
 private static void Main(string[] args)
@@ -128,7 +128,7 @@ private static EndCheckResult IsGameOver(Game game)
 ```
 
 ### Creating the game
-The game now has all of the required assets and logic it just needs some boiler plate to tie everything together before it is ready to play.
+The game now has all the required assets and logic it just needs some boilerplate to tie everything together before it is ready to play.
 
 A **GameCreationCallback** is required to instantiate an instance of a **Game**. This is so that new instances of the **Game** can be created as required.
 

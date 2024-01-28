@@ -12,7 +12,7 @@ An Item can be simply instantiated with a name and description.
 var sword = new Item("Sword", "A heroes sword.");
 ```
 
-By default an Item is not takeable and is tied to a Room. If it is takeable this can be specified in the constructor.
+By default, an Item is not takeable and is tied to a Room. If it is takeable this can be specified in the constructor.
 
 ```csharp
 var sword = new Item("Sword", "A heroes sword.", true);

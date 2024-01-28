@@ -1,5 +1,5 @@
 # Overview
-In BP.AdventureFramework output is handled using the **FrameBuilders**. A FrameBuilder is essentially a class that builds a **Frame** that can render a specific state in the game. This **Frame** can the be rendered on a **TextWriter** by calling its **Render** method. Think of the **FrameBuilder** as the instructions that build the output display and the **Frame** as the output itself.
+In BP.AdventureFramework output is handled using the **FrameBuilders**. A FrameBuilder is essentially a class that builds a **Frame** that can render a specific state in the game. This **Frame** can then be rendered on a **TextWriter** by calling its **Render** method. Think of the **FrameBuilder** as the instructions that build the output display and the **Frame** as the output itself.
 
 There are a few types of **FrameBuilder**, each responsible for rendering a specific game state.
 * **SceneFrameBuilder** is responsible for building frames that render the scenes in a game.

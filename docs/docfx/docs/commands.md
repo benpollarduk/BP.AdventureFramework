@@ -60,13 +60,13 @@ take all
 ### Talk
 Talk allows the player to start a conversation with a NonPlayableCharacter. **L** can be used as a shortcut.
 
-If only a single NonPlayableCharacter is in the current Room no argurment needs to be specified.
+If only a single NonPlayableCharacter is in the current Room no argument needs to be specified.
 
 ```
 talk
 ```
 
-However if the current Room contains two or more NonPlayableCharacters then **to** and the NonPlayableCharacters name must be specified.
+However, if the current Room contains two or more NonPlayableCharacters then **to** and the NonPlayableCharacters name must be specified.
 
 ```
 talk to dave
@@ -111,7 +111,7 @@ end
 ## Global Commands
 
 ### About
-Displays the a screen containing information about the game.
+Displays a screen containing information about the game.
 
 ```
 about
@@ -172,4 +172,4 @@ new
 ```
 
 ## Custom Commands
-Custom commands can be added to many of the assets, including Room, PlayableCharacter, NonPlayableCharacter, Item and Exit. For more informations see their pages.
+Custom commands can be added to many of the assets, including Room, PlayableCharacter, NonPlayableCharacter, Item and Exit.

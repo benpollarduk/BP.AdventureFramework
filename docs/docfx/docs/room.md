@@ -61,7 +61,7 @@ Characters can be removed from a Room with the **RemoveCharacter** method.
 region.RemoveCharacter(character);
 ```
 
-Rooms can contains custom commands that allow the user to directly interact with the Room.
+Rooms can contain custom commands that allow the user to directly interact with the Room.
 
 ```csharp
 room.Commands =

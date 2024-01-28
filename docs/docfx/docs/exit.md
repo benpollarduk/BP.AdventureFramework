@@ -2,7 +2,7 @@
 
 ## Overview
 
-An Exit is essentially a connector bewtween to adjoining rooms.
+An Exit is essentially a connector between to adjoining rooms.
 
 ## Use
 

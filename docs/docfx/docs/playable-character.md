@@ -28,7 +28,7 @@ A PlayableCharacter can be given items with the **AcquireItem** method.
 player.AcquireItem(new Item("Mallet", "A large mallet."));
 ```
 
-A PlayableCharactr can loose an item with the **DequireItem** method.
+A PlayableCharacter can lose an item with the **DequireItem** method.
 
 ```chsarp
 player.DequireItem(mallet);
@@ -50,7 +50,7 @@ var daisy = new Item("Daisy", "A beautiful daisy that is sure to cheer up even t
 player.Give(daisy, goblin);
 ```
 
-PlayableCharacters can contains custom commands that allow the user to directly interact with the character or other assets.
+PlayableCharacters can contain custom commands that allow the user to directly interact with the character or other assets.
 
 ```csharp
 player.Commands =

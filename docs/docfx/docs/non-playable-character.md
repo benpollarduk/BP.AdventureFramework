@@ -19,7 +19,7 @@ var daisy = new Item("Daisy", "A beautiful daisy that is sure to cheer up even t
 npc.Give(daisy, goblin);
 ```
 
-NonPlayableCharacters can contains custom commands that allow the user to directly interact with the character or other assets.
+NonPlayableCharacters can contain custom commands that allow the user to directly interact with the character or other assets.
 
 ```csharp
 goblin.Commands =
@@ -36,7 +36,7 @@ goblin.Commands =
 A NonPlayableCharacter can hold a conversation with the player. 
 * A Conversation contains **Paragraphs**. 
 * A Paragraph can contain one or more **Responses**.
-* A **Response** can contain a delta to shift the conversation by, which will cause the conversation to jump parargraphs by the specified value.
+* A **Response** can contain a delta to shift the conversation by, which will cause the conversation to jump paragraphs by the specified value.
 * A **Response** can also contain a callback to perform some action when the player selects that option.
 
 ```csharp

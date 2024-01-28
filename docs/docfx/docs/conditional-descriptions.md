@@ -9,7 +9,7 @@ Descriptions are usually specified as a string.
 var item = new Item("The items name", "The items description.");
 ```
 
-They can also be specified as a **Desciption**.
+They can also be specified as a **Description**.
 
 ```csharp
 var item = new Item(new Identifier("The items name"), new Description("The items description."));

@@ -34,12 +34,12 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <summary>
         /// Get if there is a view in any direction.
         /// </summary>
-        public bool AnyVisited => SurroundingRooms.Any(x => x.Value.HasBeenVisited);
+        public bool AnyVisited => SurroundingRooms.Any(x => x.Value?.HasBeenVisited ?? false);
 
         /// <summary>
         /// Get if there is a view in any direction.
         /// </summary>
-        public bool AnyNotVisited => SurroundingRooms.Any(x => !x.Value.HasBeenVisited);
+        public bool AnyNotVisited => SurroundingRooms.Any(x => !x.Value?.HasBeenVisited ?? false);
 
         /// <summary>
         /// Get the surrounding rooms.

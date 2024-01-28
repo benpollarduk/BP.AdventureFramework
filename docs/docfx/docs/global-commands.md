@@ -1,3 +1,0 @@
-﻿# Global Commands
-
-## Overview

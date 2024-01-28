@@ -17,7 +17,7 @@ Overworld
 
 A Region represents a 3D space. 
 * The **x** location always refers to the horizontal axis, with lower values being west and higher values being east.
-* The **y** location always refers to the vertical axis, with lower values being north and higher values being south.
+* The **y** location always refers to the vertical axis, with lower values being south and higher values being north.
 * The **z** location always refers to the depth axis, with lower values being down and higher values being up.
 
 ## Use

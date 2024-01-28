@@ -18,4 +18,10 @@ private static EndCheckResult IsGameOver(Game game)
 }
 ```
 
+This method can be used as an **EndCheck**:
+
+```csharp
+EndCheck gameOverCheck = IsGameOver;
+```
+
 The **GameOverCondition** and **CompletionCondition** are passed in to the game as arguments when a game is created.

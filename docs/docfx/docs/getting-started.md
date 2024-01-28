@@ -96,8 +96,8 @@ var regionMaker = new RegionMaker("Mountain", "An imposing volcano just East of 
 var overworldMaker = new OverworldMaker("Daves World", "An ancient kingdom.", regionMaker);
 ```
 
-### Checking the game is complete
-For a game to come to an end it needs to either hit a game over state or a completion state.
+### Checking if the game is complete
+For a game to come to an end it needs to reach either a game over state or a completion state.
 
 Firstly lets look at the logic that determines if the game is complete. An **EndCheck** is required, which returns an **EndCheckResult** that determines if the game is complete.
 

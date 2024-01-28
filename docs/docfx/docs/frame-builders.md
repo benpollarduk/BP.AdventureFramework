@@ -12,4 +12,4 @@ There are a few types of **FrameBuilder**, each responsible for rendering a spec
 * **CompletionFrameBuilder** is responsible for building a frame to display the completion screen.
 * **ConversationFrameBuilder** is responsible for building a frame that can render a conversation.
 
-A game accepts a **FrameBuilderCollection**. A **FrameBuilderCollection** is a collection of all of the different **FrameBuilders** required to render a game. All **FrameBuilders** are extensible, so the output for all parts of the game can be fully customised.
+A game accepts a **FrameBuilderCollection**. A **FrameBuilderCollection** is a collection of all the different **FrameBuilders** required to render a game. All **FrameBuilders** are extensible, so the output for all parts of the game can be fully customised.

@@ -48,7 +48,7 @@ goblin.Conversation = new Conversation(
         [
             new Response("This is the first response." 1),
             new Response("This is the second response.", 2),
-            new Response("This is the third response.", 2)
+            new Response("This is the third response.", 3)
         ]
     },
     new Paragraph("You picked first response, return to start of conversation.", -2),

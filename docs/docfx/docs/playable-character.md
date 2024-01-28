@@ -42,7 +42,7 @@ var mallet = new Item("Mallet", "A large mallet.");
 player.UseItem(mallet, trapDoor);
 ```
 
-A PlayableCharacter cn give an item to a non-playable character.
+A PlayableCharacter can give an item to a non-playable character.
 
 ```csharp
 var goblin = new NonPlayableCharacter("Goblin", "A vile goblin.");

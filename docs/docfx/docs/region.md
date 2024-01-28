@@ -46,12 +46,6 @@ The Region can be traversed with the **Move** method.
 region.Move(Direction.North);
 ```
 
-The Region can be traversed with the **Move** method.
-
-```csharp
-region.Move(Direction.North);
-```
-
 The start position, that is the position that the Player will start in when entering a Region, can be specified with **SetStartPosition**.
 
 ```csharp

@@ -117,7 +117,7 @@ If the player has the holy grail then the **EndCheckResult** will return that th
 
 A common game over state may be if the player dies:
 
-```chsarp
+```csharp
 private static EndCheckResult IsGameOver(Game game)
 {
     if (game.Player.IsAlive)

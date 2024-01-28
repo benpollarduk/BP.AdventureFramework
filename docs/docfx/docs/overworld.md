@@ -52,7 +52,7 @@ var overworldMaker = new OverworldMaker("Name", "Description.", regionMakers);
 However, the main benefit of using an OverworldMaker is that it allows multiple instances of an Overworld to be created from a single definition of an Overworld.
 
 ```csharp
-var overworld = overworldMaker.Make();;
+var overworld = overworldMaker.Make();
 ```
 
 

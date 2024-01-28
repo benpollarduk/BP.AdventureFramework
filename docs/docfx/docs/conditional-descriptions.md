@@ -33,8 +33,8 @@ var falseString = "A gleaming sword, without an owner.";
 Condition condition = () => player.FindItem("Sword", out _);
 
 // the conditional description itself
-var conditionalDescrption = new ConditionalDescription(trueString, falseString, condition);
+var conditionalDescription = new ConditionalDescription(trueString, falseString, condition);
 
 // create the item with the conditional description
-var sword = new Item(new Identifier("Sword"), conditionalDescrption);
+var sword = new Item(new Identifier("Sword"), conditionalDescription);
 ```

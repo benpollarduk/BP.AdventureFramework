@@ -52,7 +52,7 @@ region.RemoveItem(item);
 Characters can be added to the Room with the **AddCharacter** method.
 
 ```csharp
-room.AddCharacter(new Character("Name", "Description."));
+room.AddCharacter(new NonPlayableCharacter("Name", "Description."));
 ```
 
 Characters can be removed from a Room with the **RemoveCharacter** method.

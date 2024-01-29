@@ -36,23 +36,23 @@ goblin.Commands =
 A NonPlayableCharacter can hold a conversation with the player. 
 * A Conversation contains **Paragraphs**. 
 * A Paragraph can contain one or more **Responses**.
-* A **Response** can contain a delta to shift the conversation by, which will cause the conversation to jump paragraphs by the specified value.
+* A **Response** can contain a delta or other implementation of **IEndOfPargraphInstruction** to shift the conversation by, which will cause the conversation to jump paragraphs by the specified value.
 * A **Response** can also contain a callback to perform some action when the player selects that option.
 
 ```csharp
 goblin.Conversation = new Conversation(
     new Paragraph("This is a the first line."),
-    new Paragraph("This is a question.")
+    new Paragraph("This is a question.", "Question")
     {
         Responses =
         [
-            new Response("This is the first response." 1),
-            new Response("This is the second response.", 2),
-            new Response("This is the third response.", 3)
+            new Response("This is the first response." new Delta(1)),
+            new Response("This is the second response.", new Delta(2)),
+            new Response("This is the third response.", new Delta(3))
         ]
     },
-    new Paragraph("You picked first response, return to start of conversation.", -2),
-    new Paragraph("You picked second response, return to start of conversation., -2),
+    new Paragraph("You picked first response, return to start of conversation.", new ToName("Question")),
+    new Paragraph("You picked second response, return to start of conversation., new ToName("Question")),
     new Paragraph("You picked third response, you are dead., game => game.Player.Kill())
 );
 ```

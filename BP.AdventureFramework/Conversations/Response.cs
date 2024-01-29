@@ -1,4 +1,6 @@
-﻿namespace BP.AdventureFramework.Conversations
+﻿using BP.AdventureFramework.Conversations.Instructions;
+
+namespace BP.AdventureFramework.Conversations
 {
     /// <summary>
     /// Provides a response to a conversation.
@@ -13,9 +15,9 @@
         public string Line { get; }
 
         /// <summary>
-        /// Get the delta. This can be applied to a conversation to direct the conversation after this paragraph.
+        /// Get the end of paragraph instruction. This can be applied to a conversation to direct the conversation after this paragraph.
         /// </summary>
-        public int Delta { get; }
+        public IEndOfPargraphInstruction Instruction { get; }
 
         #endregion
 
@@ -25,11 +27,19 @@
         /// Initializes a new instance of the Response class.
         /// </summary>
         /// <param name="line">The line to trigger this response.</param>
-        /// <param name="delta">Specify the delta. This can be applied to a conversation to direct the conversation after this paragraph.</param>
-        public Response(string line, int delta = 1)
+        public Response(string line) : this(line, new Next())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Response class.
+        /// </summary>
+        /// <param name="line">The line to trigger this response.</param>
+        /// <param name="instruction">Specify the end of paragraph instruction. This can be applied to a conversation to direct the conversation after this paragraph.</param>
+        public Response(string line, IEndOfPargraphInstruction instruction)
         {
             Line = line;
-            Delta = delta;
+            Instruction = instruction;
         }
 
         #endregion

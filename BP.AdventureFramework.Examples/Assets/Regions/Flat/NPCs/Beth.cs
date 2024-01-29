@@ -1,5 +1,6 @@
 ﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Conversations;
+using BP.AdventureFramework.Conversations.Instructions;
 using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
@@ -23,7 +24,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Flat.NPCs
         {
             return new NonPlayableCharacter(Name, Description)
             {
-                Conversation = new Conversation(new Paragraph("Hello Ben."), new Paragraph("How are you?", null, 0))
+                Conversation = new Conversation(new Paragraph("Hello Ben."), new Paragraph("How are you?", null, new First()))
             };
         }
 

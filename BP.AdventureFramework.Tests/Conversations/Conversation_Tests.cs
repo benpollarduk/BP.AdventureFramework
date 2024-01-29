@@ -2,6 +2,7 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Conversations;
+using BP.AdventureFramework.Conversations.Instructions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Conversations
@@ -118,8 +119,8 @@ namespace BP.AdventureFramework.Tests.Conversations
         public void GivenCurrentParagraphWithResponse_WhenRespond_ThenReactionIsInternal()
         {
             var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, null, null, null, null).Invoke();
-            var response = new Response(string.Empty, 0);
-            var paragraph = new Paragraph(string.Empty, 0) {  Responses = [response] };
+            var response = new Response(string.Empty, new Repeat());
+            var paragraph = new Paragraph(string.Empty, new Repeat()) {  Responses = [response] };
             var npc = new NonPlayableCharacter(string.Empty, string.Empty) { Conversation = new Conversation(paragraph) };
             game.StartConversation(npc);
 

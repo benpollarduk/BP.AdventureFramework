@@ -1,9 +1,11 @@
-﻿namespace BP.AdventureFramework.Conversations.Instructions
+﻿using System.Linq;
+
+namespace BP.AdventureFramework.Conversations.Instructions
 {
     /// <summary>
-    /// An end of paragraph instruction that shifts paragraphs to the start.
+    /// An end of paragraph instruction that repeats.
     /// </summary>
-    public sealed class FirstInstruction : IEndOfPargraphInstruction
+    public sealed class Repeat : IEndOfPargraphInstruction
     {
         #region Implementation of IEndOfPargraphInstruction
 
@@ -15,7 +17,7 @@
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
         {
-            return 0;
+            return collection.ToList().IndexOf(current);
         }
 
         #endregion

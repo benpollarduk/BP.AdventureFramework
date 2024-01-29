@@ -76,7 +76,7 @@ namespace BP.AdventureFramework.Conversations
             {
                 if (selectedResponse != null)
                 {
-                    CurrentParagraph = Shift(selectedResponse.Delta);
+                    CurrentParagraph = Shift(selectedResponse.Instruction.GetIndexOfNext(CurrentParagraph, Paragraphs));
                     selectedResponse = null;
                 }
                 else

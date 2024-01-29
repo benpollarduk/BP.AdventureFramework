@@ -1,30 +1,29 @@
-﻿using System.Linq;
-using BP.AdventureFramework.Conversations;
+﻿using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Conversations.Instructions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Conversations.Instructions
 {
     [TestClass]
-    public class NextInstruction_Tests
+    public class Previous_Tests
     {
         [TestMethod]
-        public void GiveCurrentlyOn0_WhenNext_ThenReturn1()
+        public void GivenCurrentlyOn0_WhenNext_ThenReturn0()
         {
             var paragraphs = new[]
             {
                 new Paragraph("Test"),
                 new Paragraph("Test2")
             };
-            var instruction = new NextInstruction();
+            var instruction = new Previous();
 
             var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(0, result);
         }
 
         [TestMethod]
-        public void GiveCurrentlyOn1_WhenNext_ThenReturn2()
+        public void GivenCurrentlyOn1_WhenNext_ThenReturn0()
         {
             var paragraphs = new[]
             {
@@ -32,7 +31,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test2"),
                 new Paragraph("Test3")
             };
-            var instruction = new NextInstruction();
+            var instruction = new Previous();
 
             var result = instruction.GetIndexOfNext(paragraphs[1], paragraphs);
 
@@ -40,7 +39,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
         }
 
         [TestMethod]
-        public void GiveCurrentlyOn2AndOnly3_WhenNext_ThenReturn2()
+        public void GivenCurrentlyOn2_WhenNext_ThenReturn1()
         {
             var paragraphs = new[]
             {
@@ -48,11 +47,11 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test2"),
                 new Paragraph("Test3")
             };
-            var instruction = new NextInstruction();
+            var instruction = new Previous();
 
             var result = instruction.GetIndexOfNext(paragraphs[2], paragraphs);
 
-            Assert.AreEqual(2, result);
+            Assert.AreEqual(1, result);
         }
     }
 }

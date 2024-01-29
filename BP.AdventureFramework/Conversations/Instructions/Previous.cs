@@ -3,32 +3,10 @@
 namespace BP.AdventureFramework.Conversations.Instructions
 {
     /// <summary>
-    /// An end of paragraph instruction that shifts paragraphs based on a delta.
+    /// An end of paragraph instruction that shifts paragraphs to the previous paragraph.
     /// </summary>
-    public sealed class DeltaInstruction : IEndOfPargraphInstruction
+    public sealed class Previous : IEndOfPargraphInstruction
     {
-        #region Properties
-
-        /// <summary>
-        /// Get the delta.
-        /// </summary>
-        public int Delta { get; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Create a new instance of the DeltaInstruction class.
-        /// </summary>
-        /// <param name="delta">The delta to shift paragraphs by.</param>
-        public DeltaInstruction(int delta)
-        {
-            Delta = delta;
-        }
-
-        #endregion
-
         #region Implementation of IEndOfPargraphInstruction
 
         /// <summary>
@@ -40,7 +18,8 @@ namespace BP.AdventureFramework.Conversations.Instructions
         public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
         {
             var currentIndex = collection.ToList().IndexOf(current);
-            return currentIndex + Delta;
+            var previous = currentIndex - 1;
+            return previous >= 0 ? previous : 0;
         }
 
         #endregion

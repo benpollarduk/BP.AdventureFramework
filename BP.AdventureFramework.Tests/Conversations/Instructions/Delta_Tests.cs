@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BP.AdventureFramework.Tests.Conversations.Instructions
 {
     [TestClass]
-    public class DeltaInstruction_Tests
+    public class Delta_Tests
     {
         [TestMethod]
         public void GivenParagraph0WithDelta0_WhenNext_ThenReturn0()
@@ -16,7 +16,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 current,
                 new Paragraph("Test2")
             };
-            var instruction = new DeltaInstruction(0);
+            var instruction = new Delta(0);
 
             var result = instruction.GetIndexOfNext(current, paragraphs);
 
@@ -32,7 +32,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test2"),
                 current
             };
-            var instruction = new DeltaInstruction(0);
+            var instruction = new Delta(0);
 
             var result = instruction.GetIndexOfNext(current, paragraphs);
 
@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 current,
                 new Paragraph("Test2")
             };
-            var instruction = new DeltaInstruction(1);
+            var instruction = new Delta(1);
 
             var result = instruction.GetIndexOfNext(current, paragraphs);
 
@@ -64,7 +64,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test2"), 
                 current
             };
-            var instruction = new DeltaInstruction(-1);
+            var instruction = new Delta(-1);
 
             var result = instruction.GetIndexOfNext(current, paragraphs);
 

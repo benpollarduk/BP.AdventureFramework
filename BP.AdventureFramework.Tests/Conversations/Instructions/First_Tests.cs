@@ -6,17 +6,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BP.AdventureFramework.Tests.Conversations.Instructions
 {
     [TestClass]
-    public class FirstInstruction_Tests
+    public class First_Tests
     {
         [TestMethod]
-        public void Give2Paragraphs_WhenNext_ThenReturn0()
+        public void Given2Paragraphs_WhenNext_ThenReturn0()
         {
             var paragraphs = new[]
             {
                 new Paragraph("Test"),
                 new Paragraph("Test2")
             };
-            var instruction = new FirstInstruction();
+            var instruction = new First();
 
             var result = instruction.GetIndexOfNext(paragraphs.First(), paragraphs);
 
@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
         }
 
         [TestMethod]
-        public void Give3Paragraphs_WhenNext_ThenReturn0()
+        public void Given3Paragraphs_WhenNext_ThenReturn0()
         {
             var paragraphs = new[]
             {
@@ -32,7 +32,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test2"),
                 new Paragraph("Test3")
             };
-            var instruction = new FirstInstruction();
+            var instruction = new First();
 
             var result = instruction.GetIndexOfNext(paragraphs.First(), paragraphs);
 

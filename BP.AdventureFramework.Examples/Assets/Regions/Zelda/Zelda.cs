@@ -2,6 +2,7 @@
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Conversations;
+using BP.AdventureFramework.Conversations.Instructions;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms;
 using BP.AdventureFramework.Extensions;
@@ -62,7 +63,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda
                 new Paragraph("Hi Link, how's it going?"),
                 new Paragraph("I lost my red rupee, if you find it will you please bring it to me?"),
                 new Paragraph("Oh Link you are so adorable."),
-                new Paragraph("OK Link your annoying me now, I'm just going to ignore you.", 0)
+                new Paragraph("OK Link your annoying me now, I'm just going to ignore you.", new First())
             );
 
             saria.Interaction = item =>

@@ -6,7 +6,7 @@ namespace BP.AdventureFramework.Conversations.Instructions
     /// <summary>
     /// An end of paragraph instruction that shifts paragraphs based on a delta.
     /// </summary>
-    public sealed class ToNameInstruction : IEndOfPargraphInstruction
+    public sealed class ToName : IEndOfPargraphInstruction
     {
         #region Properties
 
@@ -20,10 +20,10 @@ namespace BP.AdventureFramework.Conversations.Instructions
         #region Constructors
 
         /// <summary>
-        /// Create a new instance of the ToNameInstruction class.
+        /// Create a new instance of the ToName class.
         /// </summary>
         /// <param name="name">The name of the paragraph to jump to.</param>
-        public ToNameInstruction(string name)
+        public ToName(string name)
         {
             Name = name;
         }
@@ -40,7 +40,7 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
         {
-            var target = collection.FirstOrDefault(x => current.Name.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+            var target = collection.FirstOrDefault(x => x.Name.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
             return target == null ? 0 : collection.ToList().IndexOf(target);
         }
 

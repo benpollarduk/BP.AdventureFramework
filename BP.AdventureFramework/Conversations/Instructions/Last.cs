@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Conversations.Instructions
     /// <summary>
     /// An end of paragraph instruction that shifts paragraphs to the end.
     /// </summary>
-    public sealed class LastInstruction : IEndOfPargraphInstruction
+    public sealed class Last : IEndOfPargraphInstruction
     {
         #region Implementation of IEndOfPargraphInstruction
 

@@ -2,6 +2,7 @@
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Conversations;
+using BP.AdventureFramework.Conversations.Instructions;
 using BP.AdventureFramework.Rendering.FrameBuilders;
 using BP.AdventureFramework.Utilities;
 
@@ -28,20 +29,20 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms
 
             var conversation = new Conversation(
                 new Paragraph("Squarrrkkk!"),
-                new Paragraph("Would you like to change modes?")
+                new Paragraph("Would you like to change modes?", "ModeQuestion")
                 {
                     Responses =
                     [
                         new Response("Yes please, change to default."),
-                        new Response("Yes please, change to simple.", 2),
-                        new Response("Yes please, change to legacy.", 3),
-                        new Response("No thanks, keep things as they are.", 4)
+                        new Response("Yes please, change to simple.", new Delta(2)),
+                        new Response("Yes please, change to legacy.", new Delta(3)),
+                        new Response("No thanks, keep things as they are.", new Delta(4))
                     ]
                 },
-                new Paragraph("Arrk! Color it is.", g => g.FrameBuilders = FrameBuilderCollections.Default, -1),
-                new Paragraph("Eeek, simple be fine too! Shame it's been deleted. Maybe it will be implmented again one day! Eeek!", -2),
-                new Paragraph("Squarrk! Legacy, looks old. Shame it's been deleted. Maybe it will be implmented again one day! Arrk!", -3),
-                new Paragraph("Fine, suit yourself! Squarrk!", -4)
+                new Paragraph("Arrk! Color it is.", g => g.FrameBuilders = FrameBuilderCollections.Default, new ToName("ModeQuestion")),
+                new Paragraph("Eeek, simple be fine too! Shame it's been deleted. Maybe it will be implmented again one day! Eeek!", new ToName("ModeQuestion")),
+                new Paragraph("Squarrk! Legacy, looks old. Shame it's been deleted. Maybe it will be implmented again one day! Arrk!", new ToName("ModeQuestion")),
+                new Paragraph("Fine, suit yourself! Squarrk!", new ToName("ModeQuestion"))
             );
 
             room.AddCharacter(new NonPlayableCharacter(new Identifier("Parrot"), new Description("A brightly colored parrot."))

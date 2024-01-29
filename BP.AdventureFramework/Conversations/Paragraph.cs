@@ -49,7 +49,7 @@ namespace BP.AdventureFramework.Conversations
         /// </summary>
         /// <param name="line">Specify the line.</param>
         /// <param name="name">Specify the name of the paragraph.</param>
-        public Paragraph(string line, string name = "") : this(line, null, new DeltaInstruction(1), name)
+        public Paragraph(string line, string name = "") : this(line, null, new Next(), name)
         {
         }
 
@@ -57,9 +57,9 @@ namespace BP.AdventureFramework.Conversations
         /// Initializes a new instance of the Paragraph class.
         /// </summary>
         /// <param name="line">Specify the line.</param>
-        /// <param name="delta">Specify delta to shift paragraphs by at the end of this paragraph. This can be applied to a conversation to direct the conversation after this paragraph.</param>
+        /// <param name="instruction">Specify the end of paragraph instruction. This can be applied to a conversation to direct the conversation after this paragraph.</param>
         /// <param name="name">Specify the name of the paragraph.</param>
-        public Paragraph(string line, int delta, string name = "") : this(line, null, new DeltaInstruction(delta), name)
+        public Paragraph(string line, IEndOfPargraphInstruction instruction, string name = "") : this(line, null, instruction, name)
         {
         }
 
@@ -68,9 +68,8 @@ namespace BP.AdventureFramework.Conversations
         /// </summary>
         /// <param name="line">Specify the line.</param>
         /// <param name="action">Specify any action to be carried out with this line.</param>
-        /// <param name="delta">Specify delta to shift paragraphs by at the end of this paragraph. This can be applied to a conversation to direct the conversation after this paragraph.</param>
         /// <param name="name">Specify the name of the paragraph.</param>
-        public Paragraph(string line, ConversationActionCallback action, int delta, string name = "") : this(line, action, new DeltaInstruction(delta), name)
+        public Paragraph(string line, ConversationActionCallback action, string name = "") : this(line, action, new Next(), name)
         {
         }
 

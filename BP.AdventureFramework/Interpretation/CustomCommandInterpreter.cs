@@ -31,7 +31,7 @@ namespace BP.AdventureFramework.Interpretation
                 return InterpretationResult.Fail;
             
             var entries = input.Split(" ".ToCharArray(), StringSplitOptions.None);
-            var commandName = entries.First();
+            var commandName = entries[0];
             var args = entries.Remove(commandName);
 
             var commands = new List<CustomCommand>();

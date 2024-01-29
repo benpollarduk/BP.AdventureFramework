@@ -84,7 +84,7 @@ namespace BP.AdventureFramework.Utilities
         /// <returns>The created region.</returns>
         public Region Make()
         {
-            return Make(rooms.First());
+            return Make(rooms[0]);
         }
 
         /// <summary>

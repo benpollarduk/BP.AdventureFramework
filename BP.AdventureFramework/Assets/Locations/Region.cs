@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Assets.Locations
 
                 if (roomPositions.Count > 0)
                 {
-                    var first = roomPositions.First().Room;
+                    var first = roomPositions[0].Room;
                     SetStartRoom(first);
                     currentRoom = first;
                 }

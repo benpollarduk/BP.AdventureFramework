@@ -18,7 +18,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
             };
             var instruction = new First();
 
-            var result = instruction.GetIndexOfNext(paragraphs.First(), paragraphs);
+            var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
             Assert.AreEqual(0, result);
         }
@@ -34,7 +34,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
             };
             var instruction = new First();
 
-            var result = instruction.GetIndexOfNext(paragraphs.First(), paragraphs);
+            var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
             Assert.AreEqual(0, result);
         }

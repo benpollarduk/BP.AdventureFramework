@@ -19,7 +19,7 @@ namespace BP.AdventureFramework.Tests.Conversations
 
             var result = npc.Conversation.CurrentParagraph;
 
-            Assert.AreEqual(npc.Conversation.Paragraphs.First(), result);
+            Assert.AreEqual(npc.Conversation.Paragraphs[0], result);
         }
 
         [TestMethod]

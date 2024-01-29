@@ -86,7 +86,7 @@ namespace BP.AdventureFramework.Conversations
             }
             else if (CurrentParagraph == null)
             {
-                CurrentParagraph = Paragraphs.First();
+                CurrentParagraph = Paragraphs[0];
             }
             else
             {

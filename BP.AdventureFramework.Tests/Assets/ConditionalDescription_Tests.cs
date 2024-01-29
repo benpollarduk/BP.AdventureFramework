@@ -1,7 +1,7 @@
 ﻿using BP.AdventureFramework.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BP.AdventureFramework.Examples.Assets
+namespace BP.AdventureFramework.Tests.Assets
 {
     [TestClass]
     public class ConditionalDescription_Tests

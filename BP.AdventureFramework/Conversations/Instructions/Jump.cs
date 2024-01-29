@@ -40,7 +40,15 @@ namespace BP.AdventureFramework.Conversations.Instructions
         public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
         {
             var currentIndex = collection.ToList().IndexOf(current);
-            return currentIndex + Delta;
+            var offset = currentIndex + Delta;
+
+            if (offset < 0)
+                return 0;
+
+            if (offset >= collection.Length)
+                return collection.Length - 1;
+
+            return offset;
         }
 
         #endregion

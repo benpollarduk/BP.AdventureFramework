@@ -33,15 +33,15 @@
         /// Get the index of the next paragraph.
         /// </summary>
         /// <param name="current">The current paragraph.</param>
-        /// <param name="collection">The collection of paragraphs.</param>
+        /// <param name="paragraphs">The collection of paragraphs.</param>
         /// <returns>The index of the next paragraph.</returns>
-        public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
+        public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
             if (Index < 0)
                 return 0;
 
-            if (Index >= collection.Length)
-                return collection.Length - 1;
+            if (Index >= paragraphs.Length)
+                return paragraphs.Length - 1;
 
             return Index;
         }

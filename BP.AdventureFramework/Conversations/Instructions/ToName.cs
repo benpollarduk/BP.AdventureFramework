@@ -36,12 +36,12 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// Get the index of the next paragraph.
         /// </summary>
         /// <param name="current">The current paragraph.</param>
-        /// <param name="collection">The collection of paragraphs.</param>
+        /// <param name="paragraphs">The collection of paragraphs.</param>
         /// <returns>The index of the next paragraph.</returns>
-        public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
+        public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
-            var target = collection.FirstOrDefault(x => x.Name.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
-            return target == null ? 0 : collection.ToList().IndexOf(target);
+            var target = paragraphs.FirstOrDefault(x => x.Name.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+            return target == null ? 0 : paragraphs.ToList().IndexOf(target);
         }
 
         #endregion

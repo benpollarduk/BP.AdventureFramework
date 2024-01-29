@@ -13,11 +13,11 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// Get the index of the next paragraph.
         /// </summary>
         /// <param name="current">The current paragraph.</param>
-        /// <param name="collection">The collection of paragraphs.</param>
+        /// <param name="paragraphs">The collection of paragraphs.</param>
         /// <returns>The index of the next paragraph.</returns>
-        public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
+        public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
-            var currentIndex = collection.ToList().IndexOf(current);
+            var currentIndex = paragraphs.ToList().IndexOf(current);
             var previous = currentIndex - 1;
             return previous >= 0 ? previous : 0;
         }

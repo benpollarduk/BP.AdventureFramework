@@ -35,18 +35,18 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// Get the index of the next paragraph.
         /// </summary>
         /// <param name="current">The current paragraph.</param>
-        /// <param name="collection">The collection of paragraphs.</param>
+        /// <param name="paragraphs">The collection of paragraphs.</param>
         /// <returns>The index of the next paragraph.</returns>
-        public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
+        public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
-            var currentIndex = collection.ToList().IndexOf(current);
+            var currentIndex = paragraphs.ToList().IndexOf(current);
             var offset = currentIndex + Delta;
 
             if (offset < 0)
                 return 0;
 
-            if (offset >= collection.Length)
-                return collection.Length - 1;
+            if (offset >= paragraphs.Length)
+                return paragraphs.Length - 1;
 
             return offset;
         }

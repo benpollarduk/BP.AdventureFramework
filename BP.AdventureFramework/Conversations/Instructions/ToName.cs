@@ -4,7 +4,7 @@ using System.Linq;
 namespace BP.AdventureFramework.Conversations.Instructions
 {
     /// <summary>
-    /// An end of paragraph instruction that shifts paragraphs based on a delta.
+    /// An end of paragraph instruction that shifts paragraphs based on a name.
     /// </summary>
     public sealed class ToName : IEndOfPargraphInstruction
     {

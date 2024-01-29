@@ -5,9 +5,8 @@ namespace BP.AdventureFramework.Assets
     /// <summary>
     /// Provides a class that can be used as an identifier.
     /// </summary>
-    public class Identifier : IEquatable<string>, IEquatable<Identifier>
+    public sealed class Identifier : IEquatable<string>, IEquatable<Identifier>
     {
-
         #region StaticProperties
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace BP.AdventureFramework.Assets
         /// </summary>
         /// <param name="value">The value to convert.</param>
         /// <returns>The identifiable string.</returns>
-        protected string ToIdentifiableString(string value)
+        private string ToIdentifiableString(string value)
         {
             return value.ToUpper().Replace(" ", string.Empty);
         }

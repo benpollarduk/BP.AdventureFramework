@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BP.AdventureFramework.Commands.Game;
 using BP.AdventureFramework.Logic;
 
@@ -42,10 +43,10 @@ namespace BP.AdventureFramework.Interpretation
             {
                 var l = new List<CommandHelp>();
 
-                foreach (var interpreter in Interpreters)
+                foreach (var commands in Interpreters.Select(i => i.SupportedCommands))
                 {
-                    if (interpreter.SupportedCommands != null)
-                        l.AddRange(interpreter.SupportedCommands);
+                    if (commands != null)
+                        l.AddRange(commands);
                 }
 
                 return l.ToArray();

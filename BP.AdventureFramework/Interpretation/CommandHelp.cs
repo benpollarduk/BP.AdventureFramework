@@ -5,7 +5,7 @@ namespace BP.AdventureFramework.Interpretation
     /// <summary>
     /// Provides help for a command.
     /// </summary>
-    public class CommandHelp : IEquatable<CommandHelp>
+    public sealed class CommandHelp : IEquatable<CommandHelp>
     {
         #region Properties
 

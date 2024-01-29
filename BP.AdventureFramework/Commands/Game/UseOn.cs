@@ -81,11 +81,8 @@ namespace BP.AdventureFramework.Commands.Game
 
                     var examinable = Target as IExaminable;
 
-                    if (examinable != null)
-                    {
-                        if (game.Overworld.CurrentRegion.CurrentRoom.ContainsInteractionTarget(examinable.Identifier.Name))
-                            game.Overworld.CurrentRegion.CurrentRoom.RemoveInteractionTarget(Target);
-                    }
+                    if (examinable != null && game.Overworld.CurrentRegion.CurrentRoom.ContainsInteractionTarget(examinable.Identifier.Name))
+                        game.Overworld.CurrentRegion.CurrentRoom.RemoveInteractionTarget(Target);
 
                     break;
 

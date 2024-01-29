@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BP.AdventureFramework.Conversations;
+﻿using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Conversations.Instructions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

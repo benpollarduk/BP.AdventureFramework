@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BP.AdventureFramework.Assets.Characters;
+﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Conversations.Instructions;

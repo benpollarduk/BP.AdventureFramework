@@ -42,17 +42,17 @@ A NonPlayableCharacter can hold a conversation with the player.
 ```csharp
 goblin.Conversation = new Conversation(
     new Paragraph("This is a the first line."),
-    new Paragraph("This is a question.", "Question")
+    new Paragraph("This is a question.")
     {
         Responses =
         [
-            new Response("This is the first response." new Delta(1)),
-            new Response("This is the second response.", new Delta(2)),
-            new Response("This is the third response.", new Delta(3))
+            new Response("This is the first response." new Jump(1)),
+            new Response("This is the second response.", new Jump(2)),
+            new Response("This is the third response.", new Jump(3))
         ]
     },
-    new Paragraph("You picked first response, return to start of conversation.", new ToName("Question")),
-    new Paragraph("You picked second response, return to start of conversation., new ToName("Question")),
+    new Paragraph("You picked first response, return to start of conversation.", new GoTo(1)),
+    new Paragraph("You picked second response, return to start of conversation., new GoTo(1)),
     new Paragraph("You picked third response, you are dead., game => game.Player.Kill())
 );
 ```

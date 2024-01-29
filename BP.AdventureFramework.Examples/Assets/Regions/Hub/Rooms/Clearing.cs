@@ -34,9 +34,9 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Hub.Rooms
                     Responses =
                     [
                         new Response("Yes please, change to default."),
-                        new Response("Yes please, change to simple.", new Delta(2)),
-                        new Response("Yes please, change to legacy.", new Delta(3)),
-                        new Response("No thanks, keep things as they are.", new Delta(4))
+                        new Response("Yes please, change to simple.", new Jump(2)),
+                        new Response("Yes please, change to legacy.", new Jump(3)),
+                        new Response("No thanks, keep things as they are.", new Jump(4))
                     ]
                 },
                 new Paragraph("Arrk! Color it is.", g => g.FrameBuilders = FrameBuilderCollections.Default, new ToName("ModeQuestion")),

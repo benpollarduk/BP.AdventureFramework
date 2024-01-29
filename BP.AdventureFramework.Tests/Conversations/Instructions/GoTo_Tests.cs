@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BP.AdventureFramework.Tests.Conversations.Instructions
 {
     [TestClass]
-    public class Absolute_Tests
+    public class GoTo_Tests
     {
         [TestMethod]
         public void GivenIndex0_WhenNext_ThenReturn0()
@@ -15,7 +15,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test1"),
                 new Paragraph("Test2")
             };
-            var instruction = new Absolute(0);
+            var instruction = new GoTo(0);
 
             var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
@@ -30,7 +30,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test1"),
                 new Paragraph("Test2")
             };
-            var instruction = new Absolute(1);
+            var instruction = new GoTo(1);
 
             var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
@@ -45,7 +45,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test1"),
                 new Paragraph("Test2")
             };
-            var instruction = new Absolute(-1);
+            var instruction = new GoTo(-1);
 
             var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
@@ -60,7 +60,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
                 new Paragraph("Test1"),
                 new Paragraph("Test2")
             };
-            var instruction = new Absolute(3);
+            var instruction = new GoTo(3);
 
             var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 

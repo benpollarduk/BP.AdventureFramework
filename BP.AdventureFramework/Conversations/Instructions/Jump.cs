@@ -1,28 +1,30 @@
-﻿namespace BP.AdventureFramework.Conversations.Instructions
+﻿using System.Linq;
+
+namespace BP.AdventureFramework.Conversations.Instructions
 {
     /// <summary>
-    /// An end of paragraph instruction that shifts paragraphs based on an absolute index.
+    /// An end of paragraph instruction that shifts paragraphs based on a delta.
     /// </summary>
-    public sealed class Absolute : IEndOfPargraphInstruction
+    public sealed class Jump : IEndOfPargraphInstruction
     {
         #region Properties
 
         /// <summary>
-        /// Get the index.
+        /// Get the delta.
         /// </summary>
-        public int Index { get; }
+        public int Delta { get; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Create a new instance of the Absolute class.
+        /// Create a new instance of the Jump class.
         /// </summary>
-        /// <param name="index">The index of the next paragraph.</param>
-        public Absolute(int index)
+        /// <param name="delta">The delta to shift paragraphs by.</param>
+        public Jump(int delta)
         {
-            Index = index;
+            Delta = delta;
         }
 
         #endregion
@@ -37,13 +39,8 @@
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
         {
-            if (Index < 0)
-                return 0;
-
-            if (Index >= collection.Length)
-                return collection.Length - 1;
-
-            return Index;
+            var currentIndex = collection.ToList().IndexOf(current);
+            return currentIndex + Delta;
         }
 
         #endregion

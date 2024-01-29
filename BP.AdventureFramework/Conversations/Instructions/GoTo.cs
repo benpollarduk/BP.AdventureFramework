@@ -1,11 +1,9 @@
-﻿using System.Linq;
-
-namespace BP.AdventureFramework.Conversations.Instructions
+﻿namespace BP.AdventureFramework.Conversations.Instructions
 {
     /// <summary>
-    /// An end of paragraph instruction that shifts paragraphs based on a delta.
+    /// An end of paragraph instruction that shifts paragraphs based on an absolute index.
     /// </summary>
-    public sealed class Delta : IEndOfPargraphInstruction
+    public sealed class GoTo : IEndOfPargraphInstruction
     {
         #region Properties
 
@@ -19,10 +17,10 @@ namespace BP.AdventureFramework.Conversations.Instructions
         #region Constructors
 
         /// <summary>
-        /// Create a new instance of the DeltaInstruction class.
+        /// Create a new instance of the GoTo class.
         /// </summary>
-        /// <param name="index">The index to shift paragraphs by.</param>
-        public Delta(int index)
+        /// <param name="index">The index of the next paragraph.</param>
+        public GoTo(int index)
         {
             Index = index;
         }
@@ -39,8 +37,13 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] collection)
         {
-            var currentIndex = collection.ToList().IndexOf(current);
-            return currentIndex + Index;
+            if (Index < 0)
+                return 0;
+
+            if (Index >= collection.Length)
+                return collection.Length - 1;
+
+            return Index;
         }
 
         #endregion

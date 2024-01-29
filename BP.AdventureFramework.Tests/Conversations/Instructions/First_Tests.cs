@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BP.AdventureFramework.Conversations;
+﻿using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Conversations.Instructions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,7 +17,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
             };
             var instruction = new First();
 
-            var result = instruction.GetIndexOfNext(paragraphs.First(), paragraphs);
+            var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
             Assert.AreEqual(0, result);
         }
@@ -34,7 +33,7 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
             };
             var instruction = new First();
 
-            var result = instruction.GetIndexOfNext(paragraphs.First(), paragraphs);
+            var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
             Assert.AreEqual(0, result);
         }

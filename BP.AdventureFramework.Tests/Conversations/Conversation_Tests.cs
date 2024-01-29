@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BP.AdventureFramework.Assets.Characters;
+﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Conversations.Instructions;
@@ -19,7 +18,7 @@ namespace BP.AdventureFramework.Tests.Conversations
 
             var result = npc.Conversation.CurrentParagraph;
 
-            Assert.AreEqual(npc.Conversation.Paragraphs.First(), result);
+            Assert.AreEqual(npc.Conversation.Paragraphs[0], result);
         }
 
         [TestMethod]

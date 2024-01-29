@@ -313,7 +313,7 @@ namespace BP.AdventureFramework.Interpretation
 
             if (game.Overworld.CurrentRegion.CurrentRoom.Characters.Length == 1)
             {
-                command = new Talk(game.Overworld.CurrentRegion.CurrentRoom.Characters.First());
+                command = new Talk(game.Overworld.CurrentRegion.CurrentRoom.Characters[0]);
                 return true;
             }
 

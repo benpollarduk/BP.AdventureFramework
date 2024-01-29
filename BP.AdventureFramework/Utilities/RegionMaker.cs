@@ -38,10 +38,10 @@ namespace BP.AdventureFramework.Utilities
         /// <returns>The room.</returns>
         public Room this[int x, int y, int z]
         {
-            get { return rooms.FirstOrDefault(r => r.IsAtPosition(x, y, z))?.Room; }
+            get { return rooms.Find(r => r.IsAtPosition(x, y, z))?.Room; }
             set
             {
-                var element = rooms.FirstOrDefault(r => r.IsAtPosition(x, y, z));
+                var element = rooms.Find(r => r.IsAtPosition(x, y, z));
 
                 if (element != null)
                     rooms.Remove(element);
@@ -84,7 +84,7 @@ namespace BP.AdventureFramework.Utilities
         /// <returns>The created region.</returns>
         public Region Make()
         {
-            return Make(rooms.First());
+            return Make(rooms[0]);
         }
 
         /// <summary>

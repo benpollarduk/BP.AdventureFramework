@@ -80,7 +80,7 @@ namespace BP.AdventureFramework.Extensions
                 return string.Empty;
 
             var space = Convert.ToChar(" ");
-            var firstWord = word.TrimStart(space).Split(space).First();
+            var firstWord = word.TrimStart(space).Split(space)[0];
             var lastWord = word.TrimEnd(space).Split(space).Last();
 
             if (IsPlural(lastWord))

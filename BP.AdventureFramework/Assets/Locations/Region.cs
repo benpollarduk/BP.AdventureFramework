@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Assets.Locations
 
                 if (roomPositions.Count > 0)
                 {
-                    var first = roomPositions.First().Room;
+                    var first = roomPositions[0].Room;
                     SetStartRoom(first);
                     currentRoom = first;
                 }
@@ -54,7 +54,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="y">The y position.</param>
         /// <param name="z">The z position.</param>
         /// <returns>The room.</returns>
-        public Room this[int x, int y, int z] => roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z))?.Room;
+        public Room this[int x, int y, int z] => roomPositions.Find(r => r.IsAtPosition(x, y, z))?.Room;
 
         /// <summary>
         /// Get if the current region is visible without discovery.
@@ -125,7 +125,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="z">The z position within the region.</param>
         public bool AddRoom(Room room, int x, int y, int z)
         {
-            var addable = !roomPositions.Any(r => r.Room == room ||  r.IsAtPosition(x, y, z));
+            var addable = !roomPositions.Exists(r => r.Room == room ||  r.IsAtPosition(x, y, z));
 
             if (addable)
                 roomPositions.Add(new RoomPosition(room, x, y, z));
@@ -151,7 +151,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The adjoining room.</returns>
         public Room GetAdjoiningRoom(Direction direction, Room room)
         {
-            var roomPosition = roomPositions.FirstOrDefault(r => r.Room == room);
+            var roomPosition = roomPositions.Find(r => r.Room == room);
 
             if (roomPosition == null)
                 return null;
@@ -199,7 +199,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <param name="z">The z position.</param>
         public void SetStartRoom(int x, int y, int z)
         {
-            var room = roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z))?.Room;
+            var room = roomPositions.Find(r => r.IsAtPosition(x, y, z))?.Room;
             SetStartRoom(room ?? roomPositions.ElementAt(0).Room);
         }
 
@@ -211,7 +211,7 @@ namespace BP.AdventureFramework.Assets.Locations
         public bool UnlockDoorPair(Direction direction)
         {
             var exitInThisRoom = CurrentRoom[direction];
-            var roomPosition = roomPositions.FirstOrDefault(x => x.Room == CurrentRoom);
+            var roomPosition = roomPositions.Find(x => x.Room == CurrentRoom);
 
             if (roomPosition == null)
                 return false;
@@ -253,7 +253,7 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>True if the room could be jumped to, else false.</returns>
         public bool JumpToRoom(int x, int y, int z)
         {
-            var roomPosition = roomPositions.FirstOrDefault(r => r.IsAtPosition(x, y, z));
+            var roomPosition = roomPositions.Find(r => r.IsAtPosition(x, y, z));
 
             if (roomPosition == null)
                 return false;

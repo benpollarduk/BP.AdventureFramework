@@ -220,10 +220,10 @@ namespace BP.AdventureFramework.Assets.Locations
         /// <returns>The result of this examination.</returns>
         public override ExaminationResult Examine()
         {
-            if (!Items.Where(i => i.IsPlayerVisible).ToArray().Any())
+            if (!Items.Any(i => i.IsPlayerVisible))
                 return new ExaminationResult("There is nothing to examine.");
 
-            if (Items.Where(i => i.IsPlayerVisible).ToArray().Length == 1)
+            if (Items.Count(i => i.IsPlayerVisible) == 1)
             {
                 var singularItem = Items.Where(i => i.IsPlayerVisible).ToArray()[0];
                 return new ExaminationResult($"There {(singularItem.Identifier.Name.IsPlural() ? "are" : "is")} {singularItem.Identifier.Name.GetObjectifier()} {singularItem.Identifier}");

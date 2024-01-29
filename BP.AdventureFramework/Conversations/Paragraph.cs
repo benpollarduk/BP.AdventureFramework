@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using BP.AdventureFramework.Conversations.Instructions;
 
 namespace BP.AdventureFramework.Conversations
 {
@@ -8,6 +9,11 @@ namespace BP.AdventureFramework.Conversations
     public sealed class Paragraph
     {
         #region Properties
+
+        /// <summary>
+        /// Get the name.
+        /// </summary>
+        public string Name { get; private set; }
 
         /// <summary>
         /// Get or set the line.
@@ -30,9 +36,9 @@ namespace BP.AdventureFramework.Conversations
         public ConversationActionCallback Action { get; set; }
 
         /// <summary>
-        /// Get the delta. This can be applied to a conversation to direct the conversation after this paragraph.
+        /// Get the end of paragraph instruction. This can be applied to a conversation to direct the conversation after this paragraph.
         /// </summary>
-        public int Delta { get; }
+        public IEndOfPargraphInstruction Instruction { get; }
 
         #endregion
 
@@ -42,7 +48,8 @@ namespace BP.AdventureFramework.Conversations
         /// Initializes a new instance of the Paragraph class.
         /// </summary>
         /// <param name="line">Specify the line.</param>
-        public Paragraph(string line) : this(line, null)
+        /// <param name="name">Specify the name of the paragraph.</param>
+        public Paragraph(string line, string name = "") : this(line, null, new DeltaInstruction(1), name)
         {
         }
 
@@ -50,8 +57,9 @@ namespace BP.AdventureFramework.Conversations
         /// Initializes a new instance of the Paragraph class.
         /// </summary>
         /// <param name="line">Specify the line.</param>
-        /// <param name="delta">Specify the delta. This can be applied to a conversation to direct the conversation after this paragraph.</param>
-        public Paragraph(string line, int delta = 1) : this(line, null, delta)
+        /// <param name="delta">Specify delta to shift paragraphs by at the end of this paragraph. This can be applied to a conversation to direct the conversation after this paragraph.</param>
+        /// <param name="name">Specify the name of the paragraph.</param>
+        public Paragraph(string line, int delta, string name = "") : this(line, null, new DeltaInstruction(delta), name)
         {
         }
 
@@ -60,12 +68,25 @@ namespace BP.AdventureFramework.Conversations
         /// </summary>
         /// <param name="line">Specify the line.</param>
         /// <param name="action">Specify any action to be carried out with this line.</param>
-        /// <param name="delta">Specify the delta. This can be applied to a conversation to direct the conversation after this paragraph.</param>
-        public Paragraph(string line, ConversationActionCallback action, int delta = 1)
+        /// <param name="delta">Specify delta to shift paragraphs by at the end of this paragraph. This can be applied to a conversation to direct the conversation after this paragraph.</param>
+        /// <param name="name">Specify the name of the paragraph.</param>
+        public Paragraph(string line, ConversationActionCallback action, int delta, string name = "") : this(line, action, new DeltaInstruction(delta), name)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Paragraph class.
+        /// </summary>
+        /// <param name="line">Specify the line.</param>
+        /// <param name="action">Specify any action to be carried out with this line.</param>
+        /// <param name="instruction">Specify the end of paragraph instruction. This can be applied to a conversation to direct the conversation after this paragraph.</param>
+        /// <param name="name">Specify the name of the paragraph.</param>
+        public Paragraph(string line, ConversationActionCallback action, IEndOfPargraphInstruction instruction, string name = "")
         {
             Line = line;
             Action = action;
-            Delta = delta;
+            Instruction = instruction;
+            Name = name;
         }
 
         #endregion

@@ -12,7 +12,6 @@ namespace BP.AdventureFramework.Conversations
     {
         #region Fields
 
-        private int paragraphIndex;
         private Response selectedResponse;
 
         #endregion
@@ -54,12 +53,11 @@ namespace BP.AdventureFramework.Conversations
         /// <summary>
         /// Shift the conversation to a new paragraph.
         /// </summary>
-        /// <param name="delta">The delta to shift paragraphs by.</param>
+        /// <param name="index">The index of the paragraph to shift to.</param>
         /// <returns>The new paragraph.</returns>
-        private Paragraph Shift(int delta)
+        private Paragraph Shift(int index)
         {
-            paragraphIndex += delta;
-            return paragraphIndex >= 0 && paragraphIndex < Paragraphs.Length ? Paragraphs[paragraphIndex] : CurrentParagraph;
+            return index >= 0 && index < Paragraphs.Length ? Paragraphs[index] : CurrentParagraph;
         }
 
         /// <summary>
@@ -92,7 +90,7 @@ namespace BP.AdventureFramework.Conversations
             }
             else
             {
-                CurrentParagraph = Shift(CurrentParagraph.Delta);
+                CurrentParagraph = Shift(CurrentParagraph.Instruction.GetIndexOfNext(CurrentParagraph, Paragraphs));
             }
 
             if ((CurrentParagraph == null) || (CurrentParagraph == entryParagraph))

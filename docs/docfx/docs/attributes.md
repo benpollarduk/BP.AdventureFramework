@@ -54,7 +54,7 @@ trader.Conversation = new Conversation(
         player.Attributes.Subtract(currency, 5);
         trader.Attributes.Add(currency, 5);
         trader.Give(spade, player);
-    }, new GoTo(0), "BoughtSpade"),
+    }, new First(), "BoughtSpade"),
     new Paragraph("You don't have enough money.", new First(), "NotEnough"),
     new Paragraph("Fine.")
 );

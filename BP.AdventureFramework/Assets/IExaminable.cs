@@ -1,4 +1,5 @@
-﻿using BP.AdventureFramework.Commands;
+﻿using BP.AdventureFramework.Assets.Attributes;
+using BP.AdventureFramework.Commands;
 
 namespace BP.AdventureFramework.Assets
 {
@@ -19,6 +20,10 @@ namespace BP.AdventureFramework.Assets
         /// Get or set this objects commands.
         /// </summary>
         CustomCommand[] Commands { get; set; }
+        /// <summary>
+        /// Get the attribute manager for this object.
+        /// </summary>
+        AttributeManager Attributes { get; }
         /// <summary>
         /// Examine this object.
         /// </summary>

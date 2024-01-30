@@ -4,17 +4,29 @@ using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Assets.Attributes
 {
-    internal class AttributeManager
+    /// <summary>
+    /// Provides a class for managing attributes.
+    /// </summary>
+    public sealed class AttributeManager
     {
-        private Dictionary<Attribute, double> Attributes = new Dictionary<Attribute, double>();
+        #region Fields
 
+        /// <summary>
+        /// Get or set the underlying attributes.
+        /// </summary>
+        private readonly Dictionary<Attribute, double> attributes = new Dictionary<Attribute, double>();
+
+        #endregion
+
+        #region Methods
+        
         /// <summary>
         /// Get all attributes.
         /// </summary>
         /// <returns>An array of attribtes.</returns>
         public Attribute[] GetAttributes()
         {
-            return Attributes.Keys.ToArray();
+            return attributes.Keys.ToArray();
         }
 
         /// <summary>
@@ -24,7 +36,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <returns>The value.</returns>
         public double GetValue(string attributeName)
         {
-            return GetValue(Attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName)));
+            return GetValue(attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName)));
         }
 
         /// <summary>
@@ -34,7 +46,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <returns>The value.</returns>
         public double GetValue(Attribute attribute)
         {
-            return Attributes.TryGetValue(attribute, out var value) ? value : 0d;
+            return attributes.TryGetValue(attribute, out var value) ? value : 0d;
         }
 
         /// <summary>
@@ -44,8 +56,12 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Add(string attributeName, double value)
         {
-            var attribute = Attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName)) ?? new Attribute(attributeName, string.Empty, double.MinValue, double.MaxValue);
-            Add(attribute, value);
+            var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
+
+            if (attribute == null)
+                attributes.Add(new Attribute(attributeName, string.Empty, double.MinValue, double.MaxValue), value);
+            else
+                attributes[attribute] += value;
         }
 
         /// <summary>
@@ -55,10 +71,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Add(Attribute attribute, double value)
         {
-            if (Attributes.ContainsKey(attribute))
-                Attributes[attribute] += value;
-            else
-                Attributes.Add(attribute, value);
+            Add(attribute.Name, value);
         }
 
         /// <summary>
@@ -68,8 +81,12 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Subtract(string attributeName, double value)
         {
-            var attribute = Attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName)) ?? new Attribute(attributeName, string.Empty, double.MinValue, double.MaxValue);
-            Subtract(attribute, value);
+            var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
+
+            if (attribute == null)
+                return;
+
+            attributes[attribute] -= value;
         }
 
         /// <summary>
@@ -79,10 +96,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Subtract(Attribute attribute, double value)
         {
-            if (Attributes.ContainsKey(attribute))
-                Attributes[attribute] -= value;
-            else
-                Attributes.Add(attribute, value);
+            Subtract(attribute.Name, value);
         }
 
         /// <summary>
@@ -91,8 +105,12 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="attributeName">The name of the attribute.</param>
         public void Remove(string attributeName)
         {
-            var attribute = Attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName)) ?? new Attribute(attributeName, string.Empty, double.MinValue, double.MaxValue);
-            Remove(attribute);
+            var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
+
+            if (attribute == null)
+                return;
+
+            attributes.Remove(attribute);
         }
 
         /// <summary>
@@ -101,8 +119,17 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="attribute">The attribute.</param>
         public void Remove(Attribute attribute)
         {
-            if (Attributes.ContainsKey(attribute))
-                Attributes.Remove(attribute);
+            Remove(attribute.Name);
         }
+
+        /// <summary>
+        /// Remove all attributes.
+        /// </summary>
+        public void RemoveAll()
+        {
+            attributes.Clear();
+        }
+
+        #endregion
     }
 }

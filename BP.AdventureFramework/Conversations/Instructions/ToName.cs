@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Conversations.Instructions
 {
@@ -40,7 +41,7 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
-            var target = paragraphs.FirstOrDefault(x => x.Name.Equals(Name, StringComparison.InvariantCultureIgnoreCase));
+            var target = paragraphs.FirstOrDefault(x => x.Name.InsensitiveEquals(Name));
             return target == null ? 0 : paragraphs.ToList().IndexOf(target);
         }
 

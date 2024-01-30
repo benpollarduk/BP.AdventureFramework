@@ -109,7 +109,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// </summary>
         /// <param name="attributeName">The name of the attribute.</param>
         /// <returns>The value.</returns>
-        public double GetValue(string attributeName)
+        public int GetValue(string attributeName)
         {
             return GetValue(attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName)));
         }
@@ -119,9 +119,9 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// </summary>
         /// <param name="attribute">The attribute.</param>
         /// <returns>The value.</returns>
-        public double GetValue(Attribute attribute)
+        public int GetValue(Attribute attribute)
         {
-            return attributes.TryGetValue(attribute, out var value) ? value : 0d;
+            return attributes.TryGetValue(attribute, out var value) ? value : 0;
         }
 
         /// <summary>

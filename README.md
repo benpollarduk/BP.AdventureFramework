@@ -73,7 +73,6 @@ var npc = new NonPlayableChracter("Gary", "The antagonist of the story.");
 ```
   
 ### Commands
-  
 BP.AdventureFramework provides commands for interacting with game elements:
   * **Drop X** - drop an item.
   * **Examine X** - allows items, characters and environments to be examined.
@@ -94,11 +93,9 @@ BP.AdventureFramework also provides global commands to help with game flow and o
 Custom commands can be added to games without the need to extend the existing interpretation.
 
 ### Interpretation
-
 BP.AdventureFramework provides classes for handling interpretation of input. Interpretation is extensible with the ability for custom interpreters to be added outside of the core BP.AdventureFramework library.
 
 ### Conversations
-
 Conversations can be held between the player and a NPC. Conversations support multiple lines of dialogue and responses.
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/5ed1afc0-1ab8-4d35-9c90-dd848f18bfda)
@@ -107,7 +104,6 @@ Conversations can be held between the player and a NPC. Conversations support mu
 All game assets support customisable attributes. This provides the possibility to build systems within a game, for example adding currency and trading, adding HP to enemies, MP to your character, durability to Items etc.
 
 ### Rendering
-
 BP.AdventureFramework provides frames for rendering the various game screens. These are fully extensible and customisable. These include:
    * Scene frame.
    * Help frame.
@@ -119,7 +115,6 @@ BP.AdventureFramework provides frames for rendering the various game screens. Th
    * Conversation frame.
 
 ### Maps
-  
 Maps are automatically generated for regions and rooms, and can be viewed with the **map** command:
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/b6c05233-6856-4103-be44-be1c73a85874)

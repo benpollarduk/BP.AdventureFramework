@@ -135,7 +135,7 @@ namespace BP.AdventureFramework.Tests.Assets.Attributes
         }
 
         [TestMethod]
-        public void GivenOneAttributes_WhenSubtractAttribute_ThenAttributeValueSubtracted()
+        public void GivenOneAttribute_WhenSubtractAttribute_ThenAttributeValueSubtracted()
         {
             var manager = new AttributeManager();
             manager.Add("test", 100);

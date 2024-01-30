@@ -20,12 +20,12 @@
         /// <summary>
         /// Get the minimum limit of the attribute.
         /// </summary>
-        public double Minimum { get; }
+        public int Minimum { get; }
 
         /// <summary>
         /// Get the maximum limit of the attribute.
         /// </summary>
-        public double Maximum { get; }
+        public int Maximum { get; }
 
         #endregion
 
@@ -38,7 +38,7 @@
         /// <param name="description">Specify the description of the attibute.</param>
         /// <param name="minimum">Specify the minimum limit of the attibute.</param>
         /// <param name="maximum">Specify the maximum limit of the attibute.</param>
-        public Attribute(string name, string description, double minimum, double maximum)
+        public Attribute(string name, string description, int minimum, int maximum)
         {
             Name = name;
             Description = description;

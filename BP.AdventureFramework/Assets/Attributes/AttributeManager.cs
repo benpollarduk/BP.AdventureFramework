@@ -14,12 +14,21 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <summary>
         /// Get or set the underlying attributes.
         /// </summary>
-        private readonly Dictionary<Attribute, double> attributes = new Dictionary<Attribute, double>();
+        private readonly Dictionary<Attribute, int> attributes = new Dictionary<Attribute, int>();
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Get the number of attributes this manager has.
+        /// </summary>
+        public int Count => attributes.Count;
 
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// Get all attributes.
         /// </summary>
@@ -27,6 +36,15 @@ namespace BP.AdventureFramework.Assets.Attributes
         public Attribute[] GetAttributes()
         {
             return attributes.Keys.ToArray();
+        }
+
+        /// <summary>
+        /// Get all attributes as a dictionary.
+        /// </summary>
+        /// <returns>An array of attribtes.</returns>
+        public Dictionary<Attribute, int> GetAsDictionary()
+        {
+            return attributes.ToDictionary(x => x.Key, x => x.Value);
         }
 
         /// <summary>
@@ -54,12 +72,12 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// </summary>
         /// <param name="attributeName">The name of the attribute.</param>
         /// <param name="value">The value.</param>
-        public void Add(string attributeName, double value)
+        public void Add(string attributeName, int value)
         {
             var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
 
             if (attribute == null)
-                attributes.Add(new Attribute(attributeName, string.Empty, double.MinValue, double.MaxValue), value);
+                attributes.Add(new Attribute(attributeName, string.Empty, int.MinValue, int.MaxValue), value);
             else
                 attributes[attribute] += value;
         }
@@ -69,7 +87,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// </summary>
         /// <param name="attribute">The attribute.</param>
         /// <param name="value">The value.</param>
-        public void Add(Attribute attribute, double value)
+        public void Add(Attribute attribute, int value)
         {
             Add(attribute.Name, value);
         }
@@ -79,7 +97,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// </summary>
         /// <param name="attributeName">The name of the attribute.</param>
         /// <param name="value">The value.</param>
-        public void Subtract(string attributeName, double value)
+        public void Subtract(string attributeName, int value)
         {
             var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
 
@@ -94,7 +112,7 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// </summary>
         /// <param name="attribute">The attribute.</param>
         /// <param name="value">The value.</param>
-        public void Subtract(Attribute attribute, double value)
+        public void Subtract(Attribute attribute, int value)
         {
             Subtract(attribute.Name, value);
         }

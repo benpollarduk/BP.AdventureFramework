@@ -67,7 +67,7 @@ namespace BP.AdventureFramework.Tests.Assets.Attributes
         {
             var manager = new AttributeManager();
             manager.Add("test", 1);
-            manager.Add(new Attribute("test", "", 100d, 2), 2);
+            manager.Add(new Attribute("test", "", 100, 2), 2);
 
             var result = manager.GetValue("test");
 
@@ -129,9 +129,9 @@ namespace BP.AdventureFramework.Tests.Assets.Attributes
             manager.Add("test", 0);
             manager.Subtract("test", 0);
 
-            var result = manager.GetAttributes();
+            var result = manager.Count;
 
-            Assert.AreEqual(1, result.Length);
+            Assert.AreEqual(1, result);
         }
 
         [TestMethod]
@@ -139,11 +139,32 @@ namespace BP.AdventureFramework.Tests.Assets.Attributes
         {
             var manager = new AttributeManager();
             manager.Add("test", 100);
-            manager.Subtract(new Attribute("test", "", 100d, 2), 50);
+            manager.Subtract(new Attribute("test", "", 100, 2), 50);
 
             var result = manager.GetValue("test");
 
             Assert.AreEqual(50, result);
+        }
+
+        [TestMethod]
+        public void GivenNoAttributes_WhenGetAsDictionary_ThenReturnEmptyDictionary()
+        {
+            var manager = new AttributeManager();
+
+            var result = manager.GetAsDictionary();
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void GivenOneAttribute_WhenGetAsDictionary_ThenReturnDictionaryWithOneElement()
+        {
+            var manager = new AttributeManager();
+            manager.Add("test", 1);
+
+            var result = manager.GetAsDictionary();
+
+            Assert.AreEqual(1, result.Count);
         }
     }
 }

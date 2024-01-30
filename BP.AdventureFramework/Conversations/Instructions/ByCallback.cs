@@ -1,31 +1,30 @@
-﻿using System.Linq;
-using BP.AdventureFramework.Extensions;
+﻿using System;
 
 namespace BP.AdventureFramework.Conversations.Instructions
 {
     /// <summary>
-    /// An end of paragraph instruction that shifts paragraphs based on a name.
+    /// An end of paragraph instruction that shifts paragraphs based on a callback.
     /// </summary>
-    public sealed class ToName : IEndOfPargraphInstruction
+    public sealed class ByCallback : IEndOfPargraphInstruction
     {
         #region Properties
 
         /// <summary>
-        /// Get the name of the paragraph to jump to.
+        /// Get the callback that decides the paragraph index.
         /// </summary>
-        public string Name { get; }
+        public Func<int> Callback { get; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Create a new instance of the ToName class.
+        /// Create a new instance of the ByCallback class.
         /// </summary>
-        /// <param name="name">The name of the paragraph to jump to.</param>
-        public ToName(string name)
+        /// <param name="callback">The callback that decides the paragraph index.</param>
+        public ByCallback(Func<int> callback)
         {
-            Name = name;
+            Callback = callback;
         }
 
         #endregion
@@ -40,8 +39,7 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
-            var target = paragraphs.FirstOrDefault(x => x.Name.InsensitiveEquals(Name));
-            return target == null ? 0 : paragraphs.ToList().IndexOf(target);
+            return Callback.Invoke();
         }
 
         #endregion

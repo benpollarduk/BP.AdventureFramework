@@ -1,4 +1,6 @@
-﻿using BP.AdventureFramework.Utilities;
+﻿using System.Collections.Generic;
+using BP.AdventureFramework.Assets.Attributes;
+using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Utilities
@@ -127,6 +129,51 @@ namespace BP.AdventureFramework.Tests.Utilities
             var result = StringUtilities.PreenInput(paragraph);
 
             Assert.AreEqual($"ABC{StringUtilities.LF}", result);
+        }
+
+        [TestMethod]
+        public void GivenNull_WhenConstructAttributesAsString_ThenEmptyString()
+        {
+            var result = StringUtilities.ConstructAttributesAsString(null);
+
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [TestMethod]
+        public void GivenNoAttributes_WhenConstructAttributesAsString_ThenEmptyString()
+        {
+            var attributes = new Dictionary<Attribute, int>();
+
+            var result = StringUtilities.ConstructAttributesAsString(attributes);
+
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [TestMethod]
+        public void GivenOneAttribute_WhenConstructAttributesAsString_ThenTestColon1()
+        {
+            var attributes = new Dictionary<Attribute, int>
+            {
+                { new Attribute("Test", string.Empty, 0, 100), 1 }
+            };
+
+            var result = StringUtilities.ConstructAttributesAsString(attributes);
+
+            Assert.AreEqual("Test: 1", result);
+        }
+
+        [TestMethod]
+        public void GivenTwoAttributes_WhenConstructAttributesAsString_ThenTestColon1TabTest2ColonSpace1()
+        {
+            var attributes = new Dictionary<Attribute, int>
+            {
+                { new Attribute("Test", string.Empty, 0, 100), 1 },
+                { new Attribute("Test2", string.Empty, 0, 100), 1 }
+            };
+
+            var result = StringUtilities.ConstructAttributesAsString(attributes);
+
+            Assert.AreEqual("Test: 1\tTest2: 1", result);
         }
     }
 }

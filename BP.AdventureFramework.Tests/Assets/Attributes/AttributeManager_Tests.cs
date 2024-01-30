@@ -51,7 +51,7 @@ namespace BP.AdventureFramework.Tests.Assets.Attributes
         }
 
         [TestMethod]
-        public void GivenOneAttributes_WhenAddNonDuplicateAttribute_ThenTwoAttribute()
+        public void GivenOneAttribute_WhenAddNonDuplicateAttribute_ThenTwoAttribute()
         {
             var manager = new AttributeManager();
             manager.Add("test", 0);

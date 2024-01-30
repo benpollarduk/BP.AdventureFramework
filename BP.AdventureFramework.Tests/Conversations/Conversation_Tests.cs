@@ -1,9 +1,7 @@
-﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Assets.Characters;
+﻿using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Conversations.Instructions;
-using BP.AdventureFramework.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BP.AdventureFramework.Tests.Conversations
@@ -126,46 +124,6 @@ namespace BP.AdventureFramework.Tests.Conversations
             game.StartConversation(npc);
 
             var result = npc.Conversation.Respond(response, game);
-
-
-
-            const string currency = "$";
-
-            var player = new PlayableCharacter("Player", string.Empty);
-            player.Attributes.Add(currency, 10);
-
-            var trader = new NonPlayableCharacter("Trader", string.Empty);
-            var spade = new Item("Spade", string.Empty);
-            trader.AcquireItem(spade);
-
-            trader.Conversation = new Conversation(
-                new Paragraph("What will you buy?")
-                {
-                    Responses =
-                    [
-                        new Response("Spade", new ByCallback(() =>
-                            player.Attributes.GetValue(currency) >= 5
-                                ? new ToName("BoughtSpade")
-                                : new ToName("NotEnough"))),
-                        new Response("Nothing", new Last())
-                    ]
-                },
-                new Paragraph("Here it is.", _ =>
-                {
-                    player.Attributes.Subtract(currency, 5);
-                    trader.Attributes.Add(currency, 5);
-                    trader.Give(spade, player);
-                }, new GoTo(0), "BoughtSpade"),
-                new Paragraph("You don't have enough money.", "NotEnough"),
-                new Paragraph("Fine.")
-            );
-
-
-
-
-
-
-
 
             Assert.AreEqual(ReactionResult.Internal, result.Result);
         }

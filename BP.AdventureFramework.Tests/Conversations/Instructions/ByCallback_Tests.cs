@@ -8,18 +8,18 @@ namespace BP.AdventureFramework.Tests.Conversations.Instructions
     public class ByCallback_Tests
     {
         [TestMethod]
-        public void GivenCallback_WhenNext_ThenReturn0()
+        public void GivenCallback_WhenNext_ThenReturn1()
         {
             var paragraphs = new[]
             {
                 new Paragraph(""),
                 new Paragraph("")
             };
-            var instruction = new ByCallback(() => 0);
+            var instruction = new ByCallback(() => new Last());
 
             var result = instruction.GetIndexOfNext(paragraphs[0], paragraphs);
 
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(1, result);
         }
     }
 }

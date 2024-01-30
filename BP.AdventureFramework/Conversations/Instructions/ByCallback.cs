@@ -10,9 +10,9 @@ namespace BP.AdventureFramework.Conversations.Instructions
         #region Properties
 
         /// <summary>
-        /// Get the callback that decides the paragraph index.
+        /// Get the callback that decides the instruction to use.
         /// </summary>
-        public Func<int> Callback { get; }
+        public Func<IEndOfPargraphInstruction> Callback { get; }
 
         #endregion
 
@@ -21,8 +21,8 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// <summary>
         /// Create a new instance of the ByCallback class.
         /// </summary>
-        /// <param name="callback">The callback that decides the paragraph index.</param>
-        public ByCallback(Func<int> callback)
+        /// <param name="callback">The callback that decides the instruction to use.</param>
+        public ByCallback(Func<IEndOfPargraphInstruction> callback)
         {
             Callback = callback;
         }
@@ -39,7 +39,7 @@ namespace BP.AdventureFramework.Conversations.Instructions
         /// <returns>The index of the next paragraph.</returns>
         public int GetIndexOfNext(Paragraph current, Paragraph[] paragraphs)
         {
-            return Callback.Invoke();
+            return Callback.Invoke().GetIndexOfNext(current, paragraphs);
         }
 
         #endregion

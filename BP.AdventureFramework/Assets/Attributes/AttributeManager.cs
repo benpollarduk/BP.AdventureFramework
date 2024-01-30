@@ -30,6 +30,63 @@ namespace BP.AdventureFramework.Assets.Attributes
         #region Methods
 
         /// <summary>
+        /// Ensure an attribute exists. If the attribute does not exist it is added.
+        /// </summary>
+        /// <param name="name">The name of the attribute.</param>
+        private void EnsureAttributeExists(string name)
+        {
+            var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(name));
+
+            if (attribute != null)
+                return;
+
+            attribute = new Attribute(name, string.Empty, int.MinValue, int.MaxValue);
+            attributes.Add(attribute, 0);
+        }
+
+        /// <summary>
+        /// Ensure an attribute exists. If the attribute does not exist it is added.
+        /// </summary>
+        /// <param name="attribute">The attribute.</param>
+        private void EnsureAttributeExists(Attribute attribute)
+        {
+            var match = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attribute.Name));
+
+            if (match != null)
+                return;
+
+            attributes.Add(attribute, 0);
+        }
+
+        /// <summary>
+        /// Get the matching key from the dictionary.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The matching attribute.</returns>
+        private Attribute GetMatch(Attribute key)
+        {
+            EnsureAttributeExists(key);
+            return attributes.Keys.First(x => x.Name == key.Name);
+        }
+
+        /// <summary>
+        /// Cap a value between a minimum and maximum limit.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The minimum value.</param>
+        /// <param name="max">The maximum value.</param>
+        /// <returns>The capped value.</returns>
+        private int CapValue(int value, int min, int max)
+        {
+            if (value < min)
+                value = min;
+            else if (value > max)
+                value = max;
+
+            return value;
+        }
+
+        /// <summary>
         /// Get all attributes.
         /// </summary>
         /// <returns>An array of attribtes.</returns>
@@ -74,12 +131,9 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Add(string attributeName, int value)
         {
-            var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
-
-            if (attribute == null)
-                attributes.Add(new Attribute(attributeName, string.Empty, int.MinValue, int.MaxValue), value);
-            else
-                attributes[attribute] += value;
+            EnsureAttributeExists(attributeName);
+            var attribute = attributes.Keys.First(x => x.Name.InsensitiveEquals(attributeName));
+            attributes[attribute] = CapValue(attributes[attribute] + value, attribute.Minimum, attribute.Maximum);
         }
 
         /// <summary>
@@ -89,7 +143,8 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Add(Attribute attribute, int value)
         {
-            Add(attribute.Name, value);
+            attribute = GetMatch(attribute);
+            attributes[attribute] = CapValue(attributes[attribute] + value, attribute.Minimum, attribute.Maximum);
         }
 
         /// <summary>
@@ -99,12 +154,9 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Subtract(string attributeName, int value)
         {
-            var attribute = attributes.Keys.FirstOrDefault(x => x.Name.InsensitiveEquals(attributeName));
-
-            if (attribute == null)
-                return;
-
-            attributes[attribute] -= value;
+            EnsureAttributeExists(attributeName);
+            var attribute = attributes.Keys.First(x => x.Name.InsensitiveEquals(attributeName));
+            attributes[attribute] = CapValue(attributes[attribute] - value, attribute.Minimum, attribute.Maximum);
         }
 
         /// <summary>
@@ -114,7 +166,8 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="value">The value.</param>
         public void Subtract(Attribute attribute, int value)
         {
-            Subtract(attribute.Name, value);
+            attribute = GetMatch(attribute);
+            attributes[attribute] = CapValue(attributes[attribute] - value, attribute.Minimum, attribute.Maximum);
         }
 
         /// <summary>
@@ -137,7 +190,8 @@ namespace BP.AdventureFramework.Assets.Attributes
         /// <param name="attribute">The attribute.</param>
         public void Remove(Attribute attribute)
         {
-            Remove(attribute.Name);
+            attribute = GetMatch(attribute);
+            attributes.Remove(attribute);
         }
 
         /// <summary>

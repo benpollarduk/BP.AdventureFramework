@@ -1,4 +1,4 @@
-﻿# Global Commands
+﻿# Commands
 
 ## Overview
 There are three main types of Command.

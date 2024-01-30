@@ -46,13 +46,13 @@ goblin.Conversation = new Conversation(
     {
         Responses =
         [
-            new Response("This is the first response." new Jump(1)),
+            new Response("This is the first response.", new Jump(1)),
             new Response("This is the second response.", new Jump(2)),
             new Response("This is the third response.", new Jump(3))
         ]
     },
     new Paragraph("You picked first response, return to start of conversation.", new GoTo(1)),
-    new Paragraph("You picked second response, return to start of conversation., new GoTo(1)),
-    new Paragraph("You picked third response, you are dead., game => game.Player.Kill())
+    new Paragraph("You picked second response, return to start of conversation.", new GoTo(1)),
+    new Paragraph("You picked third response, you are dead.", game => game.Player.Kill())
 );
 ```

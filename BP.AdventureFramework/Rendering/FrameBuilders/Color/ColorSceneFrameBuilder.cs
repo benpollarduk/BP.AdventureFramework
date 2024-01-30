@@ -161,6 +161,9 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
                 if (player.Items.Any())
                     gridStringBuilder.DrawWrapped("You have: " + StringUtilities.ConstructExaminablesAsSentence(player.Items?.Cast<IExaminable>().ToArray()), leftMargin, lastY + 2, availableWidth, TextColor, out _, out lastY);
 
+                if (player.Attributes.Count > 0)
+                    gridStringBuilder.DrawWrapped(StringUtilities.ConstructAttributesAsString(player.Attributes.GetAsDictionary()), leftMargin, lastY + 2, availableWidth, TextColor, out _, out lastY);
+
                 if (!DisplayMessagesInIsolation && displayMessage)
                 {
                     gridStringBuilder.DrawHorizontalDivider(lastY + 3, BorderColor);

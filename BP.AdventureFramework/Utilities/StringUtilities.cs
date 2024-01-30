@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using BP.AdventureFramework.Assets;
+using BP.AdventureFramework.Assets.Attributes;
 using BP.AdventureFramework.Extensions;
 
 namespace BP.AdventureFramework.Utilities
@@ -121,7 +124,7 @@ namespace BP.AdventureFramework.Utilities
             if (!examinables.Any())
                 return string.Empty;
 
-            var examinablesAsList = string.Empty;
+            var builder = new StringBuilder();
             var examinableNames = (from i in examinables where i.IsPlayerVisible select i.Identifier).Select(x => x.Name).ToList();
 
             if (examinableNames.Count == 1)
@@ -132,18 +135,36 @@ namespace BP.AdventureFramework.Utilities
                 var examinable = examinableNames[i];
 
                 if ((i == 0) && (examinableNames.Count > 2))
-                    examinablesAsList += $"{examinable.GetObjectifier().ToSentenceCase()} {examinable}, ";
+                    builder.Append($"{examinable.GetObjectifier().ToSentenceCase()} {examinable}, ");
                 else if (i == 0)
-                    examinablesAsList += $"{examinable.GetObjectifier().ToSentenceCase()} {examinable} ";
+                    builder.Append($"{examinable.GetObjectifier().ToSentenceCase()} {examinable} ");
                 else if (i < examinableNames.Count - 2)
-                    examinablesAsList += $"{examinable.GetObjectifier()} {examinable}, ";
+                    builder.Append($"{examinable.GetObjectifier()} {examinable}, ");
                 else if (i < examinableNames.Count - 1)
-                    examinablesAsList += $"{examinable.GetObjectifier()} {examinable} ";
+                    builder.Append($"{examinable.GetObjectifier()} {examinable} ");
                 else
-                    examinablesAsList += $"and {examinable.GetObjectifier()} {examinable}.";
+                    builder.Append($"and {examinable.GetObjectifier()} {examinable}.");
             }
 
-            return examinablesAsList;
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Construct a line describing a series of attributes.
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns>The sentence.</returns>
+        internal static string ConstructAttributesAsString(Dictionary<Attribute, int> attributes)
+        {
+            if (attributes?.Any() != true)
+                return string.Empty;
+
+            var builder = new StringBuilder();
+
+            for (var i = 0; i < attributes.Count; i++)
+                builder.Append($"{attributes.Keys.ElementAt(i).Name}: {attributes.Values.ElementAt(i)}{(i < attributes.Count - 1 ? "\t" : string.Empty)}");
+
+            return builder.ToString();
         }
     }
 }

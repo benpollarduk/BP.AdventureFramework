@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BP.AdventureFramework.Assets.Attributes;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
 
@@ -76,6 +77,11 @@ namespace BP.AdventureFramework.Assets
         /// Get or set this objects commands.
         /// </summary>
         public CustomCommand[] Commands { get; set; }
+
+        /// <summary>
+        /// Get the attribute manager for this object.
+        /// </summary>
+        public AttributeManager Attributes { get; } = new AttributeManager();
 
         /// <summary>
         /// Examine this object.

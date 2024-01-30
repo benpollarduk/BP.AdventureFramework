@@ -17,8 +17,8 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Color
         [TestMethod]
         public void GivenFullyFeaturedScene_WhenBuild_ThenNoException()
         {
-            var room = new Room(string.Empty, string.Empty, new Exit(Direction.Up), new Exit(Direction.Down), new Exit(Direction.North), new Exit(Direction.East), new Exit(Direction.South), new Exit(Direction.West));
-            room.AddItem(new Item(string.Empty, string.Empty));
+            var room = new Room("Test", "Test", new Exit(Direction.Up), new Exit(Direction.Down), new Exit(Direction.North), new Exit(Direction.East), new Exit(Direction.South), new Exit(Direction.West));
+            room.AddItem(new Item("Test", "Test"));
 
             var regionMaker = new RegionMaker(string.Empty, string.Empty)
             {
@@ -34,8 +34,11 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Color
             var region = regionMaker.Make(1, 1, 0);
             var gridStringBuilder = new GridStringBuilder();
             var builder = new ColorSceneFrameBuilder(gridStringBuilder, new ColorRoomMapBuilder());
+            var player = new PlayableCharacter(string.Empty, string.Empty);
+            player.AcquireItem(new Item("Test", "Test"));
+            player.Attributes.Add("Test", 10);
 
-            builder.Build(room, ViewPoint.Create(region), new PlayableCharacter(string.Empty, string.Empty), "Test", Array.Empty<CommandHelp>(), KeyType.Full, 80, 50);
+            builder.Build(room, ViewPoint.Create(region), player, "Test", Array.Empty<CommandHelp>(), KeyType.Full, 80, 50);
 
             Assert.IsTrue(true);
         }

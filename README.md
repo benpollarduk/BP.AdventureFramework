@@ -103,6 +103,9 @@ Conversations can be held between the player and a NPC. Conversations support mu
 
 ![image](https://github.com/ben-pollard-uk/adventure-framework/assets/129943363/5ed1afc0-1ab8-4d35-9c90-dd848f18bfda)
   
+### Attributes
+All game assets support customisable attributes. This provides the possibility to build systems within a game, for example adding currency and trading, adding HP to enemies, MP to your character, durability to Items etc.
+
 ### Rendering
 
 BP.AdventureFramework provides frames for rendering the various game screens. These are fully extensible and customisable. These include:

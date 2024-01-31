@@ -3,6 +3,7 @@ using System.Linq;
 using BP.AdventureFramework.Assets.Attributes;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.Assets
 {
@@ -41,7 +42,13 @@ namespace BP.AdventureFramework.Assets
             }
 
             if (string.IsNullOrEmpty(description))
+                description = obj.Identifier.Name;
+
+            if (string.IsNullOrEmpty(description))
                 description = obj.GetType().Name;
+
+            if (obj.Attributes.Count > 0)
+                description = $"\n\n{StringUtilities.ConstructAttributesAsString(obj.Attributes.GetAsDictionary())}";
 
             return new ExaminationResult(description);
         };

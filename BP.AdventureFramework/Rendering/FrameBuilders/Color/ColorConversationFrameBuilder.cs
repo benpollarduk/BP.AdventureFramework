@@ -82,8 +82,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
         /// <param name="availableHeight">The available height.</param>
         /// <param name="log">The log.</param>
         /// <returns>The truncated log.</returns>
-        private LogItem[] TruncateLog(int startX, int availableWidth, int availableHeight, LogItem[] log)
+        internal LogItem[] TruncateLog(int startX, int availableWidth, int availableHeight, LogItem[] log)
         {
+            if (log == null)
+                return Array.Empty<LogItem>();
+
             var truncated = new List<LogItem>();
 
             for (var i = log.Length - 1; i >= 0; i--)

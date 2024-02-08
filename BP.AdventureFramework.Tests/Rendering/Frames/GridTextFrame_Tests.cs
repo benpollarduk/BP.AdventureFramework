@@ -83,5 +83,18 @@ namespace BP.AdventureFramework.Tests.Rendering.Frames
 
             Assert.IsTrue(data.Any(x => x != 0));
         }
+
+        [TestMethod]
+        public void Given10x10GridWithBorder_WhenToString_ThenStringWithDataReturned()
+        {
+            var gridStringBuilder = new GridStringBuilder();
+            gridStringBuilder.Resize(new Size(10, 10));
+            gridStringBuilder.DrawBoundary(AnsiColor.Black);
+            var frame = new GridTextFrame(gridStringBuilder, 0, 0, AnsiColor.Black);
+
+            var result = frame.ToString();
+
+            Assert.IsTrue(result.Any(x => x != 0));
+        }
     }
 }

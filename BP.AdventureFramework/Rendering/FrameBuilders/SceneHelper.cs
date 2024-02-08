@@ -95,7 +95,11 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders
             foreach (var character in characters)
                 charactersAsString += character.Identifier + ", ";
 
-            charactersAsString = charactersAsString.Remove(characters.Length - 2);
+            charactersAsString = charactersAsString.Remove(charactersAsString.Length - 2);
+            
+            if (string.IsNullOrEmpty(charactersAsString))
+                return charactersAsString;
+
             return charactersAsString.Substring(0, charactersAsString.LastIndexOf(",", StringComparison.Ordinal)) + " and " + charactersAsString.Substring(charactersAsString.LastIndexOf(",", StringComparison.Ordinal) + 2) + " are in the " + room.Identifier + ".";
         }
     }

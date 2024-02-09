@@ -188,14 +188,15 @@ namespace BP.AdventureFramework.Rendering.FrameBuilders.Color
                     var descriptionStartX = dashStartX + 2;
                     lastY++;
 
-                    foreach (var contextualCommand in contextualCommands)
+                    for (var index = 0; index < contextualCommands.Length; index++)
                     {
+                        var contextualCommand = contextualCommands[index];
                         gridStringBuilder.DrawWrapped(contextualCommand.Command, leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                         gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
                         gridStringBuilder.DrawWrapped(contextualCommand.Description, descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
 
-                        // only continue if not run out of space
-                        if (lastY + requiredSpaceForPrompt >= height)
+                        // only continue if not run out of space - the 1 is for the border the ...
+                        if ((index < contextualCommands.Length - 1) && (lastY + 1 + requiredSpaceForPrompt >= height))
                         {
                             gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                             break;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
@@ -124,21 +123,6 @@ namespace BP.AdventureFramework.Logic
         private IInterpreter Interpreter { get; set; }
 
         /// <summary>
-        /// Get or set the output stream.
-        /// </summary>
-        internal TextWriter Output { get; set; }
-
-        /// <summary>
-        /// Get or set input stream.
-        /// </summary>
-        internal TextReader Input { get; set; }
-
-        /// <summary>
-        /// Get or set the error stream.
-        /// </summary>
-        internal TextWriter Error { get; set; }
-
-        /// <summary>
         /// Get the size of the display area.
         /// </summary>
         public Size DisplaySize { get; }
@@ -179,9 +163,9 @@ namespace BP.AdventureFramework.Logic
         internal EndCheck GameOverCondition { get; set; }
 
         /// <summary>
-        /// Get or set the callback to invoke when waiting for key presses.
+        /// Get or set the adapter for the console.
         /// </summary>
-        internal WaitForKeyPressCallback WaitForKeyPressCallback { get; set; }
+        internal IConsoleAdapter Adapter { get; set; } = new SystemConsoleAdapter();
 
         /// <summary>
         /// Occurs when the game begins drawing a frame.
@@ -221,108 +205,178 @@ namespace BP.AdventureFramework.Logic
         #region Methods
 
         /// <summary>
+        /// Setup the adapter.
+        /// </summary>
+        private void SetupAdapter()
+        {
+            Adapter.Setup(this);
+            StartingFrameDraw -= Game_StartingFrameDraw;
+            FinishedFrameDraw -= Game_FinishedFrameDraw;
+            StartingFrameDraw += Game_StartingFrameDraw;
+            FinishedFrameDraw += Game_FinishedFrameDraw;
+        }
+
+        /// <summary>
         /// Execute the game.
         /// </summary>
-        private void Execute()
+        internal void Execute()
         {
             if (IsExecuting)
                 return;
 
             IsExecuting = true;
 
+            SetupAdapter();
+            
             Refresh(FrameBuilders.TitleFrameBuilder.Build(Name, Introduction, DisplaySize.Width, DisplaySize.Height));
-
-            var input = string.Empty;
-            var reaction = new Reaction(ReactionResult.Error, "Error.");
 
             do
             {
-                var displayReactionToInput = true;
-                var endCheckResult = CompletionCondition(this) ?? EndCheckResult.NotEnded;
-                var gameOverCheckResult = GameOverCondition(this) ?? EndCheckResult.NotEnded;
+                var complete = TestAndHandleGameCompletion();
 
-                if (endCheckResult.HasEnded)
+                if (!complete)
                 {
-                    Refresh(FrameBuilders.CompletionFrameBuilder.Build(endCheckResult.Title, endCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
-                    End();
-                } 
-                else if (gameOverCheckResult.HasEnded)
-                {
-                    Refresh(FrameBuilders.GameOverFrameBuilder.Build(gameOverCheckResult.Title, gameOverCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
-                    End();
-                }
-                else if (ActiveConverser != null)
-                {
-                    Refresh(FrameBuilders.ConversationFrameBuilder.Build($"Conversation with {ActiveConverser.Identifier.Name}", ActiveConverser, Interpreter?.GetContextualCommandHelp(this), DisplaySize.Width, DisplaySize.Height));
+                    var gameOver = TestAndHandleGameOver();
+
+                    if (!gameOver && ActiveConverser != null)
+                        Refresh(FrameBuilders.ConversationFrameBuilder.Build($"Conversation with {ActiveConverser.Identifier.Name}", ActiveConverser, Interpreter?.GetContextualCommandHelp(this), DisplaySize.Width, DisplaySize.Height));
                 }
 
-                if (!CurrentFrame.AcceptsInput)
-                {
-                    var frame = CurrentFrame;
-                    
-                    while (!WaitForKeyPressCallback(StringUtilities.CR) && CurrentFrame == frame)
-                        DrawFrame(CurrentFrame);
-                }
-                else
-                {
-                    input = Input.ReadLine();
-                }
+                var input = GetInput();
+                var reaction = ExecuteLogicOnce(input, out var displayReactionToInput);
 
-                switch (State)
-                {
-                    case GameState.NotStarted:
-                        Enter();
-                        displayReactionToInput = false;
-                        break;
-                    case GameState.Finished:
-                        displayReactionToInput = false;
-                        break;
-                    default:
-                        {
-                            if (!CurrentFrame.AcceptsInput)
-                            {
-                                Refresh();
-                                displayReactionToInput = false;
-                            }
-                            else
-                            {
-                                input = StringUtilities.PreenInput(input);
-                                var interpretation = Interpreter?.Interpret(input, this) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
-                                
-                                if (interpretation.WasInterpretedSuccessfully)
-                                    reaction = interpretation.Command.Invoke(this);
-                                else if (!string.IsNullOrEmpty(input))
-                                    reaction = new Reaction(ReactionResult.Error, $"{input} was not valid input.");
-                                else
-                                    reaction = new Reaction(ReactionResult.OK, string.Empty);
-                            }
-
-                            break;
-                        }
-                }
-
-                if (!displayReactionToInput)
-                    continue;
-
-                switch (reaction.Result)
-                {
-                    case ReactionResult.Error:
-                        var message = ErrorPrefix + ": " + reaction.Description;
-                        Refresh(message);
-                        break;
-                    case ReactionResult.OK:
-                        Refresh(reaction.Description);
-                        break;
-                    case ReactionResult.Internal:
-                    case ReactionResult.Fatal:
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
+                if (displayReactionToInput)
+                    DisplayReaction(reaction);
             }
             while (State != GameState.Finished);
 
             IsExecuting = false;
+        }
+
+        /// <summary>
+        /// Execute game logic once to get a reaction.
+        /// </summary>
+        /// <param name="input">The input to process.</param>
+        /// <param name="displayReaction">Will be set to true if the reaction should be displayed.</param>
+        /// <returns>The reaction to the input.</returns>
+        private Reaction ExecuteLogicOnce(string input, out bool displayReaction)
+        {
+            switch (State)
+            {
+                case GameState.NotStarted:
+                    Enter();
+                    displayReaction = false;
+                    return null;
+                case GameState.Finished:
+                    displayReaction = false;
+                    return null;
+                case GameState.Active:
+                    return ProcessInput(input, out displayReaction);
+                default:
+                    throw new ArgumentOutOfRangeException($"State {State} is not handled.");
+            }
+        }
+
+        /// <summary>
+        /// Get input from the user.
+        /// </summary>
+        /// <returns>The user input.</returns>
+        private string GetInput()
+        {
+            if (CurrentFrame.AcceptsInput) 
+                return Adapter.In.ReadLine();
+            
+            var frame = CurrentFrame;
+
+            while (!Adapter.WaitForKeyPress(StringUtilities.CR) && CurrentFrame == frame)
+                DrawFrame(CurrentFrame);
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Test and handle the game over condition.
+        /// </summary>
+        /// <returns>True if the condition was met.</returns>
+        private bool TestAndHandleGameOver()
+        {
+            var gameOverCheckResult = GameOverCondition(this) ?? EndCheckResult.NotEnded;
+
+            if (!gameOverCheckResult.HasEnded)
+                return false;
+
+            Refresh(FrameBuilders.GameOverFrameBuilder.Build(gameOverCheckResult.Title, gameOverCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
+            End();
+            
+            return true;
+        }
+
+        /// <summary>
+        /// Test and handle the completion condition.
+        /// </summary>
+        /// <returns>True if the condition was met.</returns>
+        private bool TestAndHandleGameCompletion()
+        {
+            var endCheckResult = CompletionCondition(this) ?? EndCheckResult.NotEnded;
+
+            if (!endCheckResult.HasEnded) 
+                return false;
+            
+            Refresh(FrameBuilders.CompletionFrameBuilder.Build(endCheckResult.Title, endCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
+            End();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Process input to get a reaction.
+        /// </summary>
+        /// <param name="input">The input to process.</param>
+        /// <param name="displayReaction">Will be set to true if the reaction should be displayed.</param>
+        /// <returns>The reaction to the input.</returns>
+        private Reaction ProcessInput(string input, out bool displayReaction)
+        {
+            if (!CurrentFrame.AcceptsInput)
+            {
+                Refresh();
+                displayReaction = false;
+                return new Reaction(ReactionResult.OK, string.Empty);
+            }
+
+            displayReaction = true;
+            input = StringUtilities.PreenInput(input);
+            var interpretation = Interpreter?.Interpret(input, this) ?? new InterpretationResult(false, new Unactionable("No interpreter."));
+
+            if (interpretation.WasInterpretedSuccessfully)
+                return interpretation.Command.Invoke(this);
+
+            if (!string.IsNullOrEmpty(input))
+                return new Reaction(ReactionResult.Error, $"{input} was not valid input.");
+
+            return new Reaction(ReactionResult.OK, string.Empty);
+        }
+
+        /// <summary>
+        /// Display a reaction.
+        /// </summary>
+        /// <param name="reaction">The reaction to handle.</param>
+        private void DisplayReaction(Reaction reaction)
+        {
+            switch (reaction.Result)
+            {
+                case ReactionResult.Error:
+                    var message = ErrorPrefix + ": " + reaction.Description;
+                    Refresh(message);
+                    break;
+                case ReactionResult.OK:
+                    Refresh(reaction.Description);
+                    break;
+                case ReactionResult.Internal:
+                case ReactionResult.Fatal:
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         /// <summary>
@@ -353,7 +407,7 @@ namespace BP.AdventureFramework.Logic
             {
                 StartingFrameDraw?.Invoke(this, frame);
 
-                frame.Render(Output);
+                frame.Render(Adapter.Out);
 
                 FinishedFrameDraw?.Invoke(this, frame);
             }
@@ -564,9 +618,6 @@ namespace BP.AdventureFramework.Logic
             while (run)
             {
                 var game = creator.Invoke();
-                
-                SetupConsole(game);
-                AttachToConsole(game);
                 game.Execute();
 
                 switch (game.ExitMode)
@@ -582,34 +633,18 @@ namespace BP.AdventureFramework.Logic
             }
         }
 
-        /// <summary>
-        /// Attach a game to the Console.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        private static void AttachToConsole(Game game)
+        #endregion
+
+        #region EventHandlers
+
+        private void Game_FinishedFrameDraw(object sender, IFrame e)
         {
-            game.Input = Console.In;
-            game.Output = Console.Out;
-            game.Error = Console.Error;
-            game.WaitForKeyPressCallback = key => Console.ReadKey().KeyChar == key;
-            game.StartingFrameDraw += (s, e) => Console.Clear();
-            game.FinishedFrameDraw += (s, e) =>
-            {
-                Console.CursorVisible = e.ShowCursor;
-                Console.SetCursorPosition(e.CursorLeft, e.CursorTop);
-            };
+            Adapter.OnGameFinishedFrameDraw(e);
         }
 
-        /// <summary>
-        /// Setup the console for a game.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        private static void SetupConsole(Game game)
+        private void Game_StartingFrameDraw(object sender, IFrame e)
         {
-            Console.Title = game.Name;
-            var actualDisplaySize = new Size(game.DisplaySize.Width + 1, game.DisplaySize.Height);
-            Console.SetWindowSize(actualDisplaySize.Width, actualDisplaySize.Height);
-            Console.SetBufferSize(actualDisplaySize.Width, actualDisplaySize.Height);
+            Adapter.OnGameStartedFrameDraw(e);
         }
 
         #endregion

@@ -44,8 +44,6 @@ namespace BP.AdventureFramework.Examples.Assets.Player
                 }
             };
 
-            player.Attributes.Add("£", 5);
-
             return player;
         }
 

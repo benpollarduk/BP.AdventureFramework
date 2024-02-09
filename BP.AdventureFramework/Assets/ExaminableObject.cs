@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Assets
                 description = obj.GetType().Name;
 
             if (obj.Attributes.Count > 0)
-                description = $"\n\n{StringUtilities.ConstructAttributesAsString(obj.Attributes.GetAsDictionary())}";
+                description += $"\n\n{StringUtilities.ConstructAttributesAsString(obj.Attributes.GetAsDictionary())}";
 
             return new ExaminationResult(description);
         };

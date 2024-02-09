@@ -34,6 +34,9 @@ namespace BP.AdventureFramework.Utilities
         /// <returns>The preened input.</returns>
         internal static string PreenInput(string input)
         {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
             var output = input.Replace($"{CR}{LF}", $"{LF}");
             output = output.Replace($"{LF}{CR}", $"{LF}");
             output = output.Replace($"{CR}", $"{LF}");

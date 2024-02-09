@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -260,7 +262,7 @@ namespace BP.AdventureFramework.Tests.Logic
         }
 
         [TestMethod]
-        public void GivenSimpleGame_WhenExecuteWithNoConsoleAccess_ThenIOExceptionThrown()
+        public void GivenSimpleGameWithNoConsoleAccess_WhenExecute_ThenIOExceptionThrown()
         {
             Assert.ThrowsException<IOException>(() =>
             {
@@ -272,6 +274,70 @@ namespace BP.AdventureFramework.Tests.Logic
 
                 Game.Execute(game);
             });
+        }
+
+        [TestMethod]
+        public void GivenSimpleGameWithMockConsoleAccessAndCompletionConditionReached_WhenExecute_ThenNoExceptionThrown()
+        {
+            var regionMaker = new RegionMaker(string.Empty, string.Empty);
+            var room = new Room("Room", string.Empty);
+            regionMaker[0, 0, 0] = room;
+            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => new EndCheckResult(true, string.Empty, string.Empty), _ => EndCheckResult.NotEnded).Invoke();
+            game.Adapter = new TestConsoleAdapter();
+
+            game.Execute();
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GivenSimpleGameWithMockConsoleAccessAndGameOverConditionReached_WhenExecute_ThenNoExceptionThrown()
+        {
+            var regionMaker = new RegionMaker(string.Empty, string.Empty);
+            var room = new Room("Room", string.Empty);
+            regionMaker[0, 0, 0] = room;
+            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => new EndCheckResult(true, string.Empty, string.Empty)).Invoke();
+            game.Adapter = new TestConsoleAdapter();
+
+            game.Execute();
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GivenSimpleGameWithMockConsoleAccessAndConverser_WhenExecute_ThenNoExceptionThrown()
+        {
+            var regionMaker = new RegionMaker(string.Empty, string.Empty);
+            var room = new Room("Room", string.Empty);
+            regionMaker[0, 0, 0] = room;
+            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            game.Adapter = new TestConsoleAdapter();
+            var npc = new NonPlayableCharacter("", "") { Conversation = new Conversation(new Paragraph("Test", g => g.End())) };
+            game.StartConversation(npc);
+
+            game.Execute();
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GivenSimpleGameWithMockConsoleAccess_WhenExecute_ThenNoExceptionThrown()
+        {
+            var regionMaker = new RegionMaker(string.Empty, string.Empty);
+            var room = new Room("Room", string.Empty);
+            regionMaker[0, 0, 0] = room;
+            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+            var startTime = Environment.TickCount;
+            EndCheck callback = _ => new EndCheckResult(Environment.TickCount - startTime > 1000, string.Empty, string.Empty);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), callback, _ => EndCheckResult.NotEnded).Invoke();
+            game.Adapter = new TestConsoleAdapter();
+
+            game.Execute();
+
+            Assert.IsTrue(true);
         }
     }
 }

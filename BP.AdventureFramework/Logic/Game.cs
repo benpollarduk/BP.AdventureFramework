@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
@@ -124,21 +123,6 @@ namespace BP.AdventureFramework.Logic
         private IInterpreter Interpreter { get; set; }
 
         /// <summary>
-        /// Get or set the output stream.
-        /// </summary>
-        internal TextWriter Output { get; set; }
-
-        /// <summary>
-        /// Get or set input stream.
-        /// </summary>
-        internal TextReader Input { get; set; }
-
-        /// <summary>
-        /// Get or set the error stream.
-        /// </summary>
-        internal TextWriter Error { get; set; }
-
-        /// <summary>
         /// Get the size of the display area.
         /// </summary>
         public Size DisplaySize { get; }
@@ -179,9 +163,9 @@ namespace BP.AdventureFramework.Logic
         internal EndCheck GameOverCondition { get; set; }
 
         /// <summary>
-        /// Get or set the callback to invoke when waiting for key presses.
+        /// Get or set the adapter for the console.
         /// </summary>
-        internal WaitForKeyPressCallback WaitForKeyPressCallback { get; set; }
+        internal IConsoleAdapter Adapter { get; set; } = new SystemConsoleAdapter();
 
         /// <summary>
         /// Occurs when the game begins drawing a frame.
@@ -221,6 +205,18 @@ namespace BP.AdventureFramework.Logic
         #region Methods
 
         /// <summary>
+        /// Setup the adapter.
+        /// </summary>
+        private void SetupAdapter()
+        {
+            Adapter.Setup(this);
+            StartingFrameDraw -= Game_StartingFrameDraw;
+            FinishedFrameDraw -= Game_FinishedFrameDraw;
+            StartingFrameDraw += Game_StartingFrameDraw;
+            FinishedFrameDraw += Game_FinishedFrameDraw;
+        }
+
+        /// <summary>
         /// Execute the game.
         /// </summary>
         private void Execute()
@@ -229,6 +225,8 @@ namespace BP.AdventureFramework.Logic
                 return;
 
             IsExecuting = true;
+
+            SetupAdapter();
 
             Refresh(FrameBuilders.TitleFrameBuilder.Build(Name, Introduction, DisplaySize.Width, DisplaySize.Height));
 
@@ -260,12 +258,12 @@ namespace BP.AdventureFramework.Logic
                 {
                     var frame = CurrentFrame;
                     
-                    while (!WaitForKeyPressCallback(StringUtilities.CR) && CurrentFrame == frame)
+                    while (!Adapter.WaitForKeyPress(StringUtilities.CR) && CurrentFrame == frame)
                         DrawFrame(CurrentFrame);
                 }
                 else
                 {
-                    input = Input.ReadLine();
+                    input = Adapter.In.ReadLine();
                 }
 
                 switch (State)
@@ -353,7 +351,7 @@ namespace BP.AdventureFramework.Logic
             {
                 StartingFrameDraw?.Invoke(this, frame);
 
-                frame.Render(Output);
+                frame.Render(Adapter.Out);
 
                 FinishedFrameDraw?.Invoke(this, frame);
             }
@@ -564,9 +562,6 @@ namespace BP.AdventureFramework.Logic
             while (run)
             {
                 var game = creator.Invoke();
-                
-                SetupConsole(game);
-                AttachToConsole(game);
                 game.Execute();
 
                 switch (game.ExitMode)
@@ -582,34 +577,18 @@ namespace BP.AdventureFramework.Logic
             }
         }
 
-        /// <summary>
-        /// Attach a game to the Console.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        private static void AttachToConsole(Game game)
+        #endregion
+
+        #region EventHandlers
+
+        private void Game_FinishedFrameDraw(object sender, IFrame e)
         {
-            game.Input = Console.In;
-            game.Output = Console.Out;
-            game.Error = Console.Error;
-            game.WaitForKeyPressCallback = key => Console.ReadKey().KeyChar == key;
-            game.StartingFrameDraw += (s, e) => Console.Clear();
-            game.FinishedFrameDraw += (s, e) =>
-            {
-                Console.CursorVisible = e.ShowCursor;
-                Console.SetCursorPosition(e.CursorLeft, e.CursorTop);
-            };
+            Adapter.OnGameFinishedFrameDraw(e);
         }
 
-        /// <summary>
-        /// Setup the console for a game.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        private static void SetupConsole(Game game)
+        private void Game_StartingFrameDraw(object sender, IFrame e)
         {
-            Console.Title = game.Name;
-            var actualDisplaySize = new Size(game.DisplaySize.Width + 1, game.DisplaySize.Height);
-            Console.SetWindowSize(actualDisplaySize.Width, actualDisplaySize.Height);
-            Console.SetBufferSize(actualDisplaySize.Width, actualDisplaySize.Height);
+            Adapter.OnGameStartedFrameDraw(e);
         }
 
         #endregion

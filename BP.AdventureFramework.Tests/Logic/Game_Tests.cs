@@ -1,8 +1,10 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Threading;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
+using BP.AdventureFramework.Conversations;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -298,6 +300,50 @@ namespace BP.AdventureFramework.Tests.Logic
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
             var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => new EndCheckResult(true, string.Empty, string.Empty)).Invoke();
             game.Adapter = new TestConsoleAdapter();
+
+            game.Execute();
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GivenSimpleGameWithMockConsoleAccessAndConverser_WhenExecute_ThenNoExceptionThrown()
+        {
+            var regionMaker = new RegionMaker(string.Empty, string.Empty);
+            var room = new Room("Room", string.Empty);
+            regionMaker[0, 0, 0] = room;
+            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            game.Adapter = new TestConsoleAdapter();
+            var npc = new NonPlayableCharacter("", "") { Conversation = new Conversation(new Paragraph("Test")) };
+            game.StartConversation(npc);
+
+            new Thread(() =>
+            {
+                Thread.Sleep(1000);
+                game.End();
+            }).Start();
+
+            game.Execute();
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GivenSimpleGameWithMockConsoleAccess_WhenExecute_ThenNoExceptionThrown()
+        {
+            var regionMaker = new RegionMaker(string.Empty, string.Empty);
+            var room = new Room("Room", string.Empty);
+            regionMaker[0, 0, 0] = room;
+            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            game.Adapter = new TestConsoleAdapter();
+
+            new Thread(() =>
+            {
+                Thread.Sleep(1000);
+                game.End();
+            }).Start();
 
             game.Execute();
 

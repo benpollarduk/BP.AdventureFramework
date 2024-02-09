@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
-using System.Threading;
 using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
@@ -315,14 +315,8 @@ namespace BP.AdventureFramework.Tests.Logic
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
             var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
             game.Adapter = new TestConsoleAdapter();
-            var npc = new NonPlayableCharacter("", "") { Conversation = new Conversation(new Paragraph("Test")) };
+            var npc = new NonPlayableCharacter("", "") { Conversation = new Conversation(new Paragraph("Test", g => g.End())) };
             game.StartConversation(npc);
-
-            new Thread(() =>
-            {
-                Thread.Sleep(1000);
-                game.End();
-            }).Start();
 
             game.Execute();
 
@@ -336,14 +330,10 @@ namespace BP.AdventureFramework.Tests.Logic
             var room = new Room("Room", string.Empty);
             regionMaker[0, 0, 0] = room;
             var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var startTime = Environment.TickCount;
+            EndCheck callback = _ => new EndCheckResult(Environment.TickCount - startTime > 1000, string.Empty, string.Empty);
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworldMaker.Make(), () => new PlayableCharacter(string.Empty, string.Empty), callback, _ => EndCheckResult.NotEnded).Invoke();
             game.Adapter = new TestConsoleAdapter();
-
-            new Thread(() =>
-            {
-                Thread.Sleep(1000);
-                game.End();
-            }).Start();
 
             game.Execute();
 

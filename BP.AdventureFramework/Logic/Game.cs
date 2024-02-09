@@ -219,7 +219,7 @@ namespace BP.AdventureFramework.Logic
         /// <summary>
         /// Execute the game.
         /// </summary>
-        private void Execute()
+        internal void Execute()
         {
             if (IsExecuting)
                 return;

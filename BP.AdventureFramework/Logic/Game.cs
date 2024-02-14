@@ -591,9 +591,7 @@ namespace BP.AdventureFramework.Logic
         {
             return () =>
             {
-                var pC = playerGenerator?.Invoke();
-
-                var game = new Game(name, introduction, description, pC, overworldGenerator?.Invoke(pC), displaySize)
+                var game = new Game(name, introduction, description, playerGenerator?.Invoke(), overworldGenerator?.Invoke(), displaySize)
                 {
                     FrameBuilders = frameBuilders,
                     CompletionCondition = completionCondition,

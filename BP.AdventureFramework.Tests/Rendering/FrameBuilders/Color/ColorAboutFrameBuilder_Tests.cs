@@ -14,7 +14,7 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Color
             var gridStringBuilder = new GridStringBuilder();
             var builder = new ColorAboutFrameBuilder(gridStringBuilder);
 
-            builder.Build(string.Empty, Game.Create(string.Empty, string.Empty, string.Empty, _ => null, () => null, _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke(), 80, 50);
+            builder.Build(string.Empty, Game.Create(string.Empty, string.Empty, string.Empty, null, () => null, _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke(), 80, 50);
 
             Assert.IsTrue(true);
         }

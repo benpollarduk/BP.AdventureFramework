@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenEmptyString_WhenInterpret_ThenReturnFalse()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(string.Empty, game);
 
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenEast_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.East, game);
 
@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenEastShort_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.EastShort, game);
 
@@ -59,7 +59,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNorth_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.North, game);
 
@@ -70,7 +70,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenNorthShort_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.NorthShort, game);
 
@@ -81,7 +81,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenSouth_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.South, game);
 
@@ -92,7 +92,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenSouthShort_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.SouthShort, game);
 
@@ -103,7 +103,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenWest_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.West, game);
 
@@ -114,7 +114,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenWestShort_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.WestShort, game);
 
@@ -125,7 +125,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenExamine_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Examine, game);
 
@@ -136,7 +136,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenExamineRoom_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Examine + " " + GameCommandInterpreter.Room, game);
 
@@ -147,7 +147,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenExamineRegion_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Examine + " " + GameCommandInterpreter.Region, game);
 
@@ -158,7 +158,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenExamineOverworld_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Examine + " " + GameCommandInterpreter.Overworld, game);
 
@@ -169,7 +169,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenExamineMe_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Examine + " " + GameCommandInterpreter.Me, game);
 
@@ -180,7 +180,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenTake_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
             overworld.CurrentRegion.CurrentRoom.AddItem(new Item(Identifier.Empty, Description.Empty, true));
 
             var result = interpreter.Interpret(GameCommandInterpreter.Take, game);
@@ -192,7 +192,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenTakeNonTakeable_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
             overworld.CurrentRegion.CurrentRoom.AddItem(new Item(Identifier.Empty, Description.Empty));
 
             var result = interpreter.Interpret(GameCommandInterpreter.Take, game);
@@ -204,7 +204,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenDrop_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game= Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty, new Item(Identifier.Empty, Description.Empty, true)), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game= Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty, new Item(Identifier.Empty, Description.Empty, true)), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Drop, game);
 
@@ -215,7 +215,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenTalk_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Talk, game);
 
@@ -226,7 +226,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenUse_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(GameCommandInterpreter.Use, game);
 
@@ -237,7 +237,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenUseOn_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new GameCommandInterpreter();
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret($"{GameCommandInterpreter.Use} test {GameCommandInterpreter.On} test", game);
 

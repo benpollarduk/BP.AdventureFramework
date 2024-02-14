@@ -29,7 +29,7 @@ namespace BP.AdventureFramework.Tests.Commands.Global
             region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.North)), 0, 0, 0);
             region.AddRoom(new Room(Identifier.Empty, Description.Empty, new Exit(Direction.South)), 0, 1, 0);
             overworld.AddRegion(region);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), null, null).Invoke();
             var command = new About();
 
             var result = command.Invoke(game);

@@ -160,10 +160,10 @@ var gameCreator = Game.Create(
     "The Life Of Dave",
     "Dave awakes to find himself in a cavern...",
     "A very low budget adventure.",
-    x => overworldMaker.Make(),
+    overworldMaker.Make,
     () => player,
-    x => EndCheckResult.NotEnded,
-    x => EndCheckResult.NotEnded);
+    _ => EndCheckResult.NotEnded,
+    _ => EndCheckResult.NotEnded);
 
 // begin the execution of the game
 Game.Execute(gameCreator);

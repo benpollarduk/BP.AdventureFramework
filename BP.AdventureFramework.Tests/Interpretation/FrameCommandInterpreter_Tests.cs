@@ -26,7 +26,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenEmptyString_WhenInterpret_ThenReturnFalse()
         {
             var interpreter = new FrameCommandInterpreter();
-            var game = Game.Create("", "", "", _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create("", "", "", () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(string.Empty, game);
 
@@ -37,7 +37,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenKeyOff_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new FrameCommandInterpreter();
-            var game = Game.Create("", "", "", _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create("", "", "", () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.KeyOff, game);
 
@@ -48,7 +48,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenKeyOn_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new FrameCommandInterpreter();
-            var game = Game.Create("", "", "", _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create("", "", "", () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.KeyOn, game);
 
@@ -59,7 +59,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenCommandsOff_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new FrameCommandInterpreter();
-            var game = Game.Create("", "", "", _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create("", "", "", () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.CommandsOff, game);
 
@@ -70,7 +70,7 @@ namespace BP.AdventureFramework.Tests.Interpretation
         public void GivenCommandsOn_WhenInterpret_ThenReturnTrue()
         {
             var interpreter = new FrameCommandInterpreter();
-            var game = Game.Create("", "", "", _ => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            var game = Game.Create("", "", "", () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
             var result = interpreter.Interpret(FrameCommandInterpreter.CommandsOn, game);
 

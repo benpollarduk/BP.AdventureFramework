@@ -43,7 +43,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             overworld.AddRegion(region);
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => character, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => character, null, null).Invoke();
             var command = new Drop(item);
 
             var result = command.Invoke(game);
@@ -62,7 +62,7 @@ namespace BP.AdventureFramework.Tests.Commands.Game
             var character = new PlayableCharacter(Identifier.Empty, Description.Empty);
             var item = new Item(new Identifier("A"), Description.Empty, true);
             character.AcquireItem(item);
-            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, _ => overworld, () => character, null, null).Invoke();
+            var game = AdventureFramework.Logic.Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => character, null, null).Invoke();
             var command = new Drop(item);
 
             var result = command.Invoke(game);

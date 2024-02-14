@@ -1,6 +1,7 @@
 ﻿using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Examples.Assets.Regions.Zelda.Items;
+using BP.AdventureFramework.Examples.Assets.Regions.Zelda.NPCs;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Utilities;
 
@@ -45,6 +46,7 @@ namespace BP.AdventureFramework.Examples.Assets.Regions.Zelda.Rooms
 
             room.AddItem(new Stump().Instantiate());
             room.AddItem(door);
+            room.AddCharacter(new Saria(room).Instantiate());
 
             return room;
         }

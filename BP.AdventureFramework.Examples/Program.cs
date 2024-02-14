@@ -66,13 +66,13 @@ namespace BP.AdventureFramework.Examples
         {
             try
             {
-                OverworldCreationCallback overworldCreator = p =>
+                OverworldCreationCallback overworldCreator = () =>
                 {
                     var regions = new List<Region>
                     {
                         new Everglades().Instantiate(),
                         new Flat().Instantiate(),
-                        new Zelda(p).Instantiate()
+                        new Zelda().Instantiate()
                     };
                     
                     var overworld = new Overworld("Demo", "A demo of the BP.AdventureFramework.");
@@ -117,7 +117,7 @@ namespace BP.AdventureFramework.Examples
                 var creator = Game.Create("BP.AdventureFramework Demo",
                     about,
                     about,
-                    x => overworldCreator(x), 
+                    overworldCreator, 
                     () => new Player().Instantiate(),
                     DetermineIfGameHasCompleted,
                     DetermineIfGameOver);

@@ -373,9 +373,16 @@ namespace BP.AdventureFramework.Assets.Locations
             var items = Items.Where(targetName.EqualsExaminable).ToArray();
             var nPCS = Characters.Where(targetName.EqualsExaminable).ToArray();
             var exits = Exits.Where(targetName.EqualsExaminable).ToArray();
-            var interactions = new List<IInteractWithItem>(items);
-            interactions.AddRange(nPCS);
-            interactions.AddRange(exits);
+            var interactions = new List<IInteractWithItem>();
+
+            if (items.Length > 0)
+                interactions.AddRange(items);
+
+            if (nPCS.Length > 0)
+                interactions.AddRange(nPCS);
+
+            if (exits.Length > 0)
+                interactions.AddRange(exits);
 
             if (interactions.Count > 0)
             {

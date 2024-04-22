@@ -54,11 +54,11 @@ namespace BP.AdventureFramework.Tests.Interpretation
             overworld.Commands =
             [
                 new CustomCommand(new CommandHelp("Test", string.Empty), true, (_, _) =>
-            {
-                Assert.IsTrue(true);
-                return new Reaction(ReactionResult.Error, string.Empty);
+                {
+                    Assertions.Pass();
+                    return new Reaction(ReactionResult.Error, string.Empty);
 
-            })
+                })
             ];
             var game = Game.Create(string.Empty, string.Empty, string.Empty, () => overworld, () => new PlayableCharacter(Identifier.Empty, Description.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 

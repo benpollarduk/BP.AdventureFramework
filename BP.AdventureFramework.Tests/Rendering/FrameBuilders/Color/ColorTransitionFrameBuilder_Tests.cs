@@ -10,12 +10,13 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Color
         [TestMethod]
         public void GivenDefaults_WhenBuild_ThenNoException()
         {
-            var gridStringBuilder = new GridStringBuilder();
-            var builder = new ColorTransitionFrameBuilder(gridStringBuilder);
+            Assertions.NoExceptionThrown(() =>
+            {
+                var gridStringBuilder = new GridStringBuilder();
+                var builder = new ColorTransitionFrameBuilder(gridStringBuilder);
 
-            builder.Build(string.Empty, string.Empty, 80, 50);
-
-            Assert.IsTrue(true);
+                builder.Build(string.Empty, string.Empty, 80, 50);
+            });
         }
     }
 }

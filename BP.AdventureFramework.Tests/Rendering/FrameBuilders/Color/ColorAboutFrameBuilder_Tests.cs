@@ -11,12 +11,13 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Color
         [TestMethod]
         public void GivenDefaults_WhenBuild_ThenNoException()
         {
-            var gridStringBuilder = new GridStringBuilder();
-            var builder = new ColorAboutFrameBuilder(gridStringBuilder);
+            Assertions.NoExceptionThrown(() =>
+            {
+                var gridStringBuilder = new GridStringBuilder();
+                var builder = new ColorAboutFrameBuilder(gridStringBuilder);
 
-            builder.Build(string.Empty, Game.Create(string.Empty, string.Empty, string.Empty, null, () => null, _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke(), 80, 50);
-
-            Assert.IsTrue(true);
+                builder.Build(string.Empty, Game.Create(string.Empty, string.Empty, string.Empty, null, () => null, _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke(), 80, 50);
+            });
         }
     }
 }

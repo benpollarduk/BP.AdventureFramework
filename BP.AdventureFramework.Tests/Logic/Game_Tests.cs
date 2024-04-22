@@ -137,57 +137,61 @@ namespace BP.AdventureFramework.Tests.Logic
         [TestMethod]
         public void GivenSimpleGame_WhenDisplayTransition_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room(string.Empty, string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room(string.Empty, string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
-            game.DisplayTransition("Test", "Test");
-
-            Assert.IsTrue(true);
+                game.DisplayTransition("Test", "Test");
+            });
         }
 
         [TestMethod]
         public void GivenSimpleGame_WhenDisplayAbout_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room(string.Empty, string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room(string.Empty, string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
-            game.DisplayAbout();
-
-            Assert.IsTrue(true);
+                game.DisplayAbout();
+            });
         }
 
         [TestMethod]
         public void GivenSimpleGame_WhenDisplayHelp_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room(string.Empty, string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room(string.Empty, string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
-            game.DisplayHelp();
-
-            Assert.IsTrue(true);
+                game.DisplayHelp();
+            });
         }
 
         [TestMethod]
         public void GivenSimpleGame_WhenDisplayMap_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room(string.Empty, string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room(string.Empty, string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
 
-            game.DisplayMap();
-
-            Assert.IsTrue(true);
+                game.DisplayMap();
+            });
         }
 
         [TestMethod]
@@ -279,65 +283,69 @@ namespace BP.AdventureFramework.Tests.Logic
         [TestMethod]
         public void GivenSimpleGameWithMockConsoleAccessAndCompletionConditionReached_WhenExecute_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room("Room", string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => new EndCheckResult(true, string.Empty, string.Empty), _ => EndCheckResult.NotEnded).Invoke();
-            game.Adapter = new TestConsoleAdapter();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room("Room", string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => new EndCheckResult(true, string.Empty, string.Empty), _ => EndCheckResult.NotEnded).Invoke();
+                game.Adapter = new TestConsoleAdapter();
 
-            game.Execute();
-
-            Assert.IsTrue(true);
+                game.Execute();
+            });
         }
 
         [TestMethod]
         public void GivenSimpleGameWithMockConsoleAccessAndGameOverConditionReached_WhenExecute_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room("Room", string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => new EndCheckResult(true, string.Empty, string.Empty)).Invoke();
-            game.Adapter = new TestConsoleAdapter();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room("Room", string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => new EndCheckResult(true, string.Empty, string.Empty)).Invoke();
+                game.Adapter = new TestConsoleAdapter();
 
-            game.Execute();
-
-            Assert.IsTrue(true);
+                game.Execute();
+            });
         }
 
         [TestMethod]
         public void GivenSimpleGameWithMockConsoleAccessAndConverser_WhenExecute_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room("Room", string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
-            game.Adapter = new TestConsoleAdapter();
-            var npc = new NonPlayableCharacter("", "") { Conversation = new Conversation(new Paragraph("Test", g => g.End())) };
-            game.StartConversation(npc);
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room("Room", string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), _ => EndCheckResult.NotEnded, _ => EndCheckResult.NotEnded).Invoke();
+                game.Adapter = new TestConsoleAdapter();
+                var npc = new NonPlayableCharacter("", "") { Conversation = new Conversation(new Paragraph("Test", g => g.End())) };
+                game.StartConversation(npc);
 
-            game.Execute();
-
-            Assert.IsTrue(true);
+                game.Execute();
+            });
         }
 
         [TestMethod]
         public void GivenSimpleGameWithMockConsoleAccess_WhenExecute_ThenNoExceptionThrown()
         {
-            var regionMaker = new RegionMaker(string.Empty, string.Empty);
-            var room = new Room("Room", string.Empty);
-            regionMaker[0, 0, 0] = room;
-            var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
-            var startTime = Environment.TickCount;
-            EndCheck callback = _ => new EndCheckResult(Environment.TickCount - startTime > 1000, string.Empty, string.Empty);
-            var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), callback, _ => EndCheckResult.NotEnded).Invoke();
-            game.Adapter = new TestConsoleAdapter();
+            Assertions.NoExceptionThrown(() =>
+            {
+                var regionMaker = new RegionMaker(string.Empty, string.Empty);
+                var room = new Room("Room", string.Empty);
+                regionMaker[0, 0, 0] = room;
+                var overworldMaker = new OverworldMaker(string.Empty, string.Empty, regionMaker);
+                var startTime = Environment.TickCount;
+                EndCheck callback = _ => new EndCheckResult(Environment.TickCount - startTime > 1000, string.Empty, string.Empty);
+                var game = Game.Create(string.Empty, string.Empty, string.Empty, overworldMaker.Make, () => new PlayableCharacter(string.Empty, string.Empty), callback, _ => EndCheckResult.NotEnded).Invoke();
+                game.Adapter = new TestConsoleAdapter();
 
-            game.Execute();
-
-            Assert.IsTrue(true);
+                game.Execute();
+            });
         }
     }
 }

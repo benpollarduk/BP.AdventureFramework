@@ -12,16 +12,17 @@ namespace BP.AdventureFramework.Tests.Rendering.FrameBuilders.Color
         [TestMethod]
         public void GivenDefaultValues_WhenBuildRegionMap_ThenNoException()
         {
-            var builder = new ColorRegionMapBuilder();
-            var region = new Region(string.Empty, string.Empty);
-            region.AddRoom(new Room(string.Empty, string.Empty), 0, 0, 0);
-            region.AddRoom(new Room(string.Empty, string.Empty), 0, 1, 0);
-            var stringBuilder = new GridStringBuilder();
-            stringBuilder.Resize(new Size(80, 50));
+            Assertions.NoExceptionThrown(() =>
+            {
+                var builder = new ColorRegionMapBuilder();
+                var region = new Region(string.Empty, string.Empty);
+                region.AddRoom(new Room(string.Empty, string.Empty), 0, 0, 0);
+                region.AddRoom(new Room(string.Empty, string.Empty), 0, 1, 0);
+                var stringBuilder = new GridStringBuilder();
+                stringBuilder.Resize(new Size(80, 50));
 
-            builder.BuildRegionMap(stringBuilder, region, 0, 0, 80, 50);
-
-            Assert.IsTrue(true);
+                builder.BuildRegionMap(stringBuilder, region, 0, 0, 80, 50);
+            });
         }
     }
 }

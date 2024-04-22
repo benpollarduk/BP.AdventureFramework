@@ -24,11 +24,11 @@ namespace BP.AdventureFramework.Tests.Conversations
         [TestMethod]
         public void GivenNoParagraphs_WhenNext_ThenNoException()
         {
-            var conversation = new Conversation();
-
-            conversation.Next(null);
-
-            Assert.IsTrue(true);
+            Assertions.NoExceptionThrown(() =>
+            {
+                var conversation = new Conversation();
+                conversation.Next(null);
+            });
         }
 
         [TestMethod]

@@ -38,12 +38,12 @@
         /// <summary>
         /// Initializes a new instance of the EndCheckResult class.
         /// </summary>
-        /// <param name="isCompleted">If the game has ended.</param>
+        /// <param name="hasEnded">If the game has ended.</param>
         /// <param name="title">A title to describe the end.</param>
         /// <param name="description">A description of the end.</param>
-        public EndCheckResult(bool isCompleted, string title, string description)
+        public EndCheckResult(bool hasEnded, string title, string description)
         {
-            HasEnded = isCompleted;
+            HasEnded = hasEnded;
             Title = title;
             Description = description;
         }

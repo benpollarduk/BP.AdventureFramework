@@ -64,8 +64,7 @@ namespace BP.AdventureFramework.Commands.Game
             switch (result.Effect)
             {
                 case InteractionEffect.FatalEffect:
-
-                    game.Player.Kill();
+                
                     return new Reaction(ReactionResult.Fatal, result.Description);
 
                 case InteractionEffect.ItemUsedUp:

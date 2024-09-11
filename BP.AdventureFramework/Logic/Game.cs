@@ -232,21 +232,22 @@ namespace BP.AdventureFramework.Logic
 
             do
             {
-                var complete = TestAndHandleGameCompletion();
-
-                if (!complete)
-                {
-                    var gameOver = TestAndHandleGameOver();
-
-                    if (!gameOver && ActiveConverser != null)
-                        Refresh(FrameBuilders.ConversationFrameBuilder.Build($"Conversation with {ActiveConverser.Identifier.Name}", ActiveConverser, Interpreter?.GetContextualCommandHelp(this), DisplaySize.Width, DisplaySize.Height));
-                }
+                if (ActiveConverser != null)
+                    Refresh(FrameBuilders.ConversationFrameBuilder.Build($"Conversation with {ActiveConverser.Identifier.Name}", ActiveConverser, Interpreter?.GetContextualCommandHelp(this), DisplaySize.Width, DisplaySize.Height));
 
                 var input = GetInput();
                 var reaction = ExecuteLogicOnce(input, out var displayReactionToInput);
 
+                if (reaction?.Result == ReactionResult.Fatal)
+                    Player?.Kill();
+
                 if (displayReactionToInput)
                     DisplayReaction(reaction);
+
+                var complete = TestAndHandleGameCompletion();
+
+                if (!complete)
+                    TestAndHandleGameOver();
             }
             while (State != GameState.Finished);
 
@@ -305,7 +306,9 @@ namespace BP.AdventureFramework.Logic
             if (!gameOverCheckResult.HasEnded)
                 return false;
 
+            GetInput();
             Refresh(FrameBuilders.GameOverFrameBuilder.Build(gameOverCheckResult.Title, gameOverCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
+            GetInput();
             End();
             
             return true;
@@ -321,8 +324,10 @@ namespace BP.AdventureFramework.Logic
 
             if (!endCheckResult.HasEnded) 
                 return false;
-            
+
+            GetInput();
             Refresh(FrameBuilders.CompletionFrameBuilder.Build(endCheckResult.Title, endCheckResult.Description, DisplaySize.Width, DisplaySize.Height));
+            GetInput();
             End();
 
             return true;
@@ -372,7 +377,9 @@ namespace BP.AdventureFramework.Logic
                     Refresh(reaction.Description);
                     break;
                 case ReactionResult.Internal:
+                    break;
                 case ReactionResult.Fatal:
+                    Refresh(reaction.Description);
                     break;
                 default:
                     throw new NotImplementedException();
